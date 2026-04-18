@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -8,13 +7,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview "Something to Remember" (Safety Protocol Step).
- * Fixed: Mobile width overflow resolved by wrapping substance names and allowing growth.
+ * Updated: Added common opioids to the mixing wisdom guide.
  * Languages: Unified to lowercase en/de.
  */
 
 const MIXING_WISDOM = [
   { s1: 'Alcohol', s2: 'GHB/GBL', risk: 'Critical', color: 'text-red-500', note: 'Extreme respiratory failure risk', deNote: 'Extremes Risiko Atemstillstand' },
+  { s1: 'Alcohol', s2: 'Opioids (Heroin/Oxy)', risk: 'Critical', color: 'text-red-500', note: 'Lethal respiratory depression risk', deNote: 'Tödliches Risiko Atemstillstand' },
   { s1: 'MDMA', s2: 'SSRIs', risk: 'High', color: 'text-red-400', note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom' },
+  { s1: 'Benzos', s2: 'Opioids', risk: 'Critical', color: 'text-red-500', note: 'Fatal overdose and blackout risk', deNote: 'Extremes Risiko Überdosis' },
   { s1: 'Alcohol', s2: 'Ketamine', risk: 'High', color: 'text-red-400', note: 'Severe nausea and choking risk', deNote: 'Übelkeit und Erstickungsgefahr' },
   { s1: 'Cocaine', s2: 'Alcohol', risk: 'Moderate', color: 'text-amber-500', note: 'Increased cardiotoxicity', deNote: 'Erhöhte Herztoxizität' },
   { s1: 'Speed', s2: 'MDMA', risk: 'Moderate', color: 'text-amber-500', note: 'Extreme heart strain', deNote: 'Extreme Herzbelastung' },
@@ -106,7 +107,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
           </section>
 
           <div className="pt-4 text-center opacity-20">
-            <p className="text-[8px] font-black uppercase tracking-[0.5em]">{t.created}</p>
+            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em]">{t.created}</p>
           </div>
         </div>
       </ScrollArea>

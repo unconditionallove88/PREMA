@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -45,6 +44,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 /**
  * @fileOverview Sovereign Lab Component (formerly Pulse Lab).
  * Features: Focused on Self-Honesty and responsible intake tracking.
+ * Updated: Added common opioids and voice dictation.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -97,6 +97,10 @@ const SUBSTANCES = [
   { id: '2cb', icon: Orbit, name: '2C-B', deName: '2C-B', aliases: ['nexus'], color: 'text-orange-400', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'psilocybin', icon: MushroomIcon, name: 'Psilocybin', deName: 'Psilocybin', aliases: ['mushrooms', 'shrooms'], color: 'text-emerald-400', isHeavy: false, unit: 'g', inputType: 'manual' },
   { id: 'poppers', icon: Wind, name: 'Poppers', deName: 'Poppers', aliases: ['amyl', 'nitrite'], color: 'text-amber-400', isHeavy: true, unit: 'hits', inputType: 'manual' },
+  { id: 'heroin', icon: Skull, name: 'Heroin', deName: 'Heroin', aliases: ['h', 'smack', 'junk', 'brown'], color: 'text-red-900', isHeavy: true, unit: 'g', inputType: 'manual' },
+  { id: 'fentanyl', icon: Skull, name: 'Fentanyl', deName: 'Fentanyl', aliases: ['fent', 'apaches'], color: 'text-red-600', isHeavy: true, unit: 'mg', inputType: 'manual' },
+  { id: 'oxycodone', icon: FlaskConical, name: 'Oxycodone', deName: 'Oxycodon', aliases: ['oxy', 'perc'], color: 'text-indigo-900', isHeavy: true, unit: 'mg', inputType: 'manual' },
+  { id: 'tilidine', icon: FlaskConical, name: 'Tilidine', deName: 'Tilidin', aliases: ['tilli'], color: 'text-indigo-600', isHeavy: true, unit: 'mg', inputType: 'manual' },
 ];
 
 export function Step6SubstanceLab({ 
@@ -176,6 +180,7 @@ export function Step6SubstanceLab({
       if (target === 'search') {
         setSearchTerm(transcript.trim());
       } else {
+        // Try to find a number in the speech
         const num = transcript.match(/\d+(\.\d+)?/);
         if (num) setManualValue(num[0]);
       }
