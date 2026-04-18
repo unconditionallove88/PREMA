@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -23,7 +24,8 @@ import {
   Lock,
   ChevronRight,
   ShieldCheck,
-  HelpCircle
+  HelpCircle,
+  Sprout
 } from "lucide-react";
 import {
   Dialog,
@@ -37,7 +39,7 @@ import { cn } from "@/lib/utils";
 /**
  * @fileOverview Your Sanctuary (Profile Page).
  * Languages: EN, DE.
- * Affirmations: 3 words (EN) / 4 words (DE)
+ * Updated: Promoted Co-Creation as a primary action.
  */
 
 const CONTENT = {
@@ -48,6 +50,8 @@ const CONTENT = {
     resonant: "Resonant contacts", reminders: "Heart Reminders", checkins: "Check-ins are active",
     journey: "Your journey is your own We use high-fidelity encryption to ensure your sanctuary remains private and your soul free",
     promise: "Bonds of Trust", logout: "Step away now",
+    coCreationTitle: "Shape the Sanctuary",
+    coCreationSub: "Your voice shapes this space",
     privacy: {
       title: "Freedom & Trust",
       sovereignty: "Data Sovereignty",
@@ -68,6 +72,8 @@ const CONTENT = {
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
     journey: "Deine Reise gehört dir allein Wir nutzen High-Fidelity-Verschlüsselung um sicherzustellen dass dein Sanctuary privat und deine Seele frei bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
+    coCreationTitle: "Sanctuary gestalten",
+    coCreationSub: "Deine Stimme zählt heute",
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
@@ -209,6 +215,23 @@ export default function ProfilePage() {
             </div>
           </div>
 
+          {/* Co-Creation Promotion */}
+          <button 
+            onClick={() => setCoCreationOpen(true)}
+            className="w-full p-8 rounded-[2rem] bg-primary/5 border-2 border-primary/20 hover:border-primary transition-all group relative overflow-hidden text-left"
+          >
+            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
+              <Sprout size={80} className="text-primary" />
+            </div>
+            <div className="relative z-10 flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-primary/20 rounded-xl border border-primary/30"><Sprout size={24} className="text-primary" /></div>
+                <h3 className="text-xl font-black uppercase tracking-tight">{t.coCreationTitle}</h3>
+              </div>
+              <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest max-w-[200px] leading-relaxed">{t.coCreationSub}</p>
+            </div>
+          </button>
+
           <div className="bg-white/5 rounded-[2rem] border border-white/10 p-8 text-center space-y-6">
              <div className="flex justify-center"><Lock size={24} className="text-white/10" /></div>
              <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest leading-relaxed">{t.journey}</p>
@@ -244,7 +267,7 @@ export default function ProfilePage() {
       </Dialog>
 
       <Dialog open={coCreationOpen} onOpenChange={setCoCreationOpen}>
-        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden">
+        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden h-[85dvh]">
           <DialogTitle className="sr-only">Co-Creation</DialogTitle>
           <CoCreation onComplete={() => setCoCreationOpen(false)} />
         </DialogContent>

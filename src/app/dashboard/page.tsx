@@ -23,11 +23,12 @@ import {
   ArrowLeft,
   Sparkles,
   MapPin,
-  ChevronRight
+  ChevronRight,
+  Sprout
 } from 'lucide-react';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { Step6SubstanceLab as PulseLab } from '@/components/onboarding/Step6SubstanceLab';
+import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
 import { SOSAlert } from '@/components/dashboard/SOSAlert';
 import { RadiatingThirdEye } from '@/components/ui/radiating-third-eye';
 import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
@@ -39,6 +40,7 @@ import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantP
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { SanctuaryGuide } from '@/components/dashboard/SanctuaryGuide';
 import { SmartAlerts } from '@/components/dashboard/SmartAlerts';
+import { CoCreation } from '@/components/dashboard/CoCreation';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -124,6 +126,7 @@ function DashboardContent() {
   const [supporterOpen, setSupporterOpen] = useState(false);
   const [syncOpen, setSyncOpen] = useState(false);
   const [anchorOpen, setAnchorOpen] = useState(false);
+  const [coCreationOpen, setCoCreationOpen] = useState(false);
   const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
 
   const [showLoveChatOptions, setShowLoveChatOptions] = useState(false);
@@ -178,7 +181,7 @@ function DashboardContent() {
                 <span className="text-[10px] font-black uppercase text-white leading-none">{selectedAnchor.name}</span>
               </div>
             </button>
-            <Link href="/profile" className="p-3 bg-white/5 rounded-full border border-white/10"><User size={20} className="text-white/40" /></Link>
+            <Link href="/profile" className="p-3 bg-white/5 rounded-full border border-white/10 transition-all hover:border-primary group"><User size={20} className="text-white/40 group-hover:text-primary" /></Link>
           </div>
         </header>
       </div>
@@ -257,18 +260,23 @@ function DashboardContent() {
               )}
             </div>
 
-            <div className="flex justify-center gap-6 w-full">
-              <Link href="/map" className="w-24 h-24 rounded-full bg-white/5 border-4 border-blue-500 flex flex-col items-center justify-center gap-1 hover:border-blue-500/30 transition-all group">
+            {/* Sovereign Toolkit Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full max-w-sm sm:max-w-xl px-4">
+              <Link href="/map" className="w-full aspect-square rounded-full bg-white/5 border-4 border-blue-500 flex flex-col items-center justify-center gap-1 hover:border-blue-500/60 transition-all group shadow-lg">
                 <RadiatingThirdEye size={24} color="#3b82f6" />
                 <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-blue-400">Radar</span>
               </Link>
-              <button onClick={() => setLabOpen(true)} className="w-24 h-24 rounded-full bg-white/5 border-4 border-primary flex flex-col items-center justify-center gap-1 hover:border-primary/30 transition-all group">
+              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-primary flex flex-col items-center justify-center gap-1 hover:border-primary/60 transition-all group shadow-lg">
                 <Microscope size={24} className="text-primary" />
                 <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-primary">Lab</span>
               </button>
-              <button onClick={() => setSyncOpen(true)} className="w-24 h-24 rounded-full bg-white/5 border-4 border-accent flex flex-col items-center justify-center gap-1 hover:border-accent/30 transition-all group">
+              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-accent flex flex-col items-center justify-center gap-1 hover:border-accent/60 transition-all group shadow-lg">
                 <Watch size={24} className="text-accent" />
                 <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-accent">Sync</span>
+              </button>
+              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-white/5 border-4 border-[#10B981]/40 flex flex-col items-center justify-center gap-1 hover:border-[#10B981] transition-all group shadow-lg">
+                <Sprout size={24} className="text-[#10B981]" />
+                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-[#10B981]">Voice</span>
               </button>
             </div>
           </div>
@@ -320,8 +328,8 @@ function DashboardContent() {
 
       <Dialog open={labOpen} onOpenChange={setLabOpen}>
         <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[2rem] overflow-hidden flex flex-col h-[95dvh] max-h-[95dvh] sm:h-[90dvh] top-[50%] -translate-y-[50%]">
-          <DialogTitle className="sr-only">Pulse Lab</DialogTitle>
-          <PulseLab userData={{ ...firestoreProfile, sessionStatus: { isLocked, lastHeartRate: simHeartRate } }} onComplete={(logs) => { setActiveSubstances(logs.map(l => l.name)); setLabOpen(false); }} showDiary={true} isLocked={isLocked} />
+          <DialogTitle className="sr-only">Sovereign Lab</DialogTitle>
+          <SovereignLab userData={{ ...firestoreProfile, sessionStatus: { isLocked, lastHeartRate: simHeartRate } }} onComplete={(logs) => { setActiveSubstances(logs.map(l => l.name)); setLabOpen(false); }} showDiary={true} isLocked={isLocked} />
         </DialogContent>
       </Dialog>
 
@@ -336,6 +344,13 @@ function DashboardContent() {
         <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-[0_0_80px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
           <div className="flex-1 overflow-y-auto"><WearablesSync onComplete={() => setSyncOpen(false)} /></div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={coCreationOpen} onOpenChange={setCoCreationOpen}>
+        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden h-[85dvh]">
+          <DialogTitle className="sr-only">Co-Creation</DialogTitle>
+          <CoCreation onComplete={() => setCoCreationOpen(false)} />
         </DialogContent>
       </Dialog>
 
