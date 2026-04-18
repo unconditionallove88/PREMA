@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -9,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 /**
  * @fileOverview "Vision of Love" (Presence & Grounding) Tool.
- * Updated: Rose color palette for self-love grounding. Shining white footer.
+ * Updated: Rose color palette with Prismatic Grounding Shifts.
  */
 
 interface VisionOfLoveProps {
@@ -100,25 +99,41 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
   };
 
   if (mode === 'beauty') {
+    // Prismatic color shifts based on slide index
+    const prismaticColors = [
+      'bg-[#f43f5e]', // Rose (Affection)
+      'bg-[#10b981]', // Emerald (Growth)
+      'bg-[#3b82f6]', // Cerulean (Calm)
+      'bg-[#8b5cf6]', // Lavender (Resonance)
+      'bg-[#ffffff]', // Pure White (Acceptance)
+    ];
+
     return (
       <div className={cn(
-        "fixed inset-0 z-[6000] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe",
-        isEmergency ? "bg-[#f43f5e]" : "bg-[#f43f5e]/80"
+        "fixed inset-0 z-[6000] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe transition-colors duration-[2000ms]",
+        prismaticColors[currentSlide % prismaticColors.length],
+        currentSlide % prismaticColors.length === 4 ? "text-black" : "text-white"
       )}>
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_70%)] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_transparent_70%)] animate-pulse" />
 
         <header className="relative z-20 px-8 pt-8 flex items-center justify-between">
            {isEmergency && (
              <div className="flex flex-col items-start gap-1">
-               <div className="flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full border border-white/30 backdrop-blur-md">
-                 <Wind size={14} className="text-white animate-bounce" />
-                 <span className="text-[10px] font-black uppercase text-white tracking-widest">{t.emergencyHeader}</span>
+               <div className={cn(
+                 "flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-md transition-colors",
+                 currentSlide % prismaticColors.length === 4 ? "bg-black/10 border-black/20" : "bg-white/20 border-white/30"
+               )}>
+                 <Wind size={14} className="animate-bounce" />
+                 <span className="text-[10px] font-black uppercase tracking-widest">{t.emergencyHeader}</span>
                </div>
-               <p className="text-[8px] font-bold text-white/60 uppercase tracking-widest ml-2">{t.emergencySub}</p>
+               <p className="text-[8px] font-bold opacity-60 uppercase tracking-widest ml-2">{t.emergencySub}</p>
              </div>
            )}
-           <button onClick={onClose} className="p-3 bg-white/10 rounded-full border border-white/20 text-white/60 hover:text-white transition-all backdrop-blur-md">
+           <button onClick={onClose} className={cn(
+             "p-3 rounded-full border transition-all backdrop-blur-md",
+             currentSlide % prismaticColors.length === 4 ? "bg-black/5 border-black/10 text-black/40 hover:text-black" : "bg-white/10 border-white/20 text-white/60 hover:text-white"
+           )}>
              <X size={20} />
            </button>
         </header>
@@ -132,7 +147,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
               translateY: isFading ? '20px' : '0px'
             }}
           >
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white drop-shadow-2xl leading-tight max-w-lg mx-auto">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter drop-shadow-2xl leading-tight max-w-lg mx-auto">
               {t.affirmations[currentSlide]}
             </h2>
           </div>
@@ -140,10 +155,10 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
           {/* Merged Breathing Ritual (for Emergency Presence) */}
           {isEmergency && (
             <div className="w-full flex flex-col items-center justify-center gap-12 relative min-h-[120px] scale-90 md:scale-100">
-               <div className="absolute text-2xl md:text-3xl font-black uppercase tracking-tighter flex whitespace-nowrap justify-center items-center text-white/90 drop-shadow-lg">
+               <div className="absolute text-2xl md:text-3xl font-black uppercase tracking-tighter flex whitespace-nowrap justify-center items-center drop-shadow-lg">
                  <div className="flex">{renderLetters(t.inhale, 0)}</div>
                </div>
-               <div className="absolute text-2xl md:text-3xl font-black uppercase tracking-tighter flex whitespace-nowrap justify-center items-center text-white/90 drop-shadow-lg">
+               <div className="absolute text-2xl md:text-3xl font-black uppercase tracking-tighter flex whitespace-nowrap justify-center items-center drop-shadow-lg">
                  <div className="flex">{renderLetters(t.exhale, 4)}</div>
                </div>
             </div>
@@ -153,21 +168,30 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
         <footer className="relative z-10 p-12 flex flex-col items-center gap-6 pb-safe">
           <div className="flex gap-2">
             {t.affirmations.map((_, i) => (
-              <div key={i} className={cn("h-1.5 rounded-full transition-all duration-500", i === currentSlide ? "bg-white w-6" : "bg-white/20")} />
+              <div key={i} className={cn(
+                "h-1.5 rounded-full transition-all duration-500", 
+                i === currentSlide ? "w-8 bg-current" : "w-1.5 bg-current opacity-20"
+              )} />
             ))}
           </div>
           <div className="flex flex-col gap-3 w-full max-w-sm">
             {!isEmergency && (
               <button 
                 onClick={() => { playHeartbeat(); router.push('/self-care'); }}
-                className="w-full py-5 bg-white text-rose-500 rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-xl"
+                className={cn(
+                  "w-full py-5 rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-xl",
+                  currentSlide % prismaticColors.length === 4 ? "bg-black text-white" : "bg-white text-[#f43f5e]"
+                )}
               >
                 {t.next} <ArrowRight size={14} />
               </button>
             )}
             <button 
               onClick={() => { playHeartbeat(); onClose(); }}
-              className="px-8 py-4 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all"
+              className={cn(
+                "px-8 py-4 rounded-full border backdrop-blur-md font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all",
+                currentSlide % prismaticColors.length === 4 ? "border-black/20 bg-black/5 text-black" : "border-white/20 bg-black/40 text-white"
+              )}
             >
               {t.return}
             </button>

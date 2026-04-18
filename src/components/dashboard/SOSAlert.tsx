@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -27,7 +26,7 @@ import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Immediate Help (SOS) Portal.
- * Enhanced with Mesh Broadcasting and Heart Breath integration.
+ * Updated: Corrected German grammar and high-fidelity confirmation design.
  */
 
 const CONTENT = {
@@ -65,7 +64,8 @@ const CONTENT = {
     meshShared: "Mesh Location Shared",
     privacyActive: "Privacy protocols active",
     returning: (s: number) => `Returning to sanctuary in ${s}s`,
-    callDirect: "Call Emergency Directly"
+    callDirect: "Call Emergency Directly",
+    footer: "Created in harmony"
   },
   de: {
     question: "Brauchst du Unterstützung?",
@@ -96,12 +96,13 @@ const CONTENT = {
     allIsWell: "Alles ist gut",
     loved: "Ich werde geliebt heute",
     friendLoved: (name: string) => `${name} wird geliebt heute`,
-    takenCareOf: "und bin in Sicherheit",
+    takenCareOf: "und ist in Sicherheit", // Corrected grammar
     dispatched: "Mesh-Anfrage wurde versendet",
     meshShared: "Mesh-Ortung geteilt",
     privacyActive: "Schutzprotokolle sind aktiv",
     returning: (s: number) => `Rückkehr zum Dashboard in ${s}s`,
-    callDirect: "Notruf direkt anrufen"
+    callDirect: "Notruf direkt anrufen",
+    footer: "In Harmonie erschaffen hier"
   }
 };
 
@@ -177,15 +178,18 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
   if (step === 'sent') {
     return (
       <div className="fixed inset-0 bg-[#050505] z-[4000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in fade-in duration-700">
+        <div className="absolute inset-0 bg-[#58c55a]/5 blur-[120px] rounded-full pointer-events-none" />
+        
         <div className="mb-8 relative">
-          <Heart size={100} fill="#58c55a" className="text-[#58c55a] animate-pulse-heart drop-shadow-[0_0_40px_rgba(88,197,90,0.5)]" />
+          <div className="absolute inset-0 bg-[#58c55a]/20 blur-3xl rounded-full animate-ping" />
+          <Heart size={100} fill="#58c55a" className="text-[#58c55a] animate-pulse-heart drop-shadow-[0_0_40px_rgba(88,197,90,0.5)] relative z-10" />
         </div>
         
-        <div className="space-y-6 max-w-sm">
+        <div className="space-y-6 max-w-sm relative z-10">
           <h1 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">
             {isFriendMode ? t.friendLoved(friendName!) : t.loved} <br/> <span className="text-[#58c55a]">{t.takenCareOf}</span>
           </h1>
-          <div className="bg-white/5 border border-[#58c55a]/20 rounded-[2.5rem] p-8 space-y-4 text-left">
+          <div className="bg-white/5 border border-[#58c55a]/20 rounded-[2.5rem] p-8 space-y-4 text-left shadow-2xl">
             <div className="flex items-center gap-4 text-white/80">
               <CheckCircle2 size={18} className="text-[#58c55a]" />
               <p className="text-xs font-bold uppercase tracking-widest leading-tight">{t.dispatched}</p>
@@ -201,9 +205,14 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
           </div>
         </div>
 
-        <button onClick={onClose} className="mt-10 text-white/20 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest underline underline-offset-8">
-          {t.returning(countdown)}
-        </button>
+        <div className="mt-12 flex flex-col items-center gap-6">
+          <button onClick={onClose} className="text-white/20 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest underline underline-offset-8">
+            {t.returning(countdown)}
+          </button>
+          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+            {t.footer}
+          </p>
+        </div>
       </div>
     );
   }
