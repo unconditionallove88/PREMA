@@ -1,7 +1,8 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Heart, Wind, Sparkles } from 'lucide-react';
+import { X, Heart, Wind } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
 
@@ -79,7 +80,6 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
 
   return (
     <div className="fixed inset-0 z-[7000] bg-[#050505] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe">
-      {/* Background Radiance & Affirmation Layer */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(244,63,94,0.15)_0%,_transparent_70%)] animate-pulse" />
       
       <div 

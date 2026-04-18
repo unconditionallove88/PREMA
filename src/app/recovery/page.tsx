@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import { 
   ArrowLeft, 
-  Trash2, 
   HeartPulse, 
   CheckCircle2, 
   Heart, 
@@ -37,7 +36,6 @@ import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
 
 /**
  * @fileOverview Recovery Protocol Page.
- * Fixed: Maximum update depth loop resolved by moving content outside and fixing dependencies.
  */
 
 const PRACTITIONERS = [
@@ -71,7 +69,7 @@ const CONTENT = {
     timeline: "Integrations Zeitachse heute", noLogs: "Keine Sitzungsdaten gefunden",
     wipeWarning: "Der Abschluss dieses Protokolls löscht dauerhaft alle Sitzungsprotokolle und Verläufe",
     finishBtn: "Session jetzt abschließen", returnBtn: "Zurück zum Sanctuary",
-    improveBtn: "Hilf uns verbessern", minutes: "4 Minuten · anonym",
+    improveBtn: "Hilf uns verbessern", Minuten: "4 Minuten · anonym",
     ritualTitle: "Atem der Liebe", ritualDesc: "Führe das Ritual durch um dein Nervensystem sanft zu kalibrieren",
     gpTitle: "Praxis-Besuch", gpDesc: "Kontaktiere deinen Hausarzt für STD-Tests und Gesundheitschecks nach der Sitzung",
     mentalTitle: "Mentale Integration", mentalDesc: "Begleitung bei Paranoia oder intensiven Nebenwirkungen Zurück zur Harmonie finden",
@@ -91,7 +89,6 @@ export default function RecoveryView() {
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // Dialog states
   const [mentalOpen, setMentalOpen] = useState(false);
   const [gpOpen, setGPOpen] = useState(false);
   const [visionOpen, setVisionOpen] = useState(false);
@@ -131,7 +128,7 @@ export default function RecoveryView() {
       { id: 'gp', time: "24h", text: t.gpTitle, desc: t.gpDesc, icon: Stethoscope, color: "text-blue-400", action: () => setGPOpen(true) }
     ];
     setDetoxPlan(plan);
-  }, [lang, router]); // Fixed dependencies to prevent re-render loop
+  }, [lang, router, t.ritualTitle, t.ritualDesc, t.mentalTitle, t.mentalDesc, t.gpTitle, t.gpDesc]);
 
   const handleFinish = () => {
     playHeartbeat();
@@ -216,30 +213,11 @@ export default function RecoveryView() {
         ) : (
           <button onClick={() => router.push('/dashboard')} className="w-full max-w-sm py-6 bg-white text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
         )}
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">Created in harmony</p>
       </footer>
 
-      {/* Mental Integration Dialog */}
-      <Dialog open={mentalOpen} onOpenChange={setMentalOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline">
-          <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-6 text-center">{t.mentalTitle}</DialogTitle>
-          <div className="space-y-4">
-            <button onClick={() => { setMentalOpen(false); setVisionOpen(true); }} className="w-full p-6 bg-primary/10 border border-primary/20 rounded-2xl flex items-center gap-4 group hover:bg-primary/20 transition-all">
-              <Eye className="text-primary" />
-              <div className="text-left"><span className="block font-black text-sm uppercase">{t.mentalVision}</span><span className="text-[10px] text-white/40 uppercase font-bold">Start Grounding Sequence</span></div>
-            </button>
-            <button onClick={() => window.open('tel:112')} className="w-full p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center gap-4">
-              <PhoneCall className="text-blue-400" />
-              <div className="text-left"><span className="block font-black text-sm uppercase">{t.mentalProfessional}</span><span className="text-[10px] text-white/40 uppercase font-bold">24/7 Crisis Response</span></div>
-            </button>
-            <button onClick={() => router.push('/map?sos=true')} className="w-full p-6 bg-red-600/10 border border-red-600/20 rounded-2xl flex items-center gap-4">
-              <Users className="text-red-500" />
-              <div className="text-left"><span className="block font-black text-sm uppercase">{t.mentalSOS}</span><span className="text-[10px] text-white/40 uppercase font-bold">Alert Your Circle</span></div>
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* GP Consultation Dialog */}
+      {mentalOpen && <VisionOfLove onClose={() => setMentalOpen(false)} isEmergency={true} />}
+      
       <Dialog open={gpOpen} onOpenChange={setGPOpen}>
         <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline max-h-[80vh] overflow-y-auto">
           <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.gpTitle}</DialogTitle>
@@ -264,9 +242,6 @@ export default function RecoveryView() {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Vision of Love Portal */}
-      {visionOpen && <VisionOfLove onClose={() => setVisionOpen(false)} />}
     </main>
   );
 }

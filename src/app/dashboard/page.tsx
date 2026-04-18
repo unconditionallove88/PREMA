@@ -10,18 +10,13 @@ import {
   Loader2, 
   Microscope, 
   Watch, 
-  Shield, 
   Sun, 
   Moon, 
   Settings2,
   ChevronDown,
-  Radio,
   Users2,
-  Globe,
-  ArrowRight,
   MessageCircleHeart,
   ArrowLeft,
-  Sparkles,
   MapPin,
   ChevronRight,
   Sprout
@@ -299,10 +294,8 @@ function DashboardContent() {
         </div>
       </ScrollArea>
 
-      {/* Sanctuary Guide - Rendered at root level for absolute visual priority */}
       <SanctuaryGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
 
-      {/* Sanctuary Anchor Dialog */}
       <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>
         <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] font-headline shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh]">
           <div className="p-8 shrink-0">

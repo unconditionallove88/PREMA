@@ -9,9 +9,7 @@ import {
   X, 
   Microscope, 
   Shield, 
-  Eye,
   CheckCircle2,
-  Users2,
   Wind,
   Sprout,
   Radio,
@@ -25,15 +23,14 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 /**
  * @fileOverview Sanctuary Guide Component (Visual Handover).
- * Redesigned for "Zero-Scroll" pictorial presence.
- * Features high-fidelity placeholder images and compact functional descriptions.
+ * Redesigned as an "Instructional Comic" with Zero-Scroll presence.
  */
 
 const STEPS = [
   {
     id: 'radar',
     title: { en: "Mesh Radar", de: "Mesh Radar" },
-    desc: { en: "Sovereign location triangulation.", de: "Souveräne Mesh-Ortung." },
+    desc: { en: "Tap hearts to find friends.", de: "Tippe Herzen zum Finden." },
     imageId: "guide-radar",
     icon: Radio,
     color: "text-blue-400",
@@ -42,7 +39,7 @@ const STEPS = [
   {
     id: 'bonds',
     title: { en: "Trusted Bonds", de: "Vertraute Bindungen" },
-    desc: { en: "Your inner circle of love.", de: "Dein innerer Kreis der Liebe." },
+    desc: { en: "Add 5 people who love you.", de: "5 Lieblingsmenschen hinzufügen." },
     imageId: "love-brother",
     icon: HeartHandshake,
     color: "text-rose-400",
@@ -51,7 +48,7 @@ const STEPS = [
   {
     id: 'lab',
     title: { en: "Sovereign Lab", de: "Souveränitäts-Lab" },
-    desc: { en: "Intake logic & mixing wisdom.", de: "Aufnahme-Logik & Misch-Wissen." },
+    desc: { en: "Be honest. Log your truth.", de: "Sei ehrlich. Notiere Wahrheit." },
     imageId: "guide-lab",
     icon: Microscope,
     color: "text-primary",
@@ -69,7 +66,7 @@ const STEPS = [
   {
     id: 'rescode',
     title: { en: "Resonance Code", de: "Resonanz-Wort" },
-    desc: { en: "A sacred dispatch word.", de: "Ein heiliges Dispatch-Wort." },
+    desc: { en: "Your sacred dispatch word.", de: "Dein heiliges Notfall-Wort." },
     imageId: "guide-letters",
     icon: Lock,
     color: "text-amber-400",
@@ -100,11 +97,10 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
   const [currentStep, setCurrentStep] = useState(0);
   const [hasDismissed, setHasDismissed] = useState(false);
 
-  // Sync internal isOpen state with forceOpen prop
   useEffect(() => {
     if (forceOpen) {
       setIsOpen(true);
-      setCurrentStep(0); // Always start from beginning when forced open
+      setCurrentStep(0);
     }
   }, [forceOpen]);
 
@@ -160,15 +156,28 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em]">{lang === 'en' ? step.desc.en : step.desc.de}</p>
               </div>
 
-              <div className="flex-1 w-full max-h-[45vh] relative rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-2xl min-h-[120px]">
+              <div className="flex-1 w-full max-h-[40vh] relative rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-2xl min-h-[120px]">
                 <img src={image.imageUrl} alt={image.description} className="w-full h-full object-cover grayscale opacity-60" data-ai-hint={image.imageHint} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                
+                {/* Comic Instructional Overlay */}
+                <div className="absolute bottom-6 left-6 right-6 p-4 bg-black/60 backdrop-blur-md rounded-2xl border border-white/10 animate-in fade-in zoom-in duration-1000 delay-500">
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-relaxed">
+                    {currentStep === 0 && (lang === 'en' ? "Visual Snapshot: Mesh tracking in real-time." : "Visualisierung: Mesh-Ortung in Echtzeit.")}
+                    {currentStep === 1 && (lang === 'en' ? "Comic View: Inviting your inner circle." : "Comic View: Deinen inneren Kreis einladen.")}
+                    {currentStep === 2 && (lang === 'en' ? "Instruction: Log before you intake." : "Anleitung: Notiere vor der Aufnahme.")}
+                    {currentStep === 3 && (lang === 'en' ? "Setup: Holders are private care." : "Setup: Holders sind private Fürsorge.")}
+                    {currentStep === 4 && (lang === 'en' ? "Usage: Text secret word to trigger help." : "Nutzung: Sende das Wort für Hilfe.")}
+                    {currentStep === 5 && (lang === 'en' ? "Ritual: Breathe with the heart icon." : "Ritual: Atme mit dem Herz-Icon.")}
+                    {currentStep === 6 && (lang === 'en' ? "Voice: Your shapes the sanctuary." : "Stimme: Du gestaltest das Sanctuary.")}
+                  </p>
+                </div>
               </div>
 
               <div className="w-full p-4 sm:p-6 bg-primary/5 border-2 border-primary/20 rounded-[2rem] space-y-1 max-w-sm shrink-0">
                 <div className="flex items-center justify-center gap-2"><Shield size={12} className="text-primary" /><span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary">Guardian Intel</span></div>
                 <p className="text-[10px] font-bold text-white/80 leading-relaxed uppercase tracking-widest text-center italic px-2">
-                  {lang === 'en' ? "Integrated with central intelligence for absolute care." : "Verbunden mit zentraler Intelligenz für Fürsorge."}
+                  {lang === 'en' ? "Instructional snapshot fit for your device." : "Funktionale Momentaufnahme für dein Gerät."}
                 </p>
               </div>
             </div>

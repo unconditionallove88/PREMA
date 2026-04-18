@@ -1,14 +1,14 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Wind, Eye, Sparkles, ArrowRight, HeartHandshake } from 'lucide-react';
+import { X, Wind, Eye, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
 import { useRouter } from 'next/navigation';
 
 /**
  * @fileOverview "Vision of Love" (Presence & Grounding) Tool.
- * Updated: Rose color palette with Prismatic Grounding Shifts.
  */
 
 interface VisionOfLoveProps {
@@ -99,13 +99,12 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
   };
 
   if (mode === 'beauty') {
-    // Prismatic color shifts based on slide index
     const prismaticColors = [
-      'bg-[#f43f5e]', // Rose (Affection)
-      'bg-[#10b981]', // Emerald (Growth)
-      'bg-[#3b82f6]', // Cerulean (Calm)
-      'bg-[#8b5cf6]', // Lavender (Resonance)
-      'bg-[#ffffff]', // Pure White (Acceptance)
+      'bg-[#f43f5e]', 
+      'bg-[#10b981]', 
+      'bg-[#3b82f6]', 
+      'bg-[#8b5cf6]', 
+      'bg-[#ffffff]', 
     ];
 
     return (
@@ -139,7 +138,6 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
         </header>
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-8 text-center gap-12">
-          {/* Main Affirmation */}
           <div 
             className="transition-all duration-1000 transform"
             style={{ 
@@ -152,7 +150,6 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
             </h2>
           </div>
 
-          {/* Merged Breathing Ritual (for Emergency Presence) */}
           {isEmergency && (
             <div className="w-full flex flex-col items-center justify-center gap-12 relative min-h-[120px] scale-90 md:scale-100">
                <div className="absolute text-2xl md:text-3xl font-black uppercase tracking-tighter flex whitespace-nowrap justify-center items-center drop-shadow-lg">
@@ -196,6 +193,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
               {t.return}
             </button>
           </div>
+          <p className={cn("text-[8px] font-black uppercase tracking-[0.5em] shining-white mt-4")}>Created in harmony</p>
         </footer>
       </div>
     );
@@ -245,7 +243,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
       </div>
 
       <footer className="absolute bottom-12 text-center w-full">
-        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">
           {t.footer}
         </p>
       </footer>

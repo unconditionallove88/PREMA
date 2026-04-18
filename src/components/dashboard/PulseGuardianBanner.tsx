@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -69,7 +70,7 @@ export default function PulseGuardianBanner({
   const t = CONTENT[lang] || CONTENT.en;
 
   const handleOpenGuide = () => {
-    setOpen(false); // Close the sheet
+    setOpen(false); 
     if (onOpenGuide) onOpenGuide();
   };
 

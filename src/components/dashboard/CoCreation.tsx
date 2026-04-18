@@ -1,21 +1,18 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { 
   Sprout, 
-  Send, 
   CheckCircle2, 
   Loader2, 
-  Globe, 
-  ClipboardList, 
-  CircleDot, 
   ExternalLink, 
   Volume2,
   Heart,
   ZapOff,
   Sparkles,
   ShieldCheck,
-  HelpCircle,
+  CircleDot,
   X
 } from 'lucide-react';
 import { useFirestore, useUser, addDocumentNonBlocking } from '@/firebase';
@@ -37,7 +34,7 @@ const i18n = {
       { key: "dislike", label: "Dissonance", prompt: "What do you not like? And why?", placeholder: "Tell us what feels off missing or could be more human and why it matters", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "What would you add?", placeholder: "A feature a word a feeling you wish was here to help us grow", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Favorite Tool", prompt: "Which tool do you love the most?", placeholder: "Tell us honestly which tool resonates deepest with your needs", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
-      { key: "survey", label: "App Survey", prompt: "Help us test the sanctuary", placeholder: "Take our structured survey to help us calibrate the resonance", icon: ClipboardList, color: "text-white", bg: "bg-white/10" },
+      { key: "survey", label: "App Survey", prompt: "Help us test the sanctuary", placeholder: "Take our structured survey to help us calibrate the resonance", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
     ],
     send: "Send from the Heart", openSurvey: "Open Sanctuary Survey", sending: "Sending...",
     successTitle: "Heard", successMsg: "Your words have been received with love They will help this space grow",
@@ -51,7 +48,7 @@ const i18n = {
       { key: "dislike", label: "Dissonanz", prompt: "Was gefällt dir nicht? Und warum?", placeholder: "Was fühlt sich falsch an fehlt oder könnte menschlicher sein und warum", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "Was würdest du hinzufügen?", placeholder: "Eine Funktion ein Wort ein Gefühl das du dir hier wünschst", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Lieblings-Tool", prompt: "Welches Tool liebst du am meisten?", placeholder: "Sag es uns ehrlich Welches Tool hilft dir am meisten", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
-      { key: "survey", label: "App Umfrage", prompt: "Hilf uns das Sanctuary zu testen", placeholder: "Nimm an unserer Umfrage teil um die Resonanz zu kalibrieren", icon: ClipboardList, color: "text-white", bg: "bg-white/10" },
+      { key: "survey", label: "App Umfrage", prompt: "Hilf uns das Sanctuary zu testen", placeholder: "Nimm an unserer Umfrage teil um die Resonanz zu kalibrieren", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
     ],
     send: "Von Herzen senden", openSurvey: "Sanctuary Umfrage öffnen", sending: "Wird gesendet...",
     successTitle: "Gehört", successMsg: "Deine Worte wurden mit Liebe empfangen Sie helfen diesem Raum zu wachsen",
@@ -152,7 +149,7 @@ export function CoCreation({ onComplete }: { onComplete?: () => void }) {
               </div>
 
               <form onSubmit={handleSend} className="space-y-8">
-                {!isSurvey ? (<textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder={active.placeholder} className="w-full h-48 px-8 py-6 rounded-[2.5rem] border-2 border-white/10 bg-white/5 text-white text-lg font-bold outline-none resize-none focus:border-primary transition-all shadow-inner" required />) : (<div className="w-full h-48 px-8 py-10 rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center gap-4"><ClipboardList className="text-white/20" size={40} /><p className="text-white/40 text-sm font-bold uppercase tracking-widest leading-relaxed">{active.placeholder}</p></div>)}
+                {!isSurvey ? (<textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder={active.placeholder} className="w-full h-48 px-8 py-6 rounded-[2.5rem] border-2 border-white/10 bg-white/5 text-white text-lg font-bold outline-none resize-none focus:border-primary transition-all shadow-inner" required />) : (<div className="w-full h-48 px-8 py-10 rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center gap-4"><CircleDot className="text-white/20" size={40} /><p className="text-white/40 text-sm font-bold uppercase tracking-widest leading-relaxed">{active.placeholder}</p></div>)}
                 <div className="space-y-6">
                   <button type="submit" disabled={!isSurvey && (loading || !message.trim())} className="w-full h-20 bg-[#1b4d3e] text-white rounded-full font-black text-xl uppercase tracking-widest flex items-center justify-center gap-4 transition-all active:scale-[0.98] shadow-2xl shadow-primary/20 disabled:opacity-30">{isSurvey ? (<><ExternalLink size={24} /> {t.openSurvey}</>) : (loading ? <><Loader2 size={24} className="animate-spin" /> {t.sending}</> : <><CircleDot size={24} /> {t.send}</>)}</button>
                   <div className="flex flex-col items-center gap-2 opacity-40">
