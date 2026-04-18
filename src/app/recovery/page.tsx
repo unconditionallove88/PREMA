@@ -62,20 +62,20 @@ const CONTENT = {
     gpIntro: "Select a Practitioner", gpUrgent: "Request Urgent Walk-in", gpBook: "Book Appointment", gpPartners: "Sanctuary Partners"
   },
   de: {
-    integrated: "Integriert", recovery: "Erholung", personalProtocol: "Persönlicher Protokoll",
-    activeProtection: "Aktiver Schutz", secureWipe: "Sitzungsdaten gelöscht hier",
-    protocolGenerated: "Persönliches Protokoll erstellt hier", privacyFinalized: "Schutzprotokolle abgeschlossen hier",
+    integrated: "Integriert", recovery: "Erholung", personalProtocol: "Persönlicher Protokoll heute",
+    activeProtection: "Aktiver Schutz", secureWipe: "Sitzungsdaten gelöscht heute",
+    protocolGenerated: "Persönliches Protokoll erstellt heute", privacyFinalized: "Schutzprotokolle abgeschlossen heute",
     dataAnalyzed: (count: number) => `Daten analysiert: ${count} Einträge`,
     timeline: "Integrations Zeitachse heute", noLogs: "Keine Sitzungsdaten gefunden",
     wipeWarning: "Der Abschluss dieses Protokolls löscht dauerhaft alle Sitzungsprotokolle und Verläufe",
     finishBtn: "Session jetzt abschließen", returnBtn: "Zurück zum Sanctuary",
     improveBtn: "Hilf uns verbessern", Minuten: "4 Minuten · anonym",
-    ritualTitle: "Atem der Liebe", ritualDesc: "Führe das Ritual durch um dein Nervensystem sanft zu kalibrieren",
-    gpTitle: "Praxis-Besuch", gpDesc: "Kontaktiere deinen Hausarzt für STD-Tests und Gesundheitschecks nach der Sitzung",
-    mentalTitle: "Mentale Integration", mentalDesc: "Begleitung bei Paranoia oder intensiven Nebenwirkungen Zurück zur Harmonie finden",
+    ritualTitle: "Atem der Liebe heute", ritualDesc: "Führe das Ritual durch um dein Nervensystem sanft zu kalibrieren heute",
+    gpTitle: "Praxis Besuch heute", gpDesc: "Kontaktiere deinen Hausarzt für STD Tests und Gesundheitschecks nach der Sitzung",
+    mentalTitle: "Mentale Integration heute", mentalDesc: "Begleitung bei Paranoia oder intensiven Nebenwirkungen heute hier",
     emergencyBtn: "Notruf direkt anrufen",
-    mentalIntro: "Wie fühlst du dich?", mentalVision: "Vision der Liebe (Erdung)", mentalProfessional: "Mit Profis sprechen", mentalSOS: "SOS - Hilfe vom Kreis",
-    gpIntro: "Wähle eine Praxis", gpUrgent: "Dringender Besuch (Notfall)", gpBook: "Termin buchen", gpPartners: "Sanctuary Partner"
+    mentalIntro: "Wie fühlst du dich?", mentalVision: "Vision der Liebe heute", mentalProfessional: "Mit Profis sprechen heute", mentalSOS: "SOS - Hilfe heute",
+    gpIntro: "Wähle eine Praxis", gpUrgent: "Dringender Besuch heute", gpBook: "Termin buchen heute", gpPartners: "Sanctuary Partner heute"
   }
 };
 
@@ -171,7 +171,7 @@ export default function RecoveryView() {
       </div>
 
       <ScrollArea className="h-full">
-        <div className="px-6 py-10 max-w-xl mx-auto space-y-12 pb-40">
+        <div className="px-6 py-10 max-xl mx-auto space-y-12 pb-40">
           <div className="bg-red-600/10 border border-red-600/20 p-6 rounded-3xl flex items-center justify-between">
             <div className="flex items-center gap-4">
               <PhoneCall className="text-red-500" size={24} />

@@ -73,9 +73,9 @@ const CONTENT = {
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
     journey: "Deine Reise gehört dir allein Wir nutzen High-Fidelity-Verschlüsselung um sicherzustellen dass dein Sanctuary privat und deine Seele frei bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
-    coCreationTitle: "Sanctuary gestalten",
+    coCreationTitle: "Sanctuary gestalten heute",
     coCreationSub: "Deine Stimme zählt heute",
-    footer: "In Harmonie erschaffen hier",
+    footer: "In Harmonie erschaffen heute hier",
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
@@ -86,7 +86,7 @@ const CONTENT = {
       freedomDesc: "Wir verkaufen oder handeln niemals mit deinen Daten Deine Resonanz bleibt im Sanctuary Unsere Mission ist reine Unterstützung Liebe Fürsorge und Schadensminimierung",
       acceptance: "Bedingungslose Akzeptanz",
       acceptanceDesc: "Wir sammeln nur Informationen die notwendig sind um dich sicher zu halten Jeder Datenpunkt dient dazu deinen Schutz zu kalibrieren und dein Wohlbefinden zu fördern",
-      questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen hier"
+      questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen heute hier"
     }
   }
 };
@@ -244,7 +244,7 @@ export default function ProfilePage() {
         </div>
 
         <footer className="mt-12 text-center">
-          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.footer}</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.footer}</p>
         </footer>
       </div>
 
@@ -265,7 +265,7 @@ export default function ProfilePage() {
               <section className="space-y-3"><h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.privacy.acceptance}</h4><p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.privacy.acceptanceDesc}</p></section>
               <section className="pt-10 border-t border-white/5 text-center space-y-6 pb-8">
                 <div className="flex flex-col items-center gap-2"><p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">{t.privacy.questions}</p><button onClick={() => { setPrivacyOpen(false); setCoCreationOpen(true); }} className="flex items-center gap-3 bg-primary/10 border border-primary/20 px-8 py-4 rounded-2xl text-[10px] font-black text-primary uppercase tracking-[0.4em] hover:bg-primary/20 transition-all active:scale-95"><HelpCircle size={14} /> {t.privacy.qBtn}</button></div>
-                <p className="text-[8px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.privacy.footer}</p>
+                <p className="text-[8px] font-black uppercase tracking-[0.5em] shining-white">{t.privacy.footer}</p>
               </section>
             </div>
           </ScrollArea>

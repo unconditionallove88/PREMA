@@ -67,7 +67,7 @@ function SkyIcon() {
 
 const AFFIRMATIONS = {
   EN: ["I respect myself", "I love myself", "I accept myself", "Worthy of love", "I am love", "I love everyone", "I forgive myself", "Life is love"],
-  DE: ["Ich respektiere mich selbst", "Ich liebe mich selbst heute hier", "Ich akzeptiere mich selbst heute hier", "Ich verdiene Liebe heute hier", "Ich bin pure Liebe heute hier", "Ich liebe alle Menschen heute hier", "Ich vergebe mir selbst heute hier", "Leben ist Liebe heute hier"]
+  DE: ["Ich respektiere mich selbst heute", "Ich liebe mich selbst heute hier", "Ich akzeptiere mich selbst heute hier", "Ich verdiene Liebe heute hier", "Ich bin pure Liebe heute hier", "Ich liebe alle Menschen heute hier", "Ich vergebe mir selbst heute hier", "Leben ist Liebe heute hier"]
 };
 
 const CONTENT = {
@@ -85,15 +85,15 @@ const CONTENT = {
   },
   de: { 
     mesh: "Mesh aktiv heute hier",
-    loveChat: "Wort der Liebe",
-    holders: "Die Holder",
-    spectators: "Die Spectator",
-    supporterMain: "Unterstützer",
-    presence: "Präsenz",
-    anchor: "Sanctuary Anker",
-    anchorSub: "Mesh Kontext heute",
-    anchorBtn: "Anker jetzt setzen",
-    footer: "In Harmonie erschaffen hier"
+    loveChat: "Wort der Liebe heute",
+    holders: "Die Holder heute hier",
+    spectators: "Die Spectator heute hier",
+    supporterMain: "Unterstützer heute hier",
+    presence: "Präsenz heute",
+    anchor: "Sanctuary Anker heute hier",
+    anchorSub: "Mesh Kontext heute hier",
+    anchorBtn: "Anker jetzt setzen heute",
+    footer: "In Harmonie erschaffen heute hier"
   }
 };
 

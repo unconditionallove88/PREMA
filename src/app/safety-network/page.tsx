@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -68,20 +69,20 @@ const CONTENT = {
     title: "Circle of Love",
     header: "Wer hält dich heute?",
     sub: "Füge Menschen hinzu die dich lieben Wir informieren sie bei Bedarf heute",
-    guardians: "Deine vertrauten Bindungen",
-    slots: (count: number) => `${count}/5 Bindungen`,
+    guardians: "Deine vertrauten Bindungen heute",
+    slots: (count: number) => `${count}/5 Bindungen heute`,
     empty: "Dein Circle ist offen",
     add: "Jemanden der dich liebt",
-    newTitle: "Neue vertraute Bindung",
-    save: "Bindung jetzt speichern",
-    codeTitle: "Das Resonanz-Wort",
+    newTitle: "Neue vertraute Bindung heute",
+    save: "Bindung jetzt speichern heute",
+    codeTitle: "Das Resonanz Wort heute",
     codeSub: "Heiliges Dispatch Wort heute",
-    codeDesc: "Wenn du dieses Wort schreibst wissen deine Bindungen dass du Halt brauchst",
+    codeDesc: "Wenn du dieses Wort schreibst wissen deine Bindungen dass du Halt brauchst heute",
     codePlaceholder: "z.B. ANANAS",
-    seal: "Wort jetzt versiegeln 🔒",
+    seal: "Wort jetzt versiegeln heute 🔒",
     activeCode: (code: string) => `Aktives Wort: ${code}`,
-    footer: "Bindungen sind privat geschützt",
-    created: "In Harmonie erschaffen hier"
+    footer: "Bindungen sind privat geschützt heute",
+    created: "In Harmonie erschaffen heute hier"
   }
 };
 
