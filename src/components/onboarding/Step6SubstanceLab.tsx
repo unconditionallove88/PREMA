@@ -30,7 +30,8 @@ import {
   Volume2,
   Skull,
   Mic,
-  MicOff
+  MicOff,
+  UserCheck
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -42,8 +43,8 @@ import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 
 /**
- * @fileOverview Pulse Lab Component.
- * Features: High-fidelity intake logging with voice dictation support.
+ * @fileOverview Sovereign Lab Component (formerly Pulse Lab).
+ * Features: Focused on Self-Honesty and responsible intake tracking.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -54,25 +55,29 @@ const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: num
 
 const CONTENT = {
   en: {
-    title: "Pulse Lab", advisor: "Open Safety Advisor", search: "Find...",
-    diary: "Session Diary", records: "Records", sync: "Sync Session", intake: "Log Intake Entry",
-    confirm: "Confirm & Log Intake", cancel: "Cancel Entry", amount: "Amount", doseLogged: "Dose logged",
+    title: "Sovereign Lab", advisor: "Open Safety Advisor", search: "Find...",
+    diary: "Session Diary", records: "Records", sync: "Sync Truth", intake: "Honest Intake Entry",
+    confirm: "Log My Truth", cancel: "Cancel Entry", amount: "Amount", doseLogged: "Truth logged",
     addedToDiary: "added to your session diary", causionTitle: "Pulse Guardian: Caution 🧪",
     poppersHR: (hr: number) => `Your heart rate is ${hr} BPM Poppers will drop your blood pressure sharply Please sit down and breathe before use`,
     responsibility: "I take full responsibility for my actions",
-    affirmBtn: "I Affirm",
+    honestyTitle: "Moment of Truth",
+    honestyDesc: "I am honest with myself and I respect my body's limits. This entry is a record of my sovereign choice.",
+    affirmBtn: "I Affirm My Truth",
     syncProceed: "Proceed with Love", noResults: "No substances found",
     wisdom: "Mixing Wisdom",
     listening: "Listening..."
   },
   de: {
-    title: "Sitzungs-Labor", advisor: "Sicherheits-Begleiter", search: "Suchen...",
-    diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session synchronisieren", intake: "Eintrag notieren",
-    confirm: "Bestätigen & Notieren", cancel: "Abbrechen", amount: "Menge", doseLogged: "Dosis notiert",
+    title: "Souveränitäts-Lab", advisor: "Sicherheits-Begleiter", search: "Suchen...",
+    diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session Wahrheit", intake: "Ehrlicher Eintrag heute",
+    confirm: "Meine Wahrheit notieren", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert",
     addedToDiary: "wurde deinem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
     poppersHR: (hr: number) => `Dein Puls liegt bei ${hr} BPM Poppers senkt den Blutdruck stark ab Bitte nimm dir einen Moment Zeit, setz dich hin und atme tief durch`,
-    responsibility: "Ich übernehme volle Verantwortung",
-    affirmBtn: "Ich bestätige",
+    responsibility: "Ich übernehme volle Verantwortung heute",
+    honestyTitle: "Moment der Wahrheit",
+    honestyDesc: "Ich bin ehrlich zu mir selbst und achte meine Grenzen heute. Dieser Eintrag spiegelt meine souveräne Entscheidung wider.",
+    affirmBtn: "Ich bestätige meine Wahrheit",
     syncProceed: "Mit Liebe fortfahren", noResults: "Keine Substanzen gefunden",
     wisdom: "Misch-Weisheiten",
     listening: "Höre zu..."
@@ -92,7 +97,6 @@ const SUBSTANCES = [
   { id: '2cb', icon: Orbit, name: '2C-B', deName: '2C-B', aliases: ['nexus'], color: 'text-orange-400', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'psilocybin', icon: MushroomIcon, name: 'Psilocybin', deName: 'Psilocybin', aliases: ['mushrooms', 'shrooms'], color: 'text-emerald-400', isHeavy: false, unit: 'g', inputType: 'manual' },
   { id: 'poppers', icon: Wind, name: 'Poppers', deName: 'Poppers', aliases: ['amyl', 'nitrite'], color: 'text-amber-400', isHeavy: true, unit: 'hits', inputType: 'manual' },
-  { id: 'monkey-dust', icon: Skull, name: 'Monkey Dust', deName: 'Monkey Dust', aliases: ['mdpv', 'bath salts', 'cathinones'], color: 'text-red-500', isHeavy: true, unit: 'mg', inputType: 'manual', note: 'Extreme risk of paranoia and physical agitation.' },
 ];
 
 export function Step6SubstanceLab({ 
@@ -203,10 +207,10 @@ export function Step6SubstanceLab({
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
-      const text = t.responsibility;
+      const text = `${t.honestyTitle}. ${t.honestyDesc}`;
       const { audioDataUri } = await textToSpeech({ text, lang: lang as any });
       const audio = new Audio(audioDataUri);
-      audio.onended = () => setIsSpeaking(null);
+      audio.onended = () => setIsSpeaking(false);
       audio.play();
     } catch (e) {
       setIsSpeaking(false);
@@ -407,27 +411,30 @@ export function Step6SubstanceLab({
           <DialogTitle className="sr-only">Sovereign Responsibility</DialogTitle>
           <div className="p-10 flex flex-col items-center text-center space-y-10">
             <div className="relative">
-              <div className="absolute inset-0 bg-[#3EB489]/20 blur-3xl rounded-full animate-pulse" />
-              <div className="w-20 h-20 bg-[#3EB489]/10 border-2 border-[#3EB489]/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl">
-                <HeartHandshake size={40} className="text-[#3EB489]" />
+              <div className="absolute inset-0 bg-[#F59E0B]/20 blur-3xl rounded-full animate-pulse" />
+              <div className="w-20 h-20 bg-[#F59E0B]/10 border-2 border-[#F59E0B]/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl">
+                <UserCheck size={40} className="text-[#F59E0B]" />
               </div>
             </div>
             
             <div className="space-y-6">
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex flex-col items-center gap-3">
                 <p className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white leading-tight">
-                  {t.responsibility}
+                  {t.honestyTitle}
                 </p>
-                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-2 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+                <p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest max-w-xs">
+                  {t.honestyDesc}
+                </p>
+                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-2 mt-4 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
                   {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
-              <div className="w-10 h-1 bg-[#3EB489]/20 rounded-full mx-auto" />
+              <div className="w-10 h-1 bg-[#F59E0B]/20 rounded-full mx-auto" />
             </div>
 
             <button 
               onClick={confirmResponsibility} 
-              className="w-full h-16 bg-[#3EB489] text-black rounded-2xl font-black uppercase text-base tracking-widest active:scale-95 transition-all shadow-lg"
+              className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase text-base tracking-widest active:scale-95 transition-all shadow-lg"
             >
               {t.affirmBtn}
             </button>

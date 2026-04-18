@@ -21,7 +21,9 @@ import {
   ArrowRight,
   MessageCircleHeart,
   ArrowLeft,
-  Sparkles
+  Sparkles,
+  MapPin,
+  ChevronRight
 } from 'lucide-react';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -34,7 +36,6 @@ import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
 import { WearablesSync } from '@/components/dashboard/WearablesSync';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
-import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { SanctuaryGuide } from '@/components/dashboard/SanctuaryGuide';
 import { SmartAlerts } from '@/components/dashboard/SmartAlerts';
@@ -79,7 +80,10 @@ const CONTENT = {
     holders: "The Holders",
     spectators: "The Spectators",
     supporterMain: "Supporter",
-    presence: "Presence"
+    presence: "Presence",
+    anchor: "Sanctuary Anchor",
+    anchorSub: "Mesh Context",
+    anchorBtn: "Calibrate Anchor"
   },
   de: { 
     mesh: "Mesh aktiv heute hier",
@@ -87,9 +91,19 @@ const CONTENT = {
     holders: "Die Holder",
     spectators: "Die Spectator",
     supporterMain: "Unterstützer",
-    presence: "Präsenz"
+    presence: "Präsenz",
+    anchor: "Sanctuary Anker",
+    anchorSub: "Mesh Kontext heute",
+    anchorBtn: "Anker jetzt setzen"
   }
 };
+
+const LOCATIONS = [
+  { id: 'berlin', name: 'Berlin, DE', vibe: 'City Sanctuary' },
+  { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Resonance' },
+  { id: 'london', name: 'London, UK', vibe: 'City Sanctuary' },
+  { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Resonance' },
+];
 
 function DashboardContent() {
   const router = useRouter();
@@ -109,6 +123,9 @@ function DashboardContent() {
   const [labOpen, setLabOpen] = useState(false);
   const [supporterOpen, setSupporterOpen] = useState(false);
   const [syncOpen, setSyncOpen] = useState(false);
+  const [anchorOpen, setAnchorOpen] = useState(false);
+  const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
+
   const [showLoveChatOptions, setShowLoveChatOptions] = useState(false);
   const [emergencyPresenceOpen, setEmergencyPresenceOpen] = useState(false);
 
@@ -150,7 +167,19 @@ function DashboardContent() {
               <SkyIcon />
             </h1>
           </div>
-          <Link href="/profile" className="p-3 bg-white/5 rounded-full border border-white/10"><User size={20} className="text-white/40" /></Link>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => { playHeartbeat(); setAnchorOpen(true); }}
+              className="px-4 py-2 bg-white/5 border border-white/10 rounded-full flex items-center gap-3 active:scale-95 transition-all group"
+            >
+              <MapPin size={14} className="text-primary group-hover:animate-bounce" />
+              <div className="text-left hidden sm:block">
+                <span className="block text-[8px] font-black uppercase text-white/30 tracking-widest leading-none">{t.anchorSub}</span>
+                <span className="text-[10px] font-black uppercase text-white leading-none">{selectedAnchor.name}</span>
+              </div>
+            </button>
+            <Link href="/profile" className="p-3 bg-white/5 rounded-full border border-white/10"><User size={20} className="text-white/40" /></Link>
+          </div>
         </header>
       </div>
 
@@ -256,6 +285,38 @@ function DashboardContent() {
           </div>
         </div>
       </ScrollArea>
+
+      {/* Sanctuary Anchor Dialog */}
+      <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>
+        <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline shadow-2xl">
+          <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.anchor}</DialogTitle>
+          <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em] text-center mb-8">{t.anchorSub}</p>
+          <div className="space-y-3">
+            {LOCATIONS.map((loc) => (
+              <button
+                key={loc.id}
+                onClick={() => { playHeartbeat(); setSelectedAnchor(loc); setAnchorOpen(false); }}
+                className={cn(
+                  "w-full p-6 rounded-[2rem] border-2 flex items-center justify-between group transition-all",
+                  selectedAnchor.id === loc.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/5 border-white/10 hover:border-white/20"
+                )}
+              >
+                <div className="text-left">
+                  <p className="text-sm font-black uppercase text-white">{loc.name}</p>
+                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{loc.vibe}</p>
+                </div>
+                <ChevronRight size={16} className={cn("transition-all", selectedAnchor.id === loc.id ? "text-primary translate-x-1" : "text-white/10")} />
+              </button>
+            ))}
+          </div>
+          <button 
+            onClick={() => setAnchorOpen(false)}
+            className="w-full mt-6 py-4 bg-white/5 border border-white/10 text-white/40 rounded-2xl font-black uppercase text-[10px] tracking-widest"
+          >
+            {t.anchorBtn}
+          </button>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={labOpen} onOpenChange={setLabOpen}>
         <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[2rem] overflow-hidden flex flex-col h-[95dvh] max-h-[95dvh] sm:h-[90dvh] top-[50%] -translate-y-[50%]">
