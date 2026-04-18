@@ -14,11 +14,12 @@ import {
   Sparkles,
   Info,
   ExternalLink,
-  Radio
+  Radio,
+  Navigation
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { playHeartbeat } from "@/lib/resonance";
-import { RadiatingThirdEye } from "@/components/ui/radiating-third-eye";
+import { useRouter } from "next/navigation";
 import {
   Tooltip,
   TooltipContent,
@@ -36,6 +37,7 @@ import {
  * @fileOverview Organic Circle of Love (Aura Ring Edition).
  * Refined for "Tender" resonance: Pulsation intensity only rises with BPM.
  * User heart is RED. Friends are color-coded based on state.
+ * Clickable hearts for Mesh Navigation to find friends.
  */
 
 const ARCHETYPES = [
@@ -98,12 +100,13 @@ const ARCHETYPES = [
 ];
 
 const MOCK_FRIENDS = [
-  { id: 'f1', name: 'MAX', hr: 72, state: 'safe', msg: "Chilling near the bar", dist: "12m" },
-  { id: 'f2', name: 'LUNA', hr: 115, state: 'caution', msg: "Dancing intensely", dist: "45m" },
-  { id: 'f3', name: 'SOL', hr: 140, state: 'locked', msg: "Needs a hydration break", dist: "82m" },
+  { id: 'f1', name: 'MAX', hr: 72, state: 'steady', msg: "Chilling near the bar", dist: "12m" },
+  { id: 'f2', name: 'LUNA', hr: 115, state: 'elevated', msg: "Dancing intensely", dist: "45m" },
+  { id: 'f3', name: 'JELIZAVETA', hr: 140, state: 'distress', msg: "Needs a hydration break", dist: "82m" },
 ];
 
 export default function LoveCircle({ lang = "en", variant = "dashboard", heartRate = 75 }: { lang?: string, variant?: "dashboard" | "map", heartRate?: number }) {
+  const router = useRouter();
   const [activeArchetype, setActiveArchetype] = useState(7);
   const [learningArchetype, setLearningArchetype] = useState<any>(null);
   const current = ARCHETYPES[activeArchetype];
@@ -115,10 +118,15 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
 
   const getStateColor = (state: string) => {
     switch(state) {
-      case 'locked': return '#DC2626'; // Red
-      case 'caution': return '#F59E0B'; // Yellow
+      case 'distress': return '#DC2626'; // Red
+      case 'elevated': return '#F59E0B'; // Yellow
       default: return '#10B981'; // Green
     }
+  };
+
+  const handleFindFriend = (friend: any) => {
+    playHeartbeat();
+    router.push(`/map?focus=${friend.name}&status=${friend.state}`);
   };
 
   return (
@@ -209,7 +217,8 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                   <Tooltip key={friend.id}>
                     <TooltipTrigger asChild>
                       <div 
-                        className="absolute flex flex-col items-center gap-1 pointer-events-auto cursor-pointer"
+                        onClick={() => handleFindFriend(friend)}
+                        className="absolute flex flex-col items-center gap-1 pointer-events-auto cursor-pointer group/friend"
                         style={{ 
                           left: `${50 + fRadius * Math.cos((fAngle * Math.PI) / 180)}%`,
                           top: `${50 + fRadius * Math.sin((fAngle * Math.PI) / 180)}%`,
@@ -217,7 +226,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                         }}
                       >
                         <div 
-                          className="w-10 h-10 rounded-full border-2 flex items-center justify-center relative backdrop-blur-md transition-all duration-1000"
+                          className="w-10 h-10 rounded-full border-2 flex items-center justify-center relative backdrop-blur-md transition-all duration-1000 group-hover/friend:scale-125 group-hover/friend:border-white"
                           style={{ 
                             backgroundColor: `${fColor}15`,
                             borderColor: `${fColor}40`
@@ -226,7 +235,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                           <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: fColor, animationDuration: pulseDuration }} />
                           <Heart size={14} fill={fColor} className="text-white/10" style={{ animation: `heart-beat-inner ${pulseDuration} ease-in-out infinite` }} />
                         </div>
-                        <span className="text-[7px] font-black text-white/40 uppercase tracking-tighter">{friend.name}</span>
+                        <span className="text-[7px] font-black text-white/40 uppercase tracking-tighter group-hover/friend:text-white">{friend.name}</span>
                       </div>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="bg-black/95 border-white/10 px-4 py-2 rounded-xl text-center">
@@ -235,6 +244,10 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                       <div className="flex items-center justify-center gap-1.5 mt-1 pt-1 border-t border-white/5">
                         <Radio size={8} className="text-blue-400" />
                         <span className="text-[7px] font-black text-blue-400 uppercase tracking-widest">{friend.dist} Mesh</span>
+                      </div>
+                      <div className="mt-2 flex items-center justify-center gap-1.5 bg-primary/20 py-1 rounded-md">
+                        <Navigation size={8} className="text-primary animate-pulse" />
+                        <span className="text-[6px] font-black uppercase text-primary">Tap heart to find</span>
                       </div>
                     </TooltipContent>
                   </Tooltip>
@@ -307,3 +320,4 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
     </TooltipProvider>
   );
 }
+

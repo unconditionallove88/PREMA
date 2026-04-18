@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -188,3 +189,4 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
     </div>
   );
 }
+

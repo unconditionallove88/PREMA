@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect, Suspense } from 'react';
@@ -27,6 +28,7 @@ const CONTENT = {
     respect: "I respect my state",
     sanctuary: "Privacy is my sanctuary",
     distress: (name: string) => `${name} needs care`,
+    finding: (name: string) => `Guided by Mesh to ${name}`,
     currentPulse: (status: string) => `Current Pulse: ${status}`,
     notify: "Notify Awareness",
     meshActive: "Mesh Location Active"
@@ -39,6 +41,7 @@ const CONTENT = {
     respect: "Ich achte auf mich",
     sanctuary: "Privatsphäre ist mein Raum",
     distress: (name: string) => `${name} braucht Begleitung`,
+    finding: (name: string) => `Mesh leitet dich zu ${name}`,
     currentPulse: (status: string) => `Aktueller Status: ${status}`,
     notify: "Awareness rufen",
     meshActive: "Mesh-Ortung aktiv"
@@ -56,7 +59,8 @@ function MapContent() {
   
   const focusName = searchParams.get('focus');
   const focusStatus = searchParams.get('status');
-  const isFriendDistress = !!focusName && focusStatus !== 'steady';
+  const isFriendDistress = !!focusName && focusStatus === 'distress';
+  const isFindingFriend = !!focusName && !isFriendDistress;
 
   const userDocRef = useMemoFirebase(() => {
     if (!firestore || !user?.uid) return null;
@@ -116,11 +120,20 @@ function MapContent() {
           </div>
         </div>
 
-        <div className="absolute bottom-[30%] right-[30%] opacity-40">
-           <div className="w-8 h-8 bg-emerald-600/20 rounded-xl flex items-center justify-center border border-emerald-500/40">
-             <Shield className="w-4 h-4 text-emerald-500" />
-           </div>
-        </div>
+        {/* Simulated Friend Node for focus */}
+        {focusName && (
+          <div className="absolute top-[30%] right-[20%] animate-in zoom-in duration-1000">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-ping" />
+              <div className="w-10 h-10 bg-black/80 rounded-full border-2 border-primary flex items-center justify-center">
+                <Radio className="text-primary w-5 h-5 animate-pulse" />
+              </div>
+              <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">
+                <span className="text-[8px] font-black text-white uppercase">{focusName}</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="relative z-10 p-6 flex flex-col h-full pointer-events-none">
@@ -172,6 +185,18 @@ function MapContent() {
                     </button>
                   </div>
                 </div>
+              ) : isFindingFriend ? (
+                <div className="bg-primary/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
+                      <Navigation size={32} className="text-white animate-bounce" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter leading-none text-white">{t.finding(focusName!)}</h3>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">Guided Walk with Soul Active</p>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <div className="w-full md:w-auto flex flex-col items-center md:items-end gap-4">
                   <button 
@@ -212,3 +237,4 @@ export default function MapView() {
     </Suspense>
   );
 }
+
