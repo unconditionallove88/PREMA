@@ -15,7 +15,7 @@ import { GuardianLogo } from '@/components/ui/guardian-logo';
  * @fileOverview The Spectators (Public & Moderated).
  * Languages: EN, DE.
  * Affirmations: 3 words (EN) / 4 words (DE)
- * Features: Voice Dictation for inclusive resonance.
+ * Features: Voice Dictation for inclusive resonance. Shining white footers.
  */
 
 const CONTENT = {
@@ -34,6 +34,7 @@ const CONTENT = {
     enterBtn: "Enter guarded sanctuary",
     placeholder: "Share your resonance...",
     footer: "Grounded in Love 🌿",
+    shiningFooter: "Created in harmony",
     blockedTitle: "Sanctuary Rest",
     blockedDesc: "Pulse Guardian has paused your communication To ensure the harmony of this circle illegal activities and divisive language are not permitted 🌿",
     blockedAffirmation: "Rest and stillness",
@@ -58,6 +59,7 @@ const CONTENT = {
     enterBtn: "Bewachtes Sanctuary betreten",
     placeholder: "Teile deine Resonanz...",
     footer: "Geerdet in Liebe immerzu 🌿",
+    shiningFooter: "In Harmonie erschaffen hier",
     blockedTitle: "Sanctuary Pause",
     blockedDesc: "Pulse Guardian hat deine Kommunikation pausiert Um die Harmonie zu gewährleisten sind illegale Aktivitäten und spaltende Sprache nicht erlaubt 🌿",
     blockedAffirmation: "Ruhe und Stille jetzt",
@@ -326,7 +328,9 @@ export function PartyCircleChat() {
           </div>
           <button onClick={handleSend} disabled={!input.trim() || isSending} className="p-4 bg-primary text-white rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-lg">{isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}</button>
         </div>
-        <p className="text-center text-[8px] text-white/20 uppercase tracking-[0.5em] mt-4 font-black">{t.footer}</p>
+        <p className="text-center text-[10px] font-black text-white uppercase tracking-[0.5em] mt-4 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+          {t.shiningFooter}
+        </p>
       </div>
     </div>
   );

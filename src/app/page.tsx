@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
  * @fileOverview High-Fidelity Landing Sanctuary (Entrance).
  * Languages: en (lowercase), de (lowercase).
  * Updated: Circular entry tabs and integrated slogans.
+ * Shining white footer applied.
  */
 
 export default function Home() {
@@ -101,7 +102,9 @@ export default function Home() {
       </div>
 
       <footer className="w-full text-center mt-12 relative z-10">
-        <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em] mb-2">{content[lang].footer}</p>
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] mb-2 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+          {content[lang].footer}
+        </p>
         <div className="w-8 h-1 bg-primary/20 rounded-full mx-auto" />
       </footer>
     </main>

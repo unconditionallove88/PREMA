@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -31,7 +32,7 @@ import { cn } from "@/lib/utils";
 /**
  * @fileOverview Circle of Love (Trusted Bonds) Page.
  * Languages: EN (3 words), DE (4 words).
- * Affirmation Rhythm: 3/4 words.
+ * Shining white footers.
  */
 
 const RELATIONSHIP_OPTIONS = [
@@ -158,7 +159,7 @@ export default function SafetyNetworkPage() {
       <nav className="bg-black/90 backdrop-blur-2xl border-b border-white/5 px-6 py-8 sticky top-0 z-[100]">
         <div className="max-md mx-auto flex items-center justify-between">
           <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all">
-            <ArrowLeft className="w-5 h-5 text-white/40" />
+            <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
             <HeartHandshake className="w-3.5 h-3.5 text-primary" />
@@ -279,10 +280,9 @@ export default function SafetyNetworkPage() {
           {profile?.secretWord && <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] text-center animate-pulse">{t.activeCode(profile.secretWord)}</p>}
         </section>
 
-        <footer className="text-center space-y-6 pt-10 opacity-40">
+        <footer className="text-center space-y-6 pt-10">
           <Heart size={32} className="mx-auto text-primary" />
-          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em]">{t.footer}</p>
-          <p className="text-[8px] font-black text-primary uppercase tracking-[0.6em]">{t.created}</p>
+          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.created}</p>
         </footer>
       </div>
     </main>

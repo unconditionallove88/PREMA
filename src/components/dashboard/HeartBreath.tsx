@@ -9,7 +9,7 @@ import { playHeartbeat } from '@/lib/resonance';
 /**
  * @fileOverview Heart Breath (Oxytocin Breath) Tool.
  * Integrated with visual affirmations for unified emergency presence.
- * Updated: Affirmations moved exclusively to background for cleaner focus.
+ * Updated: Rose color palette for nurturing self-love.
  */
 
 interface HeartBreathProps {

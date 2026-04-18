@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { X, Activity, Bluetooth, Database, PhoneCall } from "lucide-react";
+import { X, Activity, Bluetooth, Database, PhoneCall, Sparkles } from "lucide-react";
 import { GuardianLogo } from "@/components/ui/guardian-logo";
 import { cn } from "@/lib/utils";
 import {
@@ -23,6 +23,7 @@ import {
 /**
  * @fileOverview PulseGuardianBanner Component.
  * Fixed: viewGuide button now correctly triggers the onOpenGuide prop to launch SanctuaryGuide.
+ * Integrated "Shining White" text.
  */
 
 interface PulseGuardianBannerProps {
@@ -105,14 +106,15 @@ export default function PulseGuardianBanner({
       <div className="mt-8 px-2">
         <button 
           onClick={handleOpenGuide}
-          className="w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
+          className="w-full py-5 bg-[#1b4d3e] border-2 border-primary/20 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all flex items-center justify-center gap-3"
         >
+          <Sparkles size={16} className="text-primary" />
           {t.viewGuide}
         </button>
       </div>
 
       <div className="mt-12 pt-8 border-t border-white/5 text-center">
-        <p className="text-[10px] text-[#10B981] font-black uppercase tracking-[0.5em]">
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
           {t.footer}
         </p>
       </div>
@@ -149,7 +151,7 @@ export default function PulseGuardianBanner({
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-[#A855F7]/10 border border-[#A855F7]/20 flex items-center justify-center shadow-lg"><GuardianLogo size={32} /></div>
               <div>
-                <SheetTitle className="text-white font-black text-2xl uppercase tracking-tighter leading-none text-left">{t.title}</SheetTitle>
+                <SheetTitle className="text-white font-black text-2xl uppercase tracking-tighter text-left">{t.title}</SheetTitle>
                 <p className="text-[9px] text-[#A855F7] font-black uppercase tracking-[0.3em] mt-1.5 text-left">{t.sub}</p>
               </div>
             </div>

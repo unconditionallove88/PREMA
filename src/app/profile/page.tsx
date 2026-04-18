@@ -39,7 +39,7 @@ import { cn } from "@/lib/utils";
 /**
  * @fileOverview Your Sanctuary (Profile Page).
  * Languages: EN, DE.
- * Updated: Promoted Co-Creation as a primary action.
+ * Updated: Promoted Co-Creation as a primary action. Shining white footers.
  */
 
 const CONTENT = {
@@ -52,6 +52,7 @@ const CONTENT = {
     promise: "Bonds of Trust", logout: "Step away now",
     coCreationTitle: "Shape the Sanctuary",
     coCreationSub: "Your voice shapes this space",
+    footer: "Created in harmony",
     privacy: {
       title: "Freedom & Trust",
       sovereignty: "Data Sovereignty",
@@ -74,6 +75,7 @@ const CONTENT = {
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
     coCreationTitle: "Sanctuary gestalten",
     coCreationSub: "Deine Stimme zählt heute",
+    footer: "In Harmonie erschaffen hier",
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
@@ -146,7 +148,7 @@ export default function ProfilePage() {
     <main className="min-h-screen bg-black text-white font-headline pb-32 pt-safe">
       <nav className="bg-black/90 backdrop-blur-2xl border-b border-white/5 px-6 py-8 sticky top-0 z-[100]">
         <div className="max-w-xl mx-auto flex items-center justify-between">
-          <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
+          <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all"><ArrowLeft size={20} /></button>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
             <ShieldCheck className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase text-primary tracking-widest">{t.sanctuary}</span>
@@ -240,6 +242,10 @@ export default function ProfilePage() {
 
           <button onClick={() => auth.signOut().then(() => router.push("/"))} className="w-full py-6 bg-red-600/10 border border-red-600/20 text-red-500 text-xs font-black uppercase tracking-[0.4em] hover:bg-red-600/20 rounded-[2rem] transition-all">{t.logout}</button>
         </div>
+
+        <footer className="mt-12 text-center">
+          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.footer}</p>
+        </footer>
       </div>
 
       <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
@@ -259,7 +265,7 @@ export default function ProfilePage() {
               <section className="space-y-3"><h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.privacy.acceptance}</h4><p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.privacy.acceptanceDesc}</p></section>
               <section className="pt-10 border-t border-white/5 text-center space-y-6 pb-8">
                 <div className="flex flex-col items-center gap-2"><p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">{t.privacy.questions}</p><button onClick={() => { setPrivacyOpen(false); setCoCreationOpen(true); }} className="flex items-center gap-3 bg-primary/10 border border-primary/20 px-8 py-4 rounded-2xl text-[10px] font-black text-primary uppercase tracking-[0.4em] hover:bg-primary/20 transition-all active:scale-95"><HelpCircle size={14} /> {t.privacy.qBtn}</button></div>
-                <p className="text-[8px] font-black text-primary uppercase tracking-[0.5em]">{t.privacy.footer}</p>
+                <p className="text-[8px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.privacy.footer}</p>
               </section>
             </div>
           </ScrollArea>

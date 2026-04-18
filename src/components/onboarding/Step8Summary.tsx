@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -8,12 +9,13 @@ import type { OnboardingData } from '@/app/onboarding/page';
  * @fileOverview Calibration Summary.
  * Color action: #1b4d3e
  * Languages: EN, DE, PT.
+ * Shining white footer.
  */
 
 const CONTENT = {
-  EN: { header: "CALIBRATED,", sub: "PROFILE READY • PROCEED TO FINAL HEART CHECK", health: "Health Profile", links: "Safety Links", lab: "Substance Lab", contact: "Emergency Contact", button: "Final Heart Check" },
-  DE: { header: "KALIBRIERT,", sub: "PROFIL BEREIT • WEITER ZUM FINALE HEART CHECK", health: "Gesundheitsprofil", links: "Sicherheits-Links", lab: "Substanz-Labor", contact: "Notfallkontakt", button: "Finale Heart Check" },
-  PT: { header: "CALIBRADO,", sub: "PERFIL PRONTO • PROSSIGA PARA O CHECK-IN FINAL", health: "Perfil de Saúde", links: "Vínculos de Segurança", lab: "Pulse Lab", contact: "Contato de Emergência", button: "Check-in do Coração" }
+  EN: { header: "CALIBRATED,", sub: "PROFILE READY • PROCEED TO FINAL HEART CHECK", health: "Health Profile", links: "Safety Links", lab: "Substance Lab", contact: "Emergency Contact", button: "Final Heart Check", footer: "Created in harmony" },
+  DE: { header: "KALIBRIERT,", sub: "PROFIL BEREIT • WEITER ZUM FINALE HEART CHECK", health: "Gesundheitsprofil", links: "Sicherheits-Links", lab: "Substanz-Labor", contact: "Notfallkontakt", button: "Finale Heart Check", footer: "In Harmonie erschaffen hier" },
+  PT: { header: "CALIBRADO,", sub: "PERFIL PRONTO • PROSSIGA PARA O CHECK-IN FINAL", health: "Perfil de Saúde", links: "Vínculos de Segurança", lab: "Pulse Lab", contact: "Contato de Emergência", button: "Check-in do Coração", footer: "Criado em harmonia" }
 };
 
 export function Step9Summary({ data, onComplete }: { data: OnboardingData, onComplete: () => void }) {
@@ -42,6 +44,10 @@ export function Step9Summary({ data, onComplete }: { data: OnboardingData, onCom
         ))}
       </div>
       <button onClick={onComplete} className="pill-button w-full max-w-md bg-[#1b4d3e] text-white text-2xl py-10 neon-glow font-headline font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all flex items-center gap-4">{t.button} <ArrowRight className="w-8 h-8" /></button>
+      
+      <p className="mt-12 text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        {t.footer}
+      </p>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 /**
  * @fileOverview "Vision of Love" (Presence & Grounding) Tool.
- * Integrated emergency mode merging Vision and Breath.
+ * Updated: Rose color palette for self-love grounding. Shining white footer.
  */
 
 interface VisionOfLoveProps {
@@ -35,7 +35,8 @@ const CONTENT = {
     emergencyHeader: "Breath of Love",
     emergencySub: "Inhale peace • Exhale fear",
     inhale: "Breathe In Love",
-    exhale: "Breathe Out Love"
+    exhale: "Breathe Out Love",
+    footer: "Created in harmony"
   },
   de: {
     title: "Vision der Liebe",
@@ -54,7 +55,8 @@ const CONTENT = {
     emergencyHeader: "Atem der Liebe heute",
     emergencySub: "Einatmen Frieden • Ausatmen Angst",
     inhale: "Atme sanft Liebe ein",
-    exhale: "Atme sanft Liebe aus"
+    exhale: "Atme sanft Liebe aus",
+    footer: "In Harmonie erschaffen hier"
   }
 };
 
@@ -101,9 +103,9 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
     return (
       <div className={cn(
         "fixed inset-0 z-[6000] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe",
-        isEmergency ? "bg-[#10B981]" : "bg-[#1b4d3e]"
+        isEmergency ? "bg-[#f43f5e]" : "bg-[#f43f5e]/80"
       )}>
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-black/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_70%)] animate-pulse" />
 
         <header className="relative z-20 px-8 pt-8 flex items-center justify-between">
@@ -151,14 +153,14 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
         <footer className="relative z-10 p-12 flex flex-col items-center gap-6 pb-safe">
           <div className="flex gap-2">
             {t.affirmations.map((_, i) => (
-              <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-all duration-500", i === currentSlide ? "bg-white w-6" : "bg-white/20")} />
+              <div key={i} className={cn("h-1.5 rounded-full transition-all duration-500", i === currentSlide ? "bg-white w-6" : "bg-white/20")} />
             ))}
           </div>
           <div className="flex flex-col gap-3 w-full max-w-sm">
             {!isEmergency && (
               <button 
                 onClick={() => { playHeartbeat(); router.push('/self-care'); }}
-                className="w-full py-5 bg-white text-black rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-xl"
+                className="w-full py-5 bg-white text-rose-500 rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-xl"
               >
                 {t.next} <ArrowRight size={14} />
               </button>
@@ -177,7 +179,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
 
   return (
     <div className="fixed inset-0 bg-black z-[6000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in slide-in-from-bottom-4 duration-700 pb-safe pt-safe overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/10 blur-[120px] rounded-full pointer-events-none animate-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-rose-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse" />
       
       <button 
         onClick={onClose}
@@ -188,9 +190,9 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
 
       <div className="relative z-10 space-y-12 max-w-md">
         <div className="relative inline-block">
-          <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
-          <div className="w-32 h-32 bg-primary/10 border-2 border-primary/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl">
-            <Eye size={48} className="text-primary animate-pulse" />
+          <div className="absolute inset-0 bg-rose-500/20 blur-3xl rounded-full animate-pulse" />
+          <div className="w-32 h-32 bg-rose-500/10 border-2 border-rose-500/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl">
+            <Eye size={48} className="text-rose-500 animate-pulse" />
           </div>
         </div>
 
@@ -198,7 +200,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
           <h1 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">
             {t.title}
           </h1>
-          <p className="text-primary text-sm font-bold uppercase tracking-widest leading-relaxed max-w-[300px] mx-auto italic">
+          <p className="text-rose-400 text-sm font-bold uppercase tracking-widest leading-relaxed max-w-[300px] mx-auto italic">
             {t.sub}
           </p>
         </div>
@@ -211,7 +213,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
 
         <button 
           onClick={() => { playHeartbeat(); setMode('beauty'); }}
-          className="w-full h-20 bg-[#1b4d3e] text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-4"
+          className="w-full h-20 bg-[#f43f5e] text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-rose-500/20 transition-all flex items-center justify-center gap-4"
         >
           {t.button}
           <Wind size={24} />
@@ -219,8 +221,8 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
       </div>
 
       <footer className="absolute bottom-12 text-center w-full">
-        <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">
-          Created in harmony
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+          {t.footer}
         </p>
       </footer>
     </div>

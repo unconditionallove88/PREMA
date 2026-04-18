@@ -85,7 +85,8 @@ const CONTENT = {
     presence: "Presence",
     anchor: "Sanctuary Anchor",
     anchorSub: "Mesh Context",
-    anchorBtn: "Calibrate Anchor"
+    anchorBtn: "Calibrate Anchor",
+    footer: "Created in harmony"
   },
   de: { 
     mesh: "Mesh aktiv heute hier",
@@ -96,7 +97,8 @@ const CONTENT = {
     presence: "Präsenz",
     anchor: "Sanctuary Anker",
     anchorSub: "Mesh Kontext heute",
-    anchorBtn: "Anker jetzt setzen"
+    anchorBtn: "Anker jetzt setzen",
+    footer: "In Harmonie erschaffen hier"
   }
 };
 
@@ -105,6 +107,8 @@ const LOCATIONS = [
   { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Resonance' },
   { id: 'london', name: 'London, UK', vibe: 'City Sanctuary' },
   { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Resonance' },
+  { id: 'portugal', name: 'Alentejo, PT', vibe: 'Nature Resonance' },
+  { id: 'lisbon', name: 'Lisbon, PT', vibe: 'City Sanctuary' },
 ];
 
 function DashboardContent() {
@@ -291,38 +295,50 @@ function DashboardContent() {
               <CollapsibleContent className="pt-4"><GuardianSimulator heartRate={simHeartRate} setHeartRate={setSimHeartRate} substanceCount={activeSubstances.length} setSubstanceCount={(count) => setActiveSubstances(Array(count).fill('Substance'))} lang={lang} /></CollapsibleContent>
             </Collapsible>
           </div>
+
+          <div className="mt-12 pt-8 border-t border-white/5 text-center">
+            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.footer}</p>
+          </div>
         </div>
       </ScrollArea>
 
       {/* Sanctuary Anchor Dialog */}
       <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline shadow-2xl">
-          <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.anchor}</DialogTitle>
-          <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em] text-center mb-8">{t.anchorSub}</p>
-          <div className="space-y-3">
-            {LOCATIONS.map((loc) => (
-              <button
-                key={loc.id}
-                onClick={() => { playHeartbeat(); setSelectedAnchor(loc); setAnchorOpen(false); }}
-                className={cn(
-                  "w-full p-6 rounded-[2rem] border-2 flex items-center justify-between group transition-all",
-                  selectedAnchor.id === loc.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/5 border-white/10 hover:border-white/20"
-                )}
-              >
-                <div className="text-left">
-                  <p className="text-sm font-black uppercase text-white">{loc.name}</p>
-                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{loc.vibe}</p>
-                </div>
-                <ChevronRight size={16} className={cn("transition-all", selectedAnchor.id === loc.id ? "text-primary translate-x-1" : "text-white/10")} />
-              </button>
-            ))}
+        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] font-headline shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh]">
+          <div className="p-8 shrink-0">
+            <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.anchor}</DialogTitle>
+            <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em] text-center mb-8">{t.anchorSub}</p>
           </div>
-          <button 
-            onClick={() => setAnchorOpen(false)}
-            className="w-full mt-6 py-4 bg-white/5 border border-white/10 text-white/40 rounded-2xl font-black uppercase text-[10px] tracking-widest"
-          >
-            {t.anchorBtn}
-          </button>
+          
+          <ScrollArea className="flex-1 px-8">
+            <div className="space-y-3 pb-8">
+              {LOCATIONS.map((loc) => (
+                <button
+                  key={loc.id}
+                  onClick={() => { playHeartbeat(); setSelectedAnchor(loc); setAnchorOpen(false); }}
+                  className={cn(
+                    "w-full p-6 rounded-[2rem] border-2 flex items-center justify-between group transition-all",
+                    selectedAnchor.id === loc.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/5 border-white/10 hover:border-white/20"
+                  )}
+                >
+                  <div className="text-left">
+                    <p className="text-sm font-black uppercase text-white">{loc.name}</p>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{loc.vibe}</p>
+                  </div>
+                  <ChevronRight size={16} className={cn("transition-all", selectedAnchor.id === loc.id ? "text-primary translate-x-1" : "text-white/10")} />
+                </button>
+              ))}
+            </div>
+          </ScrollArea>
+
+          <div className="p-8 pt-4 shrink-0 bg-black/80 backdrop-blur-md border-t border-white/5">
+            <button 
+              onClick={() => setAnchorOpen(false)}
+              className="w-full py-4 bg-white/5 border border-white/10 text-white/40 rounded-2xl font-black uppercase text-[10px] tracking-widest"
+            >
+              {t.anchorBtn}
+            </button>
+          </div>
         </DialogContent>
       </Dialog>
 

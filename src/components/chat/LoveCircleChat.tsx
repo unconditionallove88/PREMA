@@ -14,7 +14,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
  * @fileOverview The Holders (Those who hold your heart from afar).
  * Languages: EN, DE.
  * Affirmations: 3 words (EN) / 4 words (DE)
- * Features: Dictation option for hands-free connection.
+ * Features: Dictation option for hands-free connection. Shining white footers.
  */
 
 const CONTENT = {
@@ -342,11 +342,11 @@ export function LoveCircleChat() {
             <Send className="w-6 h-6" />
           </button>
         </div>
-        <div className="mt-6 flex flex-col items-center gap-2 opacity-20">
-          <p className="text-[8px] text-white uppercase tracking-[0.6em] font-black">
+        <div className="mt-6 flex flex-col items-center gap-2">
+          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
             {t.footer}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 opacity-20">
             <Lock size={8} className="text-[#10B981]" />
             <span className="text-[7px] font-black uppercase tracking-widest">{t.encrypted}</span>
           </div>
