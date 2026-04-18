@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
@@ -192,8 +193,6 @@ function DashboardContent() {
       <ScrollArea className="flex-1">
         <div className="max-w-4xl mx-auto px-6 py-8 space-y-12 pb-40 touch-pan-y">
           
-          <SanctuaryGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
-
           <div className="space-y-3">
             <GuardianStatusBar status={guardianStatus} heartRate={simHeartRate} lang={lang} />
             <PulseGuardianBanner lang={lang} variant="banner" onOpenGuide={() => setGuideOpen(true)} />
@@ -299,6 +298,9 @@ function DashboardContent() {
           </div>
         </div>
       </ScrollArea>
+
+      {/* Sanctuary Guide - Rendered at root level for absolute visual priority */}
+      <SanctuaryGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
 
       {/* Sanctuary Anchor Dialog */}
       <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>

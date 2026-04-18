@@ -100,6 +100,14 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
   const [currentStep, setCurrentStep] = useState(0);
   const [hasDismissed, setHasDismissed] = useState(false);
 
+  // Sync internal isOpen state with forceOpen prop
+  useEffect(() => {
+    if (forceOpen) {
+      setIsOpen(true);
+      setCurrentStep(0); // Always start from beginning when forced open
+    }
+  }, [forceOpen]);
+
   useEffect(() => {
     const dismissed = localStorage.getItem('stayonbeat_guide_dismissed');
     if (dismissed && !forceOpen) setHasDismissed(true);
@@ -114,7 +122,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
 
   if (hasDismissed && !isOpen) return null;
 
-  const step = STEPS[currentStep];
+  const step = STEPS[currentStep] || STEPS[0];
   const Icon = step.icon;
   const image = PlaceHolderImages.find(img => img.id === step.imageId) || PlaceHolderImages[0];
 
@@ -132,7 +140,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
           <ChevronRight size={14} className="text-white/10 group-hover:text-primary" />
         </button>
       ) : (
-        <div className="fixed inset-0 z-[5000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden">
+        <div className="fixed inset-0 z-[8000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden touch-none">
           <header className="px-6 pt-6 pb-2 flex items-center justify-between shrink-0 relative z-10">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center"><Sparkles size={20} className="text-primary animate-pulse" /></div>
@@ -146,18 +154,18 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
 
           <main className="flex-1 relative z-10 px-6 flex flex-col justify-center items-center overflow-hidden">
             <div className="max-w-xl w-full flex flex-col items-center gap-4 animate-in slide-in-from-bottom-4 duration-700 h-full justify-between py-4">
-              <div className="text-center space-y-1">
+              <div className="text-center space-y-1 shrink-0">
                 <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center border-2 border-white/10 mx-auto mb-2", step.bg)}><Icon size={32} className={step.color} /></div>
                 <h3 className="text-2xl font-black uppercase tracking-tighter text-white leading-none">{lang === 'en' ? step.title.en : step.title.de}</h3>
                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em]">{lang === 'en' ? step.desc.en : step.desc.de}</p>
               </div>
 
-              <div className="flex-1 w-full max-h-[45vh] relative rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-2xl">
+              <div className="flex-1 w-full max-h-[45vh] relative rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-2xl min-h-[120px]">
                 <img src={image.imageUrl} alt={image.description} className="w-full h-full object-cover grayscale opacity-60" data-ai-hint={image.imageHint} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
               </div>
 
-              <div className="w-full p-4 sm:p-6 bg-primary/5 border-2 border-primary/20 rounded-[2rem] space-y-1 max-w-sm">
+              <div className="w-full p-4 sm:p-6 bg-primary/5 border-2 border-primary/20 rounded-[2rem] space-y-1 max-w-sm shrink-0">
                 <div className="flex items-center justify-center gap-2"><Shield size={12} className="text-primary" /><span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary">Guardian Intel</span></div>
                 <p className="text-[10px] font-bold text-white/80 leading-relaxed uppercase tracking-widest text-center italic px-2">
                   {lang === 'en' ? "Integrated with central intelligence for absolute care." : "Verbunden mit zentraler Intelligenz für Fürsorge."}
@@ -181,7 +189,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                   )}
                 </div>
               </div>
-              <p className="text-center text-[8px] font-black uppercase tracking-[0.5em] shining-white">Created in harmony</p>
+              <p className="text-center text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">Created in harmony</p>
             </div>
           </footer>
         </div>
@@ -189,4 +197,3 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
     </div>
   );
 }
-
