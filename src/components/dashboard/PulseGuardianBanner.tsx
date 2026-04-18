@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -22,8 +21,6 @@ import {
 
 /**
  * @fileOverview PulseGuardianBanner Component.
- * Fixed: viewGuide button now correctly triggers the onOpenGuide prop to launch SanctuaryGuide.
- * Integrated "Shining White" text.
  */
 
 interface PulseGuardianBannerProps {
@@ -114,7 +111,7 @@ export default function PulseGuardianBanner({
       </div>
 
       <div className="mt-12 pt-8 border-t border-white/5 text-center">
-        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">
           {t.footer}
         </p>
       </div>

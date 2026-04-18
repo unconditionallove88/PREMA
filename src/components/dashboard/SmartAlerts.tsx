@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -27,7 +26,8 @@ export function SmartAlerts({ userGoals, lang = 'en' }: SmartAlertsProps) {
       enable: "Enable Smart Alerts",
       disable: "Disable Protocols",
       waterMsg: "Hydration Check: Time for 250ml of water. Stay balanced.",
-      restMsg: "Rest Protocol: Take a 10m chill break."
+      restMsg: "Rest Protocol: Take a 10m chill break.",
+      footer: "Created in harmony"
     },
     de: {
       protocols: "Smart Protokolle",
@@ -37,7 +37,8 @@ export function SmartAlerts({ userGoals, lang = 'en' }: SmartAlertsProps) {
       enable: "Smart Alerts aktivieren",
       disable: "Protokolle deaktivieren",
       waterMsg: "Wasser-Check: Zeit für 250ml Wasser. Bleib im Gleichgewicht.",
-      restMsg: "Ruhe-Protokoll: Gönn dir 10 Min. Auszeit."
+      restMsg: "Ruhe-Protokoll: Gönn dir 10 Min. Auszeit.",
+      footer: "In Harmonie erschaffen hier"
     }
   }[lang];
 
@@ -131,6 +132,7 @@ export function SmartAlerts({ userGoals, lang = 'en' }: SmartAlertsProps) {
           >
             I am balanced
           </button>
+          <p className="mt-12 text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{CONTENT.footer}</p>
         </div>
       )}
     </>
