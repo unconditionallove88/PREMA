@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
@@ -177,7 +176,7 @@ function DashboardContent() {
           <div className="flex items-center gap-3">
             <button 
               onClick={() => { playHeartbeat(); setAnchorOpen(true); }}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-full flex items-center gap-3 active:scale-95 transition-all group"
+              className="px-4 py-2 bg-[#1b4d3e] border border-primary/30 rounded-full flex items-center gap-3 active:scale-95 transition-all group shadow-lg"
             >
               <MapPin size={14} className="text-primary group-hover:animate-bounce" />
               <div className="text-left hidden sm:block">
@@ -208,8 +207,7 @@ function DashboardContent() {
                  onClick={() => { playHeartbeat(); setEmergencyPresenceOpen(true); }}
                  className="w-40 h-40 rounded-full bg-red-600 flex flex-col items-center justify-center gap-2 shadow-[0_0_50px_rgba(220,38,38,0.4)] active:scale-95 transition-all border-4 border-white animate-pulse"
                >
-                 <Sparkles className="text-white" size={32} />
-                 <span className="text-xl font-black uppercase tracking-widest text-white">{t.presence}</span>
+                 <span className="text-2xl font-black uppercase tracking-[0.2em] text-white">{t.presence}</span>
                </button>
             </div>
           )}
@@ -297,7 +295,7 @@ function DashboardContent() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/5 text-center">
-            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.footer}</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.footer}</p>
           </div>
         </div>
       </ScrollArea>

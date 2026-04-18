@@ -83,6 +83,11 @@
   box-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 5px hsl(var(--primary) / 0.6);
 }
 
+.shining-white {
+  @apply text-white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
 .pill-button {
   @apply rounded-full px-8 py-5 font-bold transition-all duration-300 flex items-center justify-center;
   height: 64px;

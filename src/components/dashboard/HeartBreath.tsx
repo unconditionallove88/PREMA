@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -9,7 +8,7 @@ import { playHeartbeat } from '@/lib/resonance';
 /**
  * @fileOverview Heart Breath (Oxytocin Breath) Tool.
  * Integrated with visual affirmations for unified emergency presence.
- * Updated: Rose color palette for nurturing self-love.
+ * Color: Rose (#f43f5e) for Oxytocin stimulation and self-love.
  */
 
 interface HeartBreathProps {
@@ -62,7 +61,7 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
         setCurrentAffirmation((prev) => (prev + 1) % t.affirmations.length);
         setIsFading(false);
       }, 1000);
-    }, 6000); // Swapping every 6s to match oxytocin breathing cycles
+    }, 6000); 
     return () => clearInterval(interval);
   }, [t.affirmations.length]);
 
@@ -112,7 +111,6 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
       </header>
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-8 text-center gap-16">
-        {/* Main Pulsating Heart Core */}
         <div className="relative">
           <div className="absolute inset-0 bg-rose-500/20 blur-[100px] rounded-full animate-aura-pulse-outer" />
           <div 
@@ -158,11 +156,10 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
         >
           {t.return}
         </button>
+        <p className="text-[8px] font-black uppercase tracking-[0.5em] shining-white">
+          Created in harmony
+        </p>
       </footer>
-
-      {/* Collective Sparkles */}
-      <div className="absolute top-1/4 left-1/4 animate-pulse"><Sparkles className="text-rose-500/20" size={24} /></div>
-      <div className="absolute bottom-1/3 right-1/4 animate-pulse delay-700"><Sparkles className="text-rose-500/20" size={32} /></div>
     </div>
   );
 }

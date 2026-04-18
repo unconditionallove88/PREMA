@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -31,8 +30,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Circle of Love (Trusted Bonds) Page.
- * Languages: EN (3 words), DE (4 words).
- * Shining white footers.
+ * Wording and Styling updated for Shining White resonance.
  */
 
 const RELATIONSHIP_OPTIONS = [
@@ -282,7 +280,7 @@ export default function SafetyNetworkPage() {
 
         <footer className="text-center space-y-6 pt-10">
           <Heart size={32} className="mx-auto text-primary" />
-          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.created}</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
         </footer>
       </div>
     </main>

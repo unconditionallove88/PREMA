@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -8,24 +7,23 @@ import {
   ChevronLeft, 
   X, 
   Microscope, 
-  Watch, 
-  PenLine, 
   Shield, 
   Eye,
-  Info,
   CheckCircle2,
   Users2,
   Wind,
   Sprout,
-  Radio
+  Radio,
+  Lock,
+  HeartHandshake
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Sanctuary Guide Component (The Handover).
- * Redesigned for "Zero-Scroll" presence. All info fits on one screen (PC/Mobile).
- * Explains tool functions and their connection to the Pulse Guardian.
+ * Redesigned for "Zero-Scroll" presence.
+ * Expanded with Trusted Bonds, Love Chat Details, and Resonance Code info.
  */
 
 const STEPS = [
@@ -49,118 +47,99 @@ const STEPS = [
     bg: "bg-blue-500/10"
   },
   {
-    id: 'lab',
-    title: { en: "Pulse Lab", de: "Sitzungs-Labor heute hier" },
+    id: 'bonds',
+    title: { en: "Trusted Bonds", de: "Vertraute Bindungen" },
     desc: { 
-      en: "Log your session intake responsibly Pulse Guardian calibrates your safety thresholds in real-time based on pharmacology", 
-      de: "Notiere deine Sitzungs-Aufnahme heute Pulse Guardian kalibriert deine Limits Basierend auf deiner Pharmakologie heute" 
+      en: "Your inner circle of unconditional love Add people you trust to hold space for your journey", 
+      de: "Dein innerer Kreis bedingungsloser Liebe Füge Menschen hinzu denen du vertraust um dich zu begleiten" 
+    },
+    howItWorks: {
+      en: "Invite friends via email to create a Sacred Bond Once confirmed they appear on your Circle of Love ring",
+      de: "Lade Freunde per E-Mail ein um ein Band zu knüpfen Sobald bestätigt erscheinen sie in deinem Circle Ring"
+    },
+    connection: {
+      en: "Pulse Guardian: Automatically shares physiological alerts with your Bonds if your resonance reaches critical levels",
+      de: "Pulse Guardian: Teilt Warnungen automatisch mit deinen Bindungen falls deine Werte kritisch werden heute"
+    },
+    icon: HeartHandshake,
+    color: "text-rose-400",
+    bg: "bg-rose-500/10"
+  },
+  {
+    id: 'lab',
+    title: { en: "Sovereign Lab", de: "Souveränitäts-Lab" },
+    desc: { 
+      en: "Log your session intake with absolute honesty Pulse Guardian calibrates your safety thresholds in real-time", 
+      de: "Notiere deine Aufnahme mit absoluter Ehrlichkeit Pulse Guardian kalibriert deine Limits in Echtzeit heute" 
     },
     howItWorks: {
       en: "Select substances and enter amounts The lab assesses risk interactions against your pharmacological profile",
-      de: "Wähle Substanzen und Mengen aus Das Labor bewertet Interaktions-Risiken Basierend auf deinem Profil heute"
+      de: "Wähle Substanzen und Mengen aus Das Labor bewertet Risiken basierend auf deinem Profil heute hier"
     },
     connection: {
       en: "Pulse Guardian: Automatically recalculates biological limits for every entry logged in the lab",
-      de: "Pulse Guardian: Berechnet biologische Grenzwerte Bei jedem Eintrag automatisch neu"
+      de: "Pulse Guardian: Berechnet biologische Grenzwerte Bei jedem Eintrag automatisch neu heute hier"
     },
     icon: Microscope,
     color: "text-primary",
     bg: "bg-primary/10"
   },
   {
-    id: 'chat',
-    title: { en: "Love Chat", de: "Love Chat heute" },
+    id: 'lovechat',
+    title: { en: "Love Chat Portals", de: "Wort der Liebe" },
     desc: { 
-      en: "A dual-pathway portal for community resonance and professional awareness support during your journey", 
-      de: "Ein Portal mit zwei Wegen für Gemeinschaft und professionelle Begleitung während deiner Reise" 
+      en: "Two distinct pathways for connection: The Holders (Private) and The Spectators (Public/Moderated)", 
+      de: "Zwei Wege der Verbindung heute hier: Die Holders (Privat) und Die Spectators (Öffentlich/Moderiert)" 
     },
     howItWorks: {
-      en: "The Holders is for private circle support while The Spectators is a moderated public space for collective care",
-      de: "Die Holders sind für private Kreise Die Spectators sind ein moderierter öffentlicher Raum für Fürsorge"
+      en: "The Holders requires mutual Sacred Bonds The Spectators is open to all souls but guarded by AI moderation",
+      de: "Holders benötigt gegenseitige Bindungen Spectators ist für alle offen aber KI-moderiert heute"
     },
     connection: {
-      en: "Pulse Guardian: Monitors communication patterns and provides a fast-track SOS button to awareness staff",
-      de: "Pulse Guardian: Überwacht Kommunikationsmuster Und bietet einen schnellen SOS-Button zum Awareness-Team"
+      en: "Pulse Guardian: Monitors communication for safety and provides a fast-track SOS button to awareness staff",
+      de: "Pulse Guardian: Überwacht Kommunikation für Sicherheit Und bietet schnellen SOS-Zugang heute hier"
     },
     icon: Users2,
     color: "text-[#10B981]",
     bg: "bg-emerald-500/10"
   },
   {
-    id: 'breath',
-    title: { en: "Breath of Love", de: "Atem der Liebe" },
+    id: 'rescode',
+    title: { en: "Resonance Code", de: "Resonanz-Wort heute" },
     desc: { 
-      en: "A physiological resonance ritual designed to recalibrate your nervous system and stimulate oxytocin", 
-      de: "Ein Ritual zur Neukalibrierung deines Nervensystems Stimuliert Oxytocin und fördert innere Ruhe heute" 
+      en: "A sacred dispatch word known only to you and your bonds to request immediate emotional holding", 
+      de: "Ein heiliges Wort das nur du und deine Bindungen kennen um sofortigen emotionalen Halt zu rufen" 
+    },
+    howItWorks: {
+      en: "Set your code in the Circle of Love settings Texting this word instantly alerts your bonds you need care",
+      de: "Setze dein Wort im Circle of Love Menü Das Senden dieses Wortes alarmiert deine Bindungen sofort"
+    },
+    connection: {
+      en: "Pulse Guardian: Triggers the high-fidelity broadcast to your circle the moment the code is activated",
+      de: "Pulse Guardian: Aktiviert die Mesh-Übertragung Zu deinem Kreis sobald das Wort erkannt wird heute"
+    },
+    icon: Lock,
+    color: "text-amber-400",
+    bg: "bg-amber-500/10"
+  },
+  {
+    id: 'breath',
+    title: { en: "Heart Breath", de: "Herz Atem heute" },
+    desc: { 
+      en: "An oxytocin-stimulating ritual designed to recalibrate your nervous system and stimulate connection", 
+      de: "Ein Ritual zur Oxytocin-Stimulation Um dein Nervensystem sanft zu kalibrieren heute hier" 
     },
     howItWorks: {
       en: "Follow the rhythmic light to synchronize your breathing and return to a steady physiological state",
       de: "Folge dem rhythmischen Licht Um deinen Atem zu synchronisieren Und in einen stabilen Zustand zu finden"
     },
     connection: {
-      en: "Pulse Guardian: Recommends the Breath of Love automatically if elevated heart rate or stress is detected",
-      de: "Pulse Guardian: Empfiehlt den Atem der Liebe Falls ein erhöhter Puls oder Stress erkannt wird heute"
+      en: "Pulse Guardian: Recommends the Heart Breath automatically if elevated heart rate or stress is detected",
+      de: "Pulse Guardian: Empfiehlt den Herz Atem automatisch Falls ein erhöhter Puls erkannt wird heute hier"
     },
     icon: Wind,
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/5"
-  },
-  {
-    id: 'vision',
-    title: { en: "Vision of Love", de: "Vision der Liebe" },
-    desc: { 
-      en: "A high-fidelity grounding tool using prismatic affirmations to stabilize sensory intensity", 
-      de: "Ein Erdungs-Tool das prismatische Affirmationen nutzt Um sensorische Intensität sanft zu stabilisieren heute" 
-    },
-    howItWorks: {
-      en: "Immerse yourself in visual affirmations designed to reduce paranoia and restore emotional harmony",
-      de: "Tauche ein in visuelle Affirmationen Um Paranoia zu reduzieren Und emotionale Harmonie zu finden heute"
-    },
-    connection: {
-      en: "Pulse Guardian: Triggers the grounding sequence during the recovery phase or upon manual request",
-      de: "Pulse Guardian: Aktiviert die Erdungs-Sequenz Während der Erholungsphase oder bei manuellem Bedarf"
-    },
-    icon: Eye,
-    color: "text-blue-300",
-    bg: "bg-blue-300/10"
-  },
-  {
-    id: 'cocreation',
-    title: { en: "Co-Creation", de: "Ko-Kreation heute hier" },
-    desc: { 
-      en: "Your voice shapes this sanctuary Share resonance and feedback to help us grow with love", 
-      de: "Deine Stimme gestaltet diesen Raum Teile Resonanz und Feedback Um uns beim Wachsen zu helfen heute" 
-    },
-    howItWorks: {
-      en: "Send heart-based messages or participate in app surveys to improve the collective sanctuary experience",
-      de: "Sende herzbasierte Nachrichten Oder nimm an Umfragen teil Um das gemeinsame Erlebnis zu verbessern"
-    },
-    connection: {
-      en: "Pulse Guardian: Aggregates anonymous feedback to evolve intelligence protocols and safety features",
-      de: "Pulse Guardian: Sammelt anonymes Feedback Um Intelligenz-Protokolle und Sicherheit zu entwickeln heute"
-    },
-    icon: Sprout,
-    color: "text-primary",
-    bg: "bg-primary/5"
-  },
-  {
-    id: 'supporter',
-    title: { en: "The Supporter", de: "Unterstützer heute hier" },
-    desc: { 
-      en: "Your sentient AI companion Ask anything about pharmacological safety or emotional grounding", 
-      de: "Dein empathischer KI-Begleiter heute Frage alles über Sicherheit heute Jederzeit im Sanctuary erreichbar heute" 
-    },
-    howItWorks: {
-      en: "Use voice or text to get tailored advice based on your current session phase and intake profile",
-      de: "Nutze Sprache oder Text Für maßgeschneiderte Begleitung Basierend auf deinem aktuellen Profil heute hier"
-    },
-    connection: {
-      en: "Pulse Guardian: Feeds real-time session context to the Supporter to ensure advice is medically accurate",
-      de: "Pulse Guardian: Teilt Sitzungskontext mit Supporter Für maßgeschneiderte Sicherheitsratschläge heute hier"
-    },
-    icon: Shield,
-    color: "text-primary",
-    bg: "bg-primary/10"
+    color: "text-rose-400",
+    bg: "bg-rose-500/5"
   }
 ];
 
@@ -235,7 +214,6 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
           <main className="flex-1 relative z-10 px-6 sm:px-8 flex flex-col justify-center items-center overflow-hidden">
             <div className="max-w-xl w-full flex flex-col items-center gap-4 sm:gap-8 animate-in slide-in-from-bottom-4 duration-700 py-4">
               
-              {/* Central Resonant Icon */}
               <div className={cn(
                 "w-20 h-20 sm:w-24 sm:h-24 rounded-[2rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
                 step.bg
@@ -243,7 +221,6 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 <Icon size={40} className={cn("sm:w-12 sm:h-12", step.color)} />
               </div>
 
-              {/* Title & Core Purpose */}
               <div className="text-center space-y-1 sm:space-y-2">
                 <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white">
                   {lang === 'en' ? step.title.en : step.title.de}
@@ -253,7 +230,6 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 </p>
               </div>
 
-              {/* Functionality & Intelligence Grid */}
               <div className="w-full space-y-3 sm:space-y-4 max-w-sm">
                 <div className="text-center space-y-1 sm:space-y-2">
                   <span className="text-[8px] sm:text-[9px] font-black uppercase text-blue-400 tracking-[0.3em]">
@@ -322,7 +298,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                   )}
                 </div>
               </div>
-              <p className="text-center text-[7px] sm:text-[8px] font-black uppercase tracking-[0.5em] text-white/20">
+              <p className="text-center text-[7px] sm:text-[8px] font-black uppercase tracking-[0.5em] shining-white">
                 End-to-End Encrypted Handover
               </p>
             </div>
