@@ -28,8 +28,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview Inner Resonance Page.
- * Visual Heart Icon replaces Pulse Baseline.
- * Biological Pulse container transformed into a circle.
+ * Removed possessives and words of lack.
  */
 
 function InnerHeartContent() {
@@ -78,7 +77,7 @@ function InnerHeartContent() {
 
   const t = {
     en: {
-      title: "My Heart",
+      title: "The Heart",
       sub: "Inside the Ring",
       resonance: "Inner Resonance",
       letters: "Love Letters",
@@ -92,7 +91,7 @@ function InnerHeartContent() {
       footer: "Love Circle"
     },
     de: {
-      title: "Mein Herz heute",
+      title: "Das Herz heute",
       sub: "Im Aura-Ring heute",
       resonance: "Innere Resonanz heute",
       letters: "Liebesbriefe heute",
@@ -210,7 +209,7 @@ function InnerHeartContent() {
             </div>
           </div>
 
-          <p className="text-[12px] font-black text-white uppercase tracking-[0.5em] text-center drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">{t.footer}</p>
+          <p className="text-[12px] font-black text-white uppercase tracking-[0.5em] text-center shining-white">{t.footer}</p>
         </div>
       </ScrollArea>
 

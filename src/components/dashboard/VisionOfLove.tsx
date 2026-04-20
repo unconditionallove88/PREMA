@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 /**
  * @fileOverview "Vision of Love" (Presence & Grounding) Tool.
+ * Purified language: removed "deserve", "hope", "my".
  */
 
 interface VisionOfLoveProps {
@@ -19,14 +20,14 @@ interface VisionOfLoveProps {
 const CONTENT = {
   en: {
     title: "Vision of Love",
-    sub: "Welcome to Harmony. You are loved. Let's get back on beat together.",
-    intro: "I respect myself",
+    sub: "Welcome to Harmony. Love is here. Let's get back on beat together.",
+    intro: "I respect resonance",
     affirmations: [
       "Welcome to Harmony",
-      "You are loved",
+      "Love is here",
       "Back on beat together",
       "Everything is aligning",
-      "You are exactly here"
+      "Presence is here"
     ],
     button: "Enter Vision",
     return: "Return to Sanctuary",
@@ -39,14 +40,14 @@ const CONTENT = {
   },
   de: {
     title: "Vision der Liebe",
-    sub: "Willkommen in Harmonie heute. Du wirst geliebt heute. Gemeinsam im Takt heute.",
-    intro: "Ich respektiere mich selbst",
+    sub: "Willkommen in Harmonie heute. Liebe ist jetzt hier. Gemeinsam im Takt heute.",
+    intro: "Ich achte Resonanz heute",
     affirmations: [
       "Willkommen in Harmonie heute",
-      "Du wirst geliebt heute",
+      "Liebe ist jetzt hier",
       "Wieder im Takt heute",
       "Alles fügt sich heute",
-      "Du bist genau hier"
+      "Gegenwart ist jetzt hier"
     ],
     button: "Vision öffnen",
     return: "Zum Sanctuary zurückkehren",

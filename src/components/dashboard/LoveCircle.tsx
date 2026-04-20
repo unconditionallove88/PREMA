@@ -35,67 +35,65 @@ import {
 
 /**
  * @fileOverview Organic Circle of Love (Aura Ring Edition).
- * Refined for "Tender" resonance: Pulsation intensity only rises with BPM.
- * User heart is RED. Friends are color-coded based on state.
- * Clickable hearts for Mesh Navigation to find friends.
+ * Purified language: removed "my" / "meine".
  */
 
 const ARCHETYPES = [
   { 
     id: 'brother', icon: ShieldCheck, color: "text-blue-200", bg: "bg-blue-500/5", 
-    en: "Brotherly Protection Love", de: "Brüderlicher Halt", 
-    sentence: "I am protected and held",
-    explanation: "Brotherly love represents the shield and support we offer one another in a circle of trust. It is the unwavering strength found in shared responsibility.",
-    practice: "Visualize a protective circle around you and your friends. Breath into the feeling of safety and mutual support."
+    en: "Brotherly Protection Love", de: "Brüderlicher Halt heute", 
+    sentence: "Existence is protected and held",
+    explanation: "Brotherly love represents the shield and support offered in a circle of trust. It is the unwavering strength found in shared responsibility.",
+    practice: "Visualize a protective circle around the group. Breathe into the feeling of safety and mutual support."
   },
   { 
     id: 'mother', icon: Heart, color: "text-rose-200", bg: "bg-rose-500/5", 
-    en: "Motherly Care Love", de: "Mütterliche Fürsorge", 
-    sentence: "Nurturing love surrounds me",
+    en: "Motherly Care Love", de: "Mütterliche Fürsorge heute", 
+    sentence: "Nurturing love surrounds existence",
     explanation: "Motherly love is the foundation of unconditional care and emotional safety. It is the gentle warmth that heals even the deepest unrest.",
-    practice: "Place a hand over your heart. Say to yourself: 'I am cared for, I am safe, I am enough.' Breathe into that warmth."
+    practice: "Place a hand over the heart. Breathe into the warmth of being cared for."
   },
   { 
     id: 'sister', icon: User, color: "text-indigo-200", bg: "bg-indigo-500/5", 
-    en: "Sisterly Bond Love", de: "Schwesterliche Bindung", 
+    en: "Sisterly Bond Love", de: "Schwesterliche Bindung heute", 
     sentence: "Shared strength in unity",
-    explanation: "Sisterly love is the resonance of equality and shared wisdom. It is about understanding each other's journey without words.",
-    practice: "Reflect on a shared memory with someone you trust. Feel the resonance of that connection in your solar plexus."
+    explanation: "Sisterly love is the resonance of equality and shared wisdom. It is about understanding the journey without words.",
+    practice: "Reflect on shared connection. Feel the resonance of that connection in the solar plexus."
   },
   { 
     id: 'romantic', icon: Star, color: "text-pink-200", bg: "bg-pink-500/5", 
-    en: "Romantic Unity Love", de: "Romantische Einheit", 
+    en: "Romantic Unity Love", de: "Romantische Einheit heute", 
     sentence: "Hearts beating as one",
     explanation: "Romantic love is the spark of intimacy and deep emotional merging. It is the celebration of two souls finding a singular rhythm.",
-    practice: "Synchronize your breathing with the central pulsing heart of this app. Feel the intimacy of this present moment."
+    practice: "Synchronize breathing with the central pulsing heart. Feel the intimacy of the present moment."
   },
   { 
     id: 'erotic', icon: Flame, color: "text-orange-200", bg: "bg-orange-500/5", 
-    en: "Erotic Fire Love", de: "Erotisches Feuer", 
+    en: "Erotic Fire Love", de: "Erotisches Feuer heute", 
     sentence: "Passion flows through life",
-    explanation: "Erotic love is the life-force and creative fire of existence. It is the energy that drives us to explore and experience the beauty of life.",
-    practice: "Feel the warmth in your body. Breathe deeply into your abdomen and imagine that energy radiating outward as pure light."
+    explanation: "Erotic love is the life-force and creative fire of existence. It is the energy that drives exploration of the beauty of life.",
+    practice: "Feel the warmth in the body. Breathe deeply into the abdomen and imagine light radiating outward."
   },
   { 
     id: 'friend', icon: Users, color: "text-emerald-200", bg: "bg-emerald-500/5", 
-    en: "Friendship Trust Love", de: "Freundschaftliches Vertrauen", 
-    sentence: "Trust is our foundation",
-    explanation: "Friendship love is the social mesh that holds us together. It is built on trust, honesty, and the joy of shared experiences.",
-    practice: "Think of a friend who makes you laugh. Send them a mental note of gratitude right now."
+    en: "Friendship Trust Love", de: "Freundschaftliches Vertrauen heute", 
+    sentence: "Trust is the foundation",
+    explanation: "Friendship love is the social mesh that holds everyone together. It is built on trust, honesty, and shared experiences.",
+    practice: "Think of a bond that brings joy. Send a mental note of gratitude right now."
   },
   { 
     id: 'human', icon: Globe, color: "text-cyan-200", bg: "bg-cyan-500/5", 
-    en: "Humanity Unity Love", de: "Menschliche Einheit", 
-    sentence: "We are all connected",
-    explanation: "Humanity love is the recognition of our collective heartbeat. It is the ultimate expression of unconditional love for all beings.",
-    practice: "Imagine a thin golden thread connecting you to every person in the party and the world beyond."
+    en: "Humanity Unity Love", de: "Menschliche Einheit heute", 
+    sentence: "All are connected now",
+    explanation: "Humanity love is the recognition of the collective heartbeat. It is the ultimate expression of unconditional love for all beings.",
+    practice: "Imagine a thin golden thread connecting every person in the sanctuary and the world beyond."
   },
   { 
     id: 'life', icon: Infinity, color: "text-primary", bg: "bg-primary/5", 
-    en: "Pure Life Love", de: "Reines Leben", 
+    en: "Pure Life Love", de: "Reines Leben heute", 
     sentence: "Existence is a gift",
-    explanation: "Life love is the gratitude for the breath in your lungs and the rhythm in your chest. It is the love for the experience of being itself.",
-    practice: "Take a deep breath and say: 'Thank you for this life.' Repeat this three times."
+    explanation: "Life love is the gratitude for the breath in the lungs and the rhythm in the chest. It is love for the experience of being.",
+    practice: "Take a deep breath and acknowledge the gift of life. Repeat this three times."
   },
 ];
 
@@ -190,7 +188,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                     onClick={(e) => { e.stopPropagation(); setLearningArchetype(arc); }}
                     className="flex items-center gap-1.5 mx-auto text-[7px] font-black text-blue-400 uppercase tracking-widest pt-1 border-t border-white/10 w-full justify-center"
                   >
-                    {currentLang === 'de' ? 'Mehr erfahren' : 'Learn More'} <ExternalLink size={8} />
+                    {currentLang === 'de' ? 'Mehr erfahren heute' : 'Learn Intelligence Now'} <ExternalLink size={8} />
                   </button>
                 </TooltipContent>
               </Tooltip>
@@ -320,4 +318,3 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
     </TooltipProvider>
   );
 }
-

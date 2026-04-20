@@ -13,7 +13,7 @@ interface Props {
 
 /**
  * @fileOverview Living Heart Aura Centerpiece.
- * Tapping this leads to the Inner Resonance / Circle of Love sanctuary.
+ * Removed possessives. Affirmation removed as requested.
  */
 export default function HeartStatusAura({ 
   heartRate, 
@@ -32,8 +32,8 @@ export default function HeartStatusAura({
   const loopDuration = isHighRisk ? "2s" : isElevated ? "3.5s" : "5s";
 
   const labels = {
-    en: { resonance: "My Inner Resonance" },
-    de: { resonance: "Meine Innere Resonanz" }
+    en: { resonance: "Inner Resonance" },
+    de: { resonance: "Innere Resonanz heute" }
   };
 
   const t = labels[lang as keyof typeof labels] || labels.en;

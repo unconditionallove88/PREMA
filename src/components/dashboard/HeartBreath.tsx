@@ -8,8 +8,7 @@ import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Heart Breath (Oxytocin Breath) Tool.
- * Integrated with visual affirmations for unified emergency presence.
- * Color: Rose (#f43f5e) for Oxytocin stimulation and self-love.
+ * Purified language: removed "deserve", "hope", "my".
  */
 
 interface HeartBreathProps {
@@ -24,13 +23,13 @@ const CONTENT = {
     inhale: "Breathe In Love",
     exhale: "Breathe Out Love",
     affirmations: [
-      "Motherly care heals",
-      "Brotherly bonds hold",
+      "Love is healing",
+      "Bonds are holding",
       "Unconditional love always",
       "Acceptance unites humanity",
       "Pure presence now"
     ],
-    instruction: "Synchronize your breath with the heart",
+    instruction: "Synchronize breath with heart",
     return: "Return to Sanctuary"
   },
   de: {
@@ -39,13 +38,13 @@ const CONTENT = {
     inhale: "Atme sanft Liebe ein",
     exhale: "Atme sanft Liebe aus",
     affirmations: [
-      "Mütterliche Fürsorge heilt heute",
-      "Brüderliche Bande halten heute",
+      "Liebe heilt jetzt heute",
+      "Bande halten jetzt heute",
       "Bedingungslose Liebe immerzu hier",
       "Akzeptanz vereint die Menschheit",
       "Reine Gegenwart jetzt hier"
     ],
-    instruction: "Synchronisiere deinen Atem heute",
+    instruction: "Atem jetzt synchronisieren heute",
     return: "Zum Sanctuary zurückkehren"
   }
 };

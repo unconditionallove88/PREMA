@@ -37,55 +37,54 @@ import { CoCreation } from "@/components/dashboard/CoCreation";
 import { cn } from "@/lib/utils";
 
 /**
- * @fileOverview Your Sanctuary (Profile Page).
- * Languages: EN, DE.
- * Updated: Promoted Co-Creation as a primary action. Shining white footers.
+ * @fileOverview Sanctuary (Profile Page).
+ * Purified language: removed "my" / "meine".
  */
 
 const CONTENT = {
   en: {
     sanctuary: "Sanctuary", entering: "Entering sanctuary", reflection: "Profile reflects light",
-    greeting: "You are exactly here", essence: "Your Essence", name: "Username",
+    greeting: "Existence is exactly here", essence: "The Essence", name: "Username",
     weight: "Weight (kg)", height: "Height (cm)", circle: "Circle of Love", trusted: "Trusted Bonds",
     resonant: "Resonant contacts", reminders: "Heart Reminders", checkins: "Check-ins are active",
-    journey: "Your journey is your own We use high-fidelity encryption to ensure your sanctuary remains private and your soul free",
+    journey: "Resonance is sovereign High-fidelity encryption ensures the sanctuary remains private and the soul free",
     promise: "Bonds of Trust", logout: "Step away now",
     coCreationTitle: "Shape the Sanctuary",
-    coCreationSub: "Your voice shapes this space",
+    coCreationSub: "The voice shapes this space",
     footer: "Created in harmony",
     privacy: {
       title: "Freedom & Trust",
       sovereignty: "Data Sovereignty",
-      sovereigntyDesc: "I love and respect my privacy My data is my own StayOnBeat is built on the principle that your personal journey is a sacred trust",
+      sovereigntyDesc: "Privacy is respected Data is sovereign StayOnBeat is built on the principle that the personal journey is a sacred trust",
       encryption: "High-Fidelity Encryption",
-      encryptionDesc: "All biometric signals health profiles and location logs are protected by high-fidelity encryption We ensure that your sensitive information is visible only to you and those you explicitly trust",
+      encryptionDesc: "All biometric signals health profiles and location logs are protected by high-fidelity encryption Sensitive information is visible only to chosen bonds",
       freedom: "Inner Freedom",
-      freedomDesc: "We never sell rent or trade your data Your resonance remains within the sanctuary Our mission is pure support love care and harm reduction",
+      freedomDesc: "Data is never sold or traded Resonance remains within the sanctuary Pure support love care and harm reduction",
       acceptance: "Unconditional Acceptance",
-      acceptanceDesc: "We collect only the information necessary to keep you safe and provide high-fidelity support Every data point is used to calibrate your protection and nurture your well-being",
+      acceptanceDesc: "Only information necessary for protection is collected Every data point calibrates protection and nurtures well-being",
       questions: "Have more questions?", qBtn: "Questions?", footer: "Created in harmony"
     }
   },
   de: {
     sanctuary: "Sanctuary", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
-    greeting: "Du bist genau hier", essence: "Deine Essenz", name: "Benutzername",
+    greeting: "Existenz ist genau hier", essence: "Die Essenz heute", name: "Benutzername",
     weight: "Gewicht (kg)", height: "Größe (cm)", circle: "Circle of Love", trusted: "Vertrauenswürdige Bindungen",
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
-    journey: "Deine Reise gehört dir allein Wir nutzen High-Fidelity-Verschlüsselung um sicherzustellen dass dein Sanctuary privat und deine Seele frei bleibt",
+    journey: "Resonanz ist souverän heute High-Fidelity-Verschlüsselung stellt sicher dass das Sanctuary privat bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
     coCreationTitle: "Sanctuary gestalten heute",
-    coCreationSub: "Deine Stimme zählt heute",
+    coCreationSub: "Die Stimme zählt heute",
     footer: "In Harmonie erschaffen heute hier",
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
-      sovereigntyDesc: "Ich achte meine Privatsphäre Meine Daten gehören mir StayOnBeat baut auf dem Prinzip auf dass deine persönliche Reise ein heiliges Vertrauen ist",
+      sovereigntyDesc: "Privatsphäre wird geachtet heute Daten sind souverän heute StayOnBeat baut auf dem Prinzip der persönlichen Souveränität auf",
       encryption: "High-Fidelity-Verschlüsselung",
-      encryptionDesc: "Alle biometrischen Signale Gesundheitsprofile und Standortprotokolle sind geschützt Wir stellen sicher dass deine sensiblen Informationen nur für dich und deine Vertrauten sichtbar sind",
-      freedom: "Innere Freiheit",
-      freedomDesc: "Wir verkaufen oder handeln niemals mit deinen Daten Deine Resonanz bleibt im Sanctuary Unsere Mission ist reine Unterstützung Liebe Fürsorge und Schadensminimierung",
+      encryptionDesc: "Alle biometrischen Signale Gesundheitsprofile und Standortprotokolle sind geschützt Informationen sind nur für Vertraute sichtbar",
+      freedom: "Innere Freiheit heute",
+      freedomDesc: "Daten werden niemals verkauft Die Resonanz bleibt im Sanctuary Reine Unterstützung Liebe Fürsorge und Schadensminimierung",
       acceptance: "Bedingungslose Akzeptanz",
-      acceptanceDesc: "Wir sammeln nur Informationen die notwendig sind um dich sicher zu halten Jeder Datenpunkt dient dazu deinen Schutz zu kalibrieren und dein Wohlbefinden zu fördern",
+      acceptanceDesc: "Nur notwendige Informationen werden gesammelt Jeder Datenpunkt kalibriert den Schutz und fördert Wohlbefinden",
       questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen heute hier"
     }
   }

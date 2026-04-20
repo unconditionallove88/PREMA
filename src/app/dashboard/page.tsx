@@ -66,8 +66,8 @@ function SkyIcon() {
 }
 
 const AFFIRMATIONS = {
-  EN: ["I respect myself", "I love myself", "I accept myself", "Worthy of love", "I am love", "I love everyone", "I forgive myself", "Life is love"],
-  DE: ["Ich respektiere mich selbst heute", "Ich liebe mich selbst heute hier", "Ich akzeptiere mich selbst heute hier", "Ich verdiene Liebe heute hier", "Ich bin pure Liebe heute hier", "Ich liebe alle Menschen heute hier", "Ich vergebe mir selbst heute hier", "Leben ist Liebe heute hier"]
+  EN: ["I respect resonance", "I am love", "Acceptance is here", "Unity is presence", "Peace is now", "Love is everywhere", "I am exactly here", "Life is love"],
+  DE: ["Ich achte Resonanz heute", "Ich bin pure Liebe", "Annahme ist jetzt hier", "Einheit ist gegenwärtig heute", "Frieden ist jetzt hier", "Liebe ist überall heute", "Ich bin genau hier", "Leben ist Liebe heute"]
 };
 
 const CONTENT = {
@@ -289,7 +289,7 @@ function DashboardContent() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/5 text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.footer}</p>
+            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{t.footer}</p>
           </div>
         </div>
       </ScrollArea>
