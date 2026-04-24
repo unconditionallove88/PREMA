@@ -47,6 +47,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 /**
  * @fileOverview Sovereign Lab Component.
  * Features: Self-Honesty, responsible intake tracking, and Mixing Wisdom warnings.
+ * Fixed: Safety Advisor (Supporter) Dialog integration.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -161,6 +162,10 @@ export function Step6SubstanceLab({
   }, []);
 
   const t = CONTENT[lang] || CONTENT.en;
+
+  const activeIntakeText = useMemo(() => {
+    return sessionLogs.map(l => l.name).join(', ');
+  }, [sessionLogs]);
 
   const filteredSubstances = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();
@@ -366,7 +371,20 @@ export function Step6SubstanceLab({
           </div>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={chatOpen} onOpenChange={setChatOpen}>
+        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
+          <DialogTitle className="sr-only">Safety Advisor</DialogTitle>
+          <AiSafetyChat userProfile={userData} currentIntake={activeIntakeText} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={wisdomOpen} onOpenChange={setWisdomOpen}>
+        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
+          <DialogTitle className="sr-only">Mixing Wisdom</DialogTitle>
+          <WisdomProtocol onComplete={() => setWisdomOpen(false)} isStandAlone={true} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
-
