@@ -5,14 +5,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Step1ImportantStuff } from '@/components/onboarding/Step1';
 import { Step2WhoAreYou } from '@/components/onboarding/Step2';
+import { StepSimpleIntention } from '@/components/onboarding/StepSimpleIntention';
 import { Step3HealthConditions } from '@/components/onboarding/Step3HealthConditions';
 import { Step4Medications } from '@/components/onboarding/Step4Medications';
 import { Step6StripeVerify } from '@/components/onboarding/Step6StripeVerify';
-import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
-import { StepSomethingToRemember } from '@/components/onboarding/StepSomethingToRemember';
-import { StepSanctuaryAlarms } from '@/components/onboarding/StepSanctuaryAlarms';
 import { Step9Summary } from '@/components/onboarding/Step8Summary';
-import { StepLaboratoryTesting } from '@/components/onboarding/StepLaboratoryTesting';
 import { SanctuaryGuide } from '@/components/dashboard/SanctuaryGuide';
 import { safeStringify } from '@/lib/safe-storage';
 import { useAuth, useFirestore } from '@/firebase';
@@ -38,6 +35,7 @@ export type OnboardingData = {
   substances: { name: string; dose: string }[];
   healthConditions: string[];
   goals: string[];
+  simpleIntention?: string;
   legalAgreements?: LegalAgreements;
   verification?: { stripeCustomerId: string; last4: string; method: string; isAgeVerified: boolean };
   sanctuaryBoundaries?: any;
@@ -83,11 +81,9 @@ export default function Onboarding() {
           trustLevel: "verified_adult",
           onboardingStatus: "completed",
           onboardingCompletedAt: serverTimestamp(),
-          goals: data.goals || [],
+          simpleIntention: data.simpleIntention || null,
           healthConditions: data.healthConditions || [],
           medications: data.medications || [],
-          sanctuaryBoundaries: data.sanctuaryBoundaries || null,
-          sanctuaryAlarms: data.sanctuaryAlarms || null,
           biometrics: {
             weightKg: data.weight,
             heightCm: data.height,
@@ -100,7 +96,7 @@ export default function Onboarding() {
           }
         }, { merge: true });
       }
-      setStep(11); // Interactive guide
+      setStep(8); // Interactive guide
     } catch (error) {
       console.error("Onboarding completion error:", error);
     }
@@ -122,30 +118,18 @@ export default function Onboarding() {
         )}
 
         {step === 3 && (
-          <StepPartyGoal onBack={prevStep} onComplete={(goals) => { updateAndPersist({ goals }); nextStep(); }} />
-        )}
-
-        {step === 4 && (
-          <StepLaboratoryTesting onBack={prevStep} onComplete={() => nextStep()} />
-        )}
-
-        {step === 5 && (
-          <StepSomethingToRemember onBack={prevStep} onComplete={(boundaries) => { updateAndPersist({ sanctuaryBoundaries: boundaries }); nextStep(); }} />
-        )}
-
-        {step === 6 && (
-          <StepSanctuaryAlarms onBack={prevStep} onComplete={(alarms) => { updateAndPersist({ sanctuaryAlarms: alarms }); nextStep(); }} />
+          <StepSimpleIntention onBack={prevStep} onComplete={(intention) => { updateAndPersist({ simpleIntention: intention }); nextStep(); }} />
         )}
         
-        {step === 7 && (
+        {step === 4 && (
           <Step3HealthConditions selected={data.healthConditions} onBack={prevStep} onComplete={(conditions) => { updateAndPersist({ healthConditions: conditions }); nextStep(); }} />
         )}
         
-        {step === 8 && (
+        {step === 5 && (
           <Step4Medications selected={data.medications} onBack={prevStep} onComplete={(meds) => { updateAndPersist({ medications: meds }); nextStep(); }} />
         )}
 
-        {step === 9 && (
+        {step === 6 && (
           <Step6StripeVerify
             onBack={prevStep}
             onComplete={(stripeData) => {
@@ -157,19 +141,19 @@ export default function Onboarding() {
                   last4: stripeData.last4,
                 },
               });
-              setStep(10);
+              setStep(7);
             }}
           />
         )}
 
-        {step === 10 && (
+        {step === 7 && (
           <Step9Summary 
             data={data}
             onComplete={handleOnboardingComplete} 
           />
         )}
 
-        {step === 11 && (
+        {step === 8 && (
           <SanctuaryGuide forceOpen={true} onDismiss={handleFinalRedirect} />
         )}
       </div>

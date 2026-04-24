@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -10,6 +11,7 @@ import type { OnboardingData } from '@/app/onboarding/page';
 
 /**
  * @fileOverview Mandatory session check-in flow for returning users.
+ * Includes: Detailed Intention, Mixing Wisdom, Alarms, and Gear Check.
  */
 export default function SessionCheckIn() {
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function SessionCheckIn() {
       setData(JSON.parse(profileStr));
     } else {
       const defaultProfile: OnboardingData = {
-        name: 'USER',
+        name: 'SOUL',
         dob: '',
         weight: 75,
         height: 175,
@@ -69,8 +71,8 @@ export default function SessionCheckIn() {
         {step === 2 && (
           <StepSomethingToRemember
             onBack={prevStep}
-            onComplete={(boundaries) => {
-              updateProfile({ sanctuaryBoundaries: boundaries });
+            onComplete={(wisdom) => {
+              updateProfile({ sanctuaryBoundaries: wisdom });
               nextStep();
             }}
           />
