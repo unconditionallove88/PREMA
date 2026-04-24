@@ -10,53 +10,53 @@ import { useToast } from '@/hooks/use-toast';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 
 /**
- * @fileOverview The Holders (Those who hold your heart from afar).
- * Languages: EN, DE.
- * Affirmations: 3 words (EN) / 4 words (DE)
- * Features: Dictation option for hands-free connection. Shining white footers.
+ * @fileOverview The Holders (Sacred Communication).
+ * Simplified for heart-touching connection using Golden Ratio harmony.
  */
 
 const CONTENT = {
   en: {
     title: "The Holders",
-    sub: "Sacred Bond of Resonance",
-    desc: "Those who hold your heart from afar Your sacred bond of care and trust",
+    sub: "Sacred Bond Resonance",
+    desc: "A private space for those who hold the heart from afar Connect with truth and tenderness",
+    agreementTitle: "Unity Through Presence",
+    agreementSub: "Enter the private sanctuary",
     items: [
-      { title: "Sacred Bond of Resonance", sub: "Shared only with your inner circle", icon: Lock },
-      { title: "Mutual Holding", sub: "Unity through shared resonance", icon: HeartHandshake }
+      { title: "Sacred Bond Resonance", sub: "Shared with the inner circle", icon: Lock },
+      { title: "Mutual Holding", sub: "Unity through shared truth", icon: HeartHandshake }
     ],
-    button: "Access My Bonds",
-    createTitle: "NAME YOUR BOND",
+    button: "Enter the sanctuary",
+    createTitle: "NAME THE BOND",
     inviteTitle: "INVITE BY EMAIL",
-    createBtn: "Create Bond",
+    createBtn: "Seal Bond",
     cancelBtn: "Cancel",
-    placeholder: "Message your holders",
-    resonanceStart: "Start a resonance with your holders",
+    placeholder: "Speak from the heart...",
+    resonanceStart: "Start a resonance with the holders",
     successTitle: "Bond Initialized",
-    successMsg: (name: string) => `Your bond of care "${name}" has been created Waiting for resonance`,
-    footer: "Bonds of Care",
-    encrypted: "Created in harmony",
+    successMsg: (name: string) => `The bond of care "${name}" has been created Waiting for resonance`,
+    footer: "Created in harmony",
     listening: "Listening..."
   },
   de: {
     title: "Die Holder",
-    sub: "Heiliges Band der Resonanz",
-    desc: "Diejenigen, die dein Herz aus der Ferne halten Dein Band aus Fürsorge und Vertrauen",
+    sub: "Heiliges Band Resonanz",
+    desc: "Ein privater Raum für diejenigen, die das Herz aus der Ferne halten Verbinde dich mit Wahrheit heute",
+    agreementTitle: "Einheit durch Präsenz",
+    agreementSub: "Das private Sanctuary betreten",
     items: [
-      { title: "Heiliges Band", sub: "Nur mit deinem inneren Kreis geteilt", icon: Lock },
-      { title: "Gegenseitiges Halten", sub: "Einheit durch Resonanz", icon: HeartHandshake }
+      { title: "Heiliges Band", sub: "Nur mit dem inneren Kreis", icon: Lock },
+      { title: "Gegenseitiges Halten", sub: "Einheit durch geteilte Wahrheit", icon: HeartHandshake }
     ],
-    button: "Bonds aufrufen",
-    createTitle: "BENENNE DEIN BAND",
+    button: "Sancutary jetzt betreten",
+    createTitle: "BENENNE DAS BAND",
     inviteTitle: "PER E-MAIL EINLADEN",
-    createBtn: "Band erstellen",
+    createBtn: "Band versiegeln",
     cancelBtn: "Abbrechen",
-    placeholder: "Nachricht an deine Holder",
-    resonanceStart: "Starte eine Resonanz mit deinen Holdern",
+    placeholder: "Vom Herzen sprechen heute...",
+    resonanceStart: "Starte eine Resonanz mit den Holdern",
     successTitle: "Band initialisiert",
-    successMsg: (name: string) => `Dein Band der Fürsorge "${name}" wurde erstellt Warte auf Resonanz`,
-    footer: "Bänder der Fürsorge heute",
-    encrypted: "In Harmonie erschaffen hier",
+    successMsg: (name: string) => `Das Band der Fürsorge "${name}" wurde erstellt Warte auf Resonanz`,
+    footer: "In Harmonie erschaffen heute hier",
     listening: "Höre zu..."
   }
 };
@@ -101,22 +101,18 @@ export function LoveCircleChat() {
       toast({ variant: "destructive", title: "Not Supported", description: "Your browser does not support voice dictation." });
       return;
     }
-
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = lang === 'de' ? 'de-DE' : 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
-
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => setIsListening(false);
     recognition.onerror = () => setIsListening(false);
-    
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setInput(prev => (prev + ' ' + transcript).trim());
     };
-
     recognition.start();
   };
 
@@ -143,7 +139,7 @@ export function LoveCircleChat() {
     setInput('');
     addDocumentNonBlocking(collection(firestore, 'users', user.uid, 'loveCircleMessages'), {
       senderId: user.uid,
-      senderName: user.displayName || 'Friend',
+      senderName: user.displayName || 'Soul',
       text: text,
       createdAt: serverTimestamp(),
     });
@@ -152,7 +148,6 @@ export function LoveCircleChat() {
   const handleCreateGroup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!groupName.trim() || !firestore || !user) return;
-
     try {
       const groupsRef = collection(firestore, 'chatGroups');
       await addDocumentNonBlocking(groupsRef, {
@@ -161,20 +156,12 @@ export function LoveCircleChat() {
         pendingInvites: inviteEmail ? [inviteEmail] : [],
         createdAt: serverTimestamp()
       });
-      
-      toast({
-        title: t.successTitle,
-        description: t.successMsg(groupName),
-      });
+      toast({ title: t.successTitle, description: t.successMsg(groupName) });
       setShowCreateGroup(false);
       setGroupName('');
       setInviteEmail('');
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Could not create group",
-      });
+      toast({ variant: "destructive", title: "Error", description: "Could not create bond" });
     }
   };
 
@@ -182,34 +169,34 @@ export function LoveCircleChat() {
     return (
       <div className="flex flex-col h-full bg-black font-headline overflow-hidden">
         <ScrollArea className="flex-1 touch-pan-y">
-          <div className="flex flex-col items-center justify-center min-h-[70vh] p-10 text-center space-y-12">
+          <div className="flex flex-col items-center justify-center min-h-[70vh] p-10 text-center space-y-16">
             <div className="relative">
-              <div className="absolute inset-0 bg-[#10B981]/20 blur-3xl rounded-full animate-pulse" />
-              <div className="w-32 h-32 bg-[#10B981]/10 rounded-full flex items-center justify-center border-2 border-[#10B981]/30 relative z-10 shadow-2xl">
-                <HeartHandshake size={48} className="text-[#10B981]" />
+              <div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-full scale-150" />
+              <div className="w-40 h-40 bg-primary/5 rounded-full flex items-center justify-center border-2 border-primary/20 relative z-10 shadow-2xl">
+                <HeartHandshake size={64} className="text-primary group-hover:scale-110 transition-transform duration-700" />
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex items-center justify-center gap-4">
                 <h2 className="text-5xl font-black uppercase tracking-tighter text-white leading-none">{t.title}</h2>
-                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-[#10B981] transition-all disabled:opacity-30">
-                  {isSpeaking ? <Loader2 className="w-5 h-5 animate-spin text-[#10B981]" /> : <Volume2 className="w-5 h-5 text-[#10B981]" />}
+                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+                  {isSpeaking ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Volume2 className="w-6 h-6 text-primary" />}
                 </button>
               </div>
-              <p className="text-lg font-bold text-white/60 leading-tight max-sm mx-auto uppercase tracking-widest">
+              <p className="text-xl font-bold text-white/40 leading-tight max-sm mx-auto uppercase tracking-widest italic">
                 {t.desc}
               </p>
             </div>
 
             <div className="space-y-4 w-full max-w-sm">
               {t.items.map((item, i) => (
-                <div key={i} className="flex items-center gap-6 p-6 bg-white/[0.02] border border-white/5 rounded-[2.5rem] text-left transition-all hover:border-[#10B981]/30 group">
-                  <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform">
-                    <item.icon className="w-6 h-6 text-[#10B981]" />
+                <div key={i} className="flex items-center gap-6 p-6 bg-white/[0.02] border border-white/10 rounded-[2.5rem] text-left transition-all hover:bg-white/[0.04] group">
+                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/40 transition-all">
+                    <item.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-black uppercase tracking-tight text-white">{item.title}</p>
+                    <p className="text-base font-black uppercase tracking-tight text-white">{item.title}</p>
                     <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{item.sub}</p>
                   </div>
                 </div>
@@ -217,8 +204,8 @@ export function LoveCircleChat() {
             </div>
 
             <button 
-              onClick={() => setHasAgreement(true)}
-              className="pill-button w-full max-w-sm bg-[#1b4d3e] text-white text-xl font-black uppercase tracking-widest active:scale-95 flex items-center justify-center gap-3 mb-10"
+              onClick={() => { playHeartbeat(); setHasAgreement(true); }}
+              className="w-full max-w-sm h-24 bg-[#1b4d3e] text-white text-xl font-black uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_50px_rgba(27,77,62,0.3)] border-2 border-primary/20 rounded-full flex items-center justify-center mb-10"
             >
               {t.button}
             </button>
@@ -230,21 +217,21 @@ export function LoveCircleChat() {
 
   return (
     <div className="flex flex-col h-full bg-black font-body overflow-hidden pb-safe">
-      <div className="px-8 py-8 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-[#10B981]/10 rounded-2xl flex items-center justify-center border border-[#10B981]/20 shadow-lg">
-            <HeartHandshake size={28} className="text-[#10B981]" />
+      <div className="px-8 py-10 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center border border-primary/20 shadow-lg">
+            <HeartHandshake size={32} className="text-primary" />
           </div>
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tight text-white leading-none">{t.title}</h2>
-            <p className="text-[10px] text-[#10B981] font-black uppercase tracking-[0.3em] mt-1">{t.sub}</p>
+            <p className="text-[10px] text-primary font-black uppercase tracking-[0.4em] mt-1.5">{t.sub}</p>
           </div>
         </div>
         <button 
           onClick={() => setShowCreateGroup(!showCreateGroup)}
-          className="p-4 bg-[#10B981] text-black rounded-2xl hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-emerald-500/10"
+          className="p-5 bg-primary/10 text-primary border border-primary/20 rounded-2xl hover:bg-primary/20 transition-all active:scale-95"
         >
-          <Users size={20} />
+          <Users size={24} />
         </button>
       </div>
 
@@ -255,7 +242,7 @@ export function LoveCircleChat() {
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               placeholder={t.createTitle}
-              className="w-full bg-black border border-white/10 p-5 rounded-2xl text-white font-black uppercase text-sm focus:border-[#10B981] outline-none transition-all"
+              className="w-full bg-black border-2 border-white/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
               required
             />
             <input 
@@ -263,30 +250,24 @@ export function LoveCircleChat() {
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder={t.inviteTitle}
               type="email"
-              className="w-full bg-black border border-white/10 p-5 rounded-2xl text-white font-black uppercase text-sm focus:border-[#10B981] outline-none transition-all"
+              className="w-full bg-black border-2 border-white/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
             />
-            <div className="flex gap-3 pt-2">
-              <button type="submit" className="flex-1 bg-[#10B981] text-black h-14 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg">{t.createBtn}</button>
-              <button type="button" onClick={() => setShowCreateGroup(false)} className="flex-1 bg-white/5 text-white/40 h-14 rounded-xl font-black uppercase text-[10px] tracking-widest">{t.cancelBtn}</button>
+            <div className="flex gap-4 pt-2">
+              <button type="submit" className="flex-1 bg-primary text-white h-16 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-lg shadow-primary/10 active:scale-95 transition-all">{t.createBtn}</button>
+              <button type="button" onClick={() => setShowCreateGroup(false)} className="flex-1 bg-white/5 text-white/40 h-16 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/5"> {t.cancelBtn} </button>
             </div>
           </form>
         </div>
       )}
 
-      <ScrollArea className="flex-1 px-8 py-8 touch-pan-y" ref={scrollRef}>
-        <div className="space-y-8 max-w-2xl mx-auto pb-10">
-          {isLoading && (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 text-[#10B981] animate-spin" />
-            </div>
-          )}
+      <ScrollArea className="flex-1 px-8 py-10 touch-pan-y" ref={scrollRef}>
+        <div className="space-y-10 max-w-2xl mx-auto pb-10">
+          {isLoading && <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-primary animate-spin" /></div>}
           
           {messages?.length === 0 && !isLoading && (
-            <div className="text-center py-24 opacity-20 space-y-6">
-              <div className="relative inline-block">
-                <HeartHandshake className="w-16 h-16 mx-auto text-[#10B981]" />
-              </div>
-              <p className="text-sm uppercase font-black tracking-[0.4em] leading-relaxed text-white max-w-[200px] mx-auto">
+            <div className="text-center py-24 opacity-20 space-y-8 animate-pulse">
+              <HeartHandshake className="w-20 h-20 mx-auto text-primary" />
+              <p className="text-sm uppercase font-black tracking-[0.5em] leading-relaxed text-white max-w-[250px] mx-auto">
                 {t.resonanceStart}
               </p>
             </div>
@@ -295,15 +276,15 @@ export function LoveCircleChat() {
           {messages?.map((msg) => {
             const isMe = msg.senderId === user?.uid;
             return (
-              <div key={msg.id} className={cn("flex flex-col gap-3 animate-in slide-in-from-bottom-2 duration-500", isMe ? "items-end" : "items-start")}>
-                <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em] px-3">
-                  {isMe ? 'YOU' : msg.senderName}
+              <div key={msg.id} className={cn("flex flex-col gap-3 animate-in slide-in-from-bottom-4 duration-700", isMe ? "items-end" : "items-start")}>
+                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em] px-4">
+                  {isMe ? 'YOU' : msg.senderName.toUpperCase()}
                 </span>
                 <div className={cn(
-                  "p-6 rounded-[2.5rem] text-sm font-bold leading-relaxed max-w-[85%] shadow-2xl border transition-all",
+                  "p-8 rounded-[3.5rem] text-base font-bold leading-relaxed max-w-[85%] shadow-2xl border transition-all duration-500",
                   isMe 
-                    ? "bg-[#10B981] text-black border-[#10B981] rounded-tr-none" 
-                    : "bg-white/[0.03] text-white/90 border-white/5 rounded-tl-none shadow-inner"
+                    ? "bg-primary text-white border-primary/40 rounded-tr-none" 
+                    : "bg-white/[0.03] text-white/90 border-white/10 rounded-tl-none shadow-inner"
                 )}>
                   {msg.text}
                 </div>
@@ -313,41 +294,41 @@ export function LoveCircleChat() {
         </div>
       </ScrollArea>
 
-      <div className="px-6 py-10 bg-black border-t border-white/5 shrink-0">
-        <div className="relative flex items-center max-w-2xl mx-auto gap-4">
+      <div className="px-8 py-12 bg-black border-t border-white/5 shrink-0">
+        <div className="relative flex items-center max-w-2xl mx-auto gap-5">
           <div className="relative flex-1">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder={isListening ? t.listening : t.placeholder}
-              className="w-full bg-white/[0.02] border border-white/10 rounded-full py-6 px-10 pr-16 text-base font-bold focus:border-[#10B981] transition-all outline-none text-white shadow-inner"
+              className="w-full bg-white/[0.03] border-2 border-white/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none text-white shadow-inner"
             />
             <button 
               onClick={startDictation}
               className={cn(
-                "absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full transition-all",
-                isListening ? "bg-[#10B981] text-black animate-pulse" : "text-white/20 hover:text-[#10B981]"
+                "absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all duration-500",
+                isListening ? "bg-primary text-white animate-pulse shadow-[0_0_20px_rgba(27,77,62,0.4)]" : "text-white/20 hover:text-primary"
               )}
             >
-              {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+              {isListening ? <MicOff size={28} /> : <Mic size={28} />}
             </button>
           </div>
           <button
             onClick={handleSend}
             disabled={!input.trim()}
-            className="p-6 bg-[#10B981] text-black rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#10B981]/20"
+            className="p-7 bg-[#1b4d3e] text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30"
           >
-            <Send className="w-6 h-6" />
+            <Send className="w-8 h-8" />
           </button>
         </div>
-        <div className="mt-6 flex flex-col items-center gap-2">
-          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <p className="text-[11px] font-black uppercase tracking-[0.6em] shining-white">
             {t.footer}
           </p>
-          <div className="flex items-center gap-2 opacity-20">
-            <Lock size={8} className="text-[#10B981]" />
-            <span className="text-[7px] font-black uppercase tracking-widest">{t.encrypted}</span>
+          <div className="flex items-center gap-2 opacity-30">
+            <Lock size={10} className="text-primary" />
+            <span className="text-[8px] font-black uppercase tracking-widest">Resonance Protected</span>
           </div>
         </div>
       </div>

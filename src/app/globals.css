@@ -51,6 +51,14 @@
   padding-top: env(safe-area-inset-top);
 }
 
+/* Golden Ratio Spacing Helpers */
+.golden-ratio-main {
+  width: 61.8%;
+}
+.golden-ratio-side {
+  width: 38.2%;
+}
+
 @keyframes aura-pulse-outer {
   0%, 100% { opacity: 0.2; transform: scale(1); filter: blur(80px); }
   50% { opacity: 0.6; transform: scale(1.3); filter: blur(100px); }

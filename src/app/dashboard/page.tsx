@@ -23,7 +23,6 @@ import {
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
-import { SOSAlert } from '@/components/dashboard/SOSAlert';
 import { RadiatingThirdEye } from '@/components/ui/radiating-third-eye';
 import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
@@ -160,6 +159,7 @@ function DashboardContent() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col h-screen overflow-hidden font-headline">
+      {/* Header Calibration */}
       <div className="px-6 py-6 bg-black/40 backdrop-blur-xl border-b border-white/5 z-50 shrink-0 pt-safe">
         <header className="flex justify-between items-center max-w-4xl mx-auto w-full gap-4">
           <div className="flex-1 min-w-0">
@@ -171,7 +171,7 @@ function DashboardContent() {
           <div className="flex items-center gap-3">
             <button 
               onClick={() => { playHeartbeat(); setAnchorOpen(true); }}
-              className="px-4 py-2 bg-[#1b4d3e] border border-primary/30 rounded-full flex items-center gap-3 active:scale-95 transition-all group shadow-lg"
+              className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-full flex items-center gap-3 active:scale-95 transition-all group shadow-lg"
             >
               <MapPin size={14} className="text-primary group-hover:animate-bounce" />
               <div className="text-left hidden sm:block">
@@ -185,148 +185,170 @@ function DashboardContent() {
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="max-w-4xl mx-auto px-6 py-8 space-y-12 pb-40 touch-pan-y">
+        {/* Golden Ratio Container: max-w-4xl balanced for desktop and mobile focus */}
+        <div className="max-w-4xl mx-auto px-6 py-12 space-y-16 pb-40 touch-pan-y">
           
-          <div className="space-y-3">
+          {/* Status Pillar */}
+          <div className="space-y-4 max-w-2xl mx-auto">
             <GuardianStatusBar status={guardianStatus} heartRate={simHeartRate} lang={lang} />
             <PulseGuardianBanner lang={lang} variant="banner" onOpenGuide={() => setGuideOpen(true)} />
           </div>
 
-          <SmartAlerts userGoals={firestoreProfile?.goals || []} lang={lang} />
+          <div className="max-w-2xl mx-auto">
+            <SmartAlerts userGoals={firestoreProfile?.goals || []} lang={lang} />
+          </div>
 
+          {/* Emergency Presence Portal */}
           {(guardianStatus === 'caution' || guardianStatus === 'locked') && (
-            <div className="flex justify-center animate-in zoom-in duration-500">
+            <div className="flex justify-center animate-in zoom-in duration-500 py-4">
                <button 
                  onClick={() => { playHeartbeat(); setEmergencyPresenceOpen(true); }}
-                 className="w-40 h-40 rounded-full bg-red-600 flex flex-col items-center justify-center gap-2 shadow-[0_0_50px_rgba(220,38,38,0.4)] active:scale-95 transition-all border-4 border-white animate-pulse"
+                 className="w-48 h-48 rounded-full bg-red-600 flex flex-col items-center justify-center gap-2 shadow-[0_0_80px_rgba(220,38,38,0.5)] active:scale-95 transition-all border-4 border-white animate-pulse"
                >
                  <span className="text-2xl font-black uppercase tracking-[0.2em] text-white">{t.presence}</span>
                </button>
             </div>
           )}
 
-          <div className="space-y-4 text-center relative flex flex-col items-center">
-            <Link href="/heart-status">
-              <HeartStatusAura heartRate={simHeartRate} activeSubstances={activeSubstances} lang={lang} />
-            </Link>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary px-10 italic">"{affirmation}"</p>
+          {/* Central Focal Point: The Biological Heart Aura (Golden Proportion) */}
+          <div className="space-y-6 text-center relative flex flex-col items-center">
+            <div className="relative">
+               <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full scale-150 -z-10" />
+               <Link href="/heart-status">
+                 <HeartStatusAura heartRate={simHeartRate} activeSubstances={activeSubstances} lang={lang} />
+               </Link>
+            </div>
+            <p className="text-sm font-bold uppercase tracking-widest text-primary px-10 italic max-w-sm mx-auto opacity-80">"{affirmation}"</p>
           </div>
 
-          <div className="flex flex-col items-center gap-12">
+          {/* Main Action Portals: Grouped for Balance */}
+          <div className="flex flex-col items-center gap-16">
             
-            <div className="flex flex-col items-center gap-4">
+            {/* The Supporter Handover (Primary Choice) */}
+            <div className="flex flex-col items-center gap-6">
               <button 
                 onClick={() => { playHeartbeat(); setSupporterOpen(true); }}
-                className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-emerald-500/5 border-4 border-primary flex flex-col items-center justify-center group hover:bg-emerald-500/10 transition-all shadow-[0_0_50px_rgba(16,185,129,0.1)] relative"
+                className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-emerald-500/5 border-4 border-primary flex flex-col items-center justify-center group hover:bg-emerald-500/10 transition-all shadow-[0_0_60px_rgba(16,185,129,0.15)] relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all" />
-                <SupporterIcon size={64} className="text-emerald-500 mb-2 relative z-10" />
-                <span className="text-lg font-black uppercase tracking-tight text-white relative z-10">{t.supporterMain}</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-40" />
+                <SupporterIcon size={80} className="text-emerald-500 mb-4 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                <span className="text-xl font-black uppercase tracking-widest text-white relative z-10">{t.supporterMain}</span>
               </button>
             </div>
 
+            {/* Love Chat Portal (Social Balance) */}
             <div className="flex flex-col items-center gap-6 w-full">
               {!showLoveChatOptions ? (
                 <button 
                   onClick={() => { playHeartbeat(); setShowLoveChatOptions(true); }}
-                  className="w-40 h-40 rounded-full bg-[#1b4d3e] border-4 border-[#10B981] flex flex-col items-center justify-center group hover:bg-[#1b4d3e]/90 transition-all shadow-[0_0_50px_rgba(16,185,129,0.4)]"
+                  className="w-44 h-44 rounded-full bg-primary/20 border-4 border-primary/40 flex flex-col items-center justify-center group hover:bg-primary/30 transition-all shadow-[0_0_50px_rgba(16,185,129,0.2)]"
                 >
-                  <MessageCircleHeart size={48} className="text-[#10B981] mb-2" />
-                  <span className="text-xs font-black uppercase tracking-widest text-[#10B981]">{t.loveChat}</span>
+                  <MessageCircleHeart size={48} className="text-primary mb-2 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs font-black uppercase tracking-widest text-primary">{t.loveChat}</span>
                 </button>
               ) : (
                 <div className="flex gap-8 animate-in zoom-in-95 duration-500">
                   <button 
                     onClick={() => router.push('/heart-status?chat=holders')}
-                    className="w-32 h-32 rounded-full bg-white/[0.03] border-4 border-[#10B981] flex flex-col items-center justify-center group hover:bg-[#10B981]/10 transition-all shadow-xl"
+                    className="w-36 h-36 rounded-full bg-white/[0.03] border-4 border-[#10B981] flex flex-col items-center justify-center group hover:bg-[#10B981]/10 transition-all shadow-xl"
                   >
-                    <Users2 size={32} className="text-[#10B981] mb-1" />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981]">{t.holders}</span>
+                    <Users2 size={36} className="text-[#10B981] mb-2" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981]">{t.holders}</span>
                   </button>
                   <button 
                     onClick={() => router.push('/heart-status?chat=spectators')}
-                    className="w-32 h-32 rounded-full bg-white/[0.03] border-4 border-yellow-400 flex flex-col items-center justify-center group hover:bg-yellow-500/10 transition-all shadow-xl"
+                    className="w-36 h-36 rounded-full bg-white/[0.03] border-4 border-yellow-400 flex flex-col items-center justify-center group hover:bg-yellow-500/10 transition-all shadow-xl"
                   >
-                    <Users2 size={32} className="text-yellow-500 mb-1" />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-yellow-500">{t.spectators}</span>
+                    <Users2 size={36} className="text-yellow-500 mb-2" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-yellow-500">{t.spectators}</span>
                   </button>
-                  <button onClick={() => setShowLoveChatOptions(false)} className="self-center p-3 bg-white/5 rounded-full border border-white/10 text-white/20"><ArrowLeft size={16} /></button>
+                  <button onClick={() => setShowLoveChatOptions(false)} className="self-center p-4 bg-white/5 rounded-full border border-white/10 text-white/20 hover:text-white transition-colors"><ArrowLeft size={20} /></button>
                 </div>
               )}
             </div>
 
-            {/* Sovereign Toolkit Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full max-w-sm sm:max-w-xl px-4">
-              <Link href="/map" className="w-full aspect-square rounded-full bg-white/5 border-4 border-blue-500 flex flex-col items-center justify-center gap-1 hover:border-blue-500/60 transition-all group shadow-lg">
-                <RadiatingThirdEye size={24} color="#3b82f6" />
-                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-blue-400">Radar</span>
+            {/* Sovereign Toolkit Grid (Technical Balance) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 w-full max-w-sm sm:max-w-2xl px-4">
+              <Link href="/map" className="w-full aspect-square rounded-full bg-white/5 border-4 border-blue-500/30 flex flex-col items-center justify-center gap-2 hover:border-blue-500 transition-all group shadow-lg">
+                <RadiatingThirdEye size={32} color="#3b82f6" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-blue-400">Radar</span>
               </Link>
-              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-primary flex flex-col items-center justify-center gap-1 hover:border-primary/60 transition-all group shadow-lg">
-                <Microscope size={24} className="text-primary" />
-                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-primary">Lab</span>
+              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-primary/30 flex flex-col items-center justify-center gap-2 hover:border-primary transition-all group shadow-lg">
+                <Microscope size={32} className="text-primary" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-primary">Lab</span>
               </button>
-              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-accent flex flex-col items-center justify-center gap-1 hover:border-accent/60 transition-all group shadow-lg">
-                <Watch size={24} className="text-accent" />
-                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-accent">Sync</span>
+              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-accent/30 flex flex-col items-center justify-center gap-2 hover:border-accent transition-all group shadow-lg">
+                <Watch size={32} className="text-accent" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-accent">Sync</span>
               </button>
-              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-white/5 border-4 border-[#10B981]/40 flex flex-col items-center justify-center gap-1 hover:border-[#10B981] transition-all group shadow-lg">
-                <Sprout size={24} className="text-[#10B981]" />
-                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-[#10B981]">Voice</span>
+              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-white/5 border-4 border-[#10B981]/20 flex flex-col items-center justify-center gap-2 hover:border-[#10B981] transition-all group shadow-lg">
+                <Sprout size={32} className="text-[#10B981]" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-[#10B981]">Voice</span>
               </button>
             </div>
           </div>
 
-          <div className="pt-12">
+          {/* Settings / Lab Calibration */}
+          <div className="pt-20 border-t border-white/5 max-w-2xl mx-auto">
             <Collapsible open={isSimulatorOpen} onOpenChange={setIsSimulatorOpen}>
               <CollapsibleTrigger asChild>
-                <button onClick={() => playHeartbeat()} className="w-full flex items-center justify-center gap-2 py-4 text-[9px] font-black uppercase text-white/20 hover:text-white transition-all">
-                  <Settings2 size={12} /> LAB CALIBRATION <ChevronDown className={cn("transition-transform", isSimulatorOpen && "rotate-180")} size={12} />
+                <button onClick={() => playHeartbeat()} className="w-full flex items-center justify-center gap-3 py-6 text-[10px] font-black uppercase text-white/20 hover:text-white transition-all tracking-[0.4em]">
+                  <Settings2 size={14} /> LAB CALIBRATION <ChevronDown className={cn("transition-transform duration-500", isSimulatorOpen && "rotate-180")} size={14} />
                 </button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="pt-4"><GuardianSimulator heartRate={simHeartRate} setHeartRate={setSimHeartRate} substanceCount={activeSubstances.length} setSubstanceCount={(count) => setActiveSubstances(Array(count).fill('Substance'))} lang={lang} /></CollapsibleContent>
+              <CollapsibleContent className="pt-8">
+                <GuardianSimulator 
+                  heartRate={simHeartRate} 
+                  setHeartRate={setSimHeartRate} 
+                  substanceCount={activeSubstances.length} 
+                  setSubstanceCount={(count) => setActiveSubstances(Array(count).fill('Substance'))} 
+                  lang={lang} 
+                />
+              </CollapsibleContent>
             </Collapsible>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-white/5 text-center">
-            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{t.footer}</p>
+          <div className="mt-20 pt-10 border-t border-white/5 text-center">
+            <p className="text-[11px] font-black uppercase tracking-[0.6em] shining-white">{t.footer}</p>
           </div>
         </div>
       </ScrollArea>
 
       <SanctuaryGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
 
+      {/* Simplified, Scrollable Anchor Dialog */}
       <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] font-headline shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh]">
-          <div className="p-8 shrink-0">
-            <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.anchor}</DialogTitle>
+        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3.5rem] font-headline shadow-2xl overflow-hidden flex flex-col h-[80vh] max-h-[80vh]">
+          <div className="p-10 shrink-0">
+            <DialogTitle className="text-3xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.anchor}</DialogTitle>
             <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em] text-center mb-8">{t.anchorSub}</p>
           </div>
           
-          <ScrollArea className="flex-1 px-8">
-            <div className="space-y-3 pb-8">
+          <ScrollArea className="flex-1 px-10">
+            <div className="space-y-4 pb-12">
               {LOCATIONS.map((loc) => (
                 <button
                   key={loc.id}
                   onClick={() => { playHeartbeat(); setSelectedAnchor(loc); setAnchorOpen(false); }}
                   className={cn(
-                    "w-full p-6 rounded-[2rem] border-2 flex items-center justify-between group transition-all",
-                    selectedAnchor.id === loc.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/5 border-white/10 hover:border-white/20"
+                    "w-full p-8 rounded-[2.5rem] border-2 flex items-center justify-between group transition-all duration-300",
+                    selectedAnchor.id === loc.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/[0.03] border-white/5 hover:border-white/20"
                   )}
                 >
                   <div className="text-left">
-                    <p className="text-sm font-black uppercase text-white">{loc.name}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{loc.vibe}</p>
+                    <p className="text-lg font-black uppercase text-white tracking-tight">{loc.name}</p>
+                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">{loc.vibe}</p>
                   </div>
-                  <ChevronRight size={16} className={cn("transition-all", selectedAnchor.id === loc.id ? "text-primary translate-x-1" : "text-white/10")} />
+                  <ChevronRight size={20} className={cn("transition-all duration-500", selectedAnchor.id === loc.id ? "text-primary translate-x-2" : "text-white/10")} />
                 </button>
               ))}
             </div>
           </ScrollArea>
 
-          <div className="p-8 pt-4 shrink-0 bg-black/80 backdrop-blur-md border-t border-white/5">
+          <div className="p-10 pt-6 shrink-0 bg-black/80 backdrop-blur-md border-t border-white/5">
             <button 
               onClick={() => setAnchorOpen(false)}
-              className="w-full py-4 bg-white/5 border border-white/10 text-white/40 rounded-2xl font-black uppercase text-[10px] tracking-widest"
+              className="w-full py-6 bg-white/5 border border-white/10 text-white/40 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-white/10 transition-colors"
             >
               {t.anchorBtn}
             </button>
@@ -335,28 +357,28 @@ function DashboardContent() {
       </Dialog>
 
       <Dialog open={labOpen} onOpenChange={setLabOpen}>
-        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[2rem] overflow-hidden flex flex-col h-[95dvh] max-h-[95dvh] sm:h-[90dvh] top-[50%] -translate-y-[50%]">
+        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[2.5rem] overflow-hidden flex flex-col h-[95dvh] max-h-[95dvh] top-[50%] -translate-y-[50%] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Sovereign Lab</DialogTitle>
           <SovereignLab userData={{ ...firestoreProfile, sessionStatus: { isLocked, lastHeartRate: simHeartRate } }} onComplete={(logs) => { setActiveSubstances(logs.map(l => l.name)); setLabOpen(false); }} showDiary={true} isLocked={isLocked} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={supporterOpen} onOpenChange={setSupporterOpen}>
-        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
+        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3.5rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Supporter Portal</DialogTitle>
           <SupporterPortal userProfile={firestoreProfile} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={syncOpen} onOpenChange={setSyncOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-[0_0_80px_rgba(0,0,0,0.9)]">
+        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
           <div className="flex-1 overflow-y-auto"><WearablesSync onComplete={() => setSyncOpen(false)} /></div>
         </DialogContent>
       </Dialog>
 
       <Dialog open={coCreationOpen} onOpenChange={setCoCreationOpen}>
-        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden h-[85dvh]">
+        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2.5rem] overflow-hidden h-[85dvh] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Co-Creation</DialogTitle>
           <CoCreation onComplete={() => setCoCreationOpen(false)} />
         </DialogContent>
