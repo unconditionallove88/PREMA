@@ -25,8 +25,8 @@ const OPTIONS = [
   { 
     id: 'love', 
     icon: Heart, 
-    label: "Feel unconditional love", 
-    de: "Bedingungslose Liebe heute fühlen", 
+    label: "Feel love", 
+    de: "Liebe heute fühlen", 
     color: "text-rose-400", 
     bg: "bg-rose-500/5",
     border: "border-rose-500/20"

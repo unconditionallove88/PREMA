@@ -26,6 +26,7 @@ import { playHeartbeat } from '@/lib/resonance';
  * @fileOverview Sanctuary Guide Component (Sovereign Intelligence Handover).
  * Redesigned with Golden Ratio harmony for Zero-Scroll presence on all devices.
  * Purified language: No possessives or words of lack.
+ * Fixed: Text fitting for Desktop, iPhone, and Android.
  */
 
 const STEPS = [
@@ -159,7 +160,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
         </button>
       ) : (
         <div className="fixed inset-0 z-[8000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden touch-none h-[100dvh]">
-          {/* Proportional Header (Golden Ratio focus) */}
+          {/* Proportional Header */}
           <header className="px-8 pt-8 pb-4 flex items-center justify-between shrink-0 relative z-10">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -181,40 +182,40 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
           </header>
 
           {/* Main Proportional Content Area */}
-          <main className="flex-1 relative z-10 px-8 flex flex-col justify-center items-center overflow-hidden">
-            <div className="max-w-xl w-full flex flex-col items-center gap-8 animate-in slide-in-from-bottom-4 duration-700 h-full justify-between py-6">
+          <main className="flex-1 relative z-10 px-6 flex flex-col justify-center items-center overflow-hidden min-h-0">
+            <div className="max-w-xl w-full flex flex-col items-center gap-4 md:gap-8 animate-in slide-in-from-bottom-4 duration-700 h-full justify-between py-4 md:py-6">
               
               {/* Focal Identity */}
-              <div className="text-center space-y-4 shrink-0">
-                <div className={cn("w-24 h-24 rounded-[2.5rem] flex items-center justify-center border-2 border-white/10 mx-auto shadow-2xl transition-all duration-700", step.bg)}>
-                  <Icon size={48} className={cn("animate-pulse", step.color)} />
+              <div className="text-center space-y-2 md:space-y-4 shrink-0">
+                <div className={cn("w-16 h-16 md:w-24 md:h-24 rounded-[1.5rem] md:rounded-[2.5rem] flex items-center justify-center border-2 border-white/10 mx-auto shadow-2xl transition-all duration-700", step.bg)}>
+                  <Icon size={32} className={cn("animate-pulse md:w-12 md:h-12", step.color)} />
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none">
+                <div className="space-y-0.5 md:space-y-1">
+                  <h3 className="text-2xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none">
                     {lang === 'en' ? step.title.en : step.title.de}
                   </h3>
-                  <p className="text-primary text-[11px] font-black uppercase tracking-[0.4em]">
+                  <p className="text-primary text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em]">
                     {lang === 'en' ? step.desc.en : step.desc.de}
                   </p>
                 </div>
               </div>
 
-              {/* Proportional Wisdom Card (Zero Scroll) */}
-              <div className="flex-1 w-full flex flex-col justify-center items-center min-h-0">
-                <div className="w-full bg-white/[0.03] border-2 border-white/5 rounded-[3rem] p-8 md:p-12 relative overflow-hidden shadow-2xl flex flex-col justify-center max-h-full">
+              {/* Proportional Wisdom Card - Fixed for Universal Screen Fitting */}
+              <div className="flex-1 w-full flex flex-col justify-center items-center min-h-0 overflow-hidden">
+                <div className="w-full bg-white/[0.03] border-2 border-white/5 rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 relative overflow-hidden shadow-2xl flex flex-col justify-center max-h-full">
                   <div className="absolute top-0 right-0 p-8 opacity-5">
                     <Icon size={160} className="text-white" />
                   </div>
                   
-                  <div className="relative z-10 space-y-6">
+                  <div className="relative z-10 space-y-4 md:space-y-6 overflow-y-auto no-scrollbar">
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
-                      <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">
+                      <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
+                      <span className="text-[8px] md:text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">
                         {lang === 'en' ? "Guidance Protocol" : "Anleitung heute hier"}
                       </span>
                     </div>
                     
-                    <p className="text-xl md:text-2xl font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+                    <p className="text-xs sm:text-lg md:text-2xl font-bold text-white/80 leading-relaxed uppercase tracking-widest">
                       {lang === 'en' ? step.detail.en : step.detail.de}
                     </p>
                   </div>
@@ -222,12 +223,12 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
               </div>
 
               {/* Grounding Protocol (Fixed at bottom of main) */}
-              <div className="w-full p-6 bg-primary/5 border-2 border-primary/20 rounded-[2.5rem] space-y-2 max-w-sm shrink-0">
-                <div className="flex items-center justify-center gap-3">
-                  <Shield size={16} className="text-primary" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Guardian Intelligence</span>
+              <div className="w-full p-4 md:p-6 bg-primary/5 border-2 border-primary/20 rounded-[1.5rem] md:rounded-[2.5rem] space-y-1 md:space-y-2 max-w-sm shrink-0">
+                <div className="flex items-center justify-center gap-2 md:gap-3">
+                  <Shield size={12} className="text-primary md:w-4 md:h-4" />
+                  <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Guardian Intelligence</span>
                 </div>
-                <p className="text-[11px] font-bold text-white/60 leading-relaxed uppercase tracking-widest text-center italic px-2">
+                <p className="text-[9px] md:text-[11px] font-bold text-white/60 leading-relaxed uppercase tracking-widest text-center italic px-2">
                   {lang === 'en' 
                     ? "Every tool is an act of self-respect. Calibrate awareness through truth." 
                     : "Jedes Tool ist ein Akt des Respekts. Calibrierung durch Wahrheit heute."
@@ -238,52 +239,52 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
           </main>
 
           {/* Persistent Proportional Footer */}
-          <footer className="shrink-0 p-10 bg-black/90 backdrop-blur-xl border-t border-white/5 relative z-10 pb-safe">
-            <div className="max-w-xl mx-auto flex flex-col gap-8">
+          <footer className="shrink-0 p-6 md:p-10 bg-black/90 backdrop-blur-xl border-t border-white/5 relative z-10 pb-safe">
+            <div className="max-w-xl mx-auto flex flex-col gap-4 md:gap-8">
               <div className="flex items-center justify-between">
                 {/* Progress Indicators */}
-                <div className="flex gap-2.5">
+                <div className="flex gap-2">
                   {STEPS.map((_, i) => (
                     <div 
                       key={i} 
                       className={cn(
-                        "h-2 rounded-full transition-all duration-500", 
-                        i === currentStep ? "w-10 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "w-2 bg-white/10"
+                        "h-1 md:h-2 rounded-full transition-all duration-500", 
+                        i === currentStep ? "w-6 md:w-10 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "w-1.5 md:w-2 bg-white/10"
                       )} 
                     />
                   ))}
                 </div>
                 
                 {/* Navigation Controls */}
-                <div className="flex gap-4">
+                <div className="flex gap-3 md:gap-4">
                   {currentStep > 0 && (
                     <button 
                       onClick={() => { playHeartbeat(); setCurrentStep(prev => prev - 1); }} 
-                      className="p-5 bg-white/5 rounded-2xl border border-white/10 text-white/40 active:scale-95 transition-all hover:text-white"
+                      className="p-4 md:p-5 bg-white/5 rounded-xl md:rounded-2xl border border-white/10 text-white/40 active:scale-95 transition-all hover:text-white"
                     >
-                      <ChevronLeft size={28} />
+                      <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
                     </button>
                   )}
                   {currentStep < STEPS.length - 1 ? (
                     <button 
                       onClick={() => { playHeartbeat(); setCurrentStep(prev => prev + 1); }} 
-                      className="px-12 py-6 bg-primary text-white rounded-2xl font-black uppercase text-sm tracking-widest flex items-center gap-4 shadow-xl active:scale-95 transition-all border-2 border-primary/20"
+                      className="px-8 md:px-12 py-4 md:py-6 bg-primary text-white rounded-xl md:rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest flex items-center gap-3 md:gap-4 shadow-xl active:scale-95 transition-all border-2 border-primary/20"
                     >
-                      {lang === 'en' ? 'Next' : 'Weiter'} <ChevronRight size={24} />
+                      {lang === 'en' ? 'Next' : 'Weiter'} <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                   ) : (
                     <button 
                       onClick={handleDismiss} 
-                      className="px-12 py-6 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-sm tracking-widest flex items-center gap-4 shadow-xl active:scale-95 transition-all border-2 border-primary/20"
+                      className="px-8 md:px-12 py-4 md:py-6 bg-[#1b4d3e] text-white rounded-xl md:rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest flex items-center gap-3 md:gap-4 shadow-xl active:scale-95 transition-all border-2 border-primary/20"
                     >
-                      {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 size={24} />
+                      {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                   )}
                 </div>
               </div>
               
               {/* Shining White Resonance */}
-              <p className="text-center text-[11px] font-black uppercase tracking-[0.6em] shining-white opacity-80">
+              <p className="text-center text-[9px] md:text-[11px] font-black uppercase tracking-[0.6em] shining-white opacity-80">
                 {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
               </p>
             </div>
