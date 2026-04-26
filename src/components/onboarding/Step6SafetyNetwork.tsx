@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -120,7 +119,7 @@ export function Step6SafetyNetwork({
             />
           </div>
           <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
-            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes.
+            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes. The team can contact you directly via the app.
           </p>
         </div>
 
