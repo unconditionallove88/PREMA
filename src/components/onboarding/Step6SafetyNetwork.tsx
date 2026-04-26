@@ -86,7 +86,7 @@ export function Step6SafetyNetwork({
       {onBack && (
         <button 
           onClick={onBack}
-          className="absolute top-0 left-4 text-white/40 hover:text-white transition-colors flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"
+          className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"
         >
           <ArrowLeft className="w-4 h-4" /> BACK
         </button>
@@ -119,7 +119,7 @@ export function Step6SafetyNetwork({
             />
           </div>
           <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
-            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes. The team can contact you directly via the app.
+            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes. The team can contact you directly via the app to check on your presence.
           </p>
         </div>
 
