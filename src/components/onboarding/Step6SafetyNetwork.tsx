@@ -4,8 +4,37 @@
 import { useState, useRef, useEffect } from 'react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { QrCode, Heart, Scan, MapPin, Navigation, ArrowLeft } from 'lucide-react';
+import { QrCode, Heart, Scan, MapPin, Navigation, ArrowLeft, ShieldAlert, Radio } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+/**
+ * @fileOverview Safety Network step.
+ * Redesigned to include Sovereign Dispatch permission.
+ * Languages: EN, DE.
+ */
+
+const CONTENT = {
+  en: {
+    header: "Safety Network", sub: "Connect with friends and awareness teams",
+    shareLocation: "Share location with awareness", shareLocationSub: "Allow on-site teams to find you in an emergency",
+    proactive: "Sovereign Dispatch", proactiveSub: "Allow automatic dispatch of awareness team if I am in biological danger",
+    revokeInfo: "Access can be revoked at any point You control your data sovereignty",
+    radar: "Friend Radar", radarSub: "Sync with the circle to see each other on the map",
+    myCode: "My code", scan: "Scan",
+    cameraError: "Camera access denied Please enable camera permissions in settings",
+    gpsActive: "GPS active", confirm: "Confirm network"
+  },
+  de: {
+    header: "Safety Network", sub: "Verbindung mit Freunden und Awareness-Teams",
+    shareLocation: "Standort mit Awareness teilen", shareLocationSub: "Erlaube dem Team dich im Notfall zu finden heute",
+    proactive: "Souveräner Einsatz heute", proactiveSub: "Erlaube automatische Hilfe wenn ich in biologischer Gefahr bin",
+    revokeInfo: "Der Zugriff kann jederzeit widerrufen werden heute Du kontrollierst deine Daten heute hier",
+    radar: "Freunde Radar heute", radarSub: "Synchronisiere mit dem Kreis um euch zu sehen",
+    myCode: "Mein Code", scan: "Scannen",
+    cameraError: "Kamera Zugriff verweigert Bitte erlaube den Zugriff in den Einstellungen",
+    gpsActive: "GPS aktiv heute", confirm: "Netzwerk jetzt bestätigen"
+  }
+};
 
 export function Step6SafetyNetwork({ 
   onComplete,
@@ -16,13 +45,18 @@ export function Step6SafetyNetwork({
 }) {
   const { toast } = useToast();
   const [shareLocation, setShareLocation] = useState(false);
+  const [proactiveCare, setProactiveCare] = useState(false);
   const [friendRadar, setFriendRadar] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [showMyCode, setShowMyCode] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [lang, setLang] = useState<'en' | 'de'>('en');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    if (['en', 'de'].includes(savedLang)) setLang(savedLang);
+
     if (scanning) {
       const getCameraPermission = async () => {
         try {
@@ -32,14 +66,9 @@ export function Step6SafetyNetwork({
             videoRef.current.srcObject = stream;
           }
         } catch (error) {
-          console.error('Error accessing camera:', error);
           setHasCameraPermission(false);
           setScanning(false);
-          toast({
-            variant: 'destructive',
-            title: 'Camera access denied',
-            description: 'Please enable camera permissions in your browser settings to use this app.',
-          });
+          toast({ variant: 'destructive', title: 'Camera access denied', description: CONTENT[lang].cameraError });
         }
       };
       getCameraPermission();
@@ -49,34 +78,57 @@ export function Step6SafetyNetwork({
         stream.getTracks().forEach(track => track.stop());
       }
     }
-  }, [scanning, toast]);
+  }, [scanning, toast, lang]);
+
+  const t = CONTENT[lang] || CONTENT.en;
 
   return (
-    <div className="w-full min-h-[85vh] flex flex-col items-center justify-center font-headline max-w-2xl px-4 mx-auto text-center relative">
+    <div className="w-full min-h-[85vh] flex flex-col items-center justify-center font-headline max-w-2xl px-4 mx-auto text-center relative pt-safe">
       {onBack && (
         <button 
           onClick={onBack}
           className="absolute top-0 left-4 text-white/40 hover:text-white transition-colors flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"
         >
-          <ArrowLeft className="w-4 h-4" /> Back
+          <ArrowLeft className="w-4 h-4" /> BACK
         </button>
       )}
 
-      <div className="mt-12 mb-8">
+      <div className="mt-12 mb-8 shrink-0">
         <h2 className="text-[22px] font-black uppercase mb-2 text-white leading-tight tracking-tighter">
-          Safety network
+          {t.header}
         </h2>
         <p className="text-white/40 font-bold tracking-widest text-[10px] max-w-[280px] mx-auto uppercase">
-          Connect with friends and awareness teams
+          {t.sub}
         </p>
       </div>
 
-      <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2">
+      <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2 pb-10">
+        {/* Proactive Dispatch Option */}
+        <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-[#A855F7]/30 p-6 flex flex-col gap-4 group hover:border-[#A855F7] transition-all text-left shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-1 pr-4">
+              <div className="flex items-center gap-2">
+                <ShieldAlert size={14} className="text-[#A855F7]" />
+                <Label className="text-base font-black tracking-tight text-white leading-tight">{t.proactive}</Label>
+              </div>
+              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.proactiveSub}</p>
+            </div>
+            <Switch 
+              checked={proactiveCare}
+              onCheckedChange={setProactiveCare}
+              className="data-[state=checked]:bg-[#A855F7]"
+            />
+          </div>
+          <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
+            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes.
+          </p>
+        </div>
+
         <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 flex flex-col gap-4 group hover:border-[#3EB489]/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1 pr-4">
-              <Label className="text-base font-black tracking-tight text-white leading-tight">Share location with awareness</Label>
-              <p className="text-[10px] text-white/30 font-bold leading-tight">Allow on-site teams to find you in an emergency</p>
+              <Label className="text-base font-black tracking-tight text-white leading-tight">{t.shareLocation}</Label>
+              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.shareLocationSub}</p>
             </div>
             <Switch 
               checked={shareLocation}
@@ -85,15 +137,15 @@ export function Step6SafetyNetwork({
             />
           </div>
           <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
-            You can revoke access at any point and put it back on—you control it.
+            {t.revokeInfo}
           </p>
         </div>
 
         <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 space-y-6 group hover:border-[#3EB489]/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1">
-              <Label className="text-base font-black tracking-tight text-white leading-tight">Friend radar</Label>
-              <p className="text-[10px] text-white/30 font-bold leading-tight">Sync with your group to see each other on the map</p>
+              <Label className="text-base font-black tracking-tight text-white leading-tight">{t.radar}</Label>
+              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.radarSub}</p>
             </div>
             <Switch 
               checked={friendRadar}
@@ -107,13 +159,13 @@ export function Step6SafetyNetwork({
               onClick={() => { setShowMyCode(!showMyCode); setScanning(false); }}
               className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${showMyCode ? 'bg-[#3EB489] text-black border-[#3EB489] shadow-[0_0_20px_#3EB489]' : 'bg-white/5 border-white/10 text-white hover:border-white/30'}`}
             >
-              <QrCode className="w-4 h-4" /> My code
+              <QrCode className="w-4 h-4" /> {t.myCode}
             </button>
             <button 
               onClick={() => { setScanning(!scanning); setShowMyCode(false); }}
               className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${scanning ? 'bg-[#3EB489] text-black border-[#3EB489] shadow-[0_0_20px_#3EB489]' : 'bg-white/5 border-white/10 text-white hover:border-white/30'}`}
             >
-              <Scan className="w-4 h-4" /> Scan
+              <Scan className="w-4 h-4" /> {t.scan}
             </button>
           </div>
 
@@ -122,12 +174,6 @@ export function Step6SafetyNetwork({
               {scanning && (
                 <>
                   <video ref={videoRef} className="w-full h-full object-cover opacity-60" autoPlay muted />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/80 pointer-events-none" />
-                  {hasCameraPermission === false && (
-                    <div className="absolute inset-0 bg-black/90 flex items-center justify-center p-8 text-center">
-                      <p className="text-red-500 font-black text-[10px] tracking-widest">Camera access required</p>
-                    </div>
-                  )}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-48 h-48 border-2 border-[#3EB489] rounded-3xl relative overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-1 bg-[#3EB489] shadow-[0_0_15px_#3EB489] animate-[bounce_2s_infinite]" />
@@ -143,59 +189,18 @@ export function Step6SafetyNetwork({
             </div>
           )}
         </div>
-
-        <div className="bg-[#050505] rounded-[2rem] border-2 border-white/5 h-48 overflow-hidden relative group">
-          <div className="absolute inset-0 opacity-20 pointer-events-none">
-             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#3EB489" strokeWidth="0.5" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-                <line x1="10%" y1="0" x2="15%" y2="100%" stroke="#3EB489" strokeWidth="2" strokeOpacity="0.4" />
-                <line x1="0" y1="40%" x2="100%" y2="35%" stroke="#3EB489" strokeWidth="2" strokeOpacity="0.4" />
-                <line x1="70%" y1="0" x2="65%" y2="100%" stroke="#3EB489" strokeWidth="2" strokeOpacity="0.4" />
-             </svg>
-          </div>
-
-          <div className="absolute inset-0 pointer-events-none">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-gradient-to-r from-transparent via-[#3EB489]/5 to-transparent rotate-[45deg] animate-[spin_4s_linear_infinite]" />
-          </div>
-
-          <div className="relative z-10 flex items-center justify-center w-full h-full p-4">
-            <div className="relative">
-              <div className="w-4 h-4 bg-blue-500 rounded-full border-[2px] border-white relative z-10 shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-              <div className="absolute inset-0 w-4 h-4 bg-blue-500 rounded-full animate-ping opacity-40" />
-            </div>
-            
-            <div className="absolute top-10 right-12 flex flex-col items-center gap-1">
-               <div className="relative">
-                 <Heart className="w-5 h-5 text-[#3EB489] fill-[#3EB489] animate-pulse drop-shadow-[0_0_10px_#3EB489]" />
-               </div>
-               <span className="text-[7px] font-black bg-black/60 px-2 py-0.5 rounded-full border border-white/10 tracking-tighter">Max</span>
-            </div>
-
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 flex flex-col items-center gap-1">
-               <MapPin className="w-3 h-3 text-pink-500 fill-pink-500/20 animate-bounce" />
-               <span className="text-[6px] font-black uppercase text-pink-500 tracking-tighter">Medic station</span>
-            </div>
-            
-            <div className="absolute bottom-3 right-6 flex items-center gap-2">
-               <Navigation className="w-2.5 h-2.5 text-white/20 animate-pulse" />
-               <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/20">GPS active</span>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div className="w-full shrink-0 flex justify-center mt-4">
+      <div className="w-full shrink-0 flex flex-col items-center gap-6 mt-4 pb-safe">
         <button
           onClick={onComplete}
           className="pill-button w-full max-w-sm bg-[#3EB489] text-black text-xl font-black neon-glow active:scale-95 transition-all h-[64px]"
         >
-          Confirm network
+          {t.confirm}
         </button>
+        <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em] shining-white">
+          Created in harmony
+        </p>
       </div>
     </div>
   );
