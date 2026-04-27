@@ -100,7 +100,7 @@ export function Step6SafetyNetwork({
       </div>
 
       <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2 pb-10">
-        {/* Proactive Dispatch Option - FIXED: This is now correctly handled and visible */}
+        {/* Proactive Dispatch Option */}
         <div className="bg-[#1b4d3e]/10 rounded-[2.5rem] border-2 border-[#A855F7] p-6 flex flex-col gap-4 group hover:bg-[#1b4d3e]/20 transition-all text-left shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-10">
             <Radio size={80} className="text-[#A855F7]" />
@@ -120,7 +120,7 @@ export function Step6SafetyNetwork({
             />
           </div>
           <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-relaxed border-t border-white/10 pt-4 relative z-10">
-            I authorize the Pulse Guardian to share my Mesh location and biological vitals with the Awareness Team if I am in a critical state for more than 10 minutes. They can contact me via the app to assess my presence.
+            I authorize the Pulse Guardian to share Mesh location and biological vitals with the Awareness Team if I am in a critical state for more than 10 minutes. They can contact me via the app to assess presence.
           </p>
         </div>
 

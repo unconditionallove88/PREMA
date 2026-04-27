@@ -21,8 +21,8 @@ import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
- * @fileOverview Sanctuary Guide Component (Sovereign Intelligence Handover).
- * Recreated from scratch to ensure visibility and "Brotherly Love" tone.
+ * @fileOverview Sanctuary Guide Component (Functional Intelligence Handover).
+ * Completely recreated to ensure 100% text visibility and a "Brotherly Love" tone.
  * Optimized for PC, iPhone, and Android.
  */
 
@@ -190,13 +190,13 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
             </div>
           </div>
 
-          {/* Detailed Instruction Card */}
-          <div className="flex-1 w-full bg-white/[0.03] border-2 border-white/5 rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col min-h-0">
+          {/* Detailed Instruction Card - Fixed visibility with ScrollArea and min-height */}
+          <div className="flex-1 w-full bg-white/[0.03] border-2 border-white/5 rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col min-h-[250px]">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Icon size={160} className="text-white" />
             </div>
             
-            <ScrollArea className="flex-1">
+            <ScrollArea className="flex-1 h-full">
               <div className="relative z-10 space-y-6 pr-4">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
