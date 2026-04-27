@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { QrCode, Heart, Scan, MapPin, Navigation, ArrowLeft, ShieldAlert, Radio } from 'lucide-react';
+import { QrCode, Scan, ArrowLeft, ShieldAlert, Radio } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 /**
@@ -48,7 +48,6 @@ export function Step6SafetyNetwork({
   const [friendRadar, setFriendRadar] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [showMyCode, setShowMyCode] = useState(false);
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -60,12 +59,10 @@ export function Step6SafetyNetwork({
       const getCameraPermission = async () => {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          setHasCameraPermission(true);
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
           }
         } catch (error) {
-          setHasCameraPermission(false);
           setScanning(false);
           toast({ variant: 'destructive', title: 'Camera access denied', description: CONTENT[lang].cameraError });
         }
@@ -102,31 +99,34 @@ export function Step6SafetyNetwork({
       </div>
 
       <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2 pb-10">
-        {/* Proactive Dispatch Option */}
-        <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-[#A855F7]/30 p-6 flex flex-col gap-4 group hover:border-[#A855F7] transition-all text-left shadow-lg">
-          <div className="flex items-center justify-between">
+        {/* Proactive Dispatch Option - Prominent Act of Self-Love */}
+        <div className="bg-[#1b4d3e]/10 rounded-[2.5rem] border-2 border-[#A855F7] p-6 flex flex-col gap-4 group hover:bg-[#1b4d3e]/20 transition-all text-left shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4 opacity-10">
+            <Radio size={80} className="text-[#A855F7]" />
+          </div>
+          <div className="flex items-center justify-between relative z-10">
             <div className="flex flex-col gap-1 pr-4">
               <div className="flex items-center gap-2">
-                <ShieldAlert size={14} className="text-[#A855F7]" />
-                <Label className="text-base font-black tracking-tight text-white leading-tight">{t.proactive}</Label>
+                <ShieldAlert size={18} className="text-[#A855F7]" />
+                <Label className="text-lg font-black tracking-tight text-white leading-tight uppercase">{t.proactive}</Label>
               </div>
-              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.proactiveSub}</p>
+              <p className="text-[10px] text-[#A855F7] font-black uppercase tracking-widest">{t.proactiveSub}</p>
             </div>
             <Switch 
               checked={proactiveCare}
               onCheckedChange={setProactiveCare}
-              className="data-[state=checked]:bg-[#A855F7]"
+              className="data-[state=checked]:bg-[#A855F7] scale-125"
             />
           </div>
-          <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
-            Allows the Pulse Guardian to notify the awareness team if your vitals enter a critical threshold for more than 10 minutes. The team can contact you directly via the app to check on your presence.
+          <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-relaxed border-t border-white/10 pt-4 relative z-10">
+            I authorize the Pulse Guardian to share my Mesh location and biological vitals with the Awareness Team if I am in a critical state for more than 10 minutes. They can contact me via the app to assess my presence.
           </p>
         </div>
 
         <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 flex flex-col gap-4 group hover:border-[#3EB489]/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1 pr-4">
-              <Label className="text-base font-black tracking-tight text-white leading-tight">{t.shareLocation}</Label>
+              <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.shareLocation}</Label>
               <p className="text-[10px] text-white/30 font-bold leading-tight">{t.shareLocationSub}</p>
             </div>
             <Switch 
@@ -143,7 +143,7 @@ export function Step6SafetyNetwork({
         <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 space-y-6 group hover:border-[#3EB489]/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1">
-              <Label className="text-base font-black tracking-tight text-white leading-tight">{t.radar}</Label>
+              <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.radar}</Label>
               <p className="text-[10px] text-white/30 font-bold leading-tight">{t.radarSub}</p>
             </div>
             <Switch 
@@ -197,7 +197,7 @@ export function Step6SafetyNetwork({
         >
           {t.confirm}
         </button>
-        <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em] shining-white">
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">
           Created in harmony
         </p>
       </div>

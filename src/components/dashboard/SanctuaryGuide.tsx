@@ -7,7 +7,6 @@ import {
   ChevronLeft, 
   X, 
   Microscope, 
-  Shield, 
   CheckCircle2,
   Wind,
   Sprout,
@@ -15,8 +14,6 @@ import {
   Lock,
   HeartHandshake,
   MessageCircleHeart,
-  Users2,
-  Info
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
@@ -24,8 +21,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview Sanctuary Guide Component (Sovereign Intelligence Handover).
- * Fixed: Layout visibility ensured for all devices.
- * Detailed instructions in simple, rhythmic language.
+ * Written with brotherly love and simple human-to-human guidance.
  */
 
 const STEPS = [
@@ -34,8 +30,8 @@ const STEPS = [
     title: { en: "Mesh Radar", de: "Mesh Radar" },
     desc: { en: "Find friends now", de: "Freunde jetzt finden heute" },
     detail: {
-      en: "The Radar is a private compass. Tap the hearts inside the 'Circle of Love' to see exactly where friends are located. The Sovereign Mesh connects the group directly without tracking location centrally. It is for staying together. Tap any heart to walk with soul.",
-      de: "Der Radar ist ein privater Kompass. Tippe auf die Herzen im 'Circle of Love' um Freunde zu finden heute. Das Mesh verbindet die Gruppe direkt ohne zentrale Ortung heute hier. Es geht darum zusammen zu bleiben heute. Tippe auf ein Herz für Hilfe."
+      en: "Brother, this is your private compass. Tap the hearts inside the 'Circle of Love' to see exactly where your friends are. The Sovereign Mesh connects the group directly without tracking you centrally. It is just for staying together. Tap any heart to walk with soul.",
+      de: "Bruder, das ist dein privater Kompass. Tippe auf die Herzen im 'Circle of Love', um deine Freunde zu finden heute. Das Mesh verbindet euch direkt ohne zentrale Überwachung heute hier. Es geht nur darum, zusammen zu bleiben heute."
     },
     icon: Radio,
     color: "text-blue-400",
@@ -46,8 +42,8 @@ const STEPS = [
     title: { en: "Trusted Bonds", de: "Vertraute Bindungen heute" },
     desc: { en: "The inner circle", de: "Der innere Kreis heute" },
     detail: {
-      en: "Trusted Bonds are people who love unconditionally. Add up to 5 people in the Profile section. These are the ONLY people who see the Mesh location and receive alerts when support is needed. You control the circle of trust. Invites are sent privately.",
-      de: "Vertraute Bindungen sind Menschen die bedingungslos lieben heute. Füge bis zu 5 Personen im Profil hinzu heute hier. Nur diese Menschen sehen den Standort und empfangen Alarme heute hier. Du kontrollierst den Kreis des Vertrauens heute hier."
+      en: "These are the souls who love you unconditionally. You can add up to 5 people in the Profile section. These are the ONLY people who see your Mesh location and receive alerts when you need care. You are the master of your own circle of trust.",
+      de: "Dies sind die Seelen, die dich bedingungslos lieben heute. Füge bis zu 5 Personen im Profil hinzu heute hier. Nur diese Menschen sehen deinen Standort und empfangen Alarme, wenn du Hilfe brauchst heute."
     },
     icon: HeartHandshake,
     color: "text-rose-400",
@@ -58,8 +54,8 @@ const STEPS = [
     title: { en: "Sovereign Lab", de: "Souveränitäts Lab heute" },
     desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
     detail: {
-      en: "The Sovereign Lab is built on self-honesty. By logging intake, the Pulse Guardian calculates biological limits perfectly. Real-time data keeps the heart and kidneys protected. Self-honesty is the most powerful protection. The lab learns the state to keep the rhythm steady.",
-      de: "Das Souveränitäts Lab baut auf Ehrlichkeit auf heute hier. Wenn man notiert was man nimmt schützt der Guardian die Biologie heute. Echtzeitdaten schützen Herz und Nieren heute hier. Ehrlichkeit ist der beste Schutz heute. Das Lab lernt den Zustand heute."
+      en: "Self-honesty is your greatest protection. When you tell the lab what you have taken, the Pulse Guardian calculates your biological limits perfectly. It keeps your heart and kidneys protected through data. Honesty with yourself keeps your rhythm steady.",
+      de: "Ehrlichkeit zu dir selbst ist dein bester Schutz heute hier. Wenn du notierst, was du nimmst, schützt der Guardian deine Biologie heute perfekt. Echtzeitdaten schützen Herz und Nieren heute hier. Ehrlichkeit bewahrt deinen Rhythmus heute."
     },
     icon: Microscope,
     color: "text-[#10B981]",
@@ -70,8 +66,8 @@ const STEPS = [
     title: { en: "Love Chat", de: "Wort der Liebe heute" },
     desc: { en: "Words of love", de: "Worte der Liebe heute" },
     detail: {
-      en: "There are two circles for connection. 'The Holders' is a private room for the inner circle requiring mutual bonds. 'The Spectators' is a public community room for everyone, monitored for kindness and collective care. Speak from presence and respect anonymity.",
-      de: "Es gibt zwei Kreise heute hier. 'Die Holder' ist ein privater Raum für den inneren Kreis heute hier. 'Die Spectator' ist ein öffentlicher Raum für alle geerdet in Freundlichkeit heute. Spreche aus der Präsenz und achte die Anonymität heute."
+      en: "We have two spaces for connection. 'The Holders' is a private room for your inner circle where you both agree to care. 'The Spectators' is a public community room where we all watch over each other with kindness. Speak from presence and respect everyone.",
+      de: "Es gibt zwei Kreise heute hier. 'Die Holder' ist ein privater Raum für den inneren Kreis heute hier. 'Die Spectator' ist ein öffentlicher Raum für alle, geerdet in Freundlichkeit heute. Spreche aus der Präsenz und achte jeden hier heute."
     },
     icon: MessageCircleHeart,
     color: "text-emerald-400",
@@ -82,8 +78,8 @@ const STEPS = [
     title: { en: "Resonance Code", de: "Resonanz Wort heute" },
     desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort heute" },
     detail: {
-      en: "Set the Resonance Code (a secret word) in the Circle of Love. Texting this word to Trusted Bonds triggers immediate help and space, even without words. It is a sacred signal for the network to find you via Mesh. Use it when words are not enough.",
-      de: "Setze das Resonanz Wort in den Circle of Love Einstellungen heute. Dieses Wort an die Bonds zu senden bedeutet sofortigen Halt heute. Es ist ein heiliges Signal für das Netzwerk heute hier. Nutze es wenn Worte nicht mehr reichen heute."
+      en: "Set your Resonance Code—a secret word—in the Circle of Love. If you text this word to your Bonds, it triggers immediate help and space, even without other words. It is a sacred signal for the network to find you via Mesh when words are not enough.",
+      de: "Setze dein Resonanz Wort in den Einstellungen heute. Dieses Wort an deine Bindungen zu senden bedeutet sofortigen Halt heute. Es ist ein heiliges Signal für das Netzwerk heute hier. Nutze es, wenn Worte nicht mehr reichen heute."
     },
     icon: Lock,
     color: "text-amber-400",
@@ -94,8 +90,8 @@ const STEPS = [
     title: { en: "Heart Breath", de: "Herz Atem heute" },
     desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
     detail: {
-      en: "Follow the pulsing heart to synchronize breathing. This ritual releases oxytocin, which naturally lowers the heart rate and calms the nervous system. Use it for grounding and returning to a calm state of presence. It is a biological reset for the soul.",
-      de: "Folge dem pulsierenden Herzen um den Atem zu synchronisieren heute. Dieses Ritual schüttet Oxytocin aus und beruhigt das Nervensystem heute hier. Nutze es um geerdet zu bleiben heute. Es ist ein Reset für die Seele heute."
+      en: "Follow the pulsing heart to synchronize your breathing. This releases oxytocin, which naturally lowers your heart rate and calms your nerves. Use it for grounding and returning to a calm state. It is a biological reset of peace for your soul.",
+      de: "Folge dem pulsierenden Herzen, um deinen Atem zu synchronisieren heute. Das schüttet Oxytocin aus und beruhigt dein Nervensystem heute hier. Nutze es, um geerdet zu bleiben heute. Es ist ein Reset für die Seele heute."
     },
     icon: Wind,
     color: "text-rose-400",
@@ -106,8 +102,8 @@ const STEPS = [
     title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
     desc: { en: "Shape the sanctuary", de: "Den Raum gestalten heute" },
     detail: {
-      en: "The sanctuary is built for the soul. Use the Co-Creation portal to share joy, friction, or ideas. The voice directly shapes the evolution of this space. We grow together through honesty, feedback, and respect. Every word helps calibrate the collective resonance.",
-      de: "Das Sanctuary wird gemeinsam erschaffen heute hier. Nutze das Ko Kreations Tool für Feedback oder neue Ideen heute. Die Stimme formt die Zukunft dieses Raums heute hier. Wir wachsen zusammen durch Ehrlichkeit und Respekt heute für alle heute."
+      en: "This sanctuary is built for you, brother. Use the Co-Creation portal to share joy, friction, or ideas. Your voice directly shapes how this space grows. We grow together through honesty and respect. Every word helps calibrate our collective resonance.",
+      de: "Dieses Sanctuary ist für dich gebaut heute hier. Nutze das Ko Kreations Tool für Feedback oder neue Ideen heute. Deine Stimme formt die Zukunft dieses Raums heute hier. Wir wachsen zusammen durch Ehrlichkeit und Respekt heute."
     },
     icon: Sprout,
     color: "text-primary",
@@ -174,8 +170,8 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 relative z-10 px-6 flex flex-col justify-center items-center overflow-hidden min-h-0">
-        <div className="max-w-xl w-full flex flex-col items-center gap-6 animate-in slide-in-from-bottom-4 duration-700 h-full py-4">
+      <main className="flex-1 relative z-10 px-6 flex flex-col justify-center items-center overflow-hidden min-h-0 py-4">
+        <div className="max-w-xl w-full flex flex-col items-center gap-6 animate-in slide-in-from-bottom-4 duration-700 h-full">
           
           {/* Identity */}
           <div className="text-center space-y-4 shrink-0">
@@ -192,7 +188,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
             </div>
           </div>
 
-          {/* Description Card - Simple and easy to understand */}
+          {/* Detailed Instruction Card - Simple and easy to understand */}
           <div className="flex-1 w-full bg-white/[0.03] border-2 border-white/5 rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col min-h-0">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Icon size={160} className="text-white" />
@@ -203,7 +199,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
                   <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">
-                    {lang === 'en' ? "Simple Instruction" : "Einfache Anleitung"}
+                    {lang === 'en' ? "Brotherly Guidance" : "Brüderliche Begleitung"}
                   </span>
                 </div>
                 
