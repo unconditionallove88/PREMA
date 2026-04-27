@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -91,7 +92,7 @@ const STEPS = [
     title: { en: "Heart Breath", de: "Herz Atem heute" },
     desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
     detail: {
-      en: "Brother, if your rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize your breathing. This biological ritual releases oxytocin, which naturally slows your heart rate and calms your nervous system. It is a reset button for peace, always available when you need to return to center.",
+      en: "Brother, if your rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize your breathing. This biological ritual releases oxytocin, which naturally slows your heart rate and calms your nervous system. It is a reset button for peace, always available when you need return to center.",
       de: "Bruder, wenn dein Puls steigt, nutze den Herz-Atem heute. Folge dem Licht, um deinen Atem zu synchronisieren. Dieses Ritual schüttet Oxytocin aus und beruhigt dein Nervensystem ganz natürlich heute. Es ist dein Anker für inneren Frieden, jederzeit bereit heute hier."
     },
     icon: Wind,
@@ -189,7 +190,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
             </div>
           </div>
 
-          {/* Detailed Instruction Card - Simple and easy to understand */}
+          {/* Detailed Instruction Card */}
           <div className="flex-1 w-full bg-white/[0.03] border-2 border-white/5 rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col min-h-0">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Icon size={160} className="text-white" />
@@ -276,3 +277,4 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
     </div>
   );
 }
+

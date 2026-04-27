@@ -1,10 +1,11 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Check, Info, ShieldAlert, HeartPulse, Brain, Droplets, FlaskConical, X } from 'lucide-react';
+import { ArrowLeft, Check, Info, ShieldAlert, HeartPulse, Brain, Droplets, FlaskConical, X, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Dialog, DialogContent, DialogTitle, DialogHeader } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
 /**
  * @fileOverview "Something to Remember" (Mixing Wisdom Step).
@@ -253,5 +254,3 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
     </div>
   );
 }
-
-import { ChevronRight } from 'lucide-react';

@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -99,7 +100,7 @@ export function Step6SafetyNetwork({
       </div>
 
       <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2 pb-10">
-        {/* Proactive Dispatch Option - Prominent Act of Self-Love */}
+        {/* Proactive Dispatch Option */}
         <div className="bg-[#1b4d3e]/10 rounded-[2.5rem] border-2 border-[#A855F7] p-6 flex flex-col gap-4 group hover:bg-[#1b4d3e]/20 transition-all text-left shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-10">
             <Radio size={80} className="text-[#A855F7]" />
