@@ -46,8 +46,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 
 /**
  * @fileOverview Sovereign Lab Component.
- * Features: Self-Honesty, responsible intake tracking, and Mixing Wisdom warnings.
- * Fixed: Safety Advisor (Supporter) Dialog integration.
+ * Features: Self-Honesty, responsible intake tracking, and phone-based diary storage.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -61,12 +60,12 @@ const CONTENT = {
     title: "Sovereign Lab", advisor: "Open Safety Advisor", search: "Find...",
     diary: "Session Diary", records: "Records", sync: "Sync Truth", intake: "Honest Intake Entry",
     confirm: "Log My Truth", cancel: "Cancel Entry", amount: "Amount", doseLogged: "Truth logged",
-    addedToDiary: "added to your session diary", causionTitle: "Pulse Guardian: Caution 🧪",
-    poppersHR: (hr: number) => `Your heart rate is ${hr} BPM Poppers will drop your blood pressure sharply Please sit down and breathe before use`,
-    responsibility: "I take full responsibility for my actions",
+    addedToDiary: "added to the session diary", causionTitle: "Pulse Guardian: Caution 🧪",
+    poppersHR: (hr: number) => `The heart rate is ${hr} BPM Poppers will drop blood pressure sharply Please sit down and breathe before use`,
+    responsibility: "I take full responsibility for actions",
     honestyTitle: "Moment of Truth",
-    honestyDesc: "I am honest with myself and I respect my body's limits. This entry is a record of my sovereign choice.",
-    affirmBtn: "I Affirm My Truth",
+    honestyDesc: "I am honest with myself and I respect the body's limits. This entry is a record of the sovereign choice.",
+    affirmBtn: "I Affirm Truth",
     syncProceed: "Proceed with Love", noResults: "No substances found",
     wisdom: "Mixing Wisdom",
     listening: "Listening...",
@@ -78,19 +77,19 @@ const CONTENT = {
   de: {
     title: "Souveränitäts-Lab", advisor: "Sicherheits-Begleiter", search: "Suchen...",
     diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session Wahrheit", intake: "Ehrlicher Eintrag heute",
-    confirm: "Meine Wahrheit notieren", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert",
-    addedToDiary: "wurde deinem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
-    poppersHR: (hr: number) => `Dein Puls liegt bei ${hr} BPM Poppers senkt den Blutdruck stark ab Bitte nimm dir einen Moment Zeit, setz dich hin und atme tief durch`,
+    confirm: "Die Wahrheit notieren heute", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert heute",
+    addedToDiary: "wurde dem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
+    poppersHR: (hr: number) => `Der Puls liegt bei ${hr} BPM Poppers senkt den Blutdruck stark ab Bitte nimm dir Zeit, setz dich hin und atme tief durch`,
     responsibility: "Ich übernehme volle Verantwortung heute",
-    honestyTitle: "Moment der Wahrheit",
-    honestyDesc: "Ich bin ehrlich zu mir selbst und achte meine Grenzen heute. Dieser Eintrag spiegelt meine souveräne Entscheidung wider.",
-    affirmBtn: "Ich bestätige meine Wahrheit",
-    syncProceed: "Mit Liebe fortfahren", noResults: "Keine Substanzen gefunden",
-    wisdom: "Misch-Weisheiten",
+    honestyTitle: "Moment der Wahrheit heute",
+    honestyDesc: "Ich bin ehrlich zu mir selbst und achte die Grenzen heute. Dieser Eintrag spiegelt die souveräne Entscheidung wider.",
+    affirmBtn: "Ich bestätige die Wahrheit",
+    syncProceed: "Mit Liebe fortfahren heute", noResults: "Keine Substanzen gefunden",
+    wisdom: "Misch-Weisheiten heute",
     listening: "Höre zu...",
-    mixingWarningTitle: "Kritische Misch-Warnung",
-    riskHigh: "Hohes Risiko Interaktion",
-    riskCritical: "Kritische biologische Bedrohung",
+    mixingWarningTitle: "Kritische Misch-Warnung heute",
+    riskHigh: "Hohes Risiko Interaktion heute",
+    riskCritical: "Kritische biologische Bedrohung heute",
     consequence: "Folgen für Gesundheit & Organe:"
   }
 };
@@ -108,20 +107,12 @@ const SUBSTANCES = [
   { id: '2cb', icon: Orbit, name: '2C-B', deName: '2C-B', aliases: ['nexus'], color: 'text-orange-400', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'psilocybin', icon: MushroomIcon, name: 'Psilocybin', deName: 'Psilocybin', aliases: ['mushrooms', 'shrooms'], color: 'text-emerald-400', isHeavy: false, unit: 'g', inputType: 'manual' },
   { id: 'poppers', icon: Wind, name: 'Poppers', deName: 'Poppers', aliases: ['amyl', 'nitrite'], color: 'text-amber-400', isHeavy: true, unit: 'hits', inputType: 'manual' },
-  { id: 'heroin', icon: Skull, name: 'Heroin', deName: 'Heroin', aliases: ['h', 'smack', 'junk', 'brown'], color: 'text-red-900', isHeavy: true, unit: 'g', inputType: 'manual' },
-  { id: 'fentanyl', icon: Skull, name: 'Fentanyl', deName: 'Fentanyl', aliases: ['fent', 'apaches'], color: 'text-red-600', isHeavy: true, unit: 'mg', inputType: 'manual' },
-  { id: 'oxycodone', icon: FlaskConical, name: 'Oxycodone', deName: 'Oxycodon', aliases: ['oxy', 'perc'], color: 'text-indigo-900', isHeavy: true, unit: 'mg', inputType: 'manual' },
-  { id: 'tilidine', icon: FlaskConical, name: 'Tilidine', deName: 'Tilidin', aliases: ['tilli'], color: 'text-indigo-600', isHeavy: true, unit: 'mg', inputType: 'manual' },
 ];
 
 const DANGEROUS_COMBOS = [
   { pair: ['alcohol', 'ghb'], risk: 'Critical', note: { en: 'Extreme respiratory failure risk & fatal blackouts.', de: 'Extremes Risiko für Atemstillstand und tödliche Blackouts.' } },
   { pair: ['ketamine', 'ghb'], risk: 'Critical', note: { en: 'Severe respiratory risk & loss of consciousness.', de: 'Schwere Atemnot und Bewusstlosigkeit.' } },
   { pair: ['alcohol', 'ketamine'], risk: 'High', note: { en: 'Severe nausea, dizziness, and choking risk.', de: 'Starke Übelkeit, Schwindel und Erstickungsgefahr.' } },
-  { pair: ['alcohol', 'heroin'], risk: 'Critical', note: { en: 'Lethal respiratory depression risk.', de: 'Tödliches Risiko für Atemdepression.' } },
-  { pair: ['alcohol', 'fentanyl'], risk: 'Critical', note: { en: 'Lethal respiratory depression risk.', de: 'Tödliches Risiko für Atemdepression.' } },
-  { pair: ['alcohol', 'oxycodone'], risk: 'Critical', note: { en: 'Lethal respiratory depression risk.', de: 'Tödliches Risiko für Atemdepression.' } },
-  { pair: ['alcohol', 'tilidine'], risk: 'Critical', note: { en: 'Lethal respiratory depression risk.', de: 'Tödliches Risiko für Atemdepression.' } },
   { pair: ['mdma', 'ssri'], risk: 'High', note: { en: 'Serotonin Syndrome risk - can be fatal.', de: 'Risiko für Serotonin-Syndrom - kann tödlich sein.' } },
   { pair: ['cocaine', 'alcohol'], risk: 'High', note: { en: 'Increases cardiotoxicity and heart strain significantly.', de: 'Erhöht die Herztoxizität und Herzbelastung signifikant.' } },
 ];
@@ -150,7 +141,6 @@ export function Step6SubstanceLab({
   const [pendingEntry, setPendingEntry] = useState<any>(null);
   const [isListening, setIsListening] = useState(false);
   const [lang, setLang] = useState<'en' | 'de'>('en');
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [activeMixingRisk, setActiveMixingRisk] = useState<any>(null);
 
   useEffect(() => {
@@ -226,7 +216,6 @@ export function Step6SubstanceLab({
       entry = { id: activeSubstance.id, name: substanceName, value: manualValue, unit: activeSubstance.unit, timestamp: new Date().toISOString() };
     }
 
-    // Check for dangerous mixing combos
     const risk = DANGEROUS_COMBOS.find(combo => 
       (combo.pair.includes(entry.id) && sessionLogs.some(log => combo.pair.includes(log.id)))
     );
@@ -388,3 +377,4 @@ export function Step6SubstanceLab({
     </div>
   );
 }
+

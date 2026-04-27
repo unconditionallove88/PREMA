@@ -24,7 +24,8 @@ import {
   Calendar,
   ChevronRight,
   Eye,
-  Users
+  Users,
+  Trash2
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -36,6 +37,8 @@ import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
 
 /**
  * @fileOverview Recovery Protocol Page.
+ * Features: On-demand data purge and phone-based storage finalization.
+ * Rhythmic Rules: 3 words (EN) / 4 words (DE).
  */
 
 const PRACTITIONERS = [
@@ -46,36 +49,54 @@ const PRACTITIONERS = [
 
 const CONTENT = {
   en: {
-    integrated: "Integrated", recovery: "Recovery", personalProtocol: "Personalized protocol",
-    activeProtection: "Active Protection", secureWipe: "Session data wiped",
-    protocolGenerated: "Personalized protocol generated", privacyFinalized: "Privacy protocols finalized",
+    integrated: "Integrated", 
+    recovery: "Recovery", 
+    personalProtocol: "Personalized protocol",
+    activeProtection: "Active Protection", 
+    secureWipe: "Session data wiped",
+    protocolGenerated: "Personalized protocol generated", 
+    privacyFinalized: "Privacy protocols finalized",
     dataAnalyzed: (count: number) => `Data analyzed: ${count} entries`,
-    timeline: "Integration Timeline", noLogs: "No logs detected",
-    wipeWarning: "Completing this protocol will permanently wipe session logs and location history",
-    finishBtn: "Complete Session", returnBtn: "Return to Sanctuary",
-    improveBtn: "Help us improve", minutes: "4 minutes · anonymous",
-    ritualTitle: "Breath of Love", ritualDesc: "Perform the guided resonance ritual to recalibrate your nervous system",
-    gpTitle: "GP Consultation", gpDesc: "Contact your General Practitioner for high-fidelity STD testing and post-session health checks",
-    mentalTitle: "Mental Integration", mentalDesc: "Guidance for paranoia or intense side-effects Return to harmony through presence",
+    timeline: "Integration Timeline", 
+    noLogs: "No logs detected",
+    wipeWarning: "Completing this protocol will permanently wipe session logs and location history from the phone",
+    finishBtn: "Complete Session Now", 
+    returnBtn: "Return to Sanctuary",
+    improveBtn: "Help us improve", 
+    minutes: "4 minutes · anonymous",
+    ritualTitle: "Breath of Love", 
+    ritualDesc: "Perform the guided resonance ritual to recalibrate your nervous system",
+    gpTitle: "GP Consultation", 
+    gpDesc: "Contact your General Practitioner for high-fidelity STD testing and post-session health checks",
+    mentalTitle: "Mental Integration", 
+    mentalDesc: "Guidance for paranoia or intense side-effects Return to harmony through presence",
     emergencyBtn: "Call Emergency Directly",
-    mentalIntro: "How do you feel?", mentalVision: "Vision of Love (Grounding)", mentalProfessional: "Talk to a Professional", mentalSOS: "SOS - Need Circle Support",
-    gpIntro: "Select a Practitioner", gpUrgent: "Request Urgent Walk-in", gpBook: "Book Appointment", gpPartners: "Sanctuary Partners"
+    footer: "Created in harmony"
   },
   de: {
-    integrated: "Integriert", recovery: "Erholung", personalProtocol: "Persönlicher Protokoll heute",
-    activeProtection: "Aktiver Schutz", secureWipe: "Sitzungsdaten gelöscht heute",
-    protocolGenerated: "Persönliches Protokoll erstellt heute", privacyFinalized: "Schutzprotokolle abgeschlossen heute",
+    integrated: "Integriert", 
+    recovery: "Erholung", 
+    personalProtocol: "Persönlicher Protokoll heute",
+    activeProtection: "Aktiver Schutz heute", 
+    secureWipe: "Sitzungsdaten gelöscht heute hier",
+    protocolGenerated: "Persönliches Protokoll erstellt heute", 
+    privacyFinalized: "Schutzprotokolle abgeschlossen heute hier",
     dataAnalyzed: (count: number) => `Daten analysiert: ${count} Einträge`,
-    timeline: "Integrations Zeitachse heute", noLogs: "Keine Sitzungsdaten gefunden",
-    wipeWarning: "Der Abschluss dieses Protokolls löscht dauerhaft alle Sitzungsprotokolle und Verläufe",
-    finishBtn: "Session jetzt abschließen", returnBtn: "Zurück zum Sanctuary",
-    improveBtn: "Hilf uns verbessern", Minuten: "4 Minuten · anonym",
-    ritualTitle: "Atem der Liebe heute", ritualDesc: "Führe das Ritual durch um dein Nervensystem sanft zu kalibrieren heute",
-    gpTitle: "Praxis Besuch heute", gpDesc: "Kontaktiere deinen Hausarzt für STD Tests und Gesundheitschecks nach der Sitzung",
-    mentalTitle: "Mentale Integration heute", mentalDesc: "Begleitung bei Paranoia oder intensiven Nebenwirkungen heute hier",
-    emergencyBtn: "Notruf direkt anrufen",
-    mentalIntro: "Wie fühlst du dich?", mentalVision: "Vision der Liebe heute", mentalProfessional: "Mit Profis sprechen heute", mentalSOS: "SOS - Hilfe heute",
-    gpIntro: "Wähle eine Praxis", gpUrgent: "Dringender Besuch heute", gpBook: "Termin buchen heute", gpPartners: "Sanctuary Partner heute"
+    timeline: "Integrations Zeitachse heute", 
+    noLogs: "Keine Sitzungsdaten gefunden",
+    wipeWarning: "Der Abschluss dieses Protokolls löscht dauerhaft alle Sitzungsprotokolle und Verläufe vom Telefon",
+    finishBtn: "Session jetzt abschließen heute", 
+    returnBtn: "Zurück zum Sanctuary heute",
+    improveBtn: "Hilf uns verbessern heute", 
+    Minuten: "4 Minuten · anonym",
+    ritualTitle: "Atem der Liebe heute", 
+    ritualDesc: "Führe das Ritual durch um dein Nervensystem sanft zu kalibrieren heute",
+    gpTitle: "Praxis Besuch heute", 
+    gpDesc: "Kontaktiere deinen Hausarzt für STD Tests und Gesundheitschecks nach der Sitzung",
+    mentalTitle: "Mentale Integration heute", 
+    mentalDesc: "Begleitung bei Paranoia oder intensiven Nebenwirkungen heute hier",
+    emergencyBtn: "Notruf direkt anrufen heute",
+    footer: "In Harmonie erschaffen hier"
   }
 };
 
@@ -91,7 +112,6 @@ export default function RecoveryView() {
 
   const [mentalOpen, setMentalOpen] = useState(false);
   const [gpOpen, setGPOpen] = useState(false);
-  const [visionOpen, setVisionOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -130,9 +150,10 @@ export default function RecoveryView() {
     setDetoxPlan(plan);
   }, [lang, router, t.ritualTitle, t.ritualDesc, t.mentalTitle, t.mentalDesc, t.gpTitle, t.gpDesc]);
 
-  const handleFinish = () => {
+  const handlePurge = () => {
     playHeartbeat();
     localStorage.removeItem('stayonbeat_logs');
+    localStorage.removeItem('stayonbeat_mesh_history');
     setIsFinished(true);
   };
 
@@ -140,7 +161,7 @@ export default function RecoveryView() {
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
-      const text = isFinished ? "Integration complete. I am love." : `${t.protocolGenerated}.`;
+      const text = isFinished ? t.privacyFinalized : `${t.protocolGenerated}.`;
       const { audioDataUri } = await textToSpeech({ text, lang: lang as any });
       const audio = new Audio(audioDataUri);
       audio.onended = () => setIsSpeaking(false);
@@ -163,7 +184,7 @@ export default function RecoveryView() {
                   {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
-              <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mt-2">"{isFinished ? "I am love" : t.personalProtocol}"</p>
+              <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mt-2">"{isFinished ? t.secureWipe : t.personalProtocol}"</p>
             </div>
             {!isFinished && <span className="font-mono text-primary text-xs font-black">{timeLeft}</span>}
           </div>
@@ -172,6 +193,37 @@ export default function RecoveryView() {
 
       <ScrollArea className="h-full">
         <div className="px-6 py-10 max-xl mx-auto space-y-12 pb-40">
+          {!isFinished && (
+            <section className="bg-white/[0.03] border-2 border-white/10 rounded-[2.5rem] p-8 space-y-6">
+               <div className="flex items-center gap-4">
+                 <div className="w-12 h-12 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/20"><Trash2 className="text-red-500" size={24} /></div>
+                 <div>
+                   <p className="text-sm font-black uppercase text-white">The Purge Protocol</p>
+                   <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Phone data sovereignty</p>
+                 </div>
+               </div>
+               <p className="text-xs font-bold text-white/60 leading-relaxed uppercase tracking-widest italic">
+                 "{t.wipeWarning}"
+               </p>
+               <button 
+                 onClick={handlePurge}
+                 className="w-full py-5 bg-red-600/10 border border-red-600/20 text-red-500 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600/20 transition-all"
+               >
+                 {t.finishBtn}
+               </button>
+            </section>
+          )}
+
+          {isFinished && (
+             <section className="bg-primary/5 border-2 border-primary/20 rounded-[2.5rem] p-10 text-center animate-in zoom-in duration-700">
+               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-primary/20">
+                 <ShieldCheck className="text-primary" size={40} />
+               </div>
+               <h3 className="text-2xl font-black uppercase tracking-tighter text-white mb-2">{t.privacyFinalized}</h3>
+               <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">{t.secureWipe}</p>
+             </section>
+          )}
+
           <div className="bg-red-600/10 border border-red-600/20 p-6 rounded-3xl flex items-center justify-between">
             <div className="flex items-center gap-4">
               <PhoneCall className="text-red-500" size={24} />
@@ -208,40 +260,12 @@ export default function RecoveryView() {
       </ScrollArea>
 
       <footer className="fixed bottom-0 left-0 right-0 py-8 bg-black/95 backdrop-blur-xl border-t border-white/5 flex flex-col items-center justify-center px-6 z-50 gap-4 pb-safe">
-        {!isFinished ? (
-          <button onClick={handleFinish} className="w-full max-w-sm py-6 bg-[#1b4d3e] text-white rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg shadow-primary/20">{t.finishBtn}</button>
-        ) : (
+        {isFinished && (
           <button onClick={() => router.push('/dashboard')} className="w-full max-w-sm py-6 bg-white text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
         )}
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">Created in harmony</p>
+        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">Created in harmony</p>
       </footer>
-
-      {mentalOpen && <VisionOfLove onClose={() => setMentalOpen(false)} isEmergency={true} />}
-      
-      <Dialog open={gpOpen} onOpenChange={setGPOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline max-h-[80vh] overflow-y-auto">
-          <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white mb-2 text-center">{t.gpTitle}</DialogTitle>
-          <p className="text-[10px] text-primary font-black text-center uppercase tracking-widest mb-8">{t.gpPartners}</p>
-          <div className="space-y-4">
-            {PRACTITIONERS.map((doc, i) => (
-              <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-black text-white uppercase">{doc.name}</h4>
-                    <p className="text-[9px] text-white/40 font-bold uppercase">{doc.specialty}</p>
-                    <p className="text-[9px] text-primary font-black uppercase mt-1">{doc.address}</p>
-                  </div>
-                  {doc.urgent && <span className="px-2 py-1 bg-red-600/20 border border-red-600/40 text-red-500 text-[7px] font-black uppercase rounded-md">Urgent Hub</span>}
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <button className="py-3 bg-primary text-white rounded-xl text-[9px] font-black uppercase tracking-widest">{t.gpBook}</button>
-                  <button className="py-3 bg-white/10 text-white rounded-xl text-[9px] font-black uppercase tracking-widest">{t.gpUrgent}</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
     </main>
   );
 }
+
