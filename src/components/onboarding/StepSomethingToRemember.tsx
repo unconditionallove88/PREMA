@@ -1,45 +1,109 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Check, Info } from 'lucide-react';
+import { ArrowLeft, Check, Info, ShieldAlert, HeartPulse, Brain, Droplets, FlaskConical, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Dialog, DialogContent, DialogTitle, DialogHeader } from '@/components/ui/dialog';
 
 /**
- * @fileOverview "Something to Remember" (Safety Protocol Step).
- * Updated: Added common opioids to the mixing wisdom guide.
- * Languages: Unified to lowercase en/de.
+ * @fileOverview "Something to Remember" (Mixing Wisdom Step).
+ * Features: Interactive medical intelligence about substance interactions.
+ * Languages: en/de.
  */
 
 const MIXING_WISDOM = [
-  { s1: 'Alcohol', s2: 'GHB/GBL', risk: 'Critical', color: 'text-red-500', note: 'Extreme respiratory failure risk', deNote: 'Extremes Risiko Atemstillstand' },
-  { s1: 'Alcohol', s2: 'Opioids (Heroin/Oxy)', risk: 'Critical', color: 'text-red-500', note: 'Lethal respiratory depression risk', deNote: 'Tödliches Risiko Atemstillstand' },
-  { s1: 'MDMA', s2: 'SSRIs', risk: 'High', color: 'text-red-400', note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom' },
-  { s1: 'Benzos', s2: 'Opioids', risk: 'Critical', color: 'text-red-500', note: 'Fatal overdose and blackout risk', deNote: 'Extremes Risiko Überdosis' },
-  { s1: 'Alcohol', s2: 'Ketamine', risk: 'High', color: 'text-red-400', note: 'Severe nausea and choking risk', deNote: 'Übelkeit und Erstickungsgefahr' },
-  { s1: 'Cocaine', s2: 'Alcohol', risk: 'Moderate', color: 'text-amber-500', note: 'Increased cardiotoxicity', deNote: 'Erhöhte Herztoxizität' },
-  { s1: 'Speed', s2: 'MDMA', risk: 'Moderate', color: 'text-amber-500', note: 'Extreme heart strain', deNote: 'Extreme Herzbelastung' },
-  { s1: 'LSD', s2: 'Cannabis', risk: 'Moderate', color: 'text-amber-500', note: 'Intense thought loops', deNote: 'Intensive Gedankenschleifen' },
-  { s1: 'Benzos', s2: 'Alcohol', risk: 'Critical', color: 'text-red-500', note: 'Fatal blackouts and overdose', deNote: 'Tödliche Blackouts möglich' },
-  { s1: 'Poppers', s2: 'Viagra', risk: 'Critical', color: 'text-red-500', note: 'Fatal blood pressure drop', deNote: 'Tödlicher Blutdruckabfall' },
-  { s1: 'Cocaine', s2: 'MDMA', risk: 'Moderate', color: 'text-amber-500', note: 'Masks MDMA, heart strain', deNote: 'Maskiert MDMA Wirkung' },
-  { s1: 'Ketamine', s2: 'GHB/GBL', risk: 'Critical', color: 'text-red-500', note: 'Severe respiratory risk', deNote: 'Schwere Atemnot Gefahr' },
+  { 
+    id: 'alc-ghb', s1: 'Alcohol', s2: 'GHB/GBL', risk: 'Critical', color: 'text-red-500', 
+    note: 'Extreme respiratory failure risk', deNote: 'Extremes Risiko Atemstillstand',
+    med: {
+      en: "Severe depression of the Central Nervous System. Combining these substances exponentially increases the risk of fatal respiratory arrest and rapid loss of consciousness. Blackouts are almost guaranteed and can lead to dangerous aspiration.",
+      de: "Schwere Dämpfung des Zentralnervensystems. Diese Kombination erhöht das Risiko für Atemstillstand und Bewusstlosigkeit massiv. Blackouts sind fast garantiert und können zu lebensgefährlichem Ersticken führen."
+    }
+  },
+  { 
+    id: 'alc-op', s1: 'Alcohol', s2: 'Opioids (Heroin/Oxy)', risk: 'Critical', color: 'text-red-500', 
+    note: 'Lethal respiratory depression risk', deNote: 'Tödliches Risiko Atemstillstand',
+    med: {
+      en: "Both substances slow down the autonomic nervous system. This interaction can cause the brain to stop signaling the lungs to breathe. This is a common cause of fatal overdose.",
+      de: "Beide Substanzen verlangsamen das vegetative Nervensystem. Diese Wechselwirkung kann dazu führen, dass das Gehirn aufhört, der Lunge Atembefehle zu geben. Dies ist eine häufige Ursache für tödliche Überdosierungen."
+    }
+  },
+  { 
+    id: 'mdma-ssri', s1: 'MDMA', s2: 'SSRIs', risk: 'High', color: 'text-red-400', 
+    note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom',
+    med: {
+      en: "Increases the risk of Serotonin Syndrome. Symptoms include dangerously high body temperature, confusion, muscle rigidity, and seizures. It can also permanently dull the effects of MDMA while increasing neurotoxicity.",
+      de: "Erhöht das Risiko für ein Serotonin-Syndrom. Symptome sind gefährlich hohes Fieber, Verwirrtheit und Krampfanfälle. Es kann zudem die MDMA-Wirkung dauerhaft abschwächen und die Neurotoxizität erhöhen."
+    }
+  },
+  { 
+    id: 'benzo-op', s1: 'Benzos', s2: 'Opioids', risk: 'Critical', color: 'text-red-500', 
+    note: 'Fatal overdose and blackout risk', deNote: 'Extremes Risiko Überdosis',
+    med: {
+      en: "A highly lethal combination. Both are potent respiratory depressants. The interaction causes extreme sedation, making it impossible for the user to wake up or clear their airway if breathing stops.",
+      de: "Eine hochgefährliche Kombination. Beide dämpfen die Atmung stark. Die Wechselwirkung führt zu einer so tiefen Sedierung, dass ein Aufwachen bei Atemnot unmöglich wird."
+    }
+  },
+  { 
+    id: 'alc-ket', s1: 'Alcohol', s2: 'Ketamine', risk: 'High', color: 'text-red-400', 
+    note: 'Severe nausea and choking risk', deNote: 'Übelkeit und Erstickungsgefahr',
+    med: {
+      en: "Ketamine numbs the body while alcohol causes nausea. This creates a high risk of vomiting while unable to move or clear the throat, leading to aspiration (choking). It also increases motor impairment significantly.",
+      de: "Ketamin betäubt den Körper, während Alkohol Übelkeit erzeugt. Dies führt zu einem hohen Risiko, im gelähmten Zustand zu erbrechen und zu ersticken. Zudem wird die motorische Kontrolle massiv gestört."
+    }
+  },
+  { 
+    id: 'coc-alc', s1: 'Cocaine', s2: 'Alcohol', risk: 'Moderate', color: 'text-amber-500', 
+    note: 'Increased cardiotoxicity', deNote: 'Erhöhte Herztoxizität',
+    med: {
+      en: "The liver produces a new substance called Cocaethylene when these are mixed. Cocaethylene is much more toxic to the heart than cocaine alone and significantly increases the risk of sudden cardiac arrest.",
+      de: "Die Leber bildet bei dieser Mischung den Stoff Cocaethylen. Dieser ist deutlich herztoxischer als Kokain allein und erhöht das Risiko für einen plötzlichen Herzstillstand erheblich."
+    }
+  },
+  { 
+    id: 'speed-mdma', s1: 'Speed', s2: 'MDMA', risk: 'Moderate', color: 'text-amber-500', 
+    note: 'Extreme heart strain', deNote: 'Extreme Herzbelastung',
+    med: {
+      en: "Combining multiple stimulants causes massive cardiovascular strain. It pushes the heart rate and blood pressure to dangerous levels, increasing the risk of overheating (hyperthermia) and stroke.",
+      de: "Die Kombination mehrerer Stimulanzien belastet das Herz-Kreislauf-System massiv. Puls und Blutdruck steigen in gefährliche Bereiche, was das Risiko für Überhitzung und Schlaganfälle erhöht."
+    }
+  },
+  { 
+    id: 'lsd-can', s1: 'LSD', s2: 'Cannabis', risk: 'Moderate', color: 'text-amber-500', 
+    note: 'Intense thought loops', deNote: 'Intensive Gedankenschleifen',
+    med: {
+      en: "Cannabis significantly potentiates the visual and mental effects of LSD. This can lead to overwhelming intensity, paranoia, and inescapable thought loops for many hours.",
+      de: "Cannabis verstärkt die Wirkung von LSD unvorhersehbar. Dies kann zu überwältigender Intensität, Paranoia und stundenlangen Gedankenschleifen führen."
+    }
+  },
+  { 
+    id: 'pop-via', s1: 'Poppers', s2: 'Viagra', risk: 'Critical', color: 'text-red-500', 
+    note: 'Fatal blood pressure drop', deNote: 'Tödlicher Blutdruckabfall',
+    med: {
+      en: "Both substances cause massive vasodilation (widening of blood vessels). Together, they can cause blood pressure to collapse entirely, leading to immediate fainting, stroke, or heart failure.",
+      de: "Beide Substanzen weiten die Gefäße extrem. Zusammen können sie einen totalen Blutdruckabfall verursachen, was zu Ohnmacht, Schlaganfall oder Herzstillstand führt."
+    }
+  },
 ];
 
 const UI = {
   en: {
     header: "Something to remember", sub: "Wisdom for your journey", wisdom: "Mixing Wisdom Guide",
-    acknowledge: "I take full responsibility for my actions", confirm: "Set sanctuary wisdom", created: "Created in harmony"
+    acknowledge: "I take full responsibility for my actions", confirm: "Set sanctuary wisdom", created: "Created in harmony",
+    medicalTitle: "Biological Impact", medicalSub: "Internal Systems Analysis", close: "Continue Calibration"
   },
   de: {
     header: "Etwas zum Erinnern heute", sub: "Weisheit für deine Reise", wisdom: "Misch-Weisheiten Guide",
-    acknowledge: "Ich übernehme volle Verantwortung", confirm: "Weisheit jetzt setzen hier", created: "In Harmonie erschaffen hier"
+    acknowledge: "Ich übernehme volle Verantwortung", confirm: "Weisheit jetzt setzen hier", created: "In Harmonie erschaffen hier",
+    medicalTitle: "Biologische Folgen", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
   }
 };
 
 export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = false }: { onComplete: (data: any) => void, onBack?: () => void, isStandAlone?: boolean }) {
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [acknowledged, setAcknowledge] = useState(false);
+  const [selectedPair, setSelectedPair] = useState<any>(null);
 
   useEffect(() => {
     const savedLang = (localStorage.getItem('stayonbeat_lang') || 'en').toLowerCase() as any;
@@ -70,18 +134,25 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
             </div>
             
             <div className="grid grid-cols-1 gap-3">
-              {MIXING_WISDOM.map((row, i) => (
-                <div key={i} className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden">
+              {MIXING_WISDOM.map((row) => (
+                <button 
+                  key={row.id} 
+                  onClick={() => setSelectedPair(row)}
+                  className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
+                >
                   <div className="flex justify-between items-start gap-4">
                     <span className="text-xs font-black text-white/90 uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
-                    <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-white/5 shrink-0", row.color)}>
-                      {row.risk}
-                    </span>
+                    <div className="flex items-center gap-2">
+                       <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-white/5 shrink-0", row.color)}>
+                         {row.risk}
+                       </span>
+                       <ChevronRight size={12} className="text-white/20 group-hover:text-primary transition-colors" />
+                    </div>
                   </div>
                   <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed">
                     {lang === 'de' ? row.deNote : row.note}
                   </p>
-                </div>
+                </button>
               ))}
             </div>
             
@@ -89,7 +160,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
               <button 
                 onClick={() => setAcknowledge(!acknowledged)}
                 className={cn(
-                  "w-full p-6 rounded-2xl border-2 flex items-center gap-4 transition-all active:scale-[0.98] shadow-lg",
+                  "w-full p-6 rounded-2xl border-2 flex items-center gap-4 transition-all active:scale-[0.98] shadow-lg mt-8",
                   acknowledged ? "bg-primary/10 border-primary" : "bg-white/5 border-white/10"
                 )}
               >
@@ -107,10 +178,63 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
           </section>
 
           <div className="pt-4 text-center opacity-20">
-            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em]">{t.created}</p>
+            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{t.created}</p>
           </div>
         </div>
       </ScrollArea>
+
+      <Dialog open={!!selectedPair} onOpenChange={() => setSelectedPair(null)}>
+        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-2xl">
+          <DialogTitle className="sr-only">{t.medicalTitle}</DialogTitle>
+          
+          <div className="p-10 flex flex-col items-center text-center space-y-8">
+            <div className="relative">
+              <div className={cn("absolute inset-0 blur-3xl rounded-full opacity-20", selectedPair?.color.replace('text-', 'bg-'))} />
+              <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center border-2 border-white/10 relative z-10">
+                <ShieldAlert size={40} className={selectedPair?.color} />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-3xl font-black uppercase tracking-tighter text-white">
+                {selectedPair?.s1} + {selectedPair?.s2}
+              </h3>
+              <p className={cn("text-[10px] font-black uppercase tracking-[0.4em]", selectedPair?.color)}>
+                {selectedPair?.risk} Resonance Interaction
+              </p>
+            </div>
+
+            <div className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] p-8 text-left space-y-6">
+              <div className="flex items-center gap-3">
+                <Brain size={18} className="text-primary/60" />
+                <span className="text-[10px] font-black uppercase text-primary/60 tracking-widest">{t.medicalSub}</span>
+              </div>
+              
+              <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+                {lang === 'en' ? selectedPair?.med?.en : selectedPair?.med?.de}
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                 <div className="flex items-center gap-2">
+                   <HeartPulse size={14} className="text-red-500" />
+                   <span className="text-[8px] font-black uppercase text-white/30 tracking-widest">Cardiac Load: High</span>
+                 </div>
+                 <div className="flex items-center gap-2">
+                   <Droplets size={14} className="text-blue-400" />
+                   <span className="text-[8px] font-black uppercase text-white/30 tracking-widest">Hepatic Strain: High</span>
+                 </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => setSelectedPair(null)}
+              className="w-full h-16 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
+            >
+              {t.close}
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {!isStandAlone && (
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black to-transparent pt-12 pointer-events-none pb-safe">
@@ -129,3 +253,5 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
     </div>
   );
 }
+
+import { ChevronRight } from 'lucide-react';

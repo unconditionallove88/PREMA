@@ -22,6 +22,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 /**
  * @fileOverview Sanctuary Guide Component (Sovereign Intelligence Handover).
  * Written with brotherly love and simple human-to-human guidance.
+ * Optimized for PC, iPhone, and Android.
  */
 
 const STEPS = [
@@ -30,8 +31,8 @@ const STEPS = [
     title: { en: "Mesh Radar", de: "Mesh Radar" },
     desc: { en: "Find friends now", de: "Freunde jetzt finden heute" },
     detail: {
-      en: "Brother, this is your private compass. Tap the hearts inside the 'Circle of Love' to see exactly where your friends are. The Sovereign Mesh connects the group directly without tracking you centrally. It is just for staying together. Tap any heart to walk with soul.",
-      de: "Bruder, das ist dein privater Kompass. Tippe auf die Herzen im 'Circle of Love', um deine Freunde zu finden heute. Das Mesh verbindet euch direkt ohne zentrale Überwachung heute hier. Es geht nur darum, zusammen zu bleiben heute."
+      en: "Brother, this is your private compass. Inside the 'Circle of Love' on the heart-status page, you will see hearts. These represent your chosen friends. Tap any heart to see exactly where they are on the radar. The Sovereign Mesh connects you directly to them without tracking you centrally. It is just for staying together. Tap any heart to walk with soul.",
+      de: "Bruder, das ist dein privater Kompass. Auf der Herz-Status-Seite siehst du Herzen im 'Circle of Love'. Diese stehen für deine Freunde. Tippe auf ein Herz, um ihren Standort auf dem Radar zu sehen. Das Mesh verbindet euch direkt, ohne euch zentral zu überwachen. Es dient nur dazu, zusammenzubleiben heute hier."
     },
     icon: Radio,
     color: "text-blue-400",
@@ -42,8 +43,8 @@ const STEPS = [
     title: { en: "Trusted Bonds", de: "Vertraute Bindungen heute" },
     desc: { en: "The inner circle", de: "Der innere Kreis heute" },
     detail: {
-      en: "These are the souls who love you unconditionally. You can add up to 5 people in the Profile section. These are the ONLY people who see your Mesh location and receive alerts when you need care. You are the master of your own circle of trust.",
-      de: "Dies sind die Seelen, die dich bedingungslos lieben heute. Füge bis zu 5 Personen im Profil hinzu heute hier. Nur diese Menschen sehen deinen Standort und empfangen Alarme, wenn du Hilfe brauchst heute."
+      en: "These are the souls who love you unconditionally. You can add up to 5 people in the Profile section under 'Trusted Bonds'. These are the ONLY people who can see your Mesh location or receive alerts when you need care. You are the master of your own circle of trust. No one else has access to this resonance.",
+      de: "Dies sind die Seelen, die dich bedingungslos lieben heute. Du kannst bis zu 5 Personen im Profil hinzufügen. Nur diese Menschen sehen deinen Standort oder erhalten Alarme, wenn du Hilfe brauchst. Du bist der Herr über deinen eigenen Kreis des Vertrauens heute hier."
     },
     icon: HeartHandshake,
     color: "text-rose-400",
@@ -54,8 +55,8 @@ const STEPS = [
     title: { en: "Sovereign Lab", de: "Souveränitäts Lab heute" },
     desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
     detail: {
-      en: "Self-honesty is your greatest protection. When you tell the lab what you have taken, the Pulse Guardian calculates your biological limits perfectly. It keeps your heart and kidneys protected through data. Honesty with yourself keeps your rhythm steady.",
-      de: "Ehrlichkeit zu dir selbst ist dein bester Schutz heute hier. Wenn du notierst, was du nimmst, schützt der Guardian deine Biologie heute perfekt. Echtzeitdaten schützen Herz und Nieren heute hier. Ehrlichkeit bewahrt deinen Rhythmus heute."
+      en: "Self-honesty is your greatest protection, brother. When you tell the lab exactly what you have taken, the Pulse Guardian calculates your biological limits perfectly. It monitors your heart and kidneys to ensure you stay in a safe rhythm. Honesty with yourself is the foundation of your well-being in this sanctuary.",
+      de: "Ehrlichkeit zu dir selbst ist dein bester Schutz, Bruder. Wenn du dem Lab sagst, was du nimmst, berechnet der Guardian deine biologischen Grenzen perfekt. Er schützt Herz und Nieren, damit dein Rhythmus stabil bleibt heute. Ehrlichkeit ist das Fundament für dein Wohlbefinden heute hier."
     },
     icon: Microscope,
     color: "text-[#10B981]",
@@ -66,8 +67,8 @@ const STEPS = [
     title: { en: "Love Chat", de: "Wort der Liebe heute" },
     desc: { en: "Words of love", de: "Worte der Liebe heute" },
     detail: {
-      en: "We have two spaces for connection. 'The Holders' is a private room for your inner circle where you both agree to care. 'The Spectators' is a public community room where we all watch over each other with kindness. Speak from presence and respect everyone.",
-      de: "Es gibt zwei Kreise heute hier. 'Die Holder' ist ein privater Raum für den inneren Kreis heute hier. 'Die Spectator' ist ein öffentlicher Raum für alle, geerdet in Freundlichkeit heute. Spreche aus der Präsenz und achte jeden hier heute."
+      en: "Connection is healing. 'The Holders' is a private room for you and a chosen bond where you both agree to watch over each other. 'The Spectators' is our public community room where we all practice collective care. Always speak from presence and respect the anonymity of every soul in the circle.",
+      de: "Verbindung heilt uns alle heute. 'Die Holder' ist ein privater Raum für dich und eine vertraute Bindung heute. 'Die Spectator' ist unser öffentlicher Raum, in dem wir alle aufeinander achten. Spreche immer aus der Gegenwart und achte die Anonymität jeder Seele hier heute."
     },
     icon: MessageCircleHeart,
     color: "text-emerald-400",
@@ -78,8 +79,8 @@ const STEPS = [
     title: { en: "Resonance Code", de: "Resonanz Wort heute" },
     desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort heute" },
     detail: {
-      en: "Set your Resonance Code—a secret word—in the Circle of Love. If you text this word to your Bonds, it triggers immediate help and space, even without other words. It is a sacred signal for the network to find you via Mesh when words are not enough.",
-      de: "Setze dein Resonanz Wort in den Einstellungen heute. Dieses Wort an deine Bindungen zu senden bedeutet sofortigen Halt heute. Es ist ein heiliges Signal für das Netzwerk heute hier. Nutze es, wenn Worte nicht mehr reichen heute."
+      en: "In the 'Circle of Love' settings, you can set a secret Resonance Code. If things feel too heavy, simply text this word to your Bonds. It triggers an immediate dispatch signal, telling your circle exactly where you are via Mesh so they can hold space for you. It is a sacred signal when words are not enough.",
+      de: "In den Einstellungen kannst du ein geheimes Resonanz-Wort festlegen heute. Wenn es zu schwer wird, sende dieses Wort an deine Bindungen. Es aktiviert ein sofortiges Signal und zeigt deinem Kreis via Mesh, wo du bist, damit sie für dich da sein können heute hier."
     },
     icon: Lock,
     color: "text-amber-400",
@@ -90,8 +91,8 @@ const STEPS = [
     title: { en: "Heart Breath", de: "Herz Atem heute" },
     desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
     detail: {
-      en: "Follow the pulsing heart to synchronize your breathing. This releases oxytocin, which naturally lowers your heart rate and calms your nerves. Use it for grounding and returning to a calm state. It is a biological reset of peace for your soul.",
-      de: "Folge dem pulsierenden Herzen, um deinen Atem zu synchronisieren heute. Das schüttet Oxytocin aus und beruhigt dein Nervensystem heute hier. Nutze es, um geerdet zu bleiben heute. Es ist ein Reset für die Seele heute."
+      en: "Brother, if your rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize your breathing. This biological ritual releases oxytocin, which naturally slows your heart rate and calms your nervous system. It is a reset button for peace, always available when you need to return to center.",
+      de: "Bruder, wenn dein Puls steigt, nutze den Herz-Atem heute. Folge dem Licht, um deinen Atem zu synchronisieren. Dieses Ritual schüttet Oxytocin aus und beruhigt dein Nervensystem ganz natürlich heute. Es ist dein Anker für inneren Frieden, jederzeit bereit heute hier."
     },
     icon: Wind,
     color: "text-rose-400",
@@ -102,8 +103,8 @@ const STEPS = [
     title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
     desc: { en: "Shape the sanctuary", de: "Den Raum gestalten heute" },
     detail: {
-      en: "This sanctuary is built for you, brother. Use the Co-Creation portal to share joy, friction, or ideas. Your voice directly shapes how this space grows. We grow together through honesty and respect. Every word helps calibrate our collective resonance.",
-      de: "Dieses Sanctuary ist für dich gebaut heute hier. Nutze das Ko Kreations Tool für Feedback oder neue Ideen heute. Deine Stimme formt die Zukunft dieses Raums heute hier. Wir wachsen zusammen durch Ehrlichkeit und Respekt heute."
+      en: "This sanctuary is built for you. Use the Co-Creation portal to share what works, what feels difficult, or new ideas you have. Your voice directly shapes the evolution of this space. We grow together through honesty and respect. Every word you share helps calibrate our collective resonance.",
+      de: "Dieses Sanctuary ist für dich gebaut heute. Nutze das Ko-Kreations-Tool, um Feedback oder Ideen zu teilen heute hier. Deine Stimme formt die Zukunft dieses Raums direkt heute. Wir wachsen zusammen durch Ehrlichkeit und Respekt heute hier."
     },
     icon: Sprout,
     color: "text-primary",
