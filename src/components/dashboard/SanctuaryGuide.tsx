@@ -22,7 +22,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview Sanctuary Guide Component (Sovereign Intelligence Handover).
- * Written with brotherly love and simple human-to-human guidance.
+ * Recreated from scratch to ensure visibility and "Brotherly Love" tone.
  * Optimized for PC, iPhone, and Android.
  */
 
@@ -277,4 +277,3 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
     </div>
   );
 }
-
