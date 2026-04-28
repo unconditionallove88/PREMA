@@ -17,14 +17,12 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
- * @fileOverview Sanctuary Guide (Functional Intelligence).
- * Recalibrated using Golden Ratio (38.2% / 61.8%) architecture.
- * Visibility enhanced with Shining White resonance.
- * Wording: Simple, authoritative guidance (No "Brotherly").
- * Rules: EN (3 words) / DE (4 words).
+ * @fileOverview Sanctuary Guidance (Functional Intelligence).
+ * Architecture: Optimized for immediate visibility without scrolling.
+ * Design: High-fidelity "Shining White" resonance.
+ * Rules: EN (3 words) / DE (4 words) subtitles. No possessives.
  */
 
 const STEPS = [
@@ -33,8 +31,8 @@ const STEPS = [
     title: { en: "Mesh Radar", de: "Mesh Radar" },
     desc: { en: "Find friends now", de: "Freunde jetzt finden heute" },
     detail: {
-      en: "This is a private compass. Inside the 'Circle of Love' on the heart-status page, you will see hearts. These represent your chosen friends. Tap any heart to see exactly where they are on the radar. The Sovereign Mesh connects you directly to them without tracking you centrally. It is just for staying together. Tap any heart to walk with soul.",
-      de: "Das ist ein privater Kompass. Auf der Herz-Status-Seite siehst du Herzen im 'Circle of Love'. Diese stehen für deine Freunde. Tippe auf ein Herz, um ihren Standort auf dem Radar zu sehen. Das Mesh verbindet euch direkt, ohne euch zentral zu überwachen. Es dient nur dazu, zusammenzubleiben heute hier."
+      en: "This is a private compass. Inside the 'Circle of Love' on the heart-status page, you will see hearts representing chosen friends. Tap any heart to see exactly where they are on the radar. The Mesh connects you directly without central tracking.",
+      de: "Das ist ein privater Kompass. Auf der Herz-Status-Seite siehst du Herzen für deine Freunde. Tippe auf ein Herz, um ihren Standort auf dem Radar zu sehen. Das Mesh verbindet euch direkt, ohne zentrale Überwachung heute hier."
     },
     icon: Radio,
     color: "text-blue-400",
@@ -45,8 +43,8 @@ const STEPS = [
     title: { en: "Trusted Bonds", de: "Vertraute Bindungen heute" },
     desc: { en: "The inner circle", de: "Der innere Kreis heute" },
     detail: {
-      en: "These are the souls who love you unconditionally. You can add up to 5 people in the Profile section under 'Trusted Bonds'. These are the ONLY people who can see your Mesh location or receive alerts when you need care. You are the master of your own circle of trust. No one else has access to this resonance.",
-      de: "Dies sind die Seelen, die dich bedingungslos lieben heute. Du kannst bis zu 5 Personen im Profil hinzufügen. Nur diese Menschen sehen deinen Standort oder erhalten Alarme, wenn du Hilfe brauchst. Du bist der Herr über deinen eigenen Kreis des Vertrauens heute hier."
+      en: "These are the souls who love unconditionally. Add up to 5 people in the Profile. These are the ONLY people who can see Mesh location or receive alerts. You are the master of the circle of trust.",
+      de: "Dies sind Seelen die bedingungslos lieben heute. Füge bis zu 5 Personen im Profil hinzu. Nur diese Menschen sehen den Standort oder erhalten Alarme. Du bist Herr über den Kreis des Vertrauens heute."
     },
     icon: HeartHandshake,
     color: "text-rose-400",
@@ -57,8 +55,8 @@ const STEPS = [
     title: { en: "Sovereign Lab", de: "Souveränitäts Lab heute" },
     desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
     detail: {
-      en: "Self-honesty is your greatest protection. When you tell the lab exactly what you have taken, the Pulse Guardian calculates your biological limits perfectly. It monitors your heart and kidneys to ensure you stay in a safe rhythm. Honesty with yourself is the foundation of your well-being in this sanctuary.",
-      de: "Ehrlichkeit zu dir selbst ist dein bester Schutz. Wenn du dem Lab sagst, was du nimmst, berechnet der Guardian deine biologischen Grenzen perfekt. Er schützt Herz und Nieren, damit dein Rhythmus stabil bleibt heute. Ehrlichkeit ist das Fundament für dein Wohlbefinden heute hier."
+      en: "Self-honesty is the greatest protection. When the lab knows exactly what has been taken, the Pulse Guardian calculates biological limits perfectly. It monitors the heart to ensure a safe rhythm is maintained.",
+      de: "Ehrlichkeit zu dir selbst schützt heute. Wenn das Lab weiß was genommen wurde, berechnet der Guardian die Limits perfekt. Er schützt das Herz damit der Rhythmus stabil bleibt heute hier."
     },
     icon: Microscope,
     color: "text-[#10B981]",
@@ -69,8 +67,8 @@ const STEPS = [
     title: { en: "Love Chat", de: "Wort der Liebe heute" },
     desc: { en: "Words of love", de: "Worte der Liebe heute" },
     detail: {
-      en: "Connection is healing. 'The Holders' is a private room for you and a chosen bond where you both agree to watch over each other. 'The Spectators' is our public community room where we all practice collective care. Always speak from presence and respect the anonymity of every soul in the circle.",
-      de: "Verbindung heilt uns alle heute. 'Die Holder' ist ein privater Raum für dich und eine vertraute Bindung heute. 'Die Spectator' ist unser öffentlicher Raum, in dem wir alle aufeinander achten. Spreche immer aus der Gegenwart und achte die Anonymität jeder Seele hier heute."
+      en: "Connection is healing. 'The Holders' is a private room for a chosen bond to watch over each other. 'The Spectators' is a public community room for collective care. Always speak from presence and respect anonymity.",
+      de: "Verbindung heilt uns alle heute. 'Die Holder' ist ein privater Raum für dich und eine Bindung heute. 'Die Spectator' ist ein öffentlicher Raum für gemeinsame Fürsorge. Spreche immer aus der Gegenwart heute hier."
     },
     icon: MessageCircleHeart,
     color: "text-emerald-400",
@@ -81,8 +79,8 @@ const STEPS = [
     title: { en: "Resonance Code", de: "Resonanz Wort heute" },
     desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort heute" },
     detail: {
-      en: "In the 'Circle of Love' settings, you can set a secret Resonance Code. If things feel too heavy, simply text this word to your Bonds. It triggers an immediate dispatch signal, telling your circle exactly where you are via Mesh so they can hold space for you. It is a sacred signal when words are not enough.",
-      de: "In den Einstellungen kannst du ein geheimes Resonanz-Wort festlegen heute. Wenn es zu schwer wird, sende dieses Wort an deine Bindungen. Es aktiviert ein sofortiges Signal und zeigt deinem Kreis via Mesh, wo du bist, damit sie für dich da sein können heute hier."
+      en: "In the 'Circle of Love' settings, set a secret Resonance Code. If things feel heavy, text this word to the Bonds. It triggers an immediate dispatch signal, telling the circle exactly where the Mesh location is.",
+      de: "Lege ein geheimes Resonanz-Wort fest heute. Wenn es schwer wird, sende dieses Wort an die Bindungen. Es aktiviert ein sofortiges Signal und zeigt dem Kreis den Standort via Mesh heute hier."
     },
     icon: Lock,
     color: "text-amber-400",
@@ -93,8 +91,8 @@ const STEPS = [
     title: { en: "Heart Breath", de: "Herz Atem heute" },
     desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
     detail: {
-      en: "If your rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize your breathing. This biological ritual releases oxytocin, which naturally slows your heart rate and calms your nervous system. It is a reset button for peace, always available when you need return to center.",
-      de: "Wenn dein Puls steigt, nutze den Herz-Atem heute. Folge dem Licht, um deinen Atem zu synchronisieren. Dieses Ritual schüttet Oxytocin aus und beruhigt dein Nervensystem ganz natürlich heute. Es ist dein Anker für inneren Frieden, jederzeit bereit heute hier."
+      en: "If the rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize breathing. This biological ritual releases oxytocin, which naturally slows the heart rate and calms the nervous system.",
+      de: "Wenn der Puls steigt heute. Folge dem Licht um den Atem zu synchronisieren. Dieses Ritual schüttet Oxytocin aus und beruhigt das Nervensystem ganz natürlich heute. Es ist ein Anker für Frieden heute."
     },
     icon: Wind,
     color: "text-rose-400",
@@ -105,8 +103,8 @@ const STEPS = [
     title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
     desc: { en: "Shape the sanctuary", de: "Den Raum gestalten heute" },
     detail: {
-      en: "This sanctuary is built for you. Use the Co-Creation portal to share what works, what feels difficult, or new ideas you have. Your voice directly shapes the evolution of this space. We grow together through honesty and respect. Every word you share helps calibrate our collective resonance.",
-      de: "Dieses Sanctuary ist für dich gebaut heute. Nutze das Ko-Kreations-Tool, um Feedback oder Ideen zu teilen heute hier. Deine Stimme formt die Zukunft dieses Raums direkt heute. Wir wachsen zusammen durch Ehrlichkeit und Respekt heute hier."
+      en: "This sanctuary is built for the soul. Use the Co-Creation portal to share feedback or new ideas. The voice directly shapes the evolution of this space. We grow together through honesty and respect.",
+      de: "Dieses Sanctuary ist für dich heute. Nutze das Tool um Feedback oder Ideen zu teilen heute. Deine Stimme formt die Zukunft dieses Raums direkt heute. Wir wachsen zusammen durch Ehrlichkeit heute hier."
     },
     icon: Sprout,
     color: "text-primary",
@@ -152,15 +150,15 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
   }
 
   return (
-    <div className="fixed inset-0 z-[8000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden touch-none h-[100dvh]">
+    <div className="fixed inset-0 z-[8000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden h-[100dvh]">
       {/* Background Ambient Aura */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(27,77,62,0.1)_0%,_transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(27,77,62,0.15)_0%,_transparent_70%)] pointer-events-none" />
 
-      {/* Header - Shrink-safe */}
+      {/* Header - Fixed & Pinned */}
       <header className="px-8 pt-8 pb-4 flex items-center justify-between shrink-0 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-xl">
-            <Sparkles size={24} className="text-primary animate-pulse" />
+          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-xl">
+            <Sparkles size={20} className="text-primary animate-pulse" />
           </div>
           <div>
             <h2 className="text-xl font-black uppercase tracking-tighter text-white shining-white">
@@ -179,43 +177,43 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
         )}
       </header>
 
-      {/* Proportional Identity Section (~38.2%) */}
-      <section className="flex-[0.38] flex flex-col items-center justify-center text-center px-6 gap-6 relative z-10">
-        <div className={cn(
-          "w-24 h-24 md:w-28 md:h-28 rounded-[2.5rem] flex items-center justify-center border-2 border-white/10 mx-auto shadow-2xl transition-all duration-700", 
-          step.bg
-        )}>
-          <Icon size={40} className={cn("animate-pulse", step.color)} />
-        </div>
-        <div className="space-y-1">
-          <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none shining-white">
-            {lang === 'en' ? step.title.en : step.title.de}
-          </h3>
-          <p className="text-primary text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em]">
-            {lang === 'en' ? step.desc.en : step.desc.de}
-          </p>
-        </div>
-      </section>
+      {/* Main Guidance Viewport */}
+      <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0 py-4">
+        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all">
+          <div className="p-8 md:p-12 flex flex-col items-center text-center space-y-8">
+            {/* Tool Identity */}
+            <div className={cn(
+              "w-24 h-24 rounded-[2.5rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
+              step.bg
+            )}>
+              <Icon size={48} className={cn("animate-pulse", step.color)} />
+            </div>
 
-      {/* Wisdom Card (~61.8%) - Fully Scrollable and Visible */}
-      <main className="flex-[0.62] px-6 pb-6 relative z-10 flex flex-col min-h-0">
-        <div className="flex-1 bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden group hover:border-white/20 transition-all">
-          <ScrollArea className="flex-1">
-            <div className="p-8 md:p-10 space-y-6">
-              <div className="flex items-center gap-3">
+            <div className="space-y-2">
+              <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white leading-none shining-white">
+                {lang === 'en' ? step.title.en : step.title.de}
+              </h3>
+              <p className="text-primary text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em]">
+                {lang === 'en' ? step.desc.en : step.desc.de}
+              </p>
+            </div>
+
+            {/* Functional Intelligence (The Description) - Zero Scroll Area */}
+            <div className="w-full space-y-4 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
                 <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">
-                  {lang === 'en' ? "Functional Detail" : "Funktions Details heute"}
+                  {lang === 'en' ? "Functional Detail" : "Funktions Detail heute"}
                 </span>
               </div>
-              <p className="text-base md:text-xl font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+              <p className="text-sm md:text-lg font-bold text-white/80 leading-relaxed uppercase tracking-widest max-w-sm mx-auto">
                 {lang === 'en' ? step.detail.en : step.detail.de}
               </p>
             </div>
-          </ScrollArea>
+          </div>
 
           {/* Navigation Action Area */}
-          <div className="p-8 pt-4 bg-black/40 backdrop-blur-md border-t border-white/5 flex flex-col gap-6">
+          <div className="p-8 bg-black/40 backdrop-blur-md border-t border-white/5 flex flex-col gap-6 mt-auto">
             <div className="flex items-center justify-between">
               {/* Progress Rings */}
               <div className="flex gap-2">
@@ -242,14 +240,14 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 {currentStep < STEPS.length - 1 ? (
                   <button 
                     onClick={() => { playHeartbeat(); setCurrentStep(prev => prev + 1); }} 
-                    className="px-10 py-5 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
+                    className="px-8 py-4 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                   >
                     {lang === 'en' ? 'Next' : 'Weiter'} <ChevronRight className="w-5 h-5" />
                   </button>
                 ) : (
                   <button 
                     onClick={handleDismiss} 
-                    className="px-10 py-5 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
+                    className="px-8 py-4 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                   >
                     {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
                   </button>
@@ -260,7 +258,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
         </div>
       </main>
 
-      {/* Footer Branding - Consistent Resonance */}
+      {/* Footer Branding */}
       <footer className="shrink-0 pb-8 text-center px-6 pointer-events-none relative z-10">
         <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white opacity-80">
           {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
