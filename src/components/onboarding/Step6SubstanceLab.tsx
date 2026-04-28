@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -43,6 +42,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { StepSomethingToRemember as WisdomProtocol } from '@/components/onboarding/StepSomethingToRemember';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Sovereign Lab Component.
@@ -320,7 +320,7 @@ export function Step6SubstanceLab({
       </div>
 
       <footer className="shrink-0 h-[100px] bg-black/95 backdrop-blur-2xl border-t border-white/5 flex items-center justify-center px-6 z-[70] pb-safe">
-        <button onClick={() => onComplete(sessionLogs)} className="w-full py-5 bg-[#3EB489] text-black rounded-full font-black uppercase text-base tracking-[0.1em] neon-glow active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3"><CheckCircle2 size={20} /> {t.sync}</button>
+        <button onClick={() => { playHeartbeat(); onComplete(sessionLogs); }} className="w-full py-5 bg-[#3EB489] text-black rounded-full font-black uppercase text-base tracking-[0.1em] neon-glow active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3"><CheckCircle2 size={20} /> {t.sync}</button>
       </footer>
 
       {activeSubstance && (

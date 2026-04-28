@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview The Holders (Sacred Communication).
@@ -181,7 +182,7 @@ export function LoveCircleChat() {
               <div className="flex items-center justify-center gap-4">
                 <h2 className="text-5xl font-black uppercase tracking-tighter text-white leading-none">{t.title}</h2>
                 <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
-                  {isSpeaking ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Volume2 className="w-6 h-6 text-primary" />}
+                  {isSpeaking ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
               <p className="text-xl font-bold text-white/40 leading-tight max-sm mx-auto uppercase tracking-widest italic">
