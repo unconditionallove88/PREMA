@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -209,7 +210,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
           <button onClick={onClose} className="text-white/20 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest underline underline-offset-8">
             {t.returning(countdown)}
           </button>
-          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">
             {t.footer}
           </p>
         </div>
@@ -361,7 +362,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
         </ScrollArea>
 
         <div className="p-8 pt-4 bg-black/40 backdrop-blur-md border-t border-white/5 text-center shrink-0">
-          <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/20">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
             Sanctuary Support Protocol • Created in harmony
           </p>
         </div>

@@ -86,7 +86,7 @@ export function Step9Summary({ data, onComplete }: { data: OnboardingData, onCom
       </button>
       
       <footer className="mt-16 text-center">
-        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">
           {t.footer}
         </p>
       </footer>

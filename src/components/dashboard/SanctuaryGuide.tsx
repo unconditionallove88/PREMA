@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -258,7 +259,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
             </div>
           </div>
           
-          <p className="text-center text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white opacity-60">
+          <p className="text-center text-[10px] font-black uppercase tracking-[0.5em] shining-white">
             {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
           </p>
         </div>

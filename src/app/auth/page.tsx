@@ -148,7 +148,7 @@ function AuthContent() {
           </div>
         </div>
 
-        <div className="mt-10 pt-8 border-t border-white/5"><p className="text-center text-[8px] text-white/10 uppercase tracking-[0.5em] font-black">{t.footer}</p></div>
+        <div className="mt-10 pt-8 border-t border-white/5"><p className="text-center text-[10px] uppercase tracking-[0.5em] font-black shining-white">{t.footer}</p></div>
       </div>
     </main>
   );
