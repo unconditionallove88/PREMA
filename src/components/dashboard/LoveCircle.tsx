@@ -92,7 +92,7 @@ const ARCHETYPES = [
     id: 'life', icon: Infinity, color: "text-primary", bg: "bg-primary/5", 
     en: "Pure Life Love", de: "Reines Leben heute", 
     sentence: "Existence is a gift",
-    explanation: "Life love is the gratitude for the breath in the lungs and the rhythm in the chest. It is love for the experience of being.",
+    explanation: "Life love is the gratitude for the breath in the lungs and the rhythm in the chest. It is love for the experience of being alive.",
     practice: "Take a deep breath and acknowledge the gift of life. Repeat this three times."
   },
 ];
