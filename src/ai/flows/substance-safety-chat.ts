@@ -1,7 +1,9 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for answering substance safety questions.
  * Languages: en, de.
+ * Updated to include guidelines for 3-MMC, 4-MMC, Monkey Dust, and DMT.
  */
 
 import {ai} from '@/ai/genkit';
@@ -53,11 +55,13 @@ LANGUAGE REQUIREMENT:
 Respond exclusively in the language code: {{{lang}}}.
 
 CRITICAL GUIDELINES:
-1. If mixing (Alcohol + GHB, Stimulant + Stimulant, SSRIs + MDMA), provide an immediate **CRITICAL WARNING** in all-caps.
+1. If mixing (Alcohol + GHB/Cathinones, Stimulant + Stimulant, SSRIs + MDMA/3-MMC/4-MMC, DMT + MAOIs), provide an immediate **CRITICAL WARNING** in all-caps.
 2. Reference their specific Pulse Lab intake.
-3. Mention the Pulse Guardian protocol monitoring.
-4. Limit responses to 4 concise bullet points. 
-5. Keep total response under 100 words.`,
+3. Mention the Pulse Guardian protocol monitoring heart rate and body temperature.
+4. For Monkey Dust (MDPV), warn about the high risk of overheating and paranoia.
+5. For 3-MMC/4-MMC, emphasize hydration and redosing risks.
+6. Limit responses to 4 concise bullet points. 
+7. Keep total response under 100 words.`,
 });
 
 const aiSafetyChatFlow = ai.defineFlow(

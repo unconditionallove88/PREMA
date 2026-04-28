@@ -1,7 +1,9 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for assessing substance interaction risks.
  * Languages: en, de.
+ * Updated to include risks for 3-MMC, 4-MMC, Monkey Dust, and DMT.
  */
 
 import {ai} from '@/ai/genkit';
@@ -54,7 +56,9 @@ LANGUAGE REQUIREMENT:
 Respond exclusively in the language code: {{{lang}}}. 
 
 Specific Risks to Check (CRITICAL):
-- SSRIs/SNRIs + MDMA/3-MMC/4-MMC: Critical Serotonin Syndrome risk.
+- SSRIs/SNRIs + 3-MMC/4-MMC/MDMA: Critical Serotonin Syndrome risk.
+- Monkey Dust (MDPV) + Alcohol/Stimulants: Extreme cardiovascular risk and hyperthermia.
+- DMT + MAOIs: Dangerous potentiation and hypertensive crisis risk.
 - Alcohol + GHB/Benzos: Extreme respiratory failure risk.
 - Stimulant + Stimulant: Cardiovascular emergency risk.
 

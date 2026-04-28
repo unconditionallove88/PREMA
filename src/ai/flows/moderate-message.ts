@@ -3,8 +3,7 @@
 
 /**
  * @fileOverview A Genkit flow for moderating chat messages in "The Spectators" space.
- * Features: Slang detection for substances, illegal activity monitoring, and collective care enforcement.
- * Punctuation-free for resonance.
+ * Features: Slang detection for substances (including cathinones and DMT), illegal activity monitoring.
  */
 
 import { ai } from '@/ai/genkit';
@@ -37,7 +36,9 @@ The community is based on "Unconditional Love" and "Collective Care"
 Your primary objective is to maintain a safe sanctuary. You must scan for and immediately flag:
 1. ILLEGAL ACTIVITIES: Selling, buying, or promoting substances
 2. MASKED DRUG NAMES (SLANG):
-   - 2-MMC / 3-MMC / 4-MMC: "meow meow", "meuw meuw", "m-cat", "drone", "bubbles", "mephy", "3m", "4m"
+   - 3-MMC / 4-MMC: "meow meow", "meuw meuw", "3m", "4m", "drone", "m-cat", "bubbles"
+   - Monkey Dust: "mdpv", "dust", "zombie dust"
+   - DMT: "dimitri", "spirit molecule"
    - GHB / GBL: "G", "Gina", "Liquid X", "Blue Nitro"
    - MDMA / Ecstasy: "Molly", "M", "Mandy", "E", "XTC", "Beans"
    - Cocaine: "C", "Coke", "Snow", "White", "Blow", "Charlie"

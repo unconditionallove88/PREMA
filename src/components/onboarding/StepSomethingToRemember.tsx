@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 /**
  * @fileOverview "Something to Remember" (Mixing Wisdom Step).
  * Features: Interactive medical intelligence about substance interactions.
- * Languages: en/de.
+ * Updated: Added 3-MMC, 4-MMC, Monkey Dust, and DMT.
  */
 
 const MIXING_WISDOM = [
@@ -23,11 +23,27 @@ const MIXING_WISDOM = [
     }
   },
   { 
-    id: 'alc-op', s1: 'Alcohol', s2: 'Opioids (Heroin/Oxy)', risk: 'Critical', color: 'text-red-500', 
-    note: 'Lethal respiratory depression risk', deNote: 'Tödliches Risiko Atemstillstand',
+    id: 'mmc-ssri', s1: '3-MMC / 4-MMC', s2: 'SSRIs', risk: 'High', color: 'text-red-400', 
+    note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom heute',
     med: {
-      en: "Both substances slow down the autonomic nervous system. This interaction can cause the brain to stop signaling the lungs to breathe. This is a common cause of fatal overdose.",
-      de: "Beide Substanzen verlangsamen das vegetative Nervensystem. Diese Wechselwirkung kann dazu führen, dass das Gehirn aufhört, der Lunge Atembefehle zu geben. Dies ist eine häufige Ursache für tödliche Überdosierungen."
+      en: "Both 3-MMC and 4-MMC act on serotonin release. Mixing with SSRIs/SNRIs significantly increases the risk of Serotonin Syndrome. Symptoms include overheating, rapid heart rate, and potential seizures.",
+      de: "Sowohl 3-MMC als auch 4-MMC wirken auf die Serotonin-Freisetzung. Die Mischung mit SSRIs erhöht das Risiko für ein Serotonin-Syndrom erheblich. Symptome sind Überhitzung und Krampfanfälle heute hier."
+    }
+  },
+  { 
+    id: 'mdpv-alc', s1: 'Monkey Dust', s2: 'Alcohol', risk: 'Critical', color: 'text-red-500', 
+    note: 'Extreme cardiac load risk', deNote: 'Extreme Herzbelastung heute hier',
+    med: {
+      en: "Monkey Dust (MDPV) is a highly potent stimulant. Mixing with alcohol creates massive strain on the heart and can trigger acute psychiatric emergencies or hyperthermia.",
+      de: "Monkey Dust ist ein hochpotentes Stimulans. Die Mischung mit Alkohol belastet das Herz massiv und kann akute psychiatrische Notfälle oder Überhitzung auslösen heute hier."
+    }
+  },
+  { 
+    id: 'dmt-maoi', s1: 'DMT', s2: 'MAOIs', risk: 'High', color: 'text-red-400', 
+    note: 'Uncontrolled potentiation risk', deNote: 'Unkontrollierte Wirkungsverstärkung heute hier',
+    med: {
+      en: "MAO inhibitors prevent the breakdown of DMT, leading to an uncontrolled and potentially overwhelming experience. It can also cause a dangerous spike in blood pressure.",
+      de: "MAO-Hemmer verhindern den Abbau von DMT, was zu einer unkontrollierten und überwältigenden Erfahrung führt. Es kann zudem gefährlichen Bluthochdruck verursachen heute hier."
     }
   },
   { 
@@ -47,14 +63,6 @@ const MIXING_WISDOM = [
     }
   },
   { 
-    id: 'alc-ket', s1: 'Alcohol', s2: 'Ketamine', risk: 'High', color: 'text-red-400', 
-    note: 'Severe nausea and choking risk', deNote: 'Übelkeit und Erstickungsgefahr',
-    med: {
-      en: "Ketamine numbs the body while alcohol causes nausea. This creates a high risk of vomiting while unable to move or clear the throat, leading to aspiration (choking). It also increases motor impairment significantly.",
-      de: "Ketamin betäubt den Körper, während Alkohol Übelkeit erzeugt. Dies führt zu einem hohen Risiko, im gelähmten Zustand zu erbrechen und zu ersticken. Zudem wird die motorische Kontrolle massiv gestört."
-    }
-  },
-  { 
     id: 'coc-alc', s1: 'Cocaine', s2: 'Alcohol', risk: 'Moderate', color: 'text-amber-500', 
     note: 'Increased cardiotoxicity', deNote: 'Erhöhte Herztoxizität',
     med: {
@@ -62,42 +70,18 @@ const MIXING_WISDOM = [
       de: "Die Leber bildet bei dieser Mischung den Stoff Cocaethylen. Dieser ist deutlich herztoxischer als Kokain allein und erhöht das Risiko für einen plötzlichen Herzstillstand erheblich."
     }
   },
-  { 
-    id: 'speed-mdma', s1: 'Speed', s2: 'MDMA', risk: 'Moderate', color: 'text-amber-500', 
-    note: 'Extreme heart strain', deNote: 'Extreme Herzbelastung',
-    med: {
-      en: "Combining multiple stimulants causes massive cardiovascular strain. It pushes the heart rate and blood pressure to dangerous levels, increasing the risk of overheating (hyperthermia) and stroke.",
-      de: "Die Kombination mehrerer Stimulanzien belastet das Herz-Kreislauf-System massiv. Puls und Blutdruck steigen in gefährliche Bereiche, was das Risiko für Überhitzung und Schlaganfälle erhöht."
-    }
-  },
-  { 
-    id: 'lsd-can', s1: 'LSD', s2: 'Cannabis', risk: 'Moderate', color: 'text-amber-500', 
-    note: 'Intense thought loops', deNote: 'Intensive Gedankenschleifen',
-    med: {
-      en: "Cannabis significantly potentiates the visual and mental effects of LSD. This can lead to overwhelming intensity, paranoia, and inescapable thought loops for many hours.",
-      de: "Cannabis verstärkt die Wirkung von LSD unvorhersehbar. Dies kann zu überwältigender Intensität, Paranoia und stundenlangen Gedankenschleifen führen."
-    }
-  },
-  { 
-    id: 'pop-via', s1: 'Poppers', s2: 'Viagra', risk: 'Critical', color: 'text-red-500', 
-    note: 'Fatal blood pressure drop', deNote: 'Tödlicher Blutdruckabfall',
-    med: {
-      en: "Both substances cause massive vasodilation (widening of blood vessels). Together, they can cause blood pressure to collapse entirely, leading to immediate fainting, stroke, or heart failure.",
-      de: "Beide Substanzen weiten die Gefäße extrem. Zusammen können sie einen totalen Blutdruckabfall verursachen, was zu Ohnmacht, Schlaganfall oder Herzstillstand führt."
-    }
-  },
 ];
 
 const UI = {
   en: {
     header: "Something to remember", sub: "Wisdom for your journey", wisdom: "Mixing Wisdom Guide",
-    acknowledge: "I take full responsibility for my actions", confirm: "Set sanctuary wisdom", created: "Created in harmony",
+    acknowledge: "I take responsibility", confirm: "Set sanctuary wisdom", created: "Created in harmony",
     medicalTitle: "Biological Impact", medicalSub: "Internal Systems Analysis", close: "Continue Calibration"
   },
   de: {
     header: "Etwas zum Erinnern heute", sub: "Weisheit für deine Reise", wisdom: "Misch-Weisheiten Guide",
-    acknowledge: "Ich übernehme volle Verantwortung", confirm: "Weisheit jetzt setzen hier", created: "In Harmonie erschaffen hier",
-    medicalTitle: "Biologische Folgen", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
+    acknowledge: "Ich übernehme Verantwortung", confirm: "Weisheit jetzt setzen hier", created: "In Harmonie erschaffen hier",
+    medicalTitle: "Biologische Folgen heute", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
   }
 };
 

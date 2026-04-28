@@ -47,6 +47,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 /**
  * @fileOverview Sovereign Lab Component.
  * Features: Self-Honesty, responsible intake tracking, and phone-based diary storage.
+ * Updated: Added 3-MMC, 4-MMC, Monkey Dust, and DMT.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -60,9 +61,9 @@ const CONTENT = {
     title: "Sovereign Lab", advisor: "Open Safety Advisor", search: "Find...",
     diary: "Session Diary", records: "Records", sync: "Sync Truth", intake: "Honest Intake Entry",
     confirm: "Log My Truth", cancel: "Cancel Entry", amount: "Amount", doseLogged: "Truth logged",
-    addedToDiary: "added to the session diary", causionTitle: "Pulse Guardian: Caution 🧪",
+    addedToDiary: "added to diary", causionTitle: "Pulse Guardian: Caution 🧪",
     poppersHR: (hr: number) => `The heart rate is ${hr} BPM Poppers will drop blood pressure sharply Please sit down and breathe before use`,
-    responsibility: "I take full responsibility for actions",
+    responsibility: "I take responsibility",
     honestyTitle: "Moment of Truth",
     honestyDesc: "I am honest with myself and I respect the body's limits. This entry is a record of the sovereign choice.",
     affirmBtn: "I Affirm Truth",
@@ -78,9 +79,9 @@ const CONTENT = {
     title: "Souveränitäts-Lab", advisor: "Sicherheits-Begleiter", search: "Suchen...",
     diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session Wahrheit", intake: "Ehrlicher Eintrag heute",
     confirm: "Die Wahrheit notieren heute", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert heute",
-    addedToDiary: "wurde dem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
+    addedToDiary: "dem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
     poppersHR: (hr: number) => `Der Puls liegt bei ${hr} BPM Poppers senkt den Blutdruck stark ab Bitte nimm dir Zeit, setz dich hin und atme tief durch`,
-    responsibility: "Ich übernehme volle Verantwortung heute",
+    responsibility: "Ich übernehme Verantwortung heute",
     honestyTitle: "Moment der Wahrheit heute",
     honestyDesc: "Ich bin ehrlich zu mir selbst und achte die Grenzen heute. Dieser Eintrag spiegelt die souveräne Entscheidung wider.",
     affirmBtn: "Ich bestätige die Wahrheit",
@@ -98,12 +99,16 @@ const SUBSTANCES = [
   { id: 'alcohol', icon: Wine, name: 'Alcohol', deName: 'Alkohol', aliases: ['beer', 'wine', 'shot', 'vodka', 'whiskey', 'gin', 'rum', 'tequila'], color: 'text-amber-500', isHeavy: false, unit: 'Items', inputType: 'cart' },
   { id: 'cannabis', icon: Leaf, name: 'Cannabis', deName: 'Cannabis', aliases: ['weed', 'pot', 'joint', 'grass', 'hash'], color: 'text-emerald-500', isHeavy: false, unit: 'g', inputType: 'manual' },
   { id: 'mdma', icon: Sparkles, name: 'MDMA', deName: 'MDMA', aliases: ['molly', 'mandy'], color: 'text-purple-400', isHeavy: true, unit: 'g', inputType: 'manual' },
+  { id: '4mmc', icon: Sparkles, name: '4-MMC', deName: '4-MMC', aliases: ['mephedrone', 'meow meow', 'drone'], color: 'text-pink-300', isHeavy: true, unit: 'mg', inputType: 'manual' },
+  { id: '3mmc', icon: Zap, name: '3-MMC', deName: '3-MMC', aliases: ['3m', '3-meow'], color: 'text-orange-300', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'cocaine', icon: Diamond, name: 'Cocaine', deName: 'Kokain', aliases: ['coke', 'snow', 'blow', 'white'], color: 'text-slate-200', isHeavy: true, unit: 'g', inputType: 'manual' },
   { id: 'ketamine', icon: FlaskConical, name: 'Ketamine', deName: 'Ketamin', aliases: ['k', 'special k', 'kitty'], color: 'text-indigo-400', isHeavy: true, unit: 'g', inputType: 'manual' },
   { id: 'ecstasy', icon: Heart, name: 'Ecstasy', deName: 'Ecstasy', aliases: ['e', 'beans', 'xtc', 'pills'], color: 'text-pink-500', isHeavy: true, unit: 'pills', inputType: 'manual' },
   { id: 'ghb', icon: Droplets, name: 'GHB/GBL', deName: 'GHB/GBL', aliases: ['g', 'liquid x', 'gina'], color: 'text-blue-400', isHeavy: true, unit: 'ml', inputType: 'manual' },
   { id: 'speed', icon: Zap, name: 'Speed', deName: 'Speed', aliases: ['amphetamines', 'pep'], color: 'text-yellow-400', isHeavy: true, unit: 'g', inputType: 'manual' },
+  { id: 'mdpv', icon: Skull, name: 'Monkey Dust', deName: 'Monkey Dust', aliases: ['mdpv', 'dust'], color: 'text-red-500', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'lsd', icon: Eye, name: 'LSD', deName: 'LSD', aliases: ['acid', 'tabs', 'lcd'], color: 'text-cyan-400', isHeavy: false, unit: 'ug', inputType: 'manual' },
+  { id: 'dmt', icon: Orbit, name: 'DMT', deName: 'DMT', aliases: ['dimitri', 'spirit molecule'], color: 'text-purple-300', isHeavy: false, unit: 'mg', inputType: 'manual' },
   { id: '2cb', icon: Orbit, name: '2C-B', deName: '2C-B', aliases: ['nexus'], color: 'text-orange-400', isHeavy: true, unit: 'mg', inputType: 'manual' },
   { id: 'psilocybin', icon: MushroomIcon, name: 'Psilocybin', deName: 'Psilocybin', aliases: ['mushrooms', 'shrooms'], color: 'text-emerald-400', isHeavy: false, unit: 'g', inputType: 'manual' },
   { id: 'poppers', icon: Wind, name: 'Poppers', deName: 'Poppers', aliases: ['amyl', 'nitrite'], color: 'text-amber-400', isHeavy: true, unit: 'hits', inputType: 'manual' },
@@ -114,7 +119,10 @@ const DANGEROUS_COMBOS = [
   { pair: ['ketamine', 'ghb'], risk: 'Critical', note: { en: 'Severe respiratory risk & loss of consciousness.', de: 'Schwere Atemnot und Bewusstlosigkeit.' } },
   { pair: ['alcohol', 'ketamine'], risk: 'High', note: { en: 'Severe nausea, dizziness, and choking risk.', de: 'Starke Übelkeit, Schwindel und Erstickungsgefahr.' } },
   { pair: ['mdma', 'ssri'], risk: 'High', note: { en: 'Serotonin Syndrome risk - can be fatal.', de: 'Risiko für Serotonin-Syndrom - kann tödlich sein.' } },
+  { pair: ['4mmc', 'ssri'], risk: 'High', note: { en: 'High risk of Serotonin Syndrome and cardiovascular load.', de: 'Hohes Risiko für Serotonin-Syndrom und Herzbelastung.' } },
   { pair: ['cocaine', 'alcohol'], risk: 'High', note: { en: 'Increases cardiotoxicity and heart strain significantly.', de: 'Erhöht die Herztoxizität und Herzbelastung signifikant.' } },
+  { pair: ['mdpv', 'alcohol'], risk: 'Critical', note: { en: 'Extreme cardiac load and risk of hyperthermia.', de: 'Extreme Herzbelastung und Risiko für Überhitzung.' } },
+  { pair: ['dmt', 'maoi'], risk: 'High', note: { en: 'Uncontrolled potentiation and hypertensive crisis risk.', de: 'Unkontrollierte Wirkungsverstärkung und Blutdruckkrise.' } },
 ];
 
 export function Step6SubstanceLab({ 
@@ -377,4 +385,3 @@ export function Step6SubstanceLab({
     </div>
   );
 }
-
