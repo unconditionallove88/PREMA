@@ -21,20 +21,28 @@ import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
- * @fileOverview Sanctuary Guidance (Functional Intelligence).
- * Architecture: Optimized for organic viewport fit on iPhone, Android, and Desktop.
+ * @fileOverview Sanctuary Guidance (Structured Intelligence).
+ * Architecture: Optimized for organic viewport fit.
  * Design: High-fidelity "Shining White" resonance.
- * Rules: EN (3 words) / DE (4 words) subtitles. No possessives.
+ * Format: Description, How it functions, Guardian Intelligence.
  */
 
 const STEPS = [
   {
     id: 'radar',
-    title: { en: "Mesh Radar", de: "Mesh Radar" },
+    title: { en: "Pulse Mesh Radar", de: "Pulse Mesh Radar" },
     desc: { en: "Find friends now", de: "Freunde jetzt finden heute" },
-    detail: {
-      en: "This is a private compass. Inside the 'Circle of Love' on the heart-status page, you will see hearts representing chosen friends. Tap any heart to see exactly where they are on the radar. The Mesh connects you directly without central tracking.",
-      de: "Das ist ein privater Kompass. Auf der Herz-Status-Seite siehst du Herzen für deine Freunde. Tippe auf ein Herz, um ihren Standort auf dem Radar zu sehen. Das Mesh verbindet euch direkt, ohne zentrale Überwachung heute hier."
+    content: {
+      en: {
+        description: "Your location tracker shared only with those you love using the Sovereign Mesh triangulation protocol",
+        functions: "View friends and awareness hubs on a tactical grid Toggle privacy to go invisible or broadcast distress via Mesh",
+        intelligence: "Pulse Guardian: Analyzes Mesh triangulation to direct awareness staff to your precise tactical grid location"
+      },
+      de: {
+        description: "Standort-Tracker nur mit vertrauten Menschen geteilt heute via Mesh Protokoll heute hier",
+        functions: "Sehe Freunde und Hubs auf dem Grid Schalte Sichtbarkeit um oder sende Notrufe via Mesh heute",
+        intelligence: "Pulse Guardian: Analysiert die Triangulation um Hilfe präzise zu deinem Standort zu leiten heute hier"
+      }
     },
     icon: Radio,
     color: "text-blue-400",
@@ -44,9 +52,17 @@ const STEPS = [
     id: 'bonds',
     title: { en: "Trusted Bonds", de: "Vertraute Bindungen heute" },
     desc: { en: "The inner circle", de: "Der innere Kreis heute" },
-    detail: {
-      en: "These are the souls who love unconditionally. Add up to 5 people in the Profile. These are the ONLY people who can see Mesh location or receive alerts. You are the master of the circle of trust.",
-      de: "Dies sind Seelen die bedingungslos lieben heute. Füge bis zu 5 Personen im Profil hinzu. Nur diese Menschen sehen den Standort oder erhalten Alarme. Du bist Herr über den Kreis des Vertrauens heute."
+    content: {
+      en: {
+        description: "The inner circle of souls who hold space for existence unconditionally and without judgment",
+        functions: "Add up to 5 people in the Profile These are the only souls who see location or receive alerts",
+        intelligence: "Pulse Guardian: Verifies bond encryption to ensure data sovereignty remains absolute within the chosen circle"
+      },
+      de: {
+        description: "Der innere Kreis der Seelen die dich bedingungslos lieben heute ohne jedes Urteil heute",
+        functions: "Füge bis zu 5 Bindungen im Profil hinzu Nur diese sehen den Standort heute hier",
+        intelligence: "Pulse Guardian: Verifiziert die Verschlüsselung damit die Datensouveränität absolut gewahrt bleibt heute hier"
+      }
     },
     icon: HeartHandshake,
     color: "text-rose-400",
@@ -56,9 +72,17 @@ const STEPS = [
     id: 'lab',
     title: { en: "Sovereign Lab", de: "Souveränitäts Lab heute" },
     desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
-    detail: {
-      en: "Self-honesty is the greatest protection. When the lab knows exactly what has been taken, the Pulse Guardian calculates biological limits perfectly. It monitors the heart to ensure a safe rhythm is maintained.",
-      de: "Ehrlichkeit zu dir selbst schützt heute. Wenn das Lab weiß was genommen wurde, berechnet der Guardian die Limits perfekt. Er schützt das Herz damit der Rhythmus stabil bleibt heute hier."
+    content: {
+      en: {
+        description: "A space for absolute honesty regarding session intake and biological limits within the sanctuary",
+        functions: "Log substances as they are consumed The lab tracks volume and frequency to provide high-fidelity analysis",
+        intelligence: "Pulse Guardian: Calculates specific safety thresholds by cross-referencing the medical profile with active substance logs"
+      },
+      de: {
+        description: "Ein Raum für absolute Ehrlichkeit bezüglich der Aufnahme und biologischer Grenzen heute hier",
+        functions: "Notiere Substanzen bei der Aufnahme Das Lab trackt Volumen und Frequenz für präzise Analysen heute",
+        intelligence: "Pulse Guardian: Berechnet spezifische Sicherheits-Limits durch Abgleich des Profils mit den aktiven Protokollen heute"
+      }
     },
     icon: Microscope,
     color: "text-[#10B981]",
@@ -68,9 +92,17 @@ const STEPS = [
     id: 'lovechat',
     title: { en: "Love Chat", de: "Wort der Liebe heute" },
     desc: { en: "Words of love", de: "Worte der Liebe heute" },
-    detail: {
-      en: "Connection is healing. 'The Holders' is a private room for a chosen bond to watch over each other. 'The Spectators' is a public community room for collective care. Always speak from presence and respect anonymity.",
-      de: "Verbindung heilt uns alle heute. 'Die Holder' ist ein privater Raum für dich und eine Bindung heute. 'Die Spectator' ist ein öffentlicher Raum für gemeinsame Fürsorge. Spreche immer aus der Gegenwart heute hier."
+    content: {
+      en: {
+        description: "Dedicated rooms for private connection and collective care within the circle of humanity",
+        functions: "Use 'The Holders' for the inner circle or 'The Spectators' for public community support and care",
+        intelligence: "Pulse Guardian: Monitors public chat for dissonance to maintain the sanctuary frequency of unconditional love"
+      },
+      de: {
+        description: "Eigene Räume für private Verbindung und kollektive Fürsorge im Kreis der Menschheit heute",
+        functions: "Nutze 'Die Holder' für den inneren Kreis oder 'Die Spectator' für gemeinschaftliche Unterstützung heute",
+        intelligence: "Pulse Guardian: Überwacht den öffentlichen Chat auf Dissonanz um die Frequenz der Liebe zu wahren"
+      }
     },
     icon: MessageCircleHeart,
     color: "text-emerald-400",
@@ -80,9 +112,17 @@ const STEPS = [
     id: 'rescode',
     title: { en: "Resonance Code", de: "Resonanz Wort heute" },
     desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort heute" },
-    detail: {
-      en: "In the 'Circle of Love' settings, set a secret Resonance Code. If things feel heavy, text this word to the Bonds. It triggers an immediate dispatch signal, telling the circle exactly where the Mesh location is.",
-      de: "Lege ein geheimes Resonanz-Wort fest heute. Wenn es schwer wird, sende dieses Wort an die Bindungen. Es aktiviert ein sofortiges Signal und zeigt dem Kreis den Standort via Mesh heute hier."
+    content: {
+      en: {
+        description: "A sacred dispatch word known only to existence and the chosen trusted bonds",
+        functions: "Text this word to bonds to trigger an immediate Mesh broadcast showing the precise tactical location",
+        intelligence: "Pulse Guardian: Recognizes the code to bypass normal privacy filters and alert the circle when resonance is lost"
+      },
+      de: {
+        description: "Ein heiliges Dispatch-Wort das nur dir und den vertrauten Bindungen bekannt ist heute hier",
+        functions: "Sende das Wort an Bindungen für ein sofortiges Mesh-Signal mit deinem präzisen Standort heute",
+        intelligence: "Pulse Guardian: Erkennt das Wort um Filter zu umgehen und den Kreis bei Resonanzverlust zu alarmieren"
+      }
     },
     icon: Lock,
     color: "text-amber-400",
@@ -92,9 +132,17 @@ const STEPS = [
     id: 'breath',
     title: { en: "Heart Breath", de: "Herz Atem heute" },
     desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
-    detail: {
-      en: "If the rhythm feels elevated, use the Heart Breath. Follow the pulsing light to synchronize breathing. This biological ritual releases oxytocin, which naturally slows the heart rate and calms the nervous system.",
-      de: "Wenn der Puls steigt heute. Folge dem Licht um den Atem zu synchronisieren. Dieses Ritual schüttet Oxytocin aus und beruhigt das Nervensystem ganz natürlich heute. Es ist ein Anker für Frieden heute."
+    content: {
+      en: {
+        description: "A biological ritual designed to synchronize the heart and release oxytocin for nervous system recovery",
+        functions: "Follow the pulsing light to inhale and exhale love This practice naturally slows the heart rate",
+        intelligence: "Pulse Guardian: Monitors biometric recovery during the ritual to ensure the rhythm returns to a steady baseline"
+      },
+      de: {
+        description: "Ein biologisches Ritual zur Synchronisation des Herzens und Freisetzung von Oxytocin zur Erholung heute",
+        functions: "Folge dem pulsierenden Licht um Liebe ein- und auszuatmen Dies beruhigt das Nervensystem ganz natürlich heute",
+        intelligence: "Pulse Guardian: Überwacht die biometrische Erholung während des Rituals für eine stabile Puls-Basis heute"
+      }
     },
     icon: Wind,
     color: "text-rose-400",
@@ -104,9 +152,17 @@ const STEPS = [
     id: 'cocreation',
     title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
     desc: { en: "Shape the sanctuary", de: "Den Raum gestalten heute" },
-    detail: {
-      en: "This sanctuary is built for the soul. Use the Co-Creation portal to share feedback or new ideas. The voice directly shapes the evolution of this space. We grow together through honesty and respect.",
-      de: "Dieses Sanctuary ist für dich heute. Nutze das Tool um Feedback oder Ideen zu teilen heute. Deine Stimme formt die Zukunft dieses Raums direkt heute. Wir wachsen zusammen durch Ehrlichkeit heute hier."
+    content: {
+      en: {
+        description: "The portal through which the human voice directly shapes the evolution of the sanctuary",
+        functions: "Share feedback, ideas, or feelings about the tools The input is received with unconditional love",
+        intelligence: "Pulse Guardian: Aggregates community resonance to prioritize features that nurture the collective well-being of all souls"
+      },
+      de: {
+        description: "Das Portal durch welches die menschliche Stimme die Evolution des Sanctuarys direkt mitgestaltet heute",
+        functions: "Teile Feedback, Ideen oder Gefühle zu den Tools Die Eingabe wird mit Liebe empfangen heute",
+        intelligence: "Pulse Guardian: Sammelt die kollektive Resonanz um Funktionen zur Förderung des Gemeinwohls zu priorisieren heute"
+      }
     },
     icon: Sprout,
     color: "text-primary",
@@ -133,6 +189,8 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
 
   const step = STEPS[currentStep] || STEPS[0];
   const Icon = step.icon;
+  const currentLang = lang === 'en' ? 'en' : 'de';
+  const labels = lang === 'en' ? { desc: "Description", func: "How it functions", intel: "Guardian Intelligence" } : { desc: "Beschreibung", func: "Wie es funktioniert", intel: "Guardian Intelligenz heute" };
 
   if (!isOpen) {
     return (
@@ -181,7 +239,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
 
       {/* Main Content Area - Responsive Organic Fit */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0">
-        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all max-h-[70vh]">
+        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all max-h-[75vh]">
           <div className="p-8 pb-4 flex flex-col items-center text-center space-y-4 shrink-0">
             {/* Tool Identity */}
             <div className={cn(
@@ -201,18 +259,35 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
             </div>
           </div>
 
-          {/* Detailed Intelligence - Scrollable for Organic Fit */}
+          {/* Detailed Structured Intelligence - Scrollable */}
           <ScrollArea className="flex-1 px-8 pb-8">
-            <div className="w-full space-y-3 pt-4 border-t border-white/5">
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
-                <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.4em]">
-                  {lang === 'en' ? "Functional Detail" : "Funktions Detail heute"}
-                </span>
+            <div className="w-full space-y-6 pt-4 border-t border-white/5">
+              {/* Description Block */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-white/20" />
+                  <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">{labels.desc}</span>
+                </div>
+                <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{step.content[currentLang].description}</p>
               </div>
-              <p className="text-sm md:text-base font-bold text-white/80 leading-relaxed uppercase tracking-widest text-center">
-                {lang === 'en' ? step.detail.en : step.detail.de}
-              </p>
+
+              {/* Functions Block */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-white/20" />
+                  <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">{labels.func}</span>
+                </div>
+                <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{step.content[currentLang].functions}</p>
+              </div>
+
+              {/* Intelligence Block */}
+              <div className="space-y-2 p-5 bg-primary/10 rounded-[1.5rem] border border-primary/20">
+                <div className="flex items-center gap-2">
+                  <Sparkles size={10} className="text-primary" />
+                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">{labels.intel}</span>
+                </div>
+                <p className="text-xs font-bold text-white/90 leading-relaxed uppercase tracking-widest italic">"{step.content[currentLang].intelligence}"</p>
+              </div>
             </div>
           </ScrollArea>
         </div>
@@ -263,7 +338,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
           </div>
           
           <p className="text-center text-[10px] font-black uppercase tracking-[0.5em] shining-white">
-            {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
+            Created in harmony
           </p>
         </div>
       </footer>
