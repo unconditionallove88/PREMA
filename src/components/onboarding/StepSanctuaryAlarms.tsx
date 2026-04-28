@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -177,8 +178,8 @@ export function StepSanctuaryAlarms({ onComplete, onBack }: { onComplete: (alarm
             </div>
           </div>
 
-          <div className="pt-8 text-center opacity-20">
-            <p className="text-[8px] font-black uppercase tracking-[0.5em]">{t.created}</p>
+          <div className="pt-8 text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
           </div>
         </div>
       </ScrollArea>

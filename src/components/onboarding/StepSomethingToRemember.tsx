@@ -178,8 +178,8 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
             )}
           </section>
 
-          <div className="pt-4 text-center opacity-20">
-            <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{t.created}</p>
+          <div className="pt-4 text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
           </div>
         </div>
       </ScrollArea>

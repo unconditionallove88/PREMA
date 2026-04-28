@@ -18,10 +18,11 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview Sanctuary Guidance (Functional Intelligence).
- * Architecture: Optimized for immediate visibility with pinned navigation.
+ * Architecture: Optimized for organic viewport fit on iPhone, Android, and Desktop.
  * Design: High-fidelity "Shining White" resonance.
  * Rules: EN (3 words) / DE (4 words) subtitles. No possessives.
  */
@@ -178,10 +179,10 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
         )}
       </header>
 
-      {/* Main Content Area - Scrollable but descriptions should fit at a glance */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0 overflow-y-auto no-scrollbar">
-        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all mb-4">
-          <div className="p-8 flex flex-col items-center text-center space-y-6">
+      {/* Main Content Area - Responsive Organic Fit */}
+      <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0">
+        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all max-h-[70vh]">
+          <div className="p-8 pb-4 flex flex-col items-center text-center space-y-4 shrink-0">
             {/* Tool Identity */}
             <div className={cn(
               "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
@@ -198,8 +199,10 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                 {lang === 'en' ? step.desc.en : step.desc.de}
               </p>
             </div>
+          </div>
 
-            {/* Functional Intelligence (The Description) */}
+          {/* Detailed Intelligence - Scrollable for Organic Fit */}
+          <ScrollArea className="flex-1 px-8 pb-8">
             <div className="w-full space-y-3 pt-4 border-t border-white/5">
               <div className="flex items-center justify-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
@@ -207,11 +210,11 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                   {lang === 'en' ? "Functional Detail" : "Funktions Detail heute"}
                 </span>
               </div>
-              <p className="text-sm md:text-base font-bold text-white/80 leading-relaxed uppercase tracking-widest max-w-sm mx-auto">
+              <p className="text-sm md:text-base font-bold text-white/80 leading-relaxed uppercase tracking-widest text-center">
                 {lang === 'en' ? step.detail.en : step.detail.de}
               </p>
             </div>
-          </div>
+          </ScrollArea>
         </div>
       </main>
 
