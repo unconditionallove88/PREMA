@@ -20,7 +20,7 @@ import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Sanctuary Guidance (Functional Intelligence).
- * Architecture: Optimized for immediate visibility without scrolling.
+ * Architecture: Optimized for immediate visibility with pinned navigation.
  * Design: High-fidelity "Shining White" resonance.
  * Rules: EN (3 words) / DE (4 words) subtitles. No possessives.
  */
@@ -154,7 +154,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
       {/* Background Ambient Aura */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(27,77,62,0.15)_0%,_transparent_70%)] pointer-events-none" />
 
-      {/* Header - Fixed & Pinned */}
+      {/* Header - Fixed */}
       <header className="px-8 pt-8 pb-4 flex items-center justify-between shrink-0 relative z-10">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-xl">
@@ -177,92 +177,91 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
         )}
       </header>
 
-      {/* Main Guidance Viewport */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0 py-4">
-        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all">
-          <div className="p-8 md:p-12 flex flex-col items-center text-center space-y-8">
+      {/* Main Content Area - Scrollable but descriptions should fit at a glance */}
+      <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0 overflow-y-auto no-scrollbar">
+        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all mb-4">
+          <div className="p-8 flex flex-col items-center text-center space-y-6">
             {/* Tool Identity */}
             <div className={cn(
-              "w-24 h-24 rounded-[2.5rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
+              "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
               step.bg
             )}>
-              <Icon size={48} className={cn("animate-pulse", step.color)} />
+              <Icon size={40} className={cn("animate-pulse", step.color)} />
             </div>
 
-            <div className="space-y-2">
-              <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white leading-none shining-white">
+            <div className="space-y-1">
+              <h3 className="text-3xl font-black uppercase tracking-tighter text-white leading-none shining-white">
                 {lang === 'en' ? step.title.en : step.title.de}
               </h3>
-              <p className="text-primary text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em]">
+              <p className="text-primary text-[10px] font-black uppercase tracking-[0.5em]">
                 {lang === 'en' ? step.desc.en : step.desc.de}
               </p>
             </div>
 
-            {/* Functional Intelligence (The Description) - Zero Scroll Area */}
-            <div className="w-full space-y-4 pt-4 border-t border-white/5">
-              <div className="flex items-center justify-center gap-3">
+            {/* Functional Intelligence (The Description) */}
+            <div className="w-full space-y-3 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
-                <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">
+                <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.4em]">
                   {lang === 'en' ? "Functional Detail" : "Funktions Detail heute"}
                 </span>
               </div>
-              <p className="text-sm md:text-lg font-bold text-white/80 leading-relaxed uppercase tracking-widest max-w-sm mx-auto">
+              <p className="text-sm md:text-base font-bold text-white/80 leading-relaxed uppercase tracking-widest max-w-sm mx-auto">
                 {lang === 'en' ? step.detail.en : step.detail.de}
               </p>
-            </div>
-          </div>
-
-          {/* Navigation Action Area */}
-          <div className="p-8 bg-black/40 backdrop-blur-md border-t border-white/5 flex flex-col gap-6 mt-auto">
-            <div className="flex items-center justify-between">
-              {/* Progress Rings */}
-              <div className="flex gap-2">
-                {STEPS.map((_, i) => (
-                  <div 
-                    key={i} 
-                    className={cn(
-                      "h-1.5 rounded-full transition-all duration-700", 
-                      i === currentStep ? "w-8 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.6)]" : "w-1.5 bg-white/10"
-                    )} 
-                  />
-                ))}
-              </div>
-              
-              <div className="flex gap-3">
-                {currentStep > 0 && (
-                  <button 
-                    onClick={() => { playHeartbeat(); setCurrentStep(prev => prev - 1); }} 
-                    className="p-4 bg-white/5 rounded-2xl border border-white/10 text-white/40 hover:text-white active:scale-95 transition-all shadow-xl"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                )}
-                {currentStep < STEPS.length - 1 ? (
-                  <button 
-                    onClick={() => { playHeartbeat(); setCurrentStep(prev => prev + 1); }} 
-                    className="px-8 py-4 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
-                  >
-                    {lang === 'en' ? 'Next' : 'Weiter'} <ChevronRight className="w-5 h-5" />
-                  </button>
-                ) : (
-                  <button 
-                    onClick={handleDismiss} 
-                    className="px-8 py-4 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
-                  >
-                    {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer Branding */}
-      <footer className="shrink-0 pb-8 text-center px-6 pointer-events-none relative z-10">
-        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white opacity-80">
-          {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
-        </p>
+      {/* Navigation Controls - Pinned to Bottom */}
+      <footer className="shrink-0 pb-12 pt-4 px-8 relative z-10 bg-black/60 backdrop-blur-md border-t border-white/5">
+        <div className="max-w-lg mx-auto flex flex-col gap-6">
+          <div className="flex items-center justify-between">
+            {/* Progress Dots */}
+            <div className="flex gap-2">
+              {STEPS.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-700", 
+                    i === currentStep ? "w-8 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.6)]" : "w-1.5 bg-white/10"
+                  )} 
+                />
+              ))}
+            </div>
+            
+            <div className="flex gap-3">
+              {currentStep > 0 && (
+                <button 
+                  onClick={() => { playHeartbeat(); setCurrentStep(prev => prev - 1); }} 
+                  className="p-4 bg-white/5 rounded-2xl border border-white/10 text-white/40 hover:text-white active:scale-95 transition-all shadow-xl"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+              )}
+              {currentStep < STEPS.length - 1 ? (
+                <button 
+                  onClick={() => { playHeartbeat(); setCurrentStep(prev => prev + 1); }} 
+                  className="px-10 py-5 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
+                >
+                  {lang === 'en' ? 'Next' : 'Weiter'} <ChevronRight className="w-5 h-5" />
+                </button>
+              ) : (
+                <button 
+                  onClick={handleDismiss} 
+                  className="px-10 py-5 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
+                >
+                  {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+          
+          <p className="text-center text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white opacity-60">
+            {lang === 'en' ? "Created in harmony" : "In Harmonie erschaffen heute hier"}
+          </p>
+        </div>
       </footer>
     </div>
   );
