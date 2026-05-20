@@ -19,7 +19,8 @@ import {
   MapPin,
   ChevronRight,
   Sprout,
-  Navigation
+  Navigation,
+  X
 } from 'lucide-react';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
