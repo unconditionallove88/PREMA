@@ -185,7 +185,6 @@ function DashboardContent() {
       </div>
 
       <ScrollArea className="flex-1">
-        {/* Golden Ratio Container: max-w-4xl balanced for desktop and mobile focus */}
         <div className="max-w-4xl mx-auto px-6 py-12 space-y-16 pb-40 touch-pan-y">
           
           {/* Status Pillar */}
@@ -221,10 +220,10 @@ function DashboardContent() {
             <p className="text-sm font-bold uppercase tracking-widest text-primary px-10 italic max-w-sm mx-auto opacity-80">"{affirmation}"</p>
           </div>
 
-          {/* Main Action Portals: Grouped for Balance */}
+          {/* Main Action Portals: Constellation Overhaul */}
           <div className="flex flex-col items-center gap-16">
             
-            {/* The Supporter Handover (Primary Choice) */}
+            {/* The Supporter Portal (Primary Interaction) */}
             <div className="flex flex-col items-center gap-6">
               <button 
                 onClick={() => { playHeartbeat(); setSupporterOpen(true); }}
@@ -236,7 +235,27 @@ function DashboardContent() {
               </button>
             </div>
 
-            {/* Love Chat Portal (Social Balance) */}
+            {/* Constellation Toolkit: Circular Portal Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 w-full max-w-sm sm:max-w-2xl px-4">
+              <Link href="/map" className="w-full aspect-square rounded-full bg-white/5 border-4 border-blue-500/30 flex flex-col items-center justify-center gap-2 hover:border-blue-500 transition-all group shadow-lg">
+                <RadiatingThirdEye size={32} color="#3b82f6" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-blue-400">The Radar</span>
+              </Link>
+              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-primary/30 flex flex-col items-center justify-center gap-2 hover:border-primary transition-all group shadow-lg">
+                <Microscope size={32} className="text-primary" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-primary">The Lab</span>
+              </button>
+              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-accent/30 flex flex-col items-center justify-center gap-2 hover:border-accent transition-all group shadow-lg">
+                <Watch size={32} className="text-accent" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-accent">The Sync</span>
+              </button>
+              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-white/5 border-4 border-[#10B981]/20 flex flex-col items-center justify-center gap-2 hover:border-[#10B981] transition-all group shadow-lg">
+                <Sprout size={32} className="text-[#10B981]" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-[#10B981]">The Voice</span>
+              </button>
+            </div>
+
+            {/* Love Chat Portal (Social Constellation) */}
             <div className="flex flex-col items-center gap-6 w-full">
               {!showLoveChatOptions ? (
                 <button 
@@ -265,26 +284,6 @@ function DashboardContent() {
                   <button onClick={() => setShowLoveChatOptions(false)} className="self-center p-4 bg-white/5 rounded-full border border-white/10 text-white/20 hover:text-white transition-colors"><ArrowLeft size={20} /></button>
                 </div>
               )}
-            </div>
-
-            {/* Sovereign Toolkit Grid (Technical Balance) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 w-full max-w-sm sm:max-w-2xl px-4">
-              <Link href="/map" className="w-full aspect-square rounded-full bg-white/5 border-4 border-blue-500/30 flex flex-col items-center justify-center gap-2 hover:border-blue-500 transition-all group shadow-lg">
-                <RadiatingThirdEye size={32} color="#3b82f6" />
-                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-blue-400">Radar</span>
-              </Link>
-              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-primary/30 flex flex-col items-center justify-center gap-2 hover:border-primary transition-all group shadow-lg">
-                <Microscope size={32} className="text-primary" />
-                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-primary">Lab</span>
-              </button>
-              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-white/5 border-4 border-accent/30 flex flex-col items-center justify-center gap-2 hover:border-accent transition-all group shadow-lg">
-                <Watch size={32} className="text-accent" />
-                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-accent">Sync</span>
-              </button>
-              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-white/5 border-4 border-[#10B981]/20 flex flex-col items-center justify-center gap-2 hover:border-[#10B981] transition-all group shadow-lg">
-                <Sprout size={32} className="text-[#10B981]" />
-                <span className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-[#10B981]">Voice</span>
-              </button>
             </div>
           </div>
 
