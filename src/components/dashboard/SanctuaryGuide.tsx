@@ -14,6 +14,7 @@ import {
   Lock,
   HeartHandshake,
   MessageCircleHeart,
+  Users2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { playHeartbeat } from '@/lib/resonance';
@@ -21,9 +22,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
  * @fileOverview Sanctuary Guidance (Structured Intelligence).
- * Architecture: Optimized for organic viewport fit.
- * Design: High-fidelity "Shining White" resonance.
  * Format: Description, How it functions, Guardian Intelligence.
+ * Expanded: Added Collective Care (Universal Family) intelligence.
  */
 
 const STEPS = [
@@ -66,6 +66,26 @@ const STEPS = [
     icon: HeartHandshake,
     color: "text-rose-400",
     bg: "bg-rose-500/10"
+  },
+  {
+    id: 'family',
+    title: { en: "Collective Care", de: "Kollektive Fürsorge heute" },
+    desc: { en: "The Universal Family", de: "Die universelle Familie heute" },
+    content: {
+      en: {
+        description: "A shared protocol that alerts nearby souls when a heart is in critical danger embodying the principle of brotherly love",
+        functions: "Trigger 'Family Presence' to broadcast your location to every nearby user A pulsing invitation to help appears on their radar",
+        intelligence: "Pulse Guardian: Decides when a private distress call should evolve into a collective call for love based on stress levels"
+      },
+      de: {
+        description: "Ein Protokoll das Seelen in der Nähe alarmiert wenn Gefahr droht Ein Ausdruck der Nächstenliebe heute",
+        functions: "Aktiviere die 'Familien Präsenz' um deinen Standort zu senden Ein Ruf nach Hilfe erscheint auf deren Radar heute",
+        intelligence: "Pulse Guardian: Entscheidet wann ein privater Notruf zu einem kollektiven Ruf nach Liebe werden sollte heute hier"
+      }
+    },
+    icon: Users2,
+    color: "text-[#A855F7]",
+    bg: "bg-[#A855F7]/10"
   },
   {
     id: 'lab',

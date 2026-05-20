@@ -1,8 +1,7 @@
-
 "use client"
 
 import { useState, useEffect, Suspense } from 'react';
-import { ArrowLeft, Shield, Loader2, PhoneCall, AlertTriangle, Lock, Navigation, CircleDot, Radio } from 'lucide-react';
+import { ArrowLeft, Shield, Loader2, PhoneCall, AlertTriangle, Lock, Navigation, CircleDot, Radio, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Switch } from '@/components/ui/switch';
@@ -16,7 +15,7 @@ import LoveCircle from '@/components/dashboard/LoveCircle';
 /**
  * @fileOverview High-Fidelity Organic Radar ("The Pulse").
  * Integrated with the Sovereign Mesh for location sharing.
- * Fully localized for EN, DE.
+ * Features: Collective Care (nearby distress calls for Universal Family).
  */
 
 const CONTENT = {
@@ -31,7 +30,10 @@ const CONTENT = {
     finding: (name: string) => `Guided by Mesh to ${name}`,
     currentPulse: (status: string) => `Current Pulse: ${status}`,
     notify: "Notify Awareness",
-    meshActive: "Mesh Location Active"
+    meshActive: "Mesh Location Active",
+    collectiveCare: "Collective Care Active",
+    nearbySoul: "A soul nearby needs presence",
+    helpFamily: "Walk with Soul"
   },
   de: {
     loading: "Resonanz wird kalibriert",
@@ -44,7 +46,10 @@ const CONTENT = {
     finding: (name: string) => `Mesh leitet dich zu ${name}`,
     currentPulse: (status: string) => `Aktueller Status: ${status}`,
     notify: "Awareness rufen",
-    meshActive: "Mesh-Ortung aktiv"
+    meshActive: "Mesh-Ortung aktiv",
+    collectiveCare: "Kollektive Fürsorge aktiv heute",
+    nearbySoul: "Eine Seele in der Nähe braucht Begleitung",
+    helpFamily: "Mit Herz begleiten"
   }
 };
 
@@ -57,6 +62,9 @@ function MapContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [lang, setLang] = useState<'en' | 'de'>('en');
   
+  // Simulation of a nearby distress call (Collective Care)
+  const [familyDistress, setFamilyDistress] = useState<{name: string, dist: string} | null>(null);
+
   const focusName = searchParams.get('focus');
   const focusStatus = searchParams.get('status');
   const isFriendDistress = !!focusName && focusStatus === 'distress';
@@ -72,13 +80,19 @@ function MapContent() {
 
   useEffect(() => {
     const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
-    if (['en', 'de'].includes(savedLang)) {
-      setLang(savedLang);
-    }
+    if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
-    const timer = setTimeout(() => setIsLoading(false), 1200);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      // Simulate a collective care alert after 5 seconds if not focusing on a friend
+      if (!focusName) {
+        setTimeout(() => {
+          setFamilyDistress({ name: "NEARBY_SOUL", dist: "15m" });
+        }, 5000);
+      }
+    }, 1200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [focusName]);
 
   const t = CONTENT[lang] || CONTENT.en;
 
@@ -119,6 +133,21 @@ function MapContent() {
             <span className="text-[9px] font-black uppercase tracking-widest text-white/60">{t.here}</span>
           </div>
         </div>
+
+        {/* Collective Care Simulation Node */}
+        {familyDistress && (
+          <div className="absolute top-[35%] left-[25%] animate-in zoom-in duration-1000">
+            <div className="relative flex flex-col items-center">
+              <div className="absolute inset-0 bg-red-600/20 blur-xl rounded-full animate-ping" />
+              <div className="w-12 h-12 bg-black/80 rounded-full border-2 border-red-600 flex items-center justify-center shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+                <Heart className="text-red-500 w-6 h-6 animate-pulse-heart" fill="#ef4444" />
+              </div>
+              <div className="absolute top-14 bg-red-600/90 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">
+                <span className="text-[8px] font-black text-white uppercase">{familyDistress.dist} Presence Needed</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Simulated Friend Node for focus */}
         {focusName && (
@@ -161,7 +190,25 @@ function MapContent() {
             </div>
 
             <div className="w-full md:w-auto pointer-events-auto flex flex-col items-center md:items-end">
-              {isFriendDistress ? (
+              {familyDistress ? (
+                <div className="bg-[#A855F7]/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl shadow-[#A855F7]/40 animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
+                      <Heart size={32} className="text-white animate-pulse" fill="currentColor" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-black uppercase tracking-tighter leading-none text-white">{t.nearbySoul}</h3>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">{familyDistress.dist} away • Mesh Triangulated</p>
+                    </div>
+                  </div>
+                  
+                  <button 
+                    className="w-full h-16 bg-white text-[#A855F7] rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all"
+                  >
+                    <Navigation size={16} /> {t.helpFamily}
+                  </button>
+                </div>
+              ) : isFriendDistress ? (
                 <div className="bg-red-600/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl shadow-red-600/40 animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
                   <div className="flex items-start gap-4">
                     <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
@@ -237,4 +284,3 @@ export default function MapView() {
     </Suspense>
   );
 }
-

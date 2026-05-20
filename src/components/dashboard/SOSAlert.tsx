@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -17,7 +16,7 @@ import {
   CircleDot,
   Radio,
   Sparkles,
-  Eye,
+  Users2,
   AlertTriangle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -27,7 +26,7 @@ import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Immediate Help (SOS) Portal.
- * Updated: Corrected German grammar and high-fidelity confirmation design.
+ * Expanded: Added Collective Care (Universal Family) protocol.
  */
 
 const CONTENT = {
@@ -36,7 +35,7 @@ const CONTENT = {
     helping: (name: string) => `Helping ${name}`,
     subtitle: "Choose the pathway that resonates now",
     friendSubtitle: (name: string) => `Choose the pathway of care for ${name}`,
-    tabs: { emergency: "Emergency", circle: "Circle", stillness: "Presence" },
+    tabs: { emergency: "Emergency", circle: "Circle", family: "Family", stillness: "Presence" },
     emergency: {
       title: "Awareness Dispatch",
       sub: "Medical & Security",
@@ -48,6 +47,12 @@ const CONTENT = {
       sub: "Mesh Mesh Alert",
       desc: "Instantly alert every member of your Circle of Love via Sovereign Mesh triangulation",
       button: "Notify All Circle Bonds"
+    },
+    family: {
+      title: "Collective Care",
+      sub: "Universal Family Presence",
+      desc: "Broadcast a call for love to every nearby soul using the app to receive immediate help",
+      button: "Alert Nearby Family"
     },
     stillness: {
       title: "Heart Breath",
@@ -73,7 +78,7 @@ const CONTENT = {
     helping: (name: string) => `${name} braucht Begleitung`,
     subtitle: "Wähle den Weg, der sich jetzt richtig anfühlt",
     friendSubtitle: (name: string) => `Wähle einen Weg der Fürsorge für ${name}`,
-    tabs: { emergency: "Notfall", circle: "Kreis", stillness: "Präsenz" },
+    tabs: { emergency: "Notfall", circle: "Kreis", family: "Familie", stillness: "Präsenz" },
     emergency: {
       title: "Awareness-Einsatz",
       sub: "Medizin & Sicherheit",
@@ -83,13 +88,19 @@ const CONTENT = {
     circle: {
       title: "Circle-Broadcasting",
       sub: "Mesh Mesh Alarm",
-      desc: "Informiere sofort alle Mitglieder deines Circle of Love via Sovereign Mesh Ortung",
+      desc: "Informiere sofort alle Mitglieder deines Circle of Love via Sovereign Mesh Ortung heute",
       button: "Alle im Kreis informieren"
+    },
+    family: {
+      title: "Kollektive Fürsorge heute",
+      sub: "Universelle Familien Präsenz heute",
+      desc: "Sende einen Ruf nach Liebe an alle Seelen in der Nähe für sofortige Hilfe heute",
+      button: "Familie in der Nähe rufen"
     },
     stillness: {
       title: "Herz Atem heute",
       sub: "Präsenz Protokoll heute",
-      desc: "Ich achte auf mein Bedürfnis nach Erdung Lenke den Fokus auf die Synchronisation",
+      desc: "Ich achte auf mein Bedürfnis nach Erdung Lenke den Fokus auf die Synchronisation heute",
       button: "Herz Atem jetzt starten"
     },
     connecting: "Mesh-Verbindung wird aufgebaut...",
@@ -97,7 +108,7 @@ const CONTENT = {
     allIsWell: "Alles ist gut",
     loved: "Ich werde geliebt heute",
     friendLoved: (name: string) => `${name} wird geliebt heute`,
-    takenCareOf: "und ist in Sicherheit", // Corrected grammar
+    takenCareOf: "und ist in Sicherheit",
     dispatched: "Mesh-Anfrage wurde versendet",
     meshShared: "Mesh-Ortung geteilt",
     privacyActive: "Schutzprotokolle sind aktiv",
@@ -139,12 +150,12 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
 
   const t = CONTENT[lang as keyof typeof CONTENT] || CONTENT.en;
 
-  const handleSendSOS = async (priority: 'urgent' | 'standard' | 'grounding') => {
+  const handleSendSOS = async (priority: 'urgent' | 'standard' | 'family' | 'grounding') => {
     playHeartbeat();
     
     if (priority === 'grounding') {
       if (onHeartBreath) onHeartBreath();
-      else onClose(); // Logic handled by dashboard caller
+      else onClose();
       return;
     }
 
@@ -155,8 +166,8 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
     const userRef = doc(firestore, 'users', userUid);
 
     const logMessage = isFriendMode 
-      ? `USER REPORTED DISTRESS FOR FRIEND: ${friendName} (Status: ${friendStatus}) VIA MESH BROADCAST`
-      : `User triggered ${priority === 'urgent' ? 'AWARENESS' : 'CIRCLE MESH'} support alert via Mesh Tactical Grid`;
+      ? `USER REPORTED DISTRESS FOR FRIEND: ${friendName} (Status: ${friendStatus}) VIA ${priority === 'family' ? 'COLLECTIVE CARE' : 'MESH BROADCAST'}`
+      : `User triggered ${priority.toUpperCase()} support alert via Mesh Tactical Grid`;
 
     addDocumentNonBlocking(collection(firestore, 'users', userUid, 'sosEvents'), {
       triggeredAt: serverTimestamp(),
@@ -167,7 +178,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
       meshData: { triangulated: true, signalStrength: 'high', broadcasted: true }
     });
 
-    if (!isFriendMode && priority === 'urgent') {
+    if (!isFriendMode && (priority === 'urgent' || priority === 'family')) {
       setDocumentNonBlocking(userRef, { sosActive: true }, { merge: true });
     }
 
@@ -271,6 +282,9 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
                 <TabsTrigger value="support" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-[#F59E0B] data-[state=active]:text-black">
                   {t.tabs.circle}
                 </TabsTrigger>
+                <TabsTrigger value="family" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-[#A855F7] data-[state=active]:text-white">
+                  {t.tabs.family}
+                </TabsTrigger>
                 {!isFriendMode && (
                   <TabsTrigger value="stillness" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white">
                     {t.tabs.stillness}
@@ -324,6 +338,29 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
                 </div>
               </TabsContent>
 
+              <TabsContent value="family" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 focus-visible:outline-none">
+                <div className="p-6 bg-[#A855F7]/5 border-2 border-[#A855F7]/20 rounded-[2rem] space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-[#A855F7]/20 rounded-xl">
+                      <Users2 className="text-[#A855F7]" size={24} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-black uppercase text-white tracking-tight">{t.family.title}</p>
+                      <p className="text-[10px] font-bold text-[#A855F7] uppercase tracking-widest">{t.family.sub}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-white/60 leading-relaxed font-medium uppercase tracking-wide">
+                    {t.family.desc}
+                  </p>
+                  <button 
+                    onClick={() => handleSendSOS('family')}
+                    className="w-full py-6 bg-[#A855F7] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
+                  >
+                    {t.family.button}
+                  </button>
+                </div>
+              </TabsContent>
+
               {!isFriendMode && (
                 <TabsContent value="stillness" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 focus-visible:outline-none">
                   <div className="p-6 bg-primary/5 border-2 border-primary/20 rounded-[2rem] space-y-4">
@@ -362,8 +399,8 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
         </ScrollArea>
 
         <div className="p-8 pt-4 bg-black/40 backdrop-blur-md border-t border-white/5 text-center shrink-0">
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
-            Sanctuary Support Protocol • Created in harmony
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 shining-white">
+            {t.footer}
           </p>
         </div>
       </div>
