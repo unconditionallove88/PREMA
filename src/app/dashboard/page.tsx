@@ -18,7 +18,8 @@ import {
   ArrowLeft,
   MapPin,
   ChevronRight,
-  Sprout
+  Sprout,
+  Navigation
 } from 'lucide-react';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -79,7 +80,10 @@ const CONTENT = {
     anchor: "Sanctuary Anchor",
     anchorSub: "Mesh Context",
     anchorBtn: "Calibrate Anchor",
-    footer: "Created in harmony"
+    footer: "Created in harmony",
+    familyAlertTitle: "Presence needed nearby",
+    familyAlertSub: "Universal Family Mesh Active",
+    walkBtn: "Walk with Soul"
   },
   de: { 
     mesh: "Mesh aktiv heute hier",
@@ -91,7 +95,10 @@ const CONTENT = {
     anchor: "Sanctuary Anker heute hier",
     anchorSub: "Mesh Kontext heute hier",
     anchorBtn: "Anker jetzt setzen heute",
-    footer: "In Harmonie erschaffen heute hier"
+    footer: "In Harmonie erschaffen heute hier",
+    familyAlertTitle: "Begleitung in der Nähe",
+    familyAlertSub: "Universelle Familie Mesh aktiv",
+    walkBtn: "Mit Herz begleiten"
   }
 };
 
@@ -128,6 +135,7 @@ function DashboardContent() {
 
   const [showLoveChatOptions, setShowLoveChatOptions] = useState(false);
   const [emergencyPresenceOpen, setEmergencyPresenceOpen] = useState(false);
+  const [familyDistressActive, setFamilyDistressActive] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -137,7 +145,16 @@ function DashboardContent() {
     const pool = AFFIRMATIONS[currentLang.toUpperCase() as keyof typeof AFFIRMATIONS];
     setAffirmation(pool[Math.floor(Math.random() * pool.length)]);
     const unsubscribe = onAuthStateChanged(auth, (user) => { if (!user) router.replace("/auth"); });
-    return () => unsubscribe();
+
+    // Simulate a nearby Collective Care distress call after 8 seconds
+    const timer = setTimeout(() => {
+      setFamilyDistressActive(true);
+    }, 8000);
+
+    return () => {
+      unsubscribe();
+      clearTimeout(timer);
+    };
   }, [auth, router]);
 
   const userDocRef = useMemoFirebase(() => {
@@ -187,6 +204,34 @@ function DashboardContent() {
       <ScrollArea className="flex-1">
         <div className="max-w-4xl mx-auto px-6 py-12 space-y-16 pb-40 touch-pan-y">
           
+          {/* Universal Family Distress Alert (Collective Care) */}
+          {familyDistressActive && (
+            <div className="max-w-2xl mx-auto animate-in slide-in-from-top-4 duration-1000 mb-8">
+               <div className="bg-[#A855F7]/10 border-2 border-[#A855F7] rounded-[2.5rem] p-6 flex flex-col sm:flex-row items-center gap-6 shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden">
+                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#A855F7]/10 blur-3xl -z-10" />
+                 <div className="w-16 h-16 bg-[#A855F7] rounded-2xl flex items-center justify-center shadow-lg animate-pulse shrink-0">
+                   <Heart size={32} className="text-white" fill="currentColor" />
+                 </div>
+                 <div className="flex-1 text-center sm:text-left">
+                   <h2 className="text-2xl font-black uppercase tracking-tighter text-white leading-none mb-1">{t.familyAlertTitle}</h2>
+                   <p className="text-[10px] font-black text-[#A855F7] uppercase tracking-[0.3em]">{t.familyAlertSub}</p>
+                 </div>
+                 <button 
+                   onClick={() => router.push('/map?familyDistress=active')}
+                   className="w-full sm:w-auto h-16 px-8 bg-white text-[#A855F7] rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl"
+                 >
+                   <Navigation size={16} /> {t.walkBtn}
+                 </button>
+                 <button 
+                   onClick={() => setFamilyDistressActive(false)}
+                   className="absolute top-4 right-4 text-white/20 hover:text-white"
+                 >
+                   <X size={16} />
+                 </button>
+               </div>
+            </div>
+          )}
+
           {/* Status Pillar */}
           <div className="space-y-4 max-w-2xl mx-auto">
             <GuardianStatusBar status={guardianStatus} heartRate={simHeartRate} lang={lang} />

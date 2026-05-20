@@ -24,6 +24,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
  * @fileOverview Sanctuary Guidance (Structured Intelligence).
  * Format: Description, How it functions, Guardian Intelligence.
  * Expanded: Added Collective Care (Universal Family) intelligence.
+ * Optimized: Organically fits all information to browsers and mobile screens.
  */
 
 const STEPS = [
