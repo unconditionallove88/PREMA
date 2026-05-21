@@ -21,17 +21,20 @@ import {
   Minus,
   Plus,
   Heart,
-  HelpCircle
+  HelpCircle,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { estimateDose, type EstimateDoseOutput } from '@/ai/flows/estimate-dose-flow';
 import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { StepSomethingToRemember as WisdomProtocol } from '@/components/onboarding/StepSomethingToRemember';
 
 /**
  * @fileOverview Visual Dose Assistant (Hybrid Mode).
- * Features: Multi-step selection, AI Vision estimation, and notes.
+ * Features: Multi-step selection, AI Vision estimation, and active wisdom portal.
  * Rhythmic Rules: 3 words (EN) / 4 words (DE).
  */
 
@@ -77,8 +80,8 @@ const CONTENT = {
     mood: "How is mood?",
     disclaimer: "Visual estimate only Actual weight may vary Use a scale always",
     footer: "Created in harmony",
-    notSure: "Not sure what it is?",
-    notSureBtn: "Harm Reduction Info"
+    notSure: "Identity not sure?",
+    notSureBtn: "Access Wisdom Now"
   },
   de: {
     title: "Dosier Assistent heute",
@@ -104,7 +107,7 @@ const CONTENT = {
     disclaimer: "Nur grobe Schätzung Tatsächliche Werte variieren Waage nutzen heute",
     footer: "In Harmonie erschaffen",
     notSure: "Unsicher was es ist?",
-    notSureBtn: "Schadensminimierung Info heute"
+    notSureBtn: "Weisheits Guide jetzt öffnen"
   }
 };
 
@@ -123,6 +126,7 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
   const [manualValue, setManualValue] = useState<number>(0);
   const [notes, setNotes] = useState('');
   const [mood, setMood] = useState('neutral');
+  const [wisdomOpen, setWisdomOpen] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -242,7 +246,10 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
               </div>
 
               <div className="pt-6 border-t border-white/5">
-                <button className="w-full p-6 rounded-[2rem] bg-white/5 border border-dashed border-white/10 flex items-center justify-center gap-3 group hover:bg-white/10 transition-all">
+                <button 
+                  onClick={() => { playHeartbeat(); setWisdomOpen(true); }}
+                  className="w-full p-6 rounded-[2rem] bg-white/5 border border-dashed border-white/10 flex items-center justify-center gap-3 group hover:bg-white/10 transition-all"
+                >
                   <HelpCircle size={18} className="text-white/20 group-hover:text-primary" />
                   <div className="text-left">
                     <p className="text-[10px] font-black uppercase text-white/40 tracking-widest">{t.notSure}</p>
@@ -252,11 +259,18 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
               </div>
               
               <div className="text-center pt-8">
-                <p className="text-[10px] font-black uppercase tracking-[0.6em] shining-white">{t.footer}</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.footer}</p>
               </div>
             </div>
           </ScrollArea>
         </div>
+
+        <Dialog open={wisdomOpen} onOpenChange={setWisdomOpen}>
+          <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
+            <DialogTitle className="sr-only">Mixing Wisdom</DialogTitle>
+            <WisdomProtocol onComplete={() => setWisdomOpen(false)} isStandAlone={true} />
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }

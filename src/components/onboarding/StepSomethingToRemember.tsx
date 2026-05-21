@@ -110,63 +110,65 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
         <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] mb-6">{t.sub}</p>
       </div>
 
-      <ScrollArea className="flex-1 px-6">
-        <div className="space-y-8 pb-40">
-          <section className="space-y-4">
-            <div className="flex items-center justify-between px-1">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{t.wisdom}</h3>
-              <Info size={12} className="text-primary/40" />
-            </div>
-            
-            <div className="grid grid-cols-1 gap-3">
-              {MIXING_WISDOM.map((row) => (
-                <button 
-                  key={row.id} 
-                  onClick={() => setSelectedPair(row)}
-                  className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
-                >
-                  <div className="flex justify-between items-start gap-4">
-                    <span className="text-xs font-black text-white/90 uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
-                    <div className="flex items-center gap-2">
-                       <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-white/5 shrink-0", row.color)}>
-                         {row.risk}
-                       </span>
-                       <ChevronRight size={12} className="text-white/20 group-hover:text-primary transition-colors" />
+      <div className="flex-1 min-h-0 relative">
+        <ScrollArea className="h-full px-6">
+          <div className="space-y-8 pb-40">
+            <section className="space-y-4">
+              <div className="flex items-center justify-between px-1">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{t.wisdom}</h3>
+                <Info size={12} className="text-primary/40" />
+              </div>
+              
+              <div className="grid grid-cols-1 gap-3">
+                {MIXING_WISDOM.map((row) => (
+                  <button 
+                    key={row.id} 
+                    onClick={() => setSelectedPair(row)}
+                    className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
+                  >
+                    <div className="flex justify-between items-start gap-4">
+                      <span className="text-xs font-black text-white/90 uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
+                      <div className="flex items-center gap-2">
+                         <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-white/5 shrink-0", row.color)}>
+                           {row.risk}
+                         </span>
+                         <ChevronRight size={12} className="text-white/20 group-hover:text-primary transition-colors" />
+                      </div>
                     </div>
+                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed">
+                      {lang === 'de' ? row.deNote : row.note}
+                    </p>
+                  </button>
+                ))}
+              </div>
+              
+              {!isStandAlone && (
+                <button 
+                  onClick={() => setAcknowledge(!acknowledged)}
+                  className={cn(
+                    "w-full p-6 rounded-2xl border-2 flex items-center gap-4 transition-all active:scale-[0.98] shadow-lg mt-8",
+                    acknowledged ? "bg-primary/10 border-primary" : "bg-white/5 border-white/10"
+                  )}
+                >
+                  <div className={cn(
+                    "w-6 h-6 rounded-full border flex items-center justify-center shrink-0 transition-all",
+                    acknowledged ? "bg-primary border-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "border-white/20"
+                  )}>
+                    {acknowledged && <Check className="w-3.5 h-3.5 text-white" />}
                   </div>
-                  <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed">
-                    {lang === 'de' ? row.deNote : row.note}
-                  </p>
+                  <span className={cn("text-[10px] font-black uppercase tracking-widest text-left", acknowledged ? "text-primary" : "text-white/40")}>
+                    {t.acknowledge}
+                  </span>
                 </button>
-              ))}
-            </div>
-            
-            {!isStandAlone && (
-              <button 
-                onClick={() => setAcknowledge(!acknowledged)}
-                className={cn(
-                  "w-full p-6 rounded-2xl border-2 flex items-center gap-4 transition-all active:scale-[0.98] shadow-lg mt-8",
-                  acknowledged ? "bg-primary/10 border-primary" : "bg-white/5 border-white/10"
-                )}
-              >
-                <div className={cn(
-                  "w-6 h-6 rounded-full border flex items-center justify-center shrink-0 transition-all",
-                  acknowledged ? "bg-primary border-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "border-white/20"
-                )}>
-                  {acknowledged && <Check className="w-3.5 h-3.5 text-white" />}
-                </div>
-                <span className={cn("text-[10px] font-black uppercase tracking-widest text-left", acknowledged ? "text-primary" : "text-white/40")}>
-                  {t.acknowledge}
-                </span>
-              </button>
-            )}
-          </section>
+              )}
+            </section>
 
-          <div className="pt-4 text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
+            <div className="pt-4 text-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
+            </div>
           </div>
-        </div>
-      </ScrollArea>
+        </ScrollArea>
+      </div>
 
       <Dialog open={!!selectedPair} onOpenChange={() => setSelectedPair(null)}>
         <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-2xl">
