@@ -51,7 +51,7 @@ import { VisualDoseAssistant } from '@/components/lab/VisualDoseAssistant';
 /**
  * @fileOverview Sovereign Lab Component.
  * Features: Self-Honesty, responsible intake tracking, and phone-based diary storage.
- * Updated: Added Visual Dose Assistant (Hybrid Mode).
+ * Updated: Added Visual Dose Assistant (Hybrid Mode) with 3-word/4-word rules.
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -74,7 +74,9 @@ const CONTENT = {
     syncProceed: "Proceed with Love", noResults: "No substances found",
     wisdom: "Mixing Wisdom",
     listening: "Listening...",
-    visualScan: "Visual scan portion",
+    visualScan: "Estimate Dose Scan",
+    visualSub: "Visual AI estimation — no photo saved",
+    manualBtn: "Enter Manually",
     mixingWarningTitle: "Critical Mixing Warning",
     riskHigh: "High Risk Interaction",
     riskCritical: "Critical Biological Threat",
@@ -93,7 +95,9 @@ const CONTENT = {
     syncProceed: "Mit Liebe fortfahren heute", noResults: "Keine Substanzen gefunden",
     wisdom: "Misch-Weisheiten heute",
     listening: "Höre zu...",
-    visualScan: "Visueller Scan heute",
+    visualScan: "Dosis Scan Schätzung",
+    visualSub: "Visuelle KI-Schätzung — kein Foto gespeichert",
+    manualBtn: "Manuell eintragen heute",
     mixingWarningTitle: "Kritische Misch-Warnung heute",
     riskHigh: "Hohes Risiko Interaktion heute",
     riskCritical: "Kritische biologische Bedrohung heute",
@@ -157,6 +161,7 @@ export function Step6SubstanceLab({
   const [isListening, setIsListening] = useState(false);
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [activeMixingRisk, setActiveMixingRisk] = useState<any>(null);
+  const [entryMode, setEntryMode] = useState<'grid' | 'search'>('grid');
 
   useEffect(() => {
     setMounted(true);
@@ -291,19 +296,26 @@ export function Step6SubstanceLab({
         
         <GuardianStatusBar status={guardianStatus} heartRate={lastHR > 0 ? lastHR : 75} lang={lang} />
 
-        <div className="grid grid-cols-1 gap-3">
+        <div className="flex flex-col gap-3">
           <button 
             onClick={() => setVisualScanOpen(true)}
-            className="w-full h-14 bg-primary/10 border-2 border-primary/40 rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-all shadow-lg group"
+            className="w-full p-6 bg-primary/10 border-2 border-primary/40 rounded-[2rem] flex items-center gap-5 active:scale-95 transition-all shadow-xl group"
           >
-            <Scaling className="text-primary animate-pulse" size={20} />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">{t.visualScan}</span>
+            <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30 shrink-0">
+               <Camera className="text-primary animate-pulse" size={28} />
+            </div>
+            <div className="text-left">
+              <span className="block text-base font-black uppercase tracking-tight text-white">{t.visualScan}</span>
+              <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest leading-none mt-1">{t.visualSub}</p>
+            </div>
           </button>
           
-          <div className="relative w-full">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
-            <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-12 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
-            <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+              <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-14 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
+              <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+            </div>
           </div>
         </div>
       </header>
@@ -322,7 +334,7 @@ export function Step6SubstanceLab({
                     <div key={i} className="bg-white/[0.03] border border-white/5 rounded-xl p-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
-                          {log.method === 'visual_scan' ? <Scaling size={16} className="text-primary" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
+                          {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
                         </div>
                         <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-[#3EB489]">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
                       </div>
@@ -332,6 +344,7 @@ export function Step6SubstanceLab({
                 </div>
               </div>
             )}
+            
             <div className="grid grid-cols-3 gap-3 w-full">
               {filteredSubstances.map(s => {
                 const active = sessionLogs.some(log => log.id === s.id);

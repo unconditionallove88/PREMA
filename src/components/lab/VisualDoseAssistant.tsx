@@ -15,9 +15,12 @@ import {
   Sparkles,
   Smartphone,
   ChevronRight,
-  Mic,
   Scaling,
-  Zap
+  Zap,
+  CircleDot,
+  Minus,
+  Plus,
+  Heart
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { estimateDose, type EstimateDoseOutput } from '@/ai/flows/estimate-dose-flow';
@@ -27,54 +30,75 @@ import { Slider } from '@/components/ui/slider';
 
 /**
  * @fileOverview Visual Dose Assistant (Hybrid Mode).
- * Features: AI Vision portion estimation with manual calibration.
+ * Features: Multi-step selection, AI Vision estimation, and notes.
  * Rhythmic Rules: 3 words (EN) / 4 words (DE).
  */
 
 const SUBSTANCES = [
-  { id: 'ketamine', name: 'Ketamine', de: 'Ketamin', color: 'text-indigo-400' },
-  { id: '3mmc', name: '3-MMC', de: '3-MMC', color: 'text-orange-300' },
-  { id: '4mmc', name: '4-MMC', de: '4-MMC', color: 'text-pink-300' },
-  { id: 'cocaine', name: 'Cocaine', de: 'Kokain', color: 'text-slate-200' },
-  { id: 'mdma', name: 'MDMA', de: 'MDMA', color: 'text-purple-400' },
+  { id: 'ketamine', name: 'Ketamine', de: 'Ketamin', color: 'text-blue-400', border: 'border-blue-500/20', bg: 'bg-blue-500/5', unit: 'mg' },
+  { id: 'cocaine', name: 'Cocaine', de: 'Kokain', color: 'text-white', border: 'border-white/20', bg: 'bg-white/5', unit: 'mg' },
+  { id: 'mdma', name: 'MDMA', de: 'MDMA', color: 'text-purple-400', border: 'border-purple-500/20', bg: 'bg-purple-500/5', unit: 'mg' },
+  { id: '3mmc', name: '3-MMC', de: '3-MMC', color: 'text-orange-300', border: 'border-orange-500/20', bg: 'bg-orange-500/5', unit: 'mg' },
+  { id: '4mmc', name: '4-MMC', de: '4-MMC', color: 'text-pink-300', border: 'border-pink-500/20', bg: 'bg-pink-500/5', unit: 'mg' },
+];
+
+const METHODS = [
+  { id: 'key_tip_small', label: { en: 'Key tip (small)', de: 'Messerspitze (klein)' }, icon: '🔑' },
+  { id: 'key_tip_large', label: { en: 'Key tip (large)', de: 'Messerspitze (groß)' }, icon: '🔑' },
+  { id: 'short_line', label: { en: 'Short line', de: 'Kurze Line heute' }, icon: '➖' },
+  { id: 'medium_line', label: { en: 'Medium line', de: 'Mittlere Line heute' }, icon: '➖' },
+  { id: 'long_line', label: { en: 'Long line', de: 'Lange Line heute hier' }, icon: '➖' },
+  { id: 'bump', label: { en: 'Bump', de: 'Häufchen heute hier' }, icon: '👃' },
 ];
 
 const CONTENT = {
   en: {
     title: "Visual Dose Assistant",
-    select: "Select the substance",
-    scan: "Visual portion scan",
-    instr1: "Point camera steady",
-    instr2: "Dose on surface",
+    selectSub: "Select the substance",
+    selectMethod: "Choose the method",
+    camera: "Visual portion scan",
+    instr1: "Hold steady now",
+    instr2: "Scale with coin",
     analyzing: "Analyzing visual volume",
     results: "Estimation Results",
     range: "Estimated portion range",
     confidence: "Confidence Level",
-    comparison: "Visual Reference",
-    disclaimer: "Approximate visual estimate only Use a scale for accuracy",
-    confirm: "Confirm and log",
-    adjust: "Adjust the portion",
-    logged: "Truth logged now",
-    back: "Back to lab",
-    restart: "Rescan portion now"
+    risk: "Risk Indicator",
+    confirm: "Save to Lab",
+    adjust: "Adjust the dose",
+    logged: "Logged to Lab",
+    viewSession: "View session now",
+    setReminder: "Set check-in now",
+    backHome: "Back to Home",
+    discard: "Discard",
+    notes: "Optional notes",
+    mood: "How is mood?",
+    disclaimer: "Visual estimate only Actual weight may vary Use a scale always",
+    footer: "Created in harmony"
   },
   de: {
-    title: "Visueller Dosier Assistent heute",
-    select: "Wähle die Substanz heute",
-    scan: "Visueller Scan heute hier",
-    instr1: "Kamera ruhig halten heute",
-    instr2: "Portion auf Oberfläche heute",
-    analyzing: "Volumen wird analysiert heute",
-    results: "Ergebnisse der Schätzung heute",
-    range: "Geschätzter Bereich heute hier",
-    confidence: "Grad der Sicherheit heute",
-    comparison: "Visueller Vergleich heute hier",
-    disclaimer: "Nur eine grobe Schätzung Nutze eine Waage für Präzision",
-    confirm: "Bestätigen und notieren heute",
-    adjust: "Portion jetzt anpassen heute",
-    logged: "Wahrheit jetzt notiert heute",
-    back: "Zurück zum Lab heute",
-    restart: "Erneut scannen heute hier"
+    title: "Dosier Assistent heute",
+    selectSub: "Substanz jetzt wählen",
+    selectMethod: "Methode jetzt wählen",
+    camera: "Portion jetzt scannen",
+    instr1: "Ruhig halten heute",
+    instr2: "Münze als Maß",
+    analyzing: "Wird jetzt analysiert",
+    results: "Ergebnis der Schätzung",
+    range: "Geschätzter Bereich heute",
+    confidence: "Grad der Sicherheit",
+    risk: "Risiko Anzeige heute",
+    confirm: "Im Lab speichern",
+    adjust: "Dosis jetzt anpassen",
+    logged: "Im Lab notiert",
+    viewSession: "Session jetzt ansehen",
+    setReminder: "Check-in jetzt setzen",
+    backHome: "Zurück zum Home",
+    discard: "Verwerfen",
+    notes: "Optionale Notizen heute",
+    mood: "Wie ist Stimmung?",
+    disclaimer: "Nur grobe Schätzung Tatsächliche Werte variieren Waage nutzen heute",
+    footer: "In Harmonie erschaffen"
   }
 };
 
@@ -85,11 +109,14 @@ interface Props {
 
 export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
   const [lang, setLang] = useState<'en' | 'de'>('en');
-  const [step, setStep] = useState<'select' | 'camera' | 'result'>('select');
+  const [step, setStep] = useState<'substance' | 'method' | 'camera' | 'result' | 'notes' | 'success'>('substance');
   const [selectedSub, setSelectedSub] = useState<any>(null);
+  const [selectedMethod, setSelectedMethod] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<EstimateDoseOutput | null>(null);
   const [manualValue, setManualValue] = useState<number>(0);
+  const [notes, setNotes] = useState('');
+  const [mood, setMood] = useState('neutral');
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -122,13 +149,6 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
     }
   };
 
-  const handleSelect = (sub: any) => {
-    playHeartbeat();
-    setSelectedSub(sub);
-    setStep('camera');
-    startCamera();
-  };
-
   const captureAndAnalyze = async () => {
     if (!videoRef.current || !canvasRef.current || !selectedSub) return;
     setIsLoading(true);
@@ -147,32 +167,35 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
     try {
       const estimation = await estimateDose({
         photoDataUri: dataUri,
-        substanceName: selectedSub.name
+        substanceName: selectedSub.name,
+        method: selectedMethod?.id
       });
       setResult(estimation);
       setManualValue(Math.round((estimation.minMg + estimation.maxMg) / 2));
       setStep('result');
     } catch (err) {
-      console.error("Estimation failed", err);
-      setStep('select');
+      setStep('substance');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleConfirm = () => {
+  const handleFinalSave = () => {
     playHeartbeat();
     onComplete({
       id: selectedSub.id,
       name: lang === 'en' ? selectedSub.name : selectedSub.de,
       value: manualValue,
       unit: 'mg',
-      method: result?.method || 'visual_scan',
+      method: selectedMethod?.id || 'visual_scan',
+      notes,
+      mood,
       timestamp: new Date().toISOString()
     });
+    setStep('success');
   };
 
-  if (step === 'select') {
+  if (step === 'substance') {
     return (
       <div className="flex flex-col h-full bg-black font-headline pt-safe">
         <header className="px-8 pt-8 pb-4 shrink-0 flex items-center justify-between">
@@ -186,16 +209,16 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
         <ScrollArea className="flex-1 px-8 py-10">
           <div className="max-w-md mx-auto space-y-10">
             <div className="text-center space-y-2">
-              <h2 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">{t.select}</h2>
-              <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.scan}</p>
+              <h2 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">{t.selectSub}</h2>
+              <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.camera}</p>
             </div>
 
             <div className="grid grid-cols-1 gap-3">
               {SUBSTANCES.map((sub) => (
                 <button
                   key={sub.id}
-                  onClick={() => handleSelect(sub)}
-                  className="w-full p-6 rounded-[2.5rem] bg-white/[0.03] border-2 border-white/5 flex items-center justify-between group hover:border-primary/40 transition-all active:scale-95"
+                  onClick={() => { playHeartbeat(); setSelectedSub(sub); setStep('method'); }}
+                  className={cn("w-full p-6 rounded-[2.5rem] bg-white/[0.03] border-2 flex items-center justify-between group transition-all active:scale-95", sub.border)}
                 >
                   <div className="flex items-center gap-5">
                     <div className={cn("w-14 h-14 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform", sub.color)}>
@@ -209,10 +232,38 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
             </div>
           </div>
         </ScrollArea>
-        
         <footer className="p-10 text-center shrink-0">
-          <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.6em] shining-white">Created in harmony</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.6em] shining-white">{t.footer}</p>
         </footer>
+      </div>
+    );
+  }
+
+  if (step === 'method') {
+    return (
+      <div className="flex flex-col h-full bg-black font-headline pt-safe">
+        <header className="px-8 pt-8 pb-4 shrink-0 flex items-center gap-4">
+          <button onClick={() => setStep('substance')} className="p-3 bg-white/5 rounded-full border border-white/10 text-white/40"><ArrowLeft size={20} /></button>
+          <div>
+            <h1 className="text-xl font-black uppercase tracking-tighter">{selectedSub?.name}</h1>
+            <p className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">{t.selectMethod}</p>
+          </div>
+        </header>
+
+        <ScrollArea className="flex-1 px-8 py-10">
+          <div className="max-w-md mx-auto grid grid-cols-2 gap-3">
+            {METHODS.map((m) => (
+              <button
+                key={m.id}
+                onClick={() => { playHeartbeat(); setSelectedMethod(m); setStep('camera'); startCamera(); }}
+                className="p-6 rounded-[2rem] bg-white/[0.03] border-2 border-white/5 flex flex-col items-center gap-3 hover:border-primary/40 transition-all active:scale-95"
+              >
+                <span className="text-3xl">{m.icon}</span>
+                <span className="text-[10px] font-black uppercase text-center text-white/60 leading-tight">{lang === 'en' ? m.label.en : m.label.de}</span>
+              </button>
+            ))}
+          </div>
+        </ScrollArea>
       </div>
     );
   }
@@ -220,64 +271,52 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
   if (step === 'camera') {
     return (
       <div className="flex flex-col h-full bg-black font-headline relative overflow-hidden">
-        <video 
-          ref={videoRef} 
-          autoPlay 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-        />
+        <video ref={videoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover opacity-60" />
         <canvas ref={canvasRef} className="hidden" />
 
         <div className="absolute inset-0 border-[40px] border-black/40 pointer-events-none">
-          <div className="w-full h-full border-2 border-primary/40 rounded-[3rem] relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-48 border-2 border-white/20 rounded-2xl flex items-center justify-center">
-              <div className="absolute inset-0 bg-primary/5 blur-xl animate-pulse" />
-              <Maximize size={32} className="text-white/20" />
-            </div>
+          <div className="w-full h-full border-2 border-primary/40 rounded-[3rem] relative shadow-[0_0_0_100vw_rgba(0,0,0,0.4)]">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-48 border-2 border-white/20 rounded-2xl flex flex-col items-center justify-center">
+                <Maximize size={32} className="text-white/20 mb-2" />
+                <CircleDot size={12} className="text-primary animate-pulse" />
+             </div>
           </div>
         </div>
 
         <header className="relative z-10 p-8 flex items-center justify-between bg-gradient-to-b from-black/80 to-transparent">
-          <button onClick={() => { stopCamera(); setStep('select'); }} className="p-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white"><ArrowLeft size={20} /></button>
-          <div className="flex flex-col items-end">
-            <span className="text-[10px] font-black uppercase tracking-widest text-primary">{selectedSub?.name}</span>
-            <span className="text-[8px] font-bold uppercase text-white/40 tracking-widest">{t.scan}</span>
+          <button onClick={() => { stopCamera(); setStep('method'); }} className="p-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white"><ArrowLeft size={20} /></button>
+          <div className="text-right">
+            <span className="block text-[10px] font-black uppercase text-primary">{selectedSub?.name}</span>
+            <span className="text-[8px] font-bold uppercase text-white/40">{lang === 'en' ? selectedMethod?.label.en : selectedMethod?.label.de}</span>
           </div>
         </header>
 
         <div className="flex-1" />
 
-        <div className="relative z-10 p-10 space-y-8 bg-gradient-to-t from-black to-transparent text-center">
-          <div className="space-y-2">
-            <p className="text-xl font-black uppercase tracking-tight text-white">{t.instr1}</p>
-            <p className="text-[10px] font-black uppercase text-primary tracking-[0.4em]">{t.instr2}</p>
+        <div className="relative z-10 p-10 space-y-6 text-center bg-gradient-to-t from-black via-black/80 to-transparent">
+          <div className="space-y-1">
+            <p className="text-xl font-black uppercase text-white tracking-tight">{t.instr1}</p>
+            <p className="text-[9px] font-black text-primary uppercase tracking-[0.4em]">{t.instr2}</p>
           </div>
-
           <button 
             onClick={captureAndAnalyze}
             disabled={isLoading}
-            className="w-24 h-24 rounded-full bg-primary flex items-center justify-center border-4 border-white shadow-2xl active:scale-90 transition-all mx-auto group"
+            className="w-24 h-24 rounded-full bg-primary flex items-center justify-center border-4 border-white shadow-2xl active:scale-90 transition-all mx-auto"
           >
-            {isLoading ? <Loader2 className="animate-spin text-white" size={32} /> : <div className="w-16 h-16 rounded-full border-2 border-white/40 group-hover:scale-110 transition-transform" />}
+            {isLoading ? <Loader2 className="animate-spin text-white" size={32} /> : <div className="w-16 h-16 rounded-full border-2 border-white/40 animate-pulse" />}
           </button>
-
-          <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.6em] shining-white">Created in harmony</p>
         </div>
       </div>
     );
   }
 
   if (step === 'result') {
-    const isHighConfidence = result?.confidence === 'High';
-    const isCritical = manualValue > 100;
-
+    const isHighRisk = result?.riskLevel === 'High';
     return (
       <div className="flex flex-col h-full bg-black font-headline">
         <header className="px-8 pt-10 pb-6 border-b border-white/5 shrink-0 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-              <Scaling size={24} className="text-primary" />
-            </div>
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20"><Scaling size={24} className="text-primary" /></div>
             <div>
               <h2 className="text-xl font-black uppercase tracking-tighter text-white">{t.results}</h2>
               <p className="text-[9px] font-black text-primary uppercase tracking-[0.4em]">{selectedSub?.name}</p>
@@ -287,88 +326,95 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
         </header>
 
         <ScrollArea className="flex-1 px-8 pt-8">
-          <div className="max-w-md mx-auto space-y-10 pb-40">
-            <div className="p-8 bg-white/[0.03] border-2 border-white/10 rounded-[2.5rem] text-center space-y-6">
-              <div className="space-y-1">
-                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.range}</span>
-                <p className="text-6xl font-black text-white tracking-tighter tabular-nums">{result?.minMg}–{result?.maxMg}</p>
-                <p className="text-xs font-black text-primary uppercase tracking-widest">MG Range</p>
-              </div>
-
-              <div className="flex items-center justify-center gap-6 pt-4 border-t border-white/5">
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-[8px] font-black text-white/30 uppercase tracking-widest">{t.confidence}</span>
-                  <div className={cn("px-3 py-1 rounded-full text-[9px] font-black uppercase border", isHighConfidence ? "bg-primary/10 border-primary text-primary" : "bg-amber-500/10 border-amber-500 text-amber-500")}>
-                    {result?.confidence}
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-[8px] font-black text-white/30 uppercase tracking-widest">Method</span>
-                  <div className="px-3 py-1 rounded-full text-[9px] font-black uppercase border border-white/20 text-white/60">
-                    {result?.method.replace('_', ' ')}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {isCritical && (
-              <div className="p-6 bg-red-600/10 border-2 border-red-600/30 rounded-2xl flex items-start gap-4 animate-in zoom-in-95 duration-500">
-                <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={20} />
-                <div className="space-y-1">
-                  <p className="text-xs font-black uppercase text-red-500 tracking-tight">Portion Alert</p>
-                  <p className="text-[10px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">{result?.advice}</p>
-                </div>
-              </div>
-            )}
-
-            <div className="space-y-6">
-              <div className="flex justify-between items-center px-1">
-                <h3 className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] flex items-center gap-2"><Smartphone size={14} /> {t.adjust}</h3>
-                <span className="text-xl font-black text-white tabular-nums">{manualValue} <span className="text-[10px] text-white/20">MG</span></span>
-              </div>
-              <div className="px-2">
-                <Slider 
-                  value={[manualValue]} 
-                  onValueChange={(val) => setManualValue(val[0])} 
-                  max={200} 
-                  step={5} 
-                  className="py-4"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] px-1">{t.comparison}</h3>
-              <div className="grid grid-cols-3 gap-3">
-                {[20, 40, 60].map(val => (
-                  <div key={val} className="aspect-square bg-white/[0.02] border border-white/5 rounded-2xl flex flex-col items-center justify-center gap-2">
-                    <div className="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center bg-primary/5">
-                      <Zap size={16} className="text-primary/40" />
-                    </div>
-                    <span className="text-[10px] font-black text-white/40">{val}MG</span>
-                  </div>
-                ))}
+          <div className="max-w-md mx-auto space-y-8 pb-40">
+            <div className="p-8 bg-white/[0.03] border-2 border-white/10 rounded-[2.5rem] text-center space-y-4">
+              <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.range}</span>
+              <p className="text-6xl font-black text-white tracking-tighter tabular-nums">{result?.minMg}–{result?.maxMg}</p>
+              
+              <div className="flex items-center justify-center gap-4 pt-4">
+                 <div className={cn("px-4 py-1.5 rounded-full text-[9px] font-black uppercase border", result?.confidence === 'High' ? "bg-primary/10 border-primary text-primary" : "bg-amber-500/10 border-amber-500 text-amber-500")}>
+                    {t.confidence}: {result?.confidence}
+                 </div>
+                 <div className={cn("px-4 py-1.5 rounded-full text-[9px] font-black uppercase border", isHighRisk ? "bg-red-600/10 border-red-600 text-red-500" : "bg-emerald-500/10 border-emerald-500 text-emerald-500")}>
+                    {t.risk}: {result?.riskLevel}
+                 </div>
               </div>
             </div>
 
             <div className="p-6 bg-white/5 rounded-2xl border border-white/10 flex items-start gap-4">
-              <Info className="text-[#EBFB3B] shrink-0" size={18} />
-              <p className="text-[9px] font-bold text-white/40 leading-relaxed uppercase tracking-widest">{t.disclaimer}</p>
+              <Info className="text-primary shrink-0" size={18} />
+              <p className="text-[9px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.disclaimer}</p>
             </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center"><span className="text-[10px] font-black uppercase text-white/30 tracking-widest">{t.adjust}</span><span className="text-xl font-black text-white">{manualValue} MG</span></div>
+              <Slider value={[manualValue]} onValueChange={(val) => setManualValue(val[0])} max={200} step={5} />
+            </div>
+
+            <button onClick={() => setStep('notes')} className="w-full h-20 bg-primary text-white rounded-full font-black text-lg uppercase tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3">{t.confirm} <CheckCircle2 size={24} /></button>
           </div>
         </ScrollArea>
+      </div>
+    );
+  }
 
-        <footer className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black via-black to-transparent pointer-events-none pb-safe z-50">
-          <div className="max-w-md mx-auto space-y-4 pointer-events-auto">
-            <button 
-              onClick={handleConfirm}
-              className="w-full h-20 bg-[#1b4d3e] text-white rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3 border-2 border-primary/20"
-            >
-              {t.confirm} <CheckCircle2 size={24} />
-            </button>
-            <p className="text-center text-[10px] font-black uppercase tracking-[0.5em] shining-white pt-2">{t.footer}</p>
+  if (step === 'notes') {
+    return (
+      <div className="flex flex-col h-full bg-black font-headline pt-safe">
+        <header className="p-8 pb-4 flex items-center justify-between">
+          <button onClick={() => setStep('result')} className="p-3 bg-white/5 rounded-full border border-white/10 text-white/40"><ArrowLeft size={20} /></button>
+          <span className="text-[10px] font-black uppercase text-primary">{t.notes}</span>
+        </header>
+
+        <div className="flex-1 px-8 py-6 space-y-10 max-w-md mx-auto w-full">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-black uppercase tracking-tighter">{t.mood}</h2>
+            <div className="flex justify-between bg-white/5 p-6 rounded-[2rem] border border-white/10">
+              {['😐', '😊', '😵'].map((e, i) => (
+                <button 
+                  key={i} 
+                  onClick={() => { playHeartbeat(); setMood(['neutral', 'good', 'strong'][i]); }}
+                  className={cn("text-4xl p-4 rounded-2xl transition-all", (mood === 'neutral' && i===0) || (mood === 'good' && i===1) || (mood === 'strong' && i===2) ? "bg-primary/20 scale-110 shadow-lg" : "opacity-40 grayscale")}
+                >
+                  {e}
+                </button>
+              ))}
+            </div>
           </div>
-        </footer>
+
+          <div className="space-y-4">
+            <h2 className="text-[10px] font-black uppercase tracking-widest text-white/30">{t.notes}</h2>
+            <textarea 
+              value={notes} 
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="E.g. mixed with alcohol..."
+              className="w-full h-32 bg-white/5 border-2 border-white/10 rounded-[2rem] p-6 text-white font-bold outline-none focus:border-primary transition-all resize-none"
+            />
+          </div>
+
+          <button onClick={handleFinalSave} className="w-full h-20 bg-primary text-white rounded-full font-black text-xl uppercase tracking-widest shadow-2xl active:scale-95 transition-all">{t.confirm}</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 'success') {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-10 text-center space-y-10 font-headline bg-black animate-in zoom-in duration-700">
+        <div className="relative">
+          <div className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full animate-ping" />
+          <div className="w-32 h-32 bg-primary/10 rounded-full flex items-center justify-center border-4 border-primary/40 relative z-10">
+            <CheckCircle2 size={64} className="text-primary" />
+          </div>
+        </div>
+        <div className="space-y-4">
+          <h2 className="text-4xl font-black uppercase tracking-tighter text-white">{t.logged}</h2>
+          <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">{t.analyzing}</p>
+        </div>
+        <div className="w-full max-w-xs space-y-4">
+          <button onClick={onCancel} className="w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-[10px] tracking-widest">{t.backHome}</button>
+        </div>
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white mt-10">{t.footer}</p>
       </div>
     );
   }
