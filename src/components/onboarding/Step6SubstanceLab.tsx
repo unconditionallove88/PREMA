@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -32,7 +33,9 @@ import {
   Mic,
   MicOff,
   UserCheck,
-  AlertTriangle
+  AlertTriangle,
+  Camera,
+  Scaling
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -43,11 +46,12 @@ import { StepSomethingToRemember as WisdomProtocol } from '@/components/onboardi
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { playHeartbeat } from '@/lib/resonance';
+import { VisualDoseAssistant } from '@/components/lab/VisualDoseAssistant';
 
 /**
  * @fileOverview Sovereign Lab Component.
  * Features: Self-Honesty, responsible intake tracking, and phone-based diary storage.
- * Updated: Added 3-MMC, 4-MMC, Monkey Dust, and DMT.
+ * Updated: Added Visual Dose Assistant (Hybrid Mode).
  */
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -70,6 +74,7 @@ const CONTENT = {
     syncProceed: "Proceed with Love", noResults: "No substances found",
     wisdom: "Mixing Wisdom",
     listening: "Listening...",
+    visualScan: "Visual scan portion",
     mixingWarningTitle: "Critical Mixing Warning",
     riskHigh: "High Risk Interaction",
     riskCritical: "Critical Biological Threat",
@@ -88,6 +93,7 @@ const CONTENT = {
     syncProceed: "Mit Liebe fortfahren heute", noResults: "Keine Substanzen gefunden",
     wisdom: "Misch-Weisheiten heute",
     listening: "Höre zu...",
+    visualScan: "Visueller Scan heute",
     mixingWarningTitle: "Kritische Misch-Warnung heute",
     riskHigh: "Hohes Risiko Interaktion heute",
     riskCritical: "Kritische biologische Bedrohung heute",
@@ -145,6 +151,7 @@ export function Step6SubstanceLab({
   const [alcoholCart, setAlcoholCart] = useState<{type: string, count: number}[]>([]);
   const [chatOpen, setChatOpen] = useState(false);
   const [wisdomOpen, setWisdomOpen] = useState(false);
+  const [visualScanOpen, setVisualScanOpen] = useState(false);
   const [responsibilityOpen, setResponsibilityOpen] = useState(false);
   const [pendingEntry, setPendingEntry] = useState<any>(null);
   const [isListening, setIsListening] = useState(false);
@@ -233,6 +240,16 @@ export function Step6SubstanceLab({
     setResponsibilityOpen(true);
   };
 
+  const handleVisualScanComplete = (entry: any) => {
+    const risk = DANGEROUS_COMBOS.find(combo => 
+      (combo.pair.includes(entry.id) && sessionLogs.some(log => combo.pair.includes(log.id)))
+    );
+    setPendingEntry(entry);
+    setActiveMixingRisk(risk || null);
+    setVisualScanOpen(false);
+    setResponsibilityOpen(true);
+  };
+
   const confirmResponsibility = () => {
     if (!pendingEntry) return;
     const updated = [...sessionLogs, pendingEntry];
@@ -274,10 +291,20 @@ export function Step6SubstanceLab({
         
         <GuardianStatusBar status={guardianStatus} heartRate={lastHR > 0 ? lastHR : 75} lang={lang} />
 
-        <div className="relative w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
-          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-12 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
-          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+        <div className="grid grid-cols-1 gap-3">
+          <button 
+            onClick={() => setVisualScanOpen(true)}
+            className="w-full h-14 bg-primary/10 border-2 border-primary/40 rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-all shadow-lg group"
+          >
+            <Scaling className="text-primary animate-pulse" size={20} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">{t.visualScan}</span>
+          </button>
+          
+          <div className="relative w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+            <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-12 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
+            <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+          </div>
         </div>
       </header>
 
@@ -294,7 +321,9 @@ export function Step6SubstanceLab({
                   {sessionLogs.slice().reverse().map((log, i) => (
                     <div key={i} className="bg-white/[0.03] border border-white/5 rounded-xl p-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/5"><FlaskConical size={16} className="text-[#3EB489]" /></div>
+                        <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
+                          {log.method === 'visual_scan' ? <Scaling size={16} className="text-primary" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
+                        </div>
                         <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-[#3EB489]">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
                       </div>
                       <button onClick={() => removeLog(sessionLogs.length - 1 - i)} className="p-2 text-white/10 hover:text-red-500 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -338,6 +367,13 @@ export function Step6SubstanceLab({
           </div>
         </div>
       )}
+
+      <Dialog open={visualScanOpen} onOpenChange={setVisualScanOpen}>
+        <DialogContent className="bg-black border-white/10 p-0 max-w-2xl h-[90vh] overflow-hidden rounded-[2.5rem]">
+          <DialogTitle className="sr-only">Visual Dose Assistant</DialogTitle>
+          <VisualDoseAssistant onComplete={handleVisualScanComplete} onCancel={() => setVisualScanOpen(false)} />
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={responsibilityOpen} onOpenChange={setResponsibilityOpen}>
         <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
