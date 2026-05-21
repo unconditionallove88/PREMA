@@ -20,7 +20,8 @@ import {
   CircleDot,
   Minus,
   Plus,
-  Heart
+  Heart,
+  HelpCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { estimateDose, type EstimateDoseOutput } from '@/ai/flows/estimate-dose-flow';
@@ -35,11 +36,12 @@ import { Slider } from '@/components/ui/slider';
  */
 
 const SUBSTANCES = [
-  { id: 'ketamine', name: 'Ketamine', de: 'Ketamin', color: 'text-blue-400', border: 'border-blue-500/20', bg: 'bg-blue-500/5', unit: 'mg' },
-  { id: 'cocaine', name: 'Cocaine', de: 'Kokain', color: 'text-white', border: 'border-white/20', bg: 'bg-white/5', unit: 'mg' },
-  { id: 'mdma', name: 'MDMA', de: 'MDMA', color: 'text-purple-400', border: 'border-purple-500/20', bg: 'bg-purple-500/5', unit: 'mg' },
-  { id: '3mmc', name: '3-MMC', de: '3-MMC', color: 'text-orange-300', border: 'border-orange-500/20', bg: 'bg-orange-500/5', unit: 'mg' },
-  { id: '4mmc', name: '4-MMC', de: '4-MMC', color: 'text-pink-300', border: 'border-pink-500/20', bg: 'bg-pink-500/5', unit: 'mg' },
+  { id: 'ketamine', name: 'Ketamine', de: 'Ketamin', color: 'text-blue-400', border: 'border-blue-500/20', bg: 'bg-blue-500/5', unit: 'mg', risk: "Dose varies by tolerance." },
+  { id: 'cocaine', name: 'Cocaine', de: 'Kokain', color: 'text-white', border: 'border-white/20', bg: 'bg-white/5', unit: 'mg', risk: "Purity varies widely today." },
+  { id: 'mdma', name: 'MDMA', de: 'MDMA', color: 'text-purple-400', border: 'border-purple-500/20', bg: 'bg-purple-500/5', unit: 'mg', risk: "Redosing increases neurotoxicity risk." },
+  { id: '3mmc', name: '3-MMC', de: '3-MMC', color: 'text-orange-300', border: 'border-orange-500/20', bg: 'bg-orange-500/5', unit: 'mg', risk: "High redosing compulsion active." },
+  { id: '4mmc', name: '4-MMC', de: '4-MMC', color: 'text-pink-300', border: 'border-pink-500/20', bg: 'bg-pink-500/5', unit: 'mg', risk: "Avoid mixing with stimulants." },
+  { id: 'other', name: 'Other', de: 'Andere', color: 'text-white', border: 'border-white/20', bg: 'bg-white/5', unit: 'mg', risk: "Start with lowest dose." },
 ];
 
 const METHODS = [
@@ -74,7 +76,9 @@ const CONTENT = {
     notes: "Optional notes",
     mood: "How is mood?",
     disclaimer: "Visual estimate only Actual weight may vary Use a scale always",
-    footer: "Created in harmony"
+    footer: "Created in harmony",
+    notSure: "Not sure what it is?",
+    notSureBtn: "Harm Reduction Info"
   },
   de: {
     title: "Dosier Assistent heute",
@@ -98,7 +102,9 @@ const CONTENT = {
     notes: "Optionale Notizen heute",
     mood: "Wie ist Stimmung?",
     disclaimer: "Nur grobe Schätzung Tatsächliche Werte variieren Waage nutzen heute",
-    footer: "In Harmonie erschaffen"
+    footer: "In Harmonie erschaffen",
+    notSure: "Unsicher was es ist?",
+    notSureBtn: "Schadensminimierung Info heute"
   }
 };
 
@@ -197,8 +203,8 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
 
   if (step === 'substance') {
     return (
-      <div className="flex flex-col h-full bg-black font-headline pt-safe">
-        <header className="px-8 pt-8 pb-4 shrink-0 flex items-center justify-between">
+      <div className="flex flex-col h-full bg-black font-headline pt-safe overflow-hidden">
+        <header className="px-8 pt-8 pb-4 shrink-0 flex items-center justify-between z-10 bg-black">
           <button onClick={onCancel} className="p-3 bg-white/5 rounded-full border border-white/10 text-white/40"><X size={20} /></button>
           <div className="flex items-center gap-2">
             <Sparkles className="text-primary" size={16} />
@@ -206,35 +212,51 @@ export function VisualDoseAssistant({ onComplete, onCancel }: Props) {
           </div>
         </header>
 
-        <ScrollArea className="flex-1 px-8 py-10">
-          <div className="max-w-md mx-auto space-y-10">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">{t.selectSub}</h2>
-              <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.camera}</p>
-            </div>
+        <div className="flex-1 min-h-0 relative">
+          <ScrollArea className="h-full px-8 py-6">
+            <div className="max-w-md mx-auto space-y-10 pb-20">
+              <div className="text-center space-y-2">
+                <h2 className="text-3xl font-black uppercase tracking-tighter text-white leading-none">{t.selectSub}</h2>
+                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.camera}</p>
+              </div>
 
-            <div className="grid grid-cols-1 gap-3">
-              {SUBSTANCES.map((sub) => (
-                <button
-                  key={sub.id}
-                  onClick={() => { playHeartbeat(); setSelectedSub(sub); setStep('method'); }}
-                  className={cn("w-full p-6 rounded-[2.5rem] bg-white/[0.03] border-2 flex items-center justify-between group transition-all active:scale-95", sub.border)}
-                >
-                  <div className="flex items-center gap-5">
-                    <div className={cn("w-14 h-14 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform", sub.color)}>
-                      <Scaling size={28} />
+              <div className="grid grid-cols-1 gap-3">
+                {SUBSTANCES.map((sub) => (
+                  <button
+                    key={sub.id}
+                    onClick={() => { playHeartbeat(); setSelectedSub(sub); setStep('method'); }}
+                    className={cn("w-full p-6 rounded-[2.5rem] bg-white/[0.03] border-2 flex items-center justify-between group transition-all active:scale-95", sub.border)}
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className={cn("w-14 h-14 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform", sub.color)}>
+                        <Scaling size={28} />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-xl font-black uppercase tracking-tight text-white">{lang === 'en' ? sub.name : sub.de}</span>
+                        <p className="text-[8px] font-bold text-white/30 uppercase tracking-widest leading-none mt-1">{sub.risk}</p>
+                      </div>
                     </div>
-                    <span className="text-xl font-black uppercase tracking-tight text-white">{lang === 'en' ? sub.name : sub.de}</span>
+                    <ChevronRight className="text-white/10 group-hover:text-primary transition-all" size={20} />
+                  </button>
+                ))}
+              </div>
+
+              <div className="pt-6 border-t border-white/5">
+                <button className="w-full p-6 rounded-[2rem] bg-white/5 border border-dashed border-white/10 flex items-center justify-center gap-3 group hover:bg-white/10 transition-all">
+                  <HelpCircle size={18} className="text-white/20 group-hover:text-primary" />
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase text-white/40 tracking-widest">{t.notSure}</p>
+                    <p className="text-[8px] font-bold text-primary uppercase tracking-widest leading-none mt-1">{t.notSureBtn}</p>
                   </div>
-                  <ChevronRight className="text-white/10 group-hover:text-primary transition-all" size={20} />
                 </button>
-              ))}
+              </div>
+              
+              <div className="text-center pt-8">
+                <p className="text-[10px] font-black uppercase tracking-[0.6em] shining-white">{t.footer}</p>
+              </div>
             </div>
-          </div>
-        </ScrollArea>
-        <footer className="p-10 text-center shrink-0">
-          <p className="text-[10px] font-black uppercase tracking-[0.6em] shining-white">{t.footer}</p>
-        </footer>
+          </ScrollArea>
+        </div>
       </div>
     );
   }

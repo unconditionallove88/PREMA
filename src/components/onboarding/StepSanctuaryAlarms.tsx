@@ -80,109 +80,111 @@ export function StepSanctuaryAlarms({ onComplete, onBack }: { onComplete: (alarm
         <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] mb-8">{t.sub}</p>
       </div>
 
-      <ScrollArea className="flex-1 px-6">
-        <div className="space-y-4 pb-40">
-          {/* Intake Limit */}
-          <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <ZapOff size={20} className="text-amber-500" />
+      <div className="flex-1 min-h-0 relative">
+        <ScrollArea className="h-full px-6">
+          <div className="space-y-4 pb-40">
+            {/* Intake Limit */}
+            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-amber-500/10 rounded-xl">
+                    <ZapOff size={20} className="text-amber-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black uppercase text-white">{t.limit}</p>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.limitSub}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-black uppercase text-white">{t.limit}</p>
-                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.limitSub}</p>
-                </div>
+                <Select value={settings.intakeLimit} onValueChange={(val) => setSettings({...settings, intakeLimit: val})}>
+                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                    {["3", "4", "5", "6", "8"].map(num => (
+                      <SelectItem key={num} value={num} className="font-black uppercase">{num} Units</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <Select value={settings.intakeLimit} onValueChange={(val) => setSettings({...settings, intakeLimit: val})}>
-                <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-white/10 font-headline">
-                  {["3", "4", "5", "6", "8"].map(num => (
-                    <SelectItem key={num} value={num} className="font-black uppercase">{num} Units</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            </div>
+
+            {/* Departure Time */}
+            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-blue-400/10 rounded-xl">
+                    <Clock size={20} className="text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black uppercase text-white">{t.leave}</p>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.leaveSub}</p>
+                  </div>
+                </div>
+                <input 
+                  type="time" 
+                  value={settings.leaveTime} 
+                  onChange={(e) => setSettings({...settings, leaveTime: e.target.value})}
+                  className="w-24 h-10 bg-white/5 border border-white/10 rounded-xl px-2 font-black text-white text-xs outline-none focus:border-primary transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Rest Breaks */}
+            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-purple-400/10 rounded-xl">
+                    <Moon size={20} className="text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black uppercase text-white">{t.rest}</p>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.restSub}</p>
+                  </div>
+                </div>
+                <Select value={settings.restInterval} onValueChange={(val) => setSettings({...settings, restInterval: val})}>
+                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                    {["30", "60", "90", "120"].map(min => (
+                      <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Hydration */}
+            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-cyan-400/10 rounded-xl">
+                    <GlassWater size={20} className="text-cyan-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black uppercase text-white">{t.water}</p>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.waterSub}</p>
+                  </div>
+                </div>
+                <Select value={settings.waterInterval} onValueChange={(val) => setSettings({...settings, waterInterval: val})}>
+                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                    {["20", "30", "45", "60"].map(min => (
+                      <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="pt-8 text-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
             </div>
           </div>
-
-          {/* Departure Time */}
-          <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-400/10 rounded-xl">
-                  <Clock size={20} className="text-blue-400" />
-                </div>
-                <div>
-                  <p className="text-sm font-black uppercase text-white">{t.leave}</p>
-                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.leaveSub}</p>
-                </div>
-              </div>
-              <input 
-                type="time" 
-                value={settings.leaveTime} 
-                onChange={(e) => setSettings({...settings, leaveTime: e.target.value})}
-                className="w-24 h-10 bg-white/5 border border-white/10 rounded-xl px-2 font-black text-white text-xs outline-none focus:border-primary transition-all"
-              />
-            </div>
-          </div>
-
-          {/* Rest Breaks */}
-          <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-400/10 rounded-xl">
-                  <Moon size={20} className="text-purple-400" />
-                </div>
-                <div>
-                  <p className="text-sm font-black uppercase text-white">{t.rest}</p>
-                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.restSub}</p>
-                </div>
-              </div>
-              <Select value={settings.restInterval} onValueChange={(val) => setSettings({...settings, restInterval: val})}>
-                <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-white/10 font-headline">
-                  {["30", "60", "90", "120"].map(min => (
-                    <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Hydration */}
-          <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-cyan-400/10 rounded-xl">
-                  <GlassWater size={20} className="text-cyan-400" />
-                </div>
-                <div>
-                  <p className="text-sm font-black uppercase text-white">{t.water}</p>
-                  <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.waterSub}</p>
-                </div>
-              </div>
-              <Select value={settings.waterInterval} onValueChange={(val) => setSettings({...settings, waterInterval: val})}>
-                <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-white/10 font-headline">
-                  {["20", "30", "45", "60"].map(min => (
-                    <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="pt-8 text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
-          </div>
-        </div>
-      </ScrollArea>
+        </ScrollArea>
+      </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black to-transparent pt-12 pointer-events-none pb-safe">
         <button 
