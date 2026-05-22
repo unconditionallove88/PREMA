@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Circle of Love (Trusted Bonds) Page.
- * Wording and Styling updated for Shining White resonance.
+ * Hydration-hardened for localized safety network management.
  */
 
 const RELATIONSHIP_OPTIONS = [
@@ -93,6 +93,7 @@ export default function SafetyNetworkPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [secretWordInput, setSecretWordInput] = useState("");
   const [lang, setLang] = useState<'en' | 'de'>('en');
+  const [mounted, setMounted] = useState(false);
   
   const [form, setForm] = useState({
     name: "", 
@@ -104,11 +105,10 @@ export default function SafetyNetworkPage() {
   });
 
   useEffect(() => {
+    setMounted(true);
     const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
-
-  const t = CONTENT[lang] || CONTENT.en;
 
   const contactsQuery = useMemoFirebase(() => {
     if (!firestore || !user?.uid) return null;
@@ -123,6 +123,17 @@ export default function SafetyNetworkPage() {
   }, [firestore, user?.uid]);
 
   const { data: profile } = useDoc(userDocRef);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+        <Loader2 className="animate-spin text-primary/20" />
+      </div>
+    );
+  }
+
+  const t = CONTENT[lang] || CONTENT.en;
+  const guardiansCount = contacts?.length || 0;
 
   const handleAddContact = (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,8 +161,6 @@ export default function SafetyNetworkPage() {
     updateDocumentNonBlocking(userDocRef, { secretWord: secretWordInput.trim() });
     setSecretWordInput("");
   };
-
-  const guardiansCount = contacts?.length || 0;
 
   return (
     <main className="min-h-screen bg-black text-white font-headline pb-32 pt-safe">
@@ -238,7 +247,7 @@ export default function SafetyNetworkPage() {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-[9px] font-black uppercase text-white/30 tracking-widest ml-1">Full Name</label>
-                  <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder="Enter name" className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required />
+                  <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder="Enter name" className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -250,7 +259,7 @@ export default function SafetyNetworkPage() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-[9px] font-black uppercase text-white/30 tracking-widest ml-1">Phone Number</label>
-                    <input value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})} placeholder="+..." className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required />
+                    <input value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})} placeholder="+..." className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
                   </div>
                 </div>
               </div>
@@ -273,7 +282,7 @@ export default function SafetyNetworkPage() {
           </div>
           <p className="text-sm font-bold text-white/40 leading-relaxed uppercase tracking-widest">{t.codeDesc}</p>
           <div className="flex flex-col gap-4">
-            <input type="text" value={secretWordInput} onChange={(e) => setSecretWordInput(e.target.value)} placeholder={profile?.secretWord || t.codePlaceholder} className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-5 text-xl font-black uppercase outline-none focus:border-primary transition-all" />
+            <input type="text" value={secretWordInput} onChange={(e) => setSecretWordInput(e.target.value)} placeholder={profile?.secretWord || t.codePlaceholder} className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-5 text-xl font-black uppercase outline-none focus:border-primary transition-all" suppressHydrationWarning />
             <button onClick={handleSaveSecretWord} className="w-full bg-primary text-white py-6 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all shadow-xl shadow-primary/20">{t.seal}</button>
           </div>
           {profile?.secretWord && <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] text-center animate-pulse">{t.activeCode(profile.secretWord)}</p>}
@@ -281,7 +290,7 @@ export default function SafetyNetworkPage() {
 
         <footer className="text-center space-y-6 pt-10">
           <Heart size={32} className="mx-auto text-primary" />
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
+          <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">{t.created}</p>
         </footer>
       </div>
     </main>

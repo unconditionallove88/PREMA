@@ -13,7 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 /**
  * @fileOverview Phase: During.
- * Purified of mood-based banners.
+ * Hydration-hardened for localized safety advisor.
  */
 export default function DuringPhase() {
   const router = useRouter();
@@ -21,8 +21,10 @@ export default function DuringPhase() {
   const firestore = useFirestore();
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [activeIntake, setActiveIntake] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
@@ -39,6 +41,18 @@ export default function DuringPhase() {
   }, [firestore, user?.uid]);
 
   const { data: profile, isLoading: isProfileLoading } = useDoc(userDocRef);
+
+  if (!mounted || isUserLoading || isProfileLoading) {
+    return (
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
+          <Heart size={64} fill="#1b4d3e" className="relative z-10 animate-pulse-heart text-[#1b4d3e]" style={{ filter: 'blur(12px)' }} />
+        </div>
+        <Loader2 className="animate-spin text-primary/20" />
+      </div>
+    );
+  }
 
   const t = {
     en: {
@@ -65,18 +79,6 @@ export default function DuringPhase() {
     ritualSub: "Honoring my state",
     ritualBtn: "Open Ritual"
   };
-
-  if (isUserLoading || isProfileLoading) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
-        <div className="relative flex items-center justify-center">
-          <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
-          <Heart size={64} fill="#1b4d3e" className="relative z-10 animate-pulse-heart text-[#1b4d3e]" style={{ filter: 'blur(12px)' }} />
-        </div>
-        <Loader2 className="animate-spin text-primary/20" />
-      </div>
-    );
-  }
 
   return (
     <main className="h-screen bg-black flex flex-col overflow-hidden font-headline">

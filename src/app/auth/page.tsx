@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Access Sanctuary (Auth) Page.
- * Restored Awareness login logic with explicit Staff button.
+ * Hydration-hardened and extension-shielded.
  */
 
 const CONTENT = {
@@ -51,11 +51,30 @@ function AuthContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lang, setLang] = useState<'en' | 'de'>('en');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
+          <Heart 
+            size={64} 
+            fill="#10B981" 
+            className="relative z-10 animate-pulse-heart text-[#10B981]" 
+            style={{ filter: 'blur(12px) drop-shadow(0 0 10px #10B981)' }} 
+          />
+        </div>
+        <Loader2 className="animate-spin text-primary/20" />
+      </div>
+    );
+  }
 
   const t = CONTENT[lang] || CONTENT.en;
 
@@ -67,9 +86,8 @@ function AuthContent() {
     try {
       const userEmail = email.toLowerCase().trim();
       
-      // Awareness Team Login Logic
       if (userEmail === 'awareness@love.com') {
-        const cred = await signInAnonymously(auth);
+        await signInAnonymously(auth);
         router.push("/awareness");
         return;
       }
@@ -121,12 +139,28 @@ function AuthContent() {
         <form onSubmit={handleAuth} className="space-y-5">
           <div className="space-y-1.5">
             <label className="text-[9px] font-black uppercase tracking-[0.3em] text-primary ml-2">{t.emailLabel}</label>
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full h-16 px-8 rounded-2xl border-2 border-white/5 bg-white/5 text-white placeholder:text-white/10 focus:border-primary outline-none transition-all font-bold" placeholder={t.emailPlaceholder} required />
+            <input 
+              type="text" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              className="w-full h-16 px-8 rounded-2xl border-2 border-white/5 bg-white/5 text-white placeholder:text-white/10 focus:border-primary outline-none transition-all font-bold" 
+              placeholder={t.emailPlaceholder} 
+              required 
+              suppressHydrationWarning
+            />
           </div>
           <div className="space-y-1.5">
             <label className="text-[9px] font-black uppercase tracking-[0.3em] text-primary ml-2">{t.passwordLabel}</label>
             <div className="relative">
-              <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full h-16 px-8 rounded-2xl border-2 border-white/5 bg-white/5 text-white placeholder:text-white/10 focus:border-primary outline-none transition-all font-bold" placeholder={t.passwordPlaceholder} required />
+              <input 
+                type={showPassword ? "text" : "password"} 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                className="w-full h-16 px-8 rounded-2xl border-2 border-white/5 bg-white/5 text-white placeholder:text-white/10 focus:border-primary outline-none transition-all font-bold" 
+                placeholder={t.passwordPlaceholder} 
+                required 
+                suppressHydrationWarning
+              />
               <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-primary">{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
             </div>
           </div>
