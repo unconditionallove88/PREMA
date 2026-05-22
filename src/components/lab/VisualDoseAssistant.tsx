@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -82,9 +81,11 @@ const CONTENT = {
     notSureBtn: "Access Wisdom Now",
     tryAgain: "Try Again",
     manualBtn: "Enter Manually",
-    possibleSub: "Possible Substance",
-    doseRange: "Typical Dose Range",
-    commonRisks: "Common Risks",
+    observation: "Visual Description",
+    possibleMatch: "Possible Database Match",
+    safetyInfo: "Safety Intelligence",
+    warningTitle: "Safety Warning",
+    actionTitle: "Recommended Action",
     footer: "Created in harmony"
   },
   de: {
@@ -114,9 +115,11 @@ const CONTENT = {
     notSureBtn: "Weisheits Guide jetzt öffnen",
     tryAgain: "Erneut versuchen heute",
     manualBtn: "Manuell eintragen heute",
-    possibleSub: "Mögliche Substanz heute",
-    doseRange: "Typischer Dosis Bereich",
-    commonRisks: "Bekannte Risiken heute",
+    observation: "Visuelle Beschreibung heute",
+    possibleMatch: "Datenbank Abgleich heute",
+    safetyInfo: "Sicherheits Intelligenz heute",
+    warningTitle: "Sicherheits Warnung heute",
+    actionTitle: "Empfohlene Aktion heute",
     footer: "In Harmonie erschaffen"
   }
 };
@@ -220,11 +223,11 @@ export function VisualDoseAssistant({ initialMode = 'dose', onComplete, onCancel
       timestamp: new Date().toISOString()
     } : {
       id: 'pill_id',
-      name: pillResult?.possible_substance || 'Identified Pill',
-      value: (pillResult?.typical_dose_range.min_mg || 0) + (pillResult?.typical_dose_range.max_mg || 0) / 2,
-      unit: 'mg',
+      name: pillResult?.possible_match || 'Identified Pill',
+      value: 0,
+      unit: 'pill',
       method: 'pill_id_scan',
-      notes: `${pillResult?.visual_characteristics.shape} ${pillResult?.visual_characteristics.color} pill. ${notes}`,
+      notes: `${pillResult?.visual_description}. ${notes}`,
       mood,
       timestamp: new Date().toISOString()
     };
@@ -317,16 +320,31 @@ export function VisualDoseAssistant({ initialMode = 'dose', onComplete, onCancel
           <ScrollArea className="flex-1 px-8 pt-8">
             <div className="max-w-md mx-auto space-y-8 pb-40">
               <div className="p-8 bg-white/[0.03] border-2 border-[#A855F7]/20 rounded-[2.5rem] space-y-6">
-                 <div className="text-center space-y-1"><span className="text-[9px] font-black text-white/30 uppercase tracking-[0.4em]">{t.possibleSub}</span><h3 className="text-3xl font-black text-[#A855F7] uppercase tracking-tighter">{pillResult.possible_substance}</h3></div>
-                 <div className="grid grid-cols-2 gap-3">
-                   <div className="bg-black/40 p-4 rounded-xl border border-white/5"><span className="block text-[7px] font-black text-white/20 uppercase tracking-widest mb-1">Color & Shape</span><span className="text-[10px] font-bold text-white uppercase">{pillResult.visual_characteristics.color} · {pillResult.visual_characteristics.shape}</span></div>
+                 <div className="text-center space-y-1"><span className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">{t.possibleMatch}</span><h3 className="text-3xl font-black text-[#A855F7] uppercase tracking-tighter">{pillResult.possible_match}</h3></div>
+                 <div className="grid grid-cols-1 gap-3">
                    <div className={cn("p-4 rounded-xl border flex flex-col justify-center items-center gap-1", pillResult.confidence === 'HIGH' ? "bg-primary/10 border-primary text-primary" : "bg-amber-500/10 border-amber-500 text-amber-500")}><span className="text-[7px] font-black uppercase tracking-widest">Confidence</span><span className="text-[10px] font-black uppercase">{pillResult.confidence}</span></div>
+                   <div className="bg-black/40 p-4 rounded-xl border border-white/5 text-left"><span className="block text-[7px] font-black text-white/20 uppercase tracking-widest mb-1">{t.observation}</span><p className="text-[10px] font-bold text-white uppercase">{pillResult.visual_description}</p></div>
                  </div>
               </div>
-              <div className="p-6 bg-red-600/10 border border-red-600/20 rounded-2xl space-y-3"><div className="flex items-center gap-3 text-red-500"><ShieldCheck size={18} /><span className="text-[10px] font-black uppercase tracking-widest">Critical Warning</span></div><p className="text-xs font-bold text-white/80 leading-relaxed uppercase tracking-wide">{pillResult.safety_warning}</p></div>
-              <div className="space-y-4"><h4 className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] px-2">{t.commonRisks}</h4><div className="grid gap-2">{pillResult.common_risks.map((risk, i) => (<div key={i} className="bg-white/5 p-4 rounded-xl border border-white/5 flex items-center gap-3"><AlertTriangle size={14} className="text-amber-500" /><span className="text-[10px] font-bold text-white/60 uppercase">{risk}</span></div>))}</div></div>
-              <div className="bg-blue-600/5 border border-blue-500/20 p-6 rounded-2xl space-y-2"><p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">Resonance Protocol</p><p className="text-xs font-bold text-white/60 leading-relaxed uppercase tracking-wide italic">"{pillResult.lab_test_recommendation}"</p></div>
-              <button onClick={() => setStep('notes')} className="w-full h-20 bg-primary text-white rounded-full font-black text-lg uppercase tracking-widest shadow-2xl active:scale-95 transition-all">{t.confirm}</button>
+              
+              <div className="p-6 bg-red-600/10 border border-red-600/20 rounded-2xl space-y-3">
+                <div className="flex items-center gap-3 text-red-500"><AlertTriangle size={18} /><span className="text-[10px] font-black uppercase tracking-widest">{t.warningTitle}</span></div>
+                <p className="text-xs font-bold text-white/80 leading-relaxed uppercase tracking-wide">{pillResult.warning}</p>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em] px-2">{t.safetyInfo}</span>
+                <div className="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                  <p className="text-xs font-bold text-white/60 leading-relaxed uppercase tracking-widest">{pillResult.safety_information}</p>
+                </div>
+              </div>
+
+              <div className="bg-blue-600/10 border-2 border-blue-500/40 p-6 rounded-[2rem] space-y-3 animate-pulse shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+                <div className="flex items-center gap-3 text-blue-400"><ShieldCheck size={18} /><span className="text-[10px] font-black uppercase tracking-widest">{t.actionTitle}</span></div>
+                <p className="text-sm font-black text-white leading-relaxed uppercase tracking-tight italic">"{pillResult.recommended_action}"</p>
+              </div>
+
+              <button onClick={() => setStep('notes')} className="w-full h-20 bg-[#1b4d3e] text-white rounded-full font-black text-lg uppercase tracking-widest shadow-2xl active:scale-95 transition-all">{t.confirm}</button>
             </div>
           </ScrollArea>
         </div>
