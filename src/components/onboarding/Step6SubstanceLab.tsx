@@ -48,12 +48,6 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { playHeartbeat } from '@/lib/resonance';
 import { VisualDoseAssistant } from '@/components/lab/VisualDoseAssistant';
 
-/**
- * @fileOverview Sovereign Lab Component.
- * Features: Self-Honesty, responsible intake tracking, and phone-based diary storage.
- * Updated: Added Visual Dose Assistant (Hybrid Mode) with 3-word/4-word rules.
- */
-
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M12 21v-6" /><path d="M5 15c0-4 3-7 7-7s7 3 7 7" /><path d="M12 8c-2.5 0-4.5 2-4.5 4.5" />
@@ -76,6 +70,8 @@ const CONTENT = {
     listening: "Listening...",
     visualScan: "Estimate Dose Scan",
     visualSub: "Visual AI estimation — no photo saved",
+    pillIdScan: "Pill Identifier Scan",
+    pillIdSub: "Visual pill analysis — mandatory testing",
     manualBtn: "Enter Manually",
     mixingWarningTitle: "Critical Mixing Warning",
     riskHigh: "High Risk Interaction",
@@ -95,8 +91,10 @@ const CONTENT = {
     syncProceed: "Mit Liebe fortfahren heute", noResults: "Keine Substanzen gefunden",
     wisdom: "Misch-Weisheiten heute",
     listening: "Höre zu...",
-    visualScan: "Dosis Scan Schätzung",
+    visualScan: "Dosis Scan Schätzung heute",
     visualSub: "Visuelle KI-Schätzung — kein Foto gespeichert",
+    pillIdScan: "Pille jetzt sicher identifizieren",
+    pillIdSub: "Visuelle Pille Analyse heute hier",
     manualBtn: "Manuell eintragen heute",
     mixingWarningTitle: "Kritische Misch-Warnung heute",
     riskHigh: "Hohes Risiko Interaktion heute",
@@ -156,12 +154,12 @@ export function Step6SubstanceLab({
   const [chatOpen, setChatOpen] = useState(false);
   const [wisdomOpen, setWisdomOpen] = useState(false);
   const [visualScanOpen, setVisualScanOpen] = useState(false);
+  const [visualScanMode, setVisualScanMode] = useState<'dose' | 'pill'>('dose');
   const [responsibilityOpen, setResponsibilityOpen] = useState(false);
   const [pendingEntry, setPendingEntry] = useState<any>(null);
   const [isListening, setIsListening] = useState(false);
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [activeMixingRisk, setActiveMixingRisk] = useState<any>(null);
-  const [entryMode, setEntryMode] = useState<'grid' | 'search'>('grid');
 
   useEffect(() => {
     setMounted(true);
@@ -296,9 +294,9 @@ export function Step6SubstanceLab({
         
         <GuardianStatusBar status={guardianStatus} heartRate={lastHR > 0 ? lastHR : 75} lang={lang} />
 
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <button 
-            onClick={() => setVisualScanOpen(true)}
+            onClick={() => { setVisualScanMode('dose'); setVisualScanOpen(true); }}
             className="w-full p-6 bg-primary/10 border-2 border-primary/40 rounded-[2rem] flex items-center gap-5 active:scale-95 transition-all shadow-xl group"
           >
             <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30 shrink-0">
@@ -309,14 +307,24 @@ export function Step6SubstanceLab({
               <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest leading-none mt-1">{t.visualSub}</p>
             </div>
           </button>
-          
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
-              <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-14 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
-              <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+          <button 
+            onClick={() => { setVisualScanMode('pill'); setVisualScanOpen(true); }}
+            className="w-full p-6 bg-[#A855F7]/10 border-2 border-[#A855F7]/40 rounded-[2rem] flex items-center gap-5 active:scale-95 transition-all shadow-xl group"
+          >
+            <div className="w-14 h-14 bg-[#A855F7]/20 rounded-2xl flex items-center justify-center border border-[#A855F7]/30 shrink-0">
+               <Eye className="text-[#A855F7] animate-pulse" size={28} />
             </div>
-          </div>
+            <div className="text-left">
+              <span className="block text-base font-black uppercase tracking-tight text-white">{t.pillIdScan}</span>
+              <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest leading-none mt-1">{t.pillIdSub}</p>
+            </div>
+          </button>
+        </div>
+
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-14 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
+          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
         </div>
       </header>
 
@@ -334,7 +342,7 @@ export function Step6SubstanceLab({
                     <div key={i} className="bg-white/[0.03] border border-white/5 rounded-xl p-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
-                          {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
+                          {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : log.method === 'pill_id_scan' ? <Eye size={16} className="text-[#A855F7]" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
                         </div>
                         <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-[#3EB489]">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
                       </div>
@@ -384,7 +392,7 @@ export function Step6SubstanceLab({
       <Dialog open={visualScanOpen} onOpenChange={setVisualScanOpen}>
         <DialogContent className="bg-black border-white/10 p-0 max-w-2xl h-[90vh] overflow-hidden rounded-[2.5rem]">
           <DialogTitle className="sr-only">Visual Dose Assistant</DialogTitle>
-          <VisualDoseAssistant onComplete={handleVisualScanComplete} onCancel={() => setVisualScanOpen(false)} />
+          <VisualDoseAssistant initialMode={visualScanMode} onComplete={handleVisualScanComplete} onCancel={() => setVisualScanOpen(false)} />
         </DialogContent>
       </Dialog>
 

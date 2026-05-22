@@ -19,11 +19,16 @@ const EstimateDoseInputSchema = z.object({
 export type EstimateDoseInput = z.infer<typeof EstimateDoseInputSchema>;
 
 const EstimateDoseOutputSchema = z.object({
-  minMg: z.number().describe("The estimated minimum weight in milligrams."),
-  maxMg: z.number().describe("The estimated maximum weight in milligrams."),
-  confidence: z.enum(['Low', 'Medium', 'High']).describe("Confidence level of the estimation."),
-  riskLevel: z.enum(['Low', 'Moderate', 'High']).describe("The risk level of the estimated dose."),
-  advice: z.string().describe("Contextual safety advice for this dose size."),
+  estimated_dose: z.object({
+    min_mg: z.number().describe("Minimum estimated weight in mg or ml."),
+    max_mg: z.number().describe("Maximum estimated weight in mg or ml."),
+    unit: z.enum(["mg", "ml"]).describe("The unit of measurement."),
+  }),
+  confidence: z.enum(["LOW", "MEDIUM", "HIGH"]),
+  risk_level: z.enum(["SAFE", "MODERATE", "HIGH", "DANGEROUS"]),
+  safety_note: z.string().describe("Short safety note (max 2 sentences)."),
+  recommendation: z.string().describe("What the user should do next."),
+  low_confidence_reason: z.string().nullable().describe("Reason for low confidence if applicable."),
 });
 export type EstimateDoseOutput = z.infer<typeof EstimateDoseOutputSchema>;
 
@@ -36,21 +41,25 @@ const prompt = ai.definePrompt({
   input: { schema: EstimateDoseInputSchema },
   output: { schema: EstimateDoseOutputSchema },
   prompt: `You are a specialized harm reduction visual analysis agent. 
-Analyze the provided image which contains a portion of {{substanceName}} in powder or crystal form.
+Analyze the provided image which contains a portion of {{{substanceName}}} in powder or crystal form.
 
 Context:
-- Substance: {{substanceName}}
-- Method provided by user: {{method}}
+- Substance: {{{substanceName}}}
+- Method provided by user: {{{method}}}
 
-Instructions:
-1. Use common reference objects in the image (a coin, key, or finger) to determine scale.
-2. Provide a conservative milligram range (min-max) based on the volume and typical density of {{substanceName}}.
-3. Evaluate confidence based on lighting and scale visibility.
-4. Risk Assessment: 
-   - Low: Typical starter dose.
-   - Moderate: Noticeable effects, requires caution.
-   - High: Potential danger or strong side effects.
-5. Provide a one-line advice (under 15 words) in Sentence case.
+Your job:
+1. Analyze the image to estimate the approximate volume or size of the substance visible.
+2. Based on the substance and method provided, return an estimated dose range.
+3. Return a confidence level: LOW / MEDIUM / HIGH.
+4. Return a risk level: SAFE / MODERATE / HIGH / DANGEROUS.
+5. Return a short safety note (max 2 sentences) relevant to this substance and dose.
+
+IMPORTANT RULES:
+- Never claim to identify the substance from the image. The user has already told you what it is.
+- Always return a RANGE (min_mg and max_mg), never a single exact number.
+- If confidence is LOW, say so clearly and recommend manual entry.
+- Never encourage drug use. Always prioritize safety.
+- If the image is unclear, dark, or does not show a substance, return confidence: LOW and explain why.
 
 Photo: {{media url=photoDataUri}}`,
 });
