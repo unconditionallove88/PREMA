@@ -169,7 +169,7 @@ function AuthContent() {
         </form>
 
         <div className="mt-8 space-y-4">
-          <button onClick={() => router.push(isSignUp ? "/auth?mode=signin" : "/auth?mode=signup")} className="w-full text-[9px] font-black text-white/20 hover:text-primary transition-colors uppercase tracking-[0.4em] flex items-center justify-center gap-2">{isSignUp ? t.alreadyAccount : t.newHere}</button>
+          <button onClick={() => router.push(isSignUp ? "/auth?mode=signin" : "/auth?mode=signin")} className="w-full text-[9px] font-black text-white/20 hover:text-primary transition-colors uppercase tracking-[0.4em] flex items-center justify-center gap-2">{isSignUp ? t.alreadyAccount : t.newHere}</button>
           
           <div className="pt-6 border-t border-white/5">
             <button 

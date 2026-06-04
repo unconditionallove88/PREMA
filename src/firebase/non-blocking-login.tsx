@@ -2,7 +2,7 @@
 import {
   Auth, // Import Auth type for type hinting
   signInAnonymously,
-  createUserWithEmailAndPassword,
+  
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -18,8 +18,8 @@ export function initiateAnonymousSignIn(authInstance: Auth): void {
 
 /** Initiate email/password sign-up (non-blocking). */
 export function initiateEmailSignUp(authInstance: Auth, email: string, password: string, onError?: (error: any) => void): void {
-  // CRITICAL: Call createUserWithEmailAndPassword directly. Do NOT use 'await createUserWithEmailAndPassword(...)'.
-  createUserWithEmailAndPassword(authInstance, email, password).catch((err) => {
+  // CRITICAL: Call signInWithEmailAndPassword directly. Do NOT use 'await signInWithEmailAndPassword(...)'.
+  signInWithEmailAndPassword(authInstance, email, password).catch((err) => {
     if (onError) onError(err);
   });
   // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
