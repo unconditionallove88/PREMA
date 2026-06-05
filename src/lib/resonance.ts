@@ -3,7 +3,7 @@
 /**
  * @fileOverview Resonance Audio Utility.
  * Procedurally generates a heartbeat sound (Lub-Dub) using the Web Audio API.
- * Provides emotional feedback for sanctuary interactions.
+ * Provides emotional feedback for care interactions.
  */
 
 export const playHeartbeat = () => {

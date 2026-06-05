@@ -34,7 +34,7 @@ const CONTENT = {
   en: {
     title: "Pulse Guardian",
     sub: "Central Intelligence",
-    intro: "Pulse Guardian is your sanctuary's central intelligence I continuously aggregate data from all tools to ensure your journey stays resonant and aligned",
+    intro: "Pulse Guardian is your central intelligence I continuously aggregate data from all tools to ensure your journey stays resonant and aligned",
     sections: [
       { title: "Pulse Sync Integration", desc: "Reads live vitals from your wearable to monitor physiological stress" },
       { title: "Pulse Lab Awareness", desc: "Automatically recalibrates resonance limits based on your substance intake logs" },
@@ -43,7 +43,7 @@ const CONTENT = {
     ],
     footer: "Created in harmony",
     tapInfo: "Integrated Intelligence Engine",
-    viewGuide: "View Sanctuary Guide"
+    viewGuide: "View Guidance"
   },
   de: {
     title: "Pulse Guardian",
@@ -57,7 +57,7 @@ const CONTENT = {
     ],
     footer: "In Harmonie erschaffen heute hier",
     tapInfo: "Integrierte Intelligenz Engine",
-    viewGuide: "Sanctuary Begleiter ansehen"
+    viewGuide: "Begleitung ansehen"
   }
 };
 

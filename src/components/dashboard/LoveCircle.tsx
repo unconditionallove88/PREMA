@@ -64,7 +64,7 @@ const ARCHETYPES = [
     id: 'romantic', icon: Star, color: "text-pink-200", bg: "bg-pink-500/5", 
     en: "Romantic Unity Love", de: "Romantische Einheit heute", 
     sentence: "Hearts beating as one",
-    explanation: "Romantic love is the spark of intimacy and deep emotional merging. It is the celebration of two souls finding a singular rhythm.",
+    explanation: "Romantic love is the spark of intimacy and deep emotional merging. It is the celebration of two hearts finding a singular rhythm.",
     practice: "Synchronize breathing with the central pulsing heart. Feel the intimacy of the present moment."
   },
   { 
@@ -86,7 +86,7 @@ const ARCHETYPES = [
     en: "Humanity Unity Love", de: "Menschliche Einheit heute", 
     sentence: "All are connected now",
     explanation: "Humanity love is the recognition of the collective heartbeat. It is the ultimate expression of unconditional love for all beings.",
-    practice: "Imagine a thin golden thread connecting every person in the sanctuary and the world beyond."
+    practice: "Imagine a thin golden thread connecting every person in the space and the world beyond."
   },
   { 
     id: 'life', icon: Infinity, color: "text-primary", bg: "bg-primary/5", 

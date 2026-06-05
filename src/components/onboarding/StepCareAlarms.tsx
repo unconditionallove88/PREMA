@@ -8,14 +8,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 /**
- * @fileOverview Sanctuary Alarms Configuration Step.
+ * @fileOverview Care Alarms Configuration Step.
  * Connected to Central Intelligence (Pulse Guardian).
  * Languages: EN (3 words), DE (4 words).
  */
 
 const UI = {
   EN: {
-    header: "Set sanctuary alarms",
+    header: "Set care alarms",
     sub: "Connected to central intelligence",
     limit: "Intake Limit",
     limitSub: "Total logged units",
@@ -25,11 +25,11 @@ const UI = {
     restSub: "Breathing break frequency",
     water: "Hydration Sync",
     waterSub: "Water reminder frequency",
-    confirm: "Activate sanctuary alarms",
+    confirm: "Activate care alarms",
     created: "Created in harmony"
   },
   DE: {
-    header: "Sanctuary Alarme setzen heute",
+    header: "Fürsorge Alarme setzen heute",
     sub: "Verbunden mit zentraler Intelligenz",
     limit: "Intake Limit",
     limitSub: "Gezählte Einheiten heute",
@@ -39,12 +39,12 @@ const UI = {
     restSub: "Atempausen Frequenz heute",
     water: "Hydrierung Sync",
     waterSub: "Wasser Erinnerung Frequenz",
-    confirm: "Sanctuary Alarme jetzt aktivieren",
+    confirm: "Fürsorge Alarme jetzt aktivieren",
     created: "In Harmonie erschaffen hier"
   }
 };
 
-export function StepSanctuaryAlarms({ onComplete, onBack }: { onComplete: (alarms: any) => void, onBack?: () => void }) {
+export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: any) => void, onBack?: () => void }) {
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
     intakeLimit: "5",

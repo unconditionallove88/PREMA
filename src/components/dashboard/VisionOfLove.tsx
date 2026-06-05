@@ -30,7 +30,7 @@ const CONTENT = {
       "Presence is here"
     ],
     button: "Enter Vision",
-    return: "Return to Sanctuary",
+    return: "Return to Home",
     next: "Next: Breath of Love",
     emergencyHeader: "Breath of Love",
     emergencySub: "Inhale peace • Exhale fear",
@@ -50,7 +50,7 @@ const CONTENT = {
       "Gegenwart ist jetzt hier"
     ],
     button: "Vision öffnen",
-    return: "Zum Sanctuary zurückkehren",
+    return: "Zum Zuhause zurückkehren",
     next: "Weiter: Atem der Liebe",
     emergencyHeader: "Atem der Liebe heute",
     emergencySub: "Einatmen Frieden • Ausatmen Angst",

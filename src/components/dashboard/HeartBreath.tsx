@@ -30,7 +30,7 @@ const CONTENT = {
       "Pure presence now"
     ],
     instruction: "Synchronize breath with heart",
-    return: "Return to Sanctuary"
+    return: "Return to Home"
   },
   de: {
     title: "Herz Atem heute",
@@ -45,7 +45,7 @@ const CONTENT = {
       "Reine Gegenwart jetzt hier"
     ],
     instruction: "Atem jetzt synchronisieren heute",
-    return: "Zum Sanctuary zurückkehren"
+    return: "Zum Zuhause zurückkehren"
   }
 };
 

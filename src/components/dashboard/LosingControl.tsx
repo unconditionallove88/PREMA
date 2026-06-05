@@ -31,7 +31,7 @@ const CONTENT = {
       "Pure presence now"
     ],
     button: "Show Beauty",
-    return: "Return to Sanctuary"
+    return: "Return to Home"
   },
   de: {
     title: "Schönheit des Lebens",
@@ -45,7 +45,7 @@ const CONTENT = {
       "Reine Gegenwart jetzt hier"
     ],
     button: "Schönheit zeigen",
-    return: "Zum Sanctuary zurückkehren"
+    return: "Zum Zuhause zurückkehren"
   }
 };
 

@@ -42,7 +42,7 @@ import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
  */
 
 const PRACTITIONERS = [
-  { name: "Dr. Aris Sanctuary Hub", specialty: "General Medicine & Harm Reduction", address: "Mitte, Berlin", urgent: true },
+  { name: "Dr. Aris Prema Hub", specialty: "General Medicine & Harm Reduction", address: "Mitte, Berlin", urgent: true },
   { name: "Mitte Care Center", specialty: "Sexual Health & STD Testing", address: "Prenzlauer Berg, Berlin", urgent: true },
   { name: "Pulse Partner Praxis", specialty: "Internal Medicine", address: "Kreuzberg, Berlin", urgent: false },
 ];
@@ -61,7 +61,7 @@ const CONTENT = {
     noLogs: "No logs detected",
     wipeWarning: "Completing this protocol will permanently wipe session logs and location history from the phone",
     finishBtn: "Complete Session Now", 
-    returnBtn: "Return to Sanctuary",
+    returnBtn: "Return to Home",
     improveBtn: "Help us improve", 
     minutes: "4 minutes · anonymous",
     ritualTitle: "Breath of Love", 
@@ -86,7 +86,7 @@ const CONTENT = {
     noLogs: "Keine Sitzungsdaten gefunden",
     wipeWarning: "Der Abschluss dieses Protokolls löscht dauerhaft alle Sitzungsprotokolle und Verläufe vom Telefon",
     finishBtn: "Session jetzt abschließen heute", 
-    returnBtn: "Zurück zum Sanctuary heute",
+    returnBtn: "Zurück nach Hause heute",
     improveBtn: "Hilf uns verbessern heute", 
     Minuten: "4 Minuten · anonym",
     ritualTitle: "Atem der Liebe heute", 
@@ -175,7 +175,7 @@ export default function RecoveryView() {
     <main className="min-h-screen bg-black text-white font-headline pb-64 pt-safe">
       <div className="bg-black/95 backdrop-blur-xl border-b border-white/5 px-6 py-8 sticky top-0 z-50">
         <div className="max-w-xl mx-auto space-y-6">
-          <button onClick={() => router.back()} className="flex items-center gap-2 text-white/40 uppercase font-black text-[10px] tracking-widest hover:text-primary transition-colors"><ArrowLeft className="w-4 h-4" /> Back to sanctuary</button>
+          <button onClick={() => router.back()} className="flex items-center gap-2 text-white/40 uppercase font-black text-[10px] tracking-widest hover:text-primary transition-colors"><ArrowLeft className="w-4 h-4" /> Back to home</button>
           <div className="flex justify-between items-end">
             <div>
               <div className="flex items-center gap-3">

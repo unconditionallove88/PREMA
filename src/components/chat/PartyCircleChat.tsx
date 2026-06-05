@@ -32,7 +32,7 @@ const CONTENT = {
     placeholder: "Share kindness now...",
     footer: "Grounded in Presence",
     shiningFooter: "Created in harmony",
-    blockedTitle: "Sanctuary Rest",
+    blockedTitle: "Circle Rest",
     blockedDesc: "The Pulse Guardian has paused this connection to restore harmony within the circle 🌿",
     blockedAffirmation: "Rest and stillness",
     violationTitle: "Pulse Guardian: Note",
@@ -57,7 +57,7 @@ const CONTENT = {
     placeholder: "Freundlichkeit jetzt teilen...",
     footer: "Geerdet in Präsenz",
     shiningFooter: "In Harmonie erschaffen heute hier",
-    blockedTitle: "Sanctuary Pause",
+    blockedTitle: "Circle Pause",
     blockedDesc: "Der Pulse Guardian hat diese Verbindung pausiert um die Harmonie wiederherzustellen 🌿",
     blockedAffirmation: "Ruhe und Stille jetzt",
     violationTitle: "Pulse Guardian: Hinweis",
@@ -254,7 +254,7 @@ export function PartyCircleChat() {
               <div key={msg.id} className={cn("flex flex-col gap-3 animate-in slide-in-from-bottom-4 duration-700", isMe ? "items-end" : "items-start")}>
                 <div className="flex items-center gap-4 px-4">
                   <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em]">{isMe ? 'YOU' : msg.senderAlias.toUpperCase()}</span>
-                  {!isMe && <button onClick={() => logViolation(msg.text, `Reported by Soul from ${msg.senderAlias}`, 'USER_REPORT')} className="text-white/10 hover:text-red-500 transition-colors"><Flag size={14} /></button>}
+                  {!isMe && <button onClick={() => logViolation(msg.text, `Reported by Heart from ${msg.senderAlias}`, 'USER_REPORT')} className="text-white/10 hover:text-red-500 transition-colors"><Flag size={14} /></button>}
                 </div>
                 <div className={cn("p-7 rounded-[3rem] text-base font-bold leading-relaxed max-w-[85%] shadow-xl border transition-all duration-500", isMe ? "bg-primary text-white border-primary/40 rounded-tr-none" : "bg-white/[0.03] text-white/80 border-white/5 rounded-tl-none")}>{msg.text}</div>
               </div>

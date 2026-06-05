@@ -14,7 +14,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
  */
 
 const ADJECTIVES = ['Radiant', 'Harmony', 'Calm', 'Glowing', 'Golden', 'Cosmic', 'Vibrant', 'Velvet'];
-const NOUNS = ['Heart', 'Soul', 'Beat', 'Echo', 'Pulse', 'Light', 'Rhythm', 'Sanctuary'];
+const NOUNS = ['Heart', 'Beat', 'Echo', 'Pulse', 'Light', 'Rhythm', 'Radiance'];
 
 export function CommunityChat() {
   const firestore = useFirestore();
@@ -135,7 +135,7 @@ export function CommunityChat() {
           </button>
         </div>
         <p className="text-center text-[8px] text-white/20 uppercase tracking-[0.5em] mt-6 font-black">
-          Encrypted Sanctuary • Protected with Love
+          Encrypted Space • Protected with Love
         </p>
       </div>
     </div>

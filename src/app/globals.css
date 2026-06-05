@@ -4,27 +4,64 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 2%;
-    --popover-foreground: 0 0% 100%;
-    /* Wise intense abundant dark green #1b4d3e */
-    --primary: 162 48% 20%;
+    --background: 24 80% 94%;
+    --foreground: 242 16% 18%;
+    --card: 28 84% 97%;
+    --card-foreground: 242 18% 18%;
+    --popover: 28 92% 96%;
+    --popover-foreground: 242 18% 18%;
+    --primary: 340 74% 64%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 162 30% 15%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 65 96% 61%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 268 44% 70%;
+    --secondary-foreground: 242 18% 18%;
+    --muted: 252 18% 58%;
+    --muted-foreground: 245 18% 52%;
+    --accent: 292 62% 74%;
+    --accent-foreground: 242 18% 18%;
+    --destructive: 4 74% 63%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 162 48% 20%;
+    --border: 30 58% 86%;
+    --input: 28 86% 95%;
+    --ring: 308 70% 72%;
     --radius: 2.5rem;
+    --sidebar-background: 24 82% 94%;
+    --sidebar-foreground: 242 18% 18%;
+    --sidebar-primary: 340 74% 64%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 268 44% 70%;
+    --sidebar-accent-foreground: 242 18% 18%;
+    --sidebar-border: 30 58% 86%;
+    --sidebar-ring: 308 70% 72%;
+  }
+
+  .dark {
+    --background: 250 32% 8%;
+    --foreground: 252 20% 96%;
+    --card: 250 24% 14%;
+    --card-foreground: 252 22% 96%;
+    --popover: 250 24% 10%;
+    --popover-foreground: 252 22% 96%;
+    --primary: 280 78% 68%;
+    --primary-foreground: 252 22% 96%;
+    --secondary: 268 48% 74%;
+    --secondary-foreground: 252 22% 96%;
+    --muted: 250 18% 58%;
+    --muted-foreground: 252 20% 78%;
+    --accent: 284 72% 72%;
+    --accent-foreground: 252 22% 96%;
+    --destructive: 5 76% 61%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 250 24% 18%;
+    --input: 250 24% 14%;
+    --ring: 286 72% 66%;
+    --sidebar-background: 250 24% 14%;
+    --sidebar-foreground: 252 22% 96%;
+    --sidebar-primary: 280 78% 68%;
+    --sidebar-primary-foreground: 252 22% 96%;
+    --sidebar-accent: 268 48% 74%;
+    --sidebar-accent-foreground: 252 22% 96%;
+    --sidebar-border: 250 24% 18%;
+    --sidebar-ring: 286 72% 66%;
   }
 }
 
@@ -33,15 +70,41 @@
     @apply border-border outline-none;
   }
   html, body {
-    @apply bg-black text-foreground font-body antialiased;
+    @apply bg-background text-foreground font-body antialiased;
     height: 100%;
     overflow-x: hidden;
     overscroll-behavior-y: none;
+    background-image: radial-gradient(circle at 15% 10%, hsl(var(--primary) / 0.18), transparent 22%), radial-gradient(circle at 85% 20%, hsl(var(--secondary) / 0.14), transparent 24%), radial-gradient(circle at 50% 90%, hsl(var(--accent) / 0.1), transparent 30%);
   }
 
-  h1 { @apply text-[28px] font-black tracking-tighter font-headline; }
-  h2 { @apply text-[22px] font-bold tracking-tight font-headline; }
-  h3 { @apply text-[18px] font-bold tracking-tight font-headline; }
+  h1 { @apply text-[34px] md:text-[44px] font-semibold tracking-normal leading-tight font-headline; }
+  h2 { @apply text-[28px] md:text-[34px] font-semibold tracking-tight font-headline; }
+  h3 { @apply text-[22px] font-medium tracking-tight font-headline; }
+}
+
+.supportive-surface {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius);
+}
+
+.glass-panel {
+  background: hsl(var(--card) / 0.78);
+  border: 1px solid hsl(var(--border) / 0.24);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 30px 60px rgba(20, 18, 30, 0.1);
+  border-radius: var(--radius);
+}
+
+.soft-shadow {
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+}
+
+.neon-glow {
+  box-shadow: 0 18px 42px rgba(245, 169, 133, 0.18), 0 0 25px rgba(245, 169, 133, 0.12);
 }
 
 .pb-safe {

@@ -25,15 +25,15 @@ const CONTENT = {
     visible: "Visible",
     private: "Private",
     respect: "I respect my state",
-    sanctuary: "Privacy is my sanctuary",
+    safeSpace: "Privacy is my safe space",
     distress: (name: string) => `${name} needs care`,
     finding: (name: string) => `Guided by Mesh to ${name}`,
     currentPulse: (status: string) => `Current Pulse: ${status}`,
     notify: "Notify Awareness",
     meshActive: "Mesh Location Active",
     collectiveCare: "Collective Care Active",
-    nearbySoul: "A soul nearby needs presence",
-    helpFamily: "Walk with Soul"
+    nearbyHeart: "A heart nearby needs presence",
+    helpFamily: "Walk with Care"
   },
   de: {
     loading: "Resonanz wird kalibriert",
@@ -41,14 +41,14 @@ const CONTENT = {
     visible: "Sichtbar",
     private: "Privat",
     respect: "Ich achte auf mich",
-    sanctuary: "Privatsphäre ist mein Raum",
+    safeSpace: "Privatsphäre ist mein sicherer Raum",
     distress: (name: string) => `${name} braucht Begleitung`,
     finding: (name: string) => `Mesh leitet dich zu ${name}`,
     currentPulse: (status: string) => `Aktueller Status: ${status}`,
     notify: "Awareness rufen",
     meshActive: "Mesh-Ortung aktiv",
     collectiveCare: "Kollektive Fürsorge aktiv heute",
-    nearbySoul: "Eine Seele in der Nähe braucht Begleitung",
+    nearbyHeart: "Ein Herz in der Nähe braucht Begleitung",
     helpFamily: "Mit Herz begleiten"
   }
 };
@@ -87,7 +87,7 @@ function MapContent() {
       // Simulate a collective care alert after 5 seconds if not focusing on a friend
       if (!focusName) {
         setTimeout(() => {
-          setFamilyDistress({ name: "NEARBY_SOUL", dist: "15m" });
+          setFamilyDistress({ name: "NEARBY_HEART", dist: "15m" });
         }, 5000);
       }
     }, 1200);
@@ -197,7 +197,7 @@ function MapContent() {
                       <Heart size={32} className="text-white animate-pulse" fill="currentColor" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black uppercase tracking-tighter leading-none text-white">{t.nearbySoul}</h3>
+                      <h3 className="text-xl font-black uppercase tracking-tighter leading-none text-white">{t.nearbyHeart}</h3>
                       <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">{familyDistress.dist} away • Mesh Triangulated</p>
                     </div>
                   </div>
@@ -240,7 +240,7 @@ function MapContent() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-black uppercase tracking-tighter leading-none text-white">{t.finding(focusName!)}</h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">Guided Walk with Soul Active</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-2">Guided Walk with Care Active</p>
                     </div>
                   </div>
                 </div>

@@ -13,18 +13,18 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 const CONTENT = {
   EN: {
-    back: "BACK", header: "Sanctuary for Adults", sub: "To honor community standards and protect our circle we verify your age via a private payment method",
+    back: "BACK", header: "Age Verification", sub: "To honor community standards and protect our circle we verify your age via a private payment method",
     stripeLabel: "Private Verification via Stripe",
     peaceOfMind: "Your peace of mind matters No charge will be made This is a zero-euro authorization Data is encrypted and never stored by StayOnBeat",
     button: "Verify My Identity", verifying: "Verifying...", successHeader: "Identity Verified",
-    successSub: "Thank you for helping us keep this sanctuary resonant Your account is now calibrated", footer: "PCI-DSS Compliant • Encrypted • Private"
+    successSub: "Thank you for helping us keep this space resonant Your account is now calibrated", footer: "PCI-DSS Compliant • Encrypted • Private"
   },
   DE: {
-    back: "ZURÜCK", header: "Sanctuary für Erwachsene", sub: "Um Community-Standards zu erfüllen und unseren Kreis zu schützen verifizieren wir dein Alter über eine private Zahlungsmethode",
+    back: "ZURÜCK", header: "Altersverifizierung", sub: "Um Community-Standards zu erfüllen und unseren Kreis zu schützen verifizieren wir dein Alter über eine private Zahlungsmethode",
     stripeLabel: "Private Verifizierung über Stripe",
     peaceOfMind: "Dein Seelenfrieden ist uns wichtig Es wird keine Gebühr erhoben Dies ist eine Null-Euro-Autorisierung Die Daten sind verschlüsselt und werden niemals von StayOnBeat gespeichert",
     button: "Identität verifizieren", verifying: "Wird verifiziert...", successHeader: "Identität verifiziert",
-    successSub: "Danke dass du uns hilfst dieses Sanctuary resonant zu halten Dein Konto ist nun kalibriert", footer: "PCI-DSS-konform • Verschlüsselt • Privat"
+    successSub: "Danke dass du uns hilfst diesen Raum resonant zu halten Dein Konto ist nun kalibriert", footer: "PCI-DSS-konform • Verschlüsselt • Privat"
   },
   PT: {
     back: "VOLTAR", header: "Santuário para Adultos", sub: "Para honrar os padrões da comunidade e proteger nosso círculo verificamos sua idade via um método de pagamento privado",

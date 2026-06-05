@@ -51,7 +51,7 @@ const CONTENT = {
     family: {
       title: "Collective Care",
       sub: "Universal Family Presence",
-      desc: "Broadcast a call for love to every nearby soul using the app to receive immediate help",
+      desc: "Broadcast a call for love to every nearby heart using the app to receive immediate help",
       button: "Alert Nearby Family"
     },
     stillness: {
@@ -69,7 +69,7 @@ const CONTENT = {
     dispatched: "Mesh help request dispatched",
     meshShared: "Mesh Location Shared",
     privacyActive: "Privacy protocols active",
-    returning: (s: number) => `Returning to sanctuary in ${s}s`,
+    returning: (s: number) => `Returning to home in ${s}s`,
     callDirect: "Call Emergency Directly",
     footer: "Created in harmony"
   },

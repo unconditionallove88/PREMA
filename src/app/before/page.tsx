@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser, useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -29,13 +29,13 @@ const CONTENT = {
     button: "I am prepared",
     testingBtn: "Book Anonymous Test",
     footerAdvice: "Preparation is the first act of self-care Radiate your truth from the inside out",
-    wisdomTitle: "Sanctuary Wisdom",
+    wisdomTitle: "Graceful Guidance",
     closeBtn: "I understand",
     details: {
       hydration: {
         title: "The Flow of Life",
         why: "Body & Blood",
-        desc: "You are 60% water Hydration is the fuel for every cellular reaction in your sanctuary Water keeps blood fluid and circulating freely ensuring nutrients reach your heart without strain",
+        desc: "You are 60% water Hydration is the fuel for every cellular reaction in your body Water keeps blood fluid and circulating freely ensuring nutrients reach your heart without strain",
         kidneys: "Kidney Shield: Your kidneys process every substance Water is their shield helping them flush toxins and maintain mineral harmony"
       },
       nutrition: {
@@ -70,7 +70,7 @@ const CONTENT = {
     button: "Ich bin bereit",
     testingBtn: "Anonymen Test buchen",
     footerAdvice: "Vorbereitung ist der erste Akt der Selbstfürsorge Strahle deine Wahrheit von innen nach außen",
-    wisdomTitle: "Sanctuary Weisheit",
+    wisdomTitle: "Anmutige Führung",
     closeBtn: "Ich verstehe",
     details: {
       hydration: {
@@ -124,7 +124,7 @@ export default function BeforePhase() {
 
   if (!mounted || isUserLoading || isProfileLoading) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+      <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center gap-8">
         <Loader2 className="animate-spin text-primary/20" />
       </div>
     );
@@ -187,12 +187,12 @@ export default function BeforePhase() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white font-headline pb-32 relative overflow-x-hidden pt-safe">
-      <header className="px-6 py-8 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center gap-4 sticky top-0 z-50">
-        <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
+    <main className="min-h-screen bg-background text-foreground font-headline pb-32 relative overflow-x-hidden pt-safe">
+      <header className="px-6 py-8 border-b border-border bg-card/90 backdrop-blur-xl flex items-center gap-4 sticky top-0 z-50">
+        <button onClick={() => router.push("/dashboard")} className="p-3 bg-card border border-border rounded-full"><ArrowLeft className="w-5 h-5 text-muted-foreground" /></button>
         <div>
-          <h1 className="text-xl font-black uppercase tracking-tighter">{t.title}</h1>
-          <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">{t.subtitle}</p>
+          <h1 className="text-xl font-semibold uppercase tracking-normal">{t.title}</h1>
+          <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.3em]">{t.subtitle}</p>
         </div>
       </header>
 
@@ -215,14 +215,14 @@ export default function BeforePhase() {
                 )}
               >
                 <div className="flex items-start gap-6">
-                  <div className="p-4 rounded-2xl bg-black/40 border border-white/10 shrink-0">{section.icon}</div>
+                  <div className="p-4 rounded-2xl bg-card border border-border shrink-0">{section.icon}</div>
                   <div className="space-y-2">
-                    <h3 className="text-lg font-black uppercase tracking-tight text-white flex items-center gap-2">
+                    <h3 className="text-lg font-semibold uppercase tracking-tight text-foreground flex items-center gap-2">
                       {section.title}
-                      {section.details && <Info size={14} className="text-white/20 group-hover:text-primary transition-colors" />}
+                      {section.details && <Info size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />}
                     </h3>
-                    <p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-wide">{section.advice}</p>
-                    {section.id === 'testing' && <span className="inline-block mt-2 px-4 py-2 bg-primary text-white text-[9px] font-black uppercase tracking-widest rounded-full">{t.testingBtn}</span>}
+                    <p className="text-sm font-medium text-muted-foreground leading-relaxed uppercase tracking-wide">{section.advice}</p>
+                    {section.id === 'testing' && <span className="inline-block mt-2 px-4 py-2 bg-primary text-primary-foreground text-[9px] font-semibold uppercase tracking-widest rounded-full">{t.testingBtn}</span>}
                   </div>
                 </div>
               </div>
@@ -232,23 +232,23 @@ export default function BeforePhase() {
       </ScrollArea>
 
       <Dialog open={!!selectedWisdom} onOpenChange={() => setSelectedWisdom(null)}>
-        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
+        <DialogContent className="bg-card border-border max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-soft">
           <DialogTitle className="sr-only">{t.wisdomTitle}</DialogTitle>
           
           <div className="p-10 text-center space-y-8">
             <div className="flex flex-col items-center gap-6">
-              <div className={cn("w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700 bg-white/5")}>
-                {selectedWisdom?.icon && React.cloneElement(selectedWisdom.icon as React.ReactElement, { size: 40 })}
+              <div className={cn("w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border shadow-soft transition-all duration-700 bg-card")}>
+                {selectedWisdom?.icon && React.cloneElement(selectedWisdom.icon as React.ReactElement<{ size?: number }>, { size: 40 })}
               </div>
               <div className="space-y-1">
-                <h3 className="text-3xl font-black uppercase tracking-tighter text-white">{selectedWisdom?.title}</h3>
-                <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">{selectedWisdom?.why}</p>
+                <h3 className="text-3xl font-semibold uppercase tracking-tight text-foreground">{selectedWisdom?.title}</h3>
+                <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.4em]">{selectedWisdom?.why}</p>
               </div>
             </div>
 
             <div className="space-y-6 text-left">
-              <div className="p-6 bg-white/[0.03] border border-white/5 rounded-3xl space-y-4">
-                <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+              <div className="p-6 bg-card/90 border border-border rounded-3xl space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground leading-relaxed uppercase tracking-widest">
                   {selectedWisdom?.desc}
                 </p>
                 {selectedWisdom?.kidneys && (
@@ -276,7 +276,7 @@ export default function BeforePhase() {
 
             <button 
               onClick={() => { playHeartbeat(); setSelectedWisdom(null); }}
-              className="w-full h-16 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
+              className="w-full h-16 bg-primary text-primary-foreground rounded-2xl font-semibold uppercase text-xs tracking-widest active:scale-95 transition-all shadow-soft"
             >
               {t.closeBtn}
             </button>
@@ -284,8 +284,8 @@ export default function BeforePhase() {
         </DialogContent>
       </Dialog>
 
-      <footer className="fixed bottom-0 left-0 right-0 h-[100px] bg-black/90 backdrop-blur-xl border-t border-white/5 flex items-center justify-center px-6 z-50 pb-safe">
-        <button onClick={() => router.push("/dashboard")} className="w-full max-sm py-6 bg-[#1b4d3e] text-white rounded-full font-black uppercase text-lg tracking-[0.1em] shadow-lg shadow-primary/20 active:scale-95 transition-all">{t.button}</button>
+      <footer className="fixed bottom-0 left-0 right-0 h-[100px] bg-card/90 backdrop-blur-xl border-t border-border flex items-center justify-center px-6 z-50 pb-safe">
+        <button onClick={() => router.push("/dashboard")} className="w-full max-sm py-6 bg-primary text-primary-foreground rounded-full font-semibold uppercase text-lg tracking-[0.1em] shadow-soft active:scale-95 transition-all">{t.button}</button>
       </footer>
     </main>
   );

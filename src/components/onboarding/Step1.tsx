@@ -19,11 +19,11 @@ const CONTENT = {
     agree: "Walk with love", understand: "I accept and respect",
     sections: [
       { id: 'harmReduction', title: 'Harm minimization', text: 'StayOnBeat is a tool for risk and harm minimization designed to provide information and support It is not intended to encourage illegal activities' },
-      { id: 'medicalAdvice', title: 'Not medical advice', text: 'The information provided by this sanctuary is for educational purposes and does not constitute medical advice or diagnosis' },
+      { id: 'medicalAdvice', title: 'Not medical advice', text: 'The information provided by this space is for educational purposes and does not constitute medical advice or diagnosis' },
       { id: 'privacy', title: 'Freedom & trust (GDPR)', text: 'We take your privacy seriously Your biometric data is encrypted We honor your data sovereignty and comply with GDPR standards' },
-      { id: 'voice', title: 'Voice resonance protocol', text: 'You may use voice dictation to interact with the sanctuary Your audio is processed locally and used only to convert speech to text for your convenience' },
+      { id: 'voice', title: 'Voice resonance protocol', text: 'You may use voice dictation to interact with the space Your audio is processed locally and used only to convert speech to text for your convenience' },
       { id: 'safetyNetwork', title: 'Circle of love', text: 'StayOnBeat allows you to create a network of trusted bonds who can be notified in case of a need for connection or support' },
-      { id: 'immediateHelp', title: 'Sanctuary support', text: 'In need of support, you can notify your Circle or the Sanctuary Holders Alerts are handled with absolute discretion and respect for your journey' },
+      { id: 'immediateHelp', title: 'Care support', text: 'In need of support, you can notify your Circle or trusted bonds Alerts are handled with absolute discretion and respect for your journey' },
     ]
   },
   DE: {
@@ -31,11 +31,11 @@ const CONTENT = {
     agree: "Gehe diesen Weg mit Liebe", understand: "Ich akzeptiere und respektiere",
     sections: [
       { id: 'harmReduction', title: 'Schadensminimierung', text: 'StayOnBeat ist ein Tool zur Risiko- und Schadensminimierung, das Informationen und Unterstützung bietet Es ist nicht dazu gedacht, illegale Aktivitäten zu fördern' },
-      { id: 'medicalAdvice', title: 'Kein medizinischer Rat', text: 'Die von diesem Sanctuary bereitgestellten Informationen dienen Bildungszwecken und stellen keine medizinische Beratung dar' },
+      { id: 'medicalAdvice', title: 'Kein medizinischer Rat', text: 'Die von diesem Raum bereitgestellten Informationen dienen Bildungszwecken und stellen keine medizinische Beratung dar' },
       { id: 'privacy', title: 'Freiheit & Vertrauen (DSGVO)', text: 'Wir nehmen deine Privatsphäre ernst Deine biometrischen Daten sind verschlüsselt Wir achten deine Datensouveränität' },
       { id: 'voice', title: 'Sprach Resonanz Protokoll', text: 'Du kannst Sprachbefehle nutzen heute hier Deine Audio-Daten werden nur lokal verarbeitet um Text zu erstellen heute hier' },
       { id: 'safetyNetwork', title: 'Circle of Love', text: 'StayOnBeat ermöglicht es dir, ein Netzwerk aus vertrauenswürdigen Verbindungen zu erstellen, die bei Bedarf informiert werden können' },
-      { id: 'immediateHelp', title: 'Sanctuary Unterstützung', text: 'Wenn du Unterstützung benötigst, kannst du deinen Circle oder die Sanctuary Holders rufen Meldungen werden absolut diskret und mit Respekt behandelt' },
+      { id: 'immediateHelp', title: 'Care Support', text: 'Wenn du Unterstützung benötigst, kannst du deinen Circle oder vertrauenswürdige Bindungen rufen Meldungen werden absolut diskret und mit Respekt behandelt' },
     ]
   }
 };

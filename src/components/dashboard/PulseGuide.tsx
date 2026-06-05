@@ -21,7 +21,7 @@ import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
- * @fileOverview Sanctuary Guidance (Structured Intelligence).
+ * @fileOverview Guidance (Structured Intelligence).
  * Format: Description, How it functions, Guardian Intelligence.
  * Expanded: Added Collective Care (Universal Family) intelligence.
  * Optimized: Organically fits all information to browsers and mobile screens.
@@ -54,8 +54,8 @@ const STEPS = [
     desc: { en: "The inner circle", de: "Der innere Kreis heute" },
     content: {
       en: {
-        description: "The inner circle of souls who hold space for existence unconditionally and without judgment",
-        functions: "Add up to 5 people in the Profile These are the only souls who see location or receive alerts",
+        description: "The inner circle of trusted bonds who hold space for existence unconditionally and without judgment",
+        functions: "Add up to 5 people in the Profile These are the only chosen bonds who see location or receive alerts",
         intelligence: "Pulse Guardian: Verifies bond encryption to ensure data sovereignty remains absolute within the chosen circle"
       },
       de: {
@@ -74,7 +74,7 @@ const STEPS = [
     desc: { en: "The Universal Family", de: "Die universelle Familie heute" },
     content: {
       en: {
-        description: "A shared protocol that alerts nearby souls when a heart is in critical danger embodying the principle of brotherly love",
+        description: "A shared protocol that alerts nearby hearts when a heart is in critical danger embodying the principle of brotherly love",
         functions: "Trigger 'Family Presence' to broadcast your location to every nearby user A pulsing invitation to help appears on their radar",
         intelligence: "Pulse Guardian: Decides when a private distress call should evolve into a collective call for love based on stress levels"
       },
@@ -94,7 +94,7 @@ const STEPS = [
     desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
     content: {
       en: {
-        description: "A space for absolute honesty regarding session intake and biological limits within the sanctuary",
+        description: "A space for absolute honesty regarding session intake and biological limits in this space",
         functions: "Log substances as they are consumed The lab tracks volume and frequency to provide high-fidelity analysis",
         intelligence: "Pulse Guardian: Calculates specific safety thresholds by cross-referencing the medical profile with active substance logs"
       },
@@ -116,7 +116,7 @@ const STEPS = [
       en: {
         description: "Dedicated rooms for private connection and collective care within the circle of humanity",
         functions: "Use 'The Holders' for the inner circle or 'The Spectators' for public community support and care",
-        intelligence: "Pulse Guardian: Monitors public chat for dissonance to maintain the sanctuary frequency of unconditional love"
+        intelligence: "Pulse Guardian: Monitors public chat for dissonance to maintain the frequency of unconditional love"
       },
       de: {
         description: "Eigene Räume für private Verbindung und kollektive Fürsorge im Kreis der Menschheit heute",
@@ -171,15 +171,15 @@ const STEPS = [
   {
     id: 'cocreation',
     title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
-    desc: { en: "Shape the sanctuary", de: "Den Raum gestalten heute" },
+    desc: { en: "Shape the space", de: "Den Raum gestalten heute" },
     content: {
       en: {
-        description: "The portal through which the human voice directly shapes the evolution of the sanctuary",
+        description: "The portal through which the human voice directly shapes this space",
         functions: "Share feedback, ideas, or feelings about the tools The input is received with unconditional love",
-        intelligence: "Pulse Guardian: Aggregates community resonance to prioritize features that nurture the collective well-being of all souls"
+        intelligence: "Pulse Guardian: Aggregates community resonance to prioritize features that nurture the collective well-being of all hearts"
       },
       de: {
-        description: "Das Portal durch welches die menschliche Stimme die Evolution des Sanctuarys direkt mitgestaltet heute",
+        description: "Das Portal durch welches die menschliche Stimme die Evolution dieses Raums direkt mitgestaltet heute",
         functions: "Teile Feedback, Ideen oder Gefühle zu den Tools Die Eingabe wird mit Liebe empfangen heute",
         intelligence: "Pulse Guardian: Sammelt die kollektive Resonanz um Funktionen zur Förderung des Gemeinwohls zu priorisieren heute"
       }
@@ -190,7 +190,7 @@ const STEPS = [
   }
 ];
 
-export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang?: 'en' | 'de', forceOpen?: boolean, onDismiss?: () => void }) {
+export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang?: 'en' | 'de', forceOpen?: boolean, onDismiss?: () => void }) {
   const [isOpen, setIsOpen] = useState(forceOpen);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -351,7 +351,7 @@ export function SanctuaryGuide({ lang = 'en', forceOpen = false, onDismiss }: { 
                   onClick={handleDismiss} 
                   className="px-10 py-5 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                 >
-                  {lang === 'en' ? 'Enter Sanctuary' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
+                  {lang === 'en' ? 'Enter Prema' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
                 </button>
               )}
             </div>

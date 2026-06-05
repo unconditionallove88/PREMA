@@ -24,8 +24,8 @@ const CONTENT = {
     sealing: "Sealing...",
     successTitle: "Letter Sealed",
     successMsg: "We will keep this safe When you need a reminder of your own strength we will bring it back to you",
-    return: "Return to Sanctuary",
-    footer: "End-to-End Encrypted Sanctuary Note",
+    return: "Return to Home",
+    footer: "End-to-End Encrypted Note",
     affirmation: "I respect myself",
     listening: "Listening..."
   },
@@ -38,8 +38,8 @@ const CONTENT = {
     sealing: "Wird versiegelt...",
     successTitle: "Brief versiegelt",
     successMsg: "Wir werden dies sicher aufbewahren Wenn du eine Erinnerung an deine eigene Stärke brauchst bringen wir sie dir zurück",
-    return: "Zurück zum Sanctuary",
-    footer: "Ende-zu-Ende verschlüsselte Sanctuary-Notiz",
+    return: "Zurück nach Hause",
+    footer: "Ende-zu-Ende verschlüsselte Notiz",
     affirmation: "Ich respektiere mich selbst",
     listening: "Höre zu..."
   }

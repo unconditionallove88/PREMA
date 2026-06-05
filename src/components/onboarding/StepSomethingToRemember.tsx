@@ -75,7 +75,7 @@ const MIXING_WISDOM = [
 const UI = {
   en: {
     header: "Something to remember", sub: "Wisdom for your journey", wisdom: "Mixing Wisdom Guide",
-    acknowledge: "I take responsibility", confirm: "Set sanctuary wisdom", created: "Created in harmony",
+    acknowledge: "I take responsibility", confirm: "Set resonant wisdom", created: "Created in harmony",
     medicalTitle: "Biological Impact", medicalSub: "Internal Systems Analysis", close: "Continue Calibration"
   },
   de: {

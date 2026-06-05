@@ -28,15 +28,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 const i18n = {
   en: {
     title: "Co-Creation",
-    subtitle: "Your voice shapes this sanctuary",
+    subtitle: "Your voice shapes this space",
     types: [
       { key: "love", label: "Pure Love", prompt: "What do you love about this app?", placeholder: "Tell us what brings you joy warm or true to you in this app", icon: Heart, color: "text-red-400", bg: "bg-red-500/10" },
       { key: "dislike", label: "Dissonance", prompt: "What do you not like? And why?", placeholder: "Tell us what feels off missing or could be more human and why it matters", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "What would you add?", placeholder: "A feature a word a feeling you wish was here to help us grow", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Favorite Tool", prompt: "Which tool do you love the most?", placeholder: "Tell us honestly which tool resonates deepest with your needs", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
-      { key: "survey", label: "App Survey", prompt: "Help us test the sanctuary", placeholder: "Take our structured survey to help us calibrate the resonance", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
+      { key: "survey", label: "App Survey", prompt: "Help us test the space", placeholder: "Take our structured survey to help us calibrate the resonance", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
     ],
-    send: "Send from the Heart", openSurvey: "Open Sanctuary Survey", sending: "Sending...",
+    send: "Send from the Heart", openSurvey: "Open Feedback Survey", sending: "Sending...",
     successTitle: "Heard", successMsg: "Your words have been received with love They will help this space grow",
     shareMore: "Share more", receivedWithLove: "Received with Love"
   },
@@ -48,9 +48,9 @@ const i18n = {
       { key: "dislike", label: "Dissonanz", prompt: "Was gefällt dir nicht? Und warum?", placeholder: "Was fühlt sich falsch an fehlt oder könnte menschlicher sein und warum", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "Was würdest du hinzufügen?", placeholder: "Eine Funktion ein Wort ein Gefühl das du dir hier wünschst", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Lieblings-Tool", prompt: "Welches Tool liebst du am meisten?", placeholder: "Sag es uns ehrlich Welches Tool hilft dir am meisten", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
-      { key: "survey", label: "App Umfrage", prompt: "Hilf uns das Sanctuary zu testen", placeholder: "Nimm an unserer Umfrage teil um die Resonanz zu kalibrieren", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
+      { key: "survey", label: "App Umfrage", prompt: "Hilf uns diesen Raum zu testen", placeholder: "Nimm an unserer Umfrage teil um die Resonanz zu kalibrieren", icon: CircleDot, color: "text-white", bg: "bg-white/10" },
     ],
-    send: "Von Herzen senden", openSurvey: "Sanctuary Umfrage öffnen", sending: "Wird gesendet...",
+    send: "Von Herzen senden", openSurvey: "Feedback-Umfrage öffnen", sending: "Wird gesendet...",
     successTitle: "Gehört", successMsg: "Deine Worte wurden mit Liebe empfangen Sie helfen diesem Raum zu wachsen",
     shareMore: "Mehr teilen", receivedWithLove: "Mit Liebe empfangen heute"
   }

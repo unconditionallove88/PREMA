@@ -36,19 +36,19 @@ import { CoCreation } from "@/components/dashboard/CoCreation";
 import { cn } from "@/lib/utils";
 
 /**
- * @fileOverview Sanctuary (Profile Page).
+ * @fileOverview Profile Page.
  * Purified language: removed "my" / "meine".
  */
 
 const CONTENT = {
   en: {
-    sanctuary: "Sanctuary", entering: "Entering sanctuary", reflection: "Profile reflects light",
+    safeSpace: "Safe Space", entering: "Entering safe space", reflection: "Profile reflects light",
     greeting: "Existence is exactly here", essence: "The Essence", name: "Username",
     weight: "Weight (kg)", height: "Height (cm)", circle: "Circle of Love", trusted: "Trusted Bonds",
     resonant: "Resonant contacts", reminders: "Heart Reminders", checkins: "Check-ins are active",
-    journey: "Resonance is sovereign High-fidelity encryption ensures the sanctuary remains private and the soul free",
+    journey: "Resonance is sovereign High-fidelity encryption ensures this space remains private and the heart free",
     promise: "Bonds of Trust", logout: "Step away now",
-    coCreationTitle: "Shape the Sanctuary",
+    coCreationTitle: "Shape the Space",
     coCreationSub: "The voice shapes this space",
     footer: "Created in harmony",
     privacy: {
@@ -58,20 +58,20 @@ const CONTENT = {
       encryption: "High-Fidelity Encryption",
       encryptionDesc: "All biometric signals health profiles and location logs are protected by high-fidelity encryption Sensitive information is visible only to chosen bonds",
       freedom: "Inner Freedom",
-      freedomDesc: "Data is never sold or traded Resonance remains within the sanctuary Pure support love care and harm reduction",
+      freedomDesc: "Data is never sold or traded Resonance remains within this space Pure support love care and harm reduction",
       acceptance: "Unconditional Acceptance",
       acceptanceDesc: "Only information necessary for protection is collected Every data point calibrates protection and nurtures well-being",
       questions: "Have more questions?", qBtn: "Questions?", footer: "Created in harmony"
     }
   },
   de: {
-    sanctuary: "Sanctuary", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
+    safeSpace: "Sicherer Raum", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
     greeting: "Existenz ist genau hier", essence: "Die Essenz heute", name: "Benutzername",
     weight: "Gewicht (kg)", height: "Größe (cm)", circle: "Circle of Love", trusted: "Vertrauenswürdige Bindungen",
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
-    journey: "Resonanz ist souverän heute High-Fidelity-Verschlüsselung stellt sicher dass das Sanctuary privat bleibt",
+    journey: "Resonanz ist souverän heute High-Fidelity-Verschlüsselung stellt sicher dass dieser Raum privat bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
-    coCreationTitle: "Sanctuary gestalten heute",
+    coCreationTitle: "Raum gestalten heute",
     coCreationSub: "Die Stimme zählt heute",
     footer: "In Harmonie erschaffen heute hier",
     privacy: {
@@ -81,7 +81,7 @@ const CONTENT = {
       encryption: "High-Fidelity-Verschlüsselung",
       encryptionDesc: "Alle biometrischen Signale Gesundheitsprofile und Standortprotokolle sind geschützt Informationen sind nur für Vertraute sichtbar",
       freedom: "Innere Freiheit heute",
-      freedomDesc: "Daten werden niemals verkauft Die Resonanz bleibt im Sanctuary Reine Unterstützung Liebe Fürsorge und Schadensminimierung",
+      freedomDesc: "Daten werden niemals verkauft Die Resonanz bleibt in diesem Raum Reine Unterstützung Liebe Fürsorge und Schadensminimierung",
       acceptance: "Bedingungslose Akzeptanz",
       acceptanceDesc: "Nur notwendige Informationen werden gesammelt Jeder Datenpunkt kalibriert den Schutz und fördert Wohlbefinden",
       questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen heute hier"
@@ -140,7 +140,7 @@ export default function ProfilePage() {
     );
   }
 
-  const displayName = profile?.name || "VALUED SOUL";
+  const displayName = profile?.name || "VALUED HEART";
 
   return (
     <main className="min-h-screen bg-black text-white font-headline pb-32 pt-safe">
@@ -149,7 +149,7 @@ export default function ProfilePage() {
           <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all"><ArrowLeft size={20} /></button>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
             <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[10px] font-black uppercase text-primary tracking-widest">{t.sanctuary}</span>
+            <span className="text-[10px] font-black uppercase text-primary tracking-widest">{t.safeSpace}</span>
           </div>
         </div>
       </nav>

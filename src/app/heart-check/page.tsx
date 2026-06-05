@@ -9,13 +9,13 @@ import { Heart } from "lucide-react";
 
 /**
  * @fileOverview Heart Check Redirect Page.
- * Calibrated German localization (Refugium -> Sanctuary).
+ * Calibrated German localization (Refugium -> Safe Space).
  * Unified ethereal lovable emerald heart.
  */
 
 const CONTENT = {
-  en: { title: "Your heart", highlight: "is home", sub: "Preparing your sanctuary" },
-  de: { title: "Dein Herz", highlight: "ist dein Zuhause", sub: "Dein Sanctuary wird vorbereitet" }
+  en: { title: "Your heart", highlight: "is home", sub: "Preparing your safe space" },
+  de: { title: "Dein Herz", highlight: "ist dein Zuhause", sub: "Dein Raum wird vorbereitet" }
 };
 
 export default function HeartCheckRedirect() {

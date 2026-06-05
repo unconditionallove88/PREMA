@@ -87,7 +87,7 @@ export default function AwarenessDashboard() {
           
           <div>
             <h1 className="text-3xl font-black uppercase tracking-tighter leading-none">The Care Hub</h1>
-            <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] mt-2">Active sanctuary resonance</p>
+            <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] mt-2">Active care resonance</p>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default function AwarenessDashboard() {
                           <span className="font-mono text-xs text-red-400 font-bold">{alert.coords}</span>
                         </div>
                         <button className="w-full sm:w-auto h-14 px-8 bg-red-600 text-white rounded-xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-lg shadow-red-600/20">
-                          <Navigation className="w-4 h-4" /> Walk with Soul
+                          <Navigation className="w-4 h-4" /> Walk with Care
                         </button>
                       </div>
                     </div>
@@ -243,7 +243,7 @@ export default function AwarenessDashboard() {
             <Users className="w-5 h-5 text-[#3EB489]" />
           </div>
           <div>
-            <p className="text-xs font-black uppercase text-white">Holder: Sanctuary A</p>
+            <p className="text-xs font-black uppercase text-white">Holder: Care Hub A</p>
             <p className="text-[8px] font-bold text-[#3EB489] uppercase tracking-widest">Watching with Love</p>
           </div>
         </div>

@@ -24,7 +24,7 @@ const CONTENT = {
       "Select a laboratory partner",
       "Generate a zero-identity code",
       "Drop off sample anonymously",
-      "View results within the sanctuary"
+      "View results in the private space"
     ],
     footer: "Created in harmony"
   },
@@ -40,14 +40,14 @@ const CONTENT = {
       "Wähle einen Labor-Partner",
       "Erstelle einen anonymen Code",
       "Probe anonym abgeben heute",
-      "Ergebnisse im Sanctuary sehen"
+      "Ergebnisse im privaten Raum sehen"
     ],
     footer: "In Harmonie erschaffen hier"
   }
 };
 
 const LABS = [
-  { id: 'mitte', name: "Sanctuary Lab Mitte", address: "Torstraße, Berlin" },
+  { id: 'mitte', name: "Prema Lab Mitte", address: "Torstraße, Berlin" },
   { id: 'xberg', name: "Resonance Lab X-Berg", address: "Skalitzer Str, Berlin" },
 ];
 

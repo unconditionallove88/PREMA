@@ -21,12 +21,12 @@ const CONTENT = {
     sub: "Sacred Bond Resonance",
     desc: "A private space for those who hold the heart from afar Connect with truth and tenderness",
     agreementTitle: "Unity Through Presence",
-    agreementSub: "Enter the private sanctuary",
+    agreementSub: "Enter the private circle",
     items: [
       { title: "Sacred Bond Resonance", sub: "Shared with the inner circle", icon: Lock },
       { title: "Mutual Holding", sub: "Unity through shared truth", icon: HeartHandshake }
     ],
-    button: "Enter the sanctuary",
+    button: "Enter the circle",
     createTitle: "NAME THE BOND",
     inviteTitle: "INVITE BY EMAIL",
     createBtn: "Seal Bond",
@@ -43,7 +43,7 @@ const CONTENT = {
     sub: "Heiliges Band Resonanz",
     desc: "Ein privater Raum für diejenigen, die das Herz aus der Ferne halten Verbinde dich mit Wahrheit heute",
     agreementTitle: "Einheit durch Präsenz",
-    agreementSub: "Das private Sanctuary betreten",
+    agreementSub: "Den privaten Kreis betreten",
     items: [
       { title: "Heiliges Band", sub: "Nur mit dem inneren Kreis", icon: Lock },
       { title: "Gegenseitiges Halten", sub: "Einheit durch geteilte Wahrheit", icon: HeartHandshake }
@@ -140,7 +140,7 @@ export function LoveCircleChat() {
     setInput('');
     addDocumentNonBlocking(collection(firestore, 'users', user.uid, 'loveCircleMessages'), {
       senderId: user.uid,
-      senderName: user.displayName || 'Soul',
+      senderName: user.displayName || 'Heart',
       text: text,
       createdAt: serverTimestamp(),
     });

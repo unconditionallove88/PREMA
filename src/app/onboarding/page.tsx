@@ -10,7 +10,7 @@ import { Step3HealthConditions } from '@/components/onboarding/Step3HealthCondit
 import { Step4Medications } from '@/components/onboarding/Step4Medications';
 import { Step6StripeVerify } from '@/components/onboarding/Step6StripeVerify';
 import { Step9Summary } from '@/components/onboarding/Step8Summary';
-import { SanctuaryGuide } from '@/components/dashboard/SanctuaryGuide';
+import { PulseGuide } from '@/components/dashboard/PulseGuide';
 import { safeStringify } from '@/lib/safe-storage';
 import { useAuth, useFirestore } from '@/firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -38,8 +38,8 @@ export type OnboardingData = {
   simpleIntention?: string;
   legalAgreements?: LegalAgreements;
   verification?: { stripeCustomerId: string; last4: string; method: string; isAgeVerified: boolean };
-  sanctuaryBoundaries?: any;
-  sanctuaryAlarms?: any;
+  careBoundaries?: any;
+  careAlarms?: any;
 };
 
 export default function Onboarding() {
@@ -154,7 +154,7 @@ export default function Onboarding() {
         )}
 
         {step === 8 && (
-          <SanctuaryGuide forceOpen={true} onDismiss={handleFinalRedirect} />
+          <PulseGuide forceOpen={true} onDismiss={handleFinalRedirect} />
         )}
       </div>
     </main>

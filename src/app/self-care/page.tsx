@@ -16,13 +16,13 @@ const CONTENT = {
   en: {
     inhale: "Breathe In Love",
     exhale: "Breathe Out Love",
-    button: "Return to Sanctuary",
+    button: "Return to Home",
     next: "Circle of Love (Support)"
   },
   de: {
     inhale: "Atme sanft Liebe ein",
     exhale: "Atme sanft Liebe aus",
-    button: "Zum Sanctuary zurückkehren",
+    button: "Zum Zuhause zurückkehren",
     next: "Circle of Love (Halt)"
   }
 };

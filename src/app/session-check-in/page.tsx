@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
 import { StepSomethingToRemember } from '@/components/onboarding/StepSomethingToRemember';
-import { StepSanctuaryAlarms } from '@/components/onboarding/StepSanctuaryAlarms';
+import { StepCareAlarms } from '@/components/onboarding/StepCareAlarms';
 import { Step7GearCheck } from '@/components/onboarding/Step7GearCheck';
 import type { OnboardingData } from '@/app/onboarding/page';
 
@@ -27,7 +27,7 @@ export default function SessionCheckIn() {
       setData(JSON.parse(profileStr));
     } else {
       const defaultProfile: OnboardingData = {
-        name: 'SOUL',
+        name: 'HEART',
         dob: '',
         weight: 75,
         height: 175,
@@ -72,17 +72,17 @@ export default function SessionCheckIn() {
           <StepSomethingToRemember
             onBack={prevStep}
             onComplete={(wisdom) => {
-              updateProfile({ sanctuaryBoundaries: wisdom });
+              updateProfile({ careBoundaries: wisdom });
               nextStep();
             }}
           />
         )}
 
         {step === 3 && (
-          <StepSanctuaryAlarms
+          <StepCareAlarms
             onBack={prevStep}
             onComplete={(alarms) => {
-              updateProfile({ sanctuaryAlarms: alarms });
+              updateProfile({ careAlarms: alarms });
               nextStep();
             }}
           />

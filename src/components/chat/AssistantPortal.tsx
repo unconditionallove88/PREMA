@@ -31,7 +31,7 @@ const i18n = {
     intention: "Your Intention",
     gearCheck: "Gear Check",
     prepWisdom: "Biology & Prep",
-    wisdomTitle: "Sanctuary Wisdom",
+    wisdomTitle: "Grace Wisdom",
     closeBtn: "I understand",
     phases: [
       { title: "Before", desc: "Prepare your body & mind" },
@@ -42,7 +42,7 @@ const i18n = {
       hydration: {
         title: "The Flow of Life",
         why: "Body & Blood",
-        desc: "You are 60% water Hydration is the fuel for every cellular reaction in your sanctuary Water keeps blood fluid and circulating freely ensuring nutrients reach your heart without strain",
+        desc: "You are 60% water Hydration is the fuel for every cellular reaction in your body Water keeps blood fluid and circulating freely ensuring nutrients reach your heart without strain",
         kidneys: "Kidney Shield: Your kidneys process every substance Water is their shield helping them flush toxins and maintain mineral harmony"
       },
       nutrition: {
@@ -67,7 +67,7 @@ const i18n = {
     intention: "Deine Intention heute",
     gearCheck: "Ausrüstungs Check heute",
     prepWisdom: "Biologie & Vorbereitung",
-    wisdomTitle: "Sanctuary Weisheit",
+    wisdomTitle: "Gnaden Weisheit",
     closeBtn: "Ich verstehe",
     phases: [
       { title: "Vorher", desc: "Körper & Geist vorbereiten heute" },
@@ -162,7 +162,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                 <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20"><ShieldCheck className="text-emerald-500" /></div>
                 <div className="text-left">
                   <p className="text-sm font-black uppercase">{t.gearCheck}</p>
-                  <p className="text-[9px] text-white/30 uppercase font-bold">Sanctuary Kit prep</p>
+                  <p className="text-[9px] text-white/30 uppercase font-bold">Care Kit prep</p>
                 </div>
               </button>
 
