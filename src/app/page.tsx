@@ -73,7 +73,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <h1 className="mt-10 text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-white text-center">STAY<span className="text-primary">ON</span>BEAT</h1>
+          <h1 className="mt-10 text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-white text-center">PREMA: Your Digital Sanctuary</h1>
           <p className="text-primary font-bold mt-4 tracking-[0.3em] uppercase text-[10px] italic opacity-80">{content[lang].slogan}</p>
         </div>
         
@@ -81,9 +81,9 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-8 w-full justify-center items-center">
           <button 
             onClick={() => router.push('/auth?mode=signup')} 
-            className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-[#1b4d3e] text-white flex flex-col items-center justify-center gap-3 p-6 group transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(27,77,62,0.2)] border-2 border-primary/20 relative"
+            className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-purple-600 text-white flex flex-col items-center justify-center gap-3 p-6 group transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(139,92,246,0.2)] border-2 border-purple-300 relative"
           >
-            <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-all" />
+            <div className="absolute inset-0 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all" />
             <span className="text-lg md:text-xl font-black uppercase tracking-tight leading-none z-10 max-w-[120px]">
               {content[lang].getStarted}
             </span>
