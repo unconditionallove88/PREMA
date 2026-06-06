@@ -89,7 +89,9 @@ export default function WelcomeBack() {
         <div className="flex flex-col gap-6 w-full max-w-md pt-4">
           <button 
             onClick={() => router.push('/dashboard')}
-          className="pill-button w-full bg-primary text-primary-foreground text-xl font-semibold uppercase tracking-widest active:scale-95 transition-all shadow-soft h-[72px]"
+            className="pill-button w-full bg-primary text-primary-foreground text-xl font-semibold uppercase tracking-widest active:scale-95 transition-all shadow-soft h-[72px]"
+          >
+            {content[lang].button}
           </button>
           
           <div className="flex items-center justify-center gap-3 text-muted-foreground">
