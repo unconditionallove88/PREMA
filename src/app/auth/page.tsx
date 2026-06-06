@@ -23,7 +23,7 @@ const CONTENT = {
     entering: "Opening Prema...", begin: "Enter Prema", enter: "Enter Prema",
     alreadyAccount: "Already have an account? Sign in", newHere: "New here? Start your journey",
     staffAccess: "Staff Access", errorMsg: "Something went wrong. Please try again",
-    footer: "Created with grace"
+    footer: "Created in harmony"
   },
   de: {
     welcome: "Willkommen bei Prema", create: "Enter Prema", prototype: "Prototyp-Modus aktiv",

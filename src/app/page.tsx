@@ -33,7 +33,7 @@ export default function Home() {
     en: {
       slogan: "You are safe, you are loved",
       getStarted: "Enter Prema",
-      footer: "Created with grace"
+      footer: "Created in harmony"
     },
     de: {
       slogan: "Du bist sicher, du bist geliebt",
