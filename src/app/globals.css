@@ -10,17 +10,18 @@
     --card-foreground: 25 18% 18%;
     --popover: 25 90% 97%;
     --popover-foreground: 25 18% 18%;
-    --primary: 346 68% 72%;
+    /* Desert Dawn Grace - adjusted for AA contrast */
+    --primary: 346 68% 48%; /* darker pink for readable white labels */
     --primary-foreground: 0 0% 100%;
-    --secondary: 266 32% 78%;
-    --secondary-foreground: 25 18% 18%;
-    --muted: 325 22% 56%;
-    --muted-foreground: 325 22% 56%;
+    --secondary: 266 32% 48%; /* deeper secondary for contrast */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 325 22% 44%;
+    --muted-foreground: 230 8% 36%; /* darker muted text for small labels/placeholders */
     --accent: 286 48% 76%;
     --accent-foreground: 0 0% 100%;
     --destructive: 10 76% 62%;
     --destructive-foreground: 0 0% 98%;
-    --border: 24 52% 87%;
+    --border: 24 52% 80%;
     --input: 25 92% 97%;
     --ring: 335 70% 80%;
     --radius: 2.5rem;
@@ -54,6 +55,22 @@
     --sidebar-accent: 282 60% 78%;
   }
 }
+
+/* Accessibility helpers */
+.text-muted { color: hsl(var(--muted-foreground)); }
+.small-label { font-size: 10px; color: hsl(var(--muted-foreground)); letter-spacing: 0.12em; }
+
+input::placeholder, textarea::placeholder {
+  color: hsl(var(--muted-foreground) / 0.9);
+  opacity: 1; /* ensure visible across browsers */
+}
+
+/* Ensure buttons using primary/secondary have sufficient padding and readable labels */
+.btn-ensure-contrast { padding: 0.75rem 1.25rem; font-weight: 700; }
+
+/* Cards and badges: increase border contrast */
+.supportive-surface, .glass-panel { border-color: hsl(var(--border) / 0.9); }
+.badge { background: hsl(var(--card) / 0.9); color: hsl(var(--foreground)); border: 1px solid hsl(var(--border) / 0.6); padding: 0.25rem 0.5rem; border-radius: 999px; font-weight: 700; }
 
 @layer base {
   *, *::before, *::after {
