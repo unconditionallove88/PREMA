@@ -100,14 +100,14 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
   return (
     <div className="w-full h-full flex flex-col font-headline bg-card relative animate-in fade-in duration-700 overflow-x-hidden">
       {!isStandAlone && onBack && (
-        <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
+        <button onClick={onBack} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
           <ArrowLeft className="w-4 h-4" /> BACK
         </button>
       )}
 
       <div className={cn("px-6 shrink-0 text-center", isStandAlone ? "pt-4" : "pt-16")}>
-        <h2 className="text-[22px] font-black uppercase mb-1 text-white leading-tight tracking-tighter">{t.header}</h2>
-        <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] mb-6">{t.sub}</p>
+        <h2 className="text-[22px] font-black uppercase mb-1 text-foreground leading-tight tracking-tighter">{t.header}</h2>
+        <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-[10px] mb-6">{t.sub}</p>
       </div>
 
       <div className="flex-1 min-h-0 relative">
@@ -127,15 +127,15 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                     className="bg-card border border-border/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
                   >
                     <div className="flex justify-between items-start gap-4">
-                      <span className="text-xs font-black text-white/90 uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
+                      <span className="text-xs font-black text-foreground uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
                       <div className="flex items-center gap-2">
                          <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-card/5 shrink-0", row.color)}>
                            {row.risk}
                          </span>
-                         <ChevronRight size={12} className="text-white/20 group-hover:text-primary transition-colors" />
+                         <ChevronRight size={12} className="text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                     </div>
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">
                       {lang === 'de' ? row.deNote : row.note}
                     </p>
                   </button>
@@ -154,9 +154,9 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                     "w-6 h-6 rounded-full border flex items-center justify-center shrink-0 transition-all",
                     acknowledged ? "bg-primary border-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "border-border/20"
                   )}>
-                    {acknowledged && <Check className="w-3.5 h-3.5 text-white" />}
+                    {acknowledged && <Check className="w-3.5 h-3.5 text-foreground" />}
                   </div>
-                  <span className={cn("text-[10px] font-black uppercase tracking-widest text-left", acknowledged ? "text-primary" : "text-white/40")}>
+                  <span className={cn("text-[10px] font-black uppercase tracking-widest text-left", acknowledged ? "text-primary" : "text-muted-foreground")}>
                     {t.acknowledge}
                   </span>
                 </button>
@@ -174,7 +174,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
         <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-2xl">
           <DialogTitle className="sr-only">{t.medicalTitle}</DialogTitle>
           
-          <div className="p-10 flex flex-col items-center text-center space-y-8">
+              <div className="p-10 flex flex-col items-center text-center space-y-8">
             <div className="relative">
               <div className={cn("absolute inset-0 blur-3xl rounded-full opacity-20", selectedPair?.color.replace('text-', 'bg-'))} />
               <div className="w-20 h-20 bg-card/5 rounded-3xl flex items-center justify-center border-2 border-border/10 relative z-10">
@@ -183,7 +183,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-3xl font-black uppercase tracking-tighter text-white">
+              <h3 className="text-3xl font-black uppercase tracking-tighter text-foreground">
                 {selectedPair?.s1} + {selectedPair?.s2}
               </h3>
               <p className={cn("text-[10px] font-black uppercase tracking-[0.4em]", selectedPair?.color)}>
@@ -197,25 +197,25 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                 <span className="text-[10px] font-black uppercase text-primary/60 tracking-widest">{t.medicalSub}</span>
               </div>
               
-              <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+              <p className="text-sm font-bold text-foreground leading-relaxed uppercase tracking-widest">
                 {lang === 'en' ? selectedPair?.med?.en : selectedPair?.med?.de}
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border/5">
                  <div className="flex items-center gap-2">
                    <HeartPulse size={14} className="text-red-500" />
-                   <span className="text-[8px] font-black uppercase text-white/30 tracking-widest">Cardiac Load: High</span>
+                   <span className="text-[8px] font-black uppercase text-muted-foreground tracking-widest">Cardiac Load: High</span>
                  </div>
                  <div className="flex items-center gap-2">
                    <Droplets size={14} className="text-blue-400" />
-                   <span className="text-[8px] font-black uppercase text-white/30 tracking-widest">Hepatic Strain: High</span>
+                   <span className="text-[8px] font-black uppercase text-muted-foreground tracking-widest">Hepatic Strain: High</span>
                  </div>
               </div>
             </div>
 
             <button 
               onClick={() => setSelectedPair(null)}
-              className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
+              className="w-full h-16 bg-primary text-primary-foreground rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
             >
               {t.close}
             </button>
@@ -224,13 +224,13 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
       </Dialog>
 
       {!isStandAlone && (
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black to-transparent pt-12 pointer-events-none pb-safe">
+        <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black to-transparent pt-12 pointer-events-none pb-safe">
           <button 
             onClick={() => onComplete({ acknowledged })} 
             disabled={!acknowledged}
             className={cn(
               "pointer-events-auto w-full max-w-sm mx-auto h-20 rounded-full uppercase tracking-[0.2em] font-black text-lg transition-all shadow-2xl flex items-center justify-center gap-3",
-              acknowledged ? 'bg-primary text-white neon-glow active:scale-95' : 'bg-card/10 text-white/10 border-2 border-border/5 cursor-not-allowed opacity-50'
+              acknowledged ? 'bg-primary text-primary-foreground neon-glow active:scale-95' : 'bg-card/10 text-muted-foreground border-2 border-border/5 cursor-not-allowed opacity-50'
             )}
           >
             {t.confirm}

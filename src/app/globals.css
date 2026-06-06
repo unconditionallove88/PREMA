@@ -211,8 +211,8 @@ input::placeholder, textarea::placeholder {
 }
 
 .shining-white {
-  @apply text-white;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+  color: hsl(var(--foreground));
+  text-shadow: 0 0 6px rgba(0,0,0,0.06), 0 0 12px rgba(0,0,0,0.04);
 }
 
 .pill-button {

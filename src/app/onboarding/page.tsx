@@ -107,7 +107,7 @@ export default function Onboarding() {
   };
 
   return (
-    <main className="min-h-screen bg-card text-white flex flex-col items-center pt-safe pb-safe">
+    <main className="min-h-screen bg-card text-foreground flex flex-col items-center pt-safe pb-safe">
       <div className="w-full max-w-2xl py-8 md:py-16 relative">
         {step === 1 && (
           <Step1ImportantStuff onComplete={(legal) => { updateAndPersist({ legalAgreements: legal }); nextStep(); }} />

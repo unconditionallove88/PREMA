@@ -84,17 +84,17 @@ export function Step6SafetyNetwork({
       {onBack && (
         <button 
           onClick={onBack}
-          className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"
+          className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"
         >
           <ArrowLeft className="w-4 h-4" /> BACK
         </button>
       )}
 
       <div className="mt-12 mb-8 shrink-0">
-        <h2 className="text-[22px] font-black uppercase mb-2 text-white leading-tight tracking-tighter">
+        <h2 className="text-[22px] font-black uppercase mb-2 text-foreground leading-tight tracking-tighter">
           {t.header}
         </h2>
-        <p className="text-white/40 font-bold tracking-widest text-[10px] max-w-[280px] mx-auto uppercase">
+        <p className="text-muted-foreground font-bold tracking-widest text-[10px] max-w-[280px] mx-auto uppercase">
           {t.sub}
         </p>
       </div>
@@ -107,11 +107,11 @@ export function Step6SafetyNetwork({
           </div>
           <div className="flex items-center justify-between relative z-10">
             <div className="flex flex-col gap-1 pr-4">
-              <div className="flex items-center gap-2">
-                <ShieldAlert size={18} className="text-accent" />
-                <Label className="text-lg font-black tracking-tight text-white leading-tight uppercase">{t.proactive}</Label>
-              </div>
-              <p className="text-[10px] text-accent font-black uppercase tracking-widest">{t.proactiveSub}</p>
+                  <div className="flex items-center gap-2">
+                    <ShieldAlert size={18} className="text-accent" />
+                    <Label className="text-lg font-black tracking-tight text-foreground leading-tight uppercase">{t.proactive}</Label>
+                  </div>
+                  <p className="text-[10px] text-accent font-black uppercase tracking-widest">{t.proactiveSub}</p>
             </div>
             <Switch 
               checked={proactiveCare}
@@ -119,7 +119,7 @@ export function Step6SafetyNetwork({
               className="data-[state=checked]:bg-accent scale-125"
             />
           </div>
-          <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-relaxed border-t border-border/10 pt-4 relative z-10">
+          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed border-t border-border/10 pt-4 relative z-10">
             I authorize the Pulse Guardian to share Mesh location and biological vitals with the Awareness Team if I am in a critical state for more than 10 minutes. They can contact me via the app to assess presence.
           </p>
         </div>
@@ -127,8 +127,8 @@ export function Step6SafetyNetwork({
         <div className="bg-card rounded-[2rem] border-2 border-border/10 p-6 flex flex-col gap-4 group hover:border-secondary/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1 pr-4">
-              <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.shareLocation}</Label>
-              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.shareLocationSub}</p>
+              <Label className="text-base font-black tracking-tight text-foreground leading-tight uppercase">{t.shareLocation}</Label>
+              <p className="text-[10px] text-muted-foreground font-bold leading-tight">{t.shareLocationSub}</p>
             </div>
             <Switch 
               checked={shareLocation}
@@ -136,7 +136,7 @@ export function Step6SafetyNetwork({
               className="data-[state=checked]:bg-secondary"
             />
           </div>
-          <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-border/5 pt-4">
+          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed border-t border-border/5 pt-4">
             {t.revokeInfo}
           </p>
         </div>
@@ -144,8 +144,8 @@ export function Step6SafetyNetwork({
         <div className="bg-card rounded-[2rem] border-2 border-border/10 p-6 space-y-6 group hover:border-secondary/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1">
-              <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.radar}</Label>
-              <p className="text-[10px] text-white/30 font-bold leading-tight">{t.radarSub}</p>
+              <Label className="text-base font-black tracking-tight text-foreground leading-tight uppercase">{t.radar}</Label>
+              <p className="text-[10px] text-muted-foreground font-bold leading-tight">{t.radarSub}</p>
             </div>
             <Switch 
               checked={friendRadar}
@@ -157,13 +157,13 @@ export function Step6SafetyNetwork({
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => { setShowMyCode(!showMyCode); setScanning(false); }}
-              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${showMyCode ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-white hover:border-border/30'}`}
+              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${showMyCode ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-muted-foreground hover:border-border/30'}`}
             >
               <QrCode className="w-4 h-4" /> {t.myCode}
             </button>
             <button 
               onClick={() => { setScanning(!scanning); setShowMyCode(false); }}
-              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${scanning ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-white hover:border-border/30'}`}
+              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${scanning ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-muted-foreground hover:border-border/30'}`}
             >
               <Scan className="w-4 h-4" /> {t.scan}
             </button>

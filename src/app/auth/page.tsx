@@ -17,19 +17,19 @@ import { cn } from "@/lib/utils";
 
 const CONTENT = {
   en: {
-    welcome: "Welcome to Prema", create: "Enter Prema", prototype: "Prototype Mode Active",
+    welcome: "Welcome to Prema", create: "Enter", prototype: "Prototype Mode Active",
     emailLabel: "Email Address", emailPlaceholder: "you@prema.app",
     passwordLabel: "Password", passwordPlaceholder: "••••••••",
-    entering: "Opening Prema...", begin: "Enter Prema", enter: "Enter Prema",
+    entering: "Opening Prema...", begin: "Enter", enter: "Enter",
     alreadyAccount: "Already have an account? Sign in", newHere: "New here? Start your journey",
     staffAccess: "Staff Access", errorMsg: "Something went wrong. Please try again",
     footer: "Created in harmony"
   },
   de: {
-    welcome: "Willkommen bei Prema", create: "Enter Prema", prototype: "Prototyp-Modus aktiv",
+    welcome: "Willkommen bei Prema", create: "Enter", prototype: "Prototyp-Modus aktiv",
     emailLabel: "E-Mail-Adresse", emailPlaceholder: "du@prema.app",
     passwordLabel: "Passwort", passwordPlaceholder: "••••••••",
-    entering: "Prema wird geöffnet...", begin: "Enter Prema", enter: "Enter Prema",
+    entering: "Prema wird geöffnet...", begin: "Enter", enter: "Enter",
     alreadyAccount: "Hast du bereits ein Konto? Anmelden", newHere: "Neu hier? Starte deine Reise",
     staffAccess: "Team-Zugang", errorMsg: "Etwas ist schiefgelaufen. Bitte versuche es erneut",
     footer: "Mit Anmut geschaffen"

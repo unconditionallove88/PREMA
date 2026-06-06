@@ -34,7 +34,7 @@ export default function WelcomeBack() {
       title: "HEY, NICE TO",
       highlight: "SEE YOU AGAIN",
       subtitle: "YOUR RESONANCE PROFILE IS READY LET’S GET YOU CALIBRATED",
-      button: "Enter Prema"
+      button: "Enter"
     },
     DE: {
       title: "HEY, SCHÖN DICH",

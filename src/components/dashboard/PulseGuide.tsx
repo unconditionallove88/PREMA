@@ -351,7 +351,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
                   onClick={handleDismiss} 
                   className="px-10 py-5 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                 >
-                  {lang === 'en' ? 'Enter Prema' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
+                  {lang === 'en' ? 'Enter' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
                 </button>
               )}
             </div>

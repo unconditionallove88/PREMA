@@ -283,11 +283,11 @@ export function Step6SubstanceLab({
       <header className="px-6 pt-10 pb-4 space-y-4 flex flex-col shrink-0 bg-card/95 backdrop-blur-md z-[60] border-b border-border/5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[hsl(var(--primary))]/10 flex items-center justify-center border border-[hsl(var(--primary))]/20"><Microscope size={24} className="text-white" /></div>
-            <h1 className="text-xl font-black tracking-tighter uppercase leading-none text-white">{t.title}</h1>
+            <div className="w-10 h-10 rounded-xl bg-[hsl(var(--primary))]/10 flex items-center justify-center border border-[hsl(var(--primary))]/20"><Microscope size={24} className="text-foreground" /></div>
+            <h1 className="text-xl font-black tracking-tighter uppercase leading-none text-foreground">{t.title}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setWisdomOpen(true)} className="px-4 py-2 bg-primary border border-primary/30 rounded-full flex items-center gap-2 active:scale-95 transition-all shadow-lg"><BookOpen size={14} className="text-primary" /><span className="text-[9px] font-black uppercase text-white tracking-widest">{t.wisdom}</span></button>
+            <button onClick={() => setWisdomOpen(true)} className="px-4 py-2 bg-primary border border-primary/30 rounded-full flex items-center gap-2 active:scale-95 transition-all shadow-lg"><BookOpen size={14} className="text-primary" /><span className="text-[9px] font-black uppercase text-foreground tracking-widest">{t.wisdom}</span></button>
             <button onClick={() => setChatOpen(true)} className="p-3 bg-blue-600/10 border border-blue-500/30 rounded-xl active:scale-95 transition-all"><HeartHandshake size={18} className="text-blue-400 animate-pulse" /></button>
           </div>
         </div>
@@ -303,8 +303,8 @@ export function Step6SubstanceLab({
                <Camera className="text-primary animate-pulse" size={28} />
             </div>
             <div className="text-left">
-              <span className="block text-base font-black uppercase tracking-tight text-white">{t.visualScan}</span>
-              <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest leading-none mt-1">{t.visualSub}</p>
+              <span className="block text-base font-black uppercase tracking-tight text-foreground">{t.visualScan}</span>
+              <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest leading-none mt-1">{t.visualSub}</p>
             </div>
           </button>
           <button 
@@ -315,16 +315,16 @@ export function Step6SubstanceLab({
                <Eye className="text-accent animate-pulse" size={28} />
             </div>
             <div className="text-left">
-              <span className="block text-base font-black uppercase tracking-tight text-white">{t.pillIdScan}</span>
-              <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest leading-none mt-1">{t.pillIdSub}</p>
+              <span className="block text-base font-black uppercase tracking-tight text-foreground">{t.pillIdScan}</span>
+              <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest leading-none mt-1">{t.pillIdSub}</p>
             </div>
           </button>
         </div>
 
         <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
-          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-card/5 border border-border/10 h-14 pl-10 pr-12 rounded-2xl focus:border-secondary text-sm outline-none text-white transition-all"/>
-          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-secondary animate-pulse" : "text-white/20 hover:text-secondary")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-card/5 border border-border/10 h-14 pl-10 pr-12 rounded-2xl focus:border-secondary text-sm outline-none text-foreground transition-all"/>
+          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-secondary animate-pulse" : "text-muted-foreground hover:text-secondary")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
         </div>
       </header>
 
@@ -335,7 +335,7 @@ export function Step6SubstanceLab({
               <div className="space-y-3 animate-in slide-in-from-top-4 duration-500">
                 <div className="flex items-center justify-between px-1">
                   <h3 className="text-[9px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-2"><Calendar className="w-3 h-3" /> {t.diary}</h3>
-                  <span className="text-[8px] font-bold text-white/20 uppercase tracking-widest">{sessionLogs.length} {t.records}</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">{sessionLogs.length} {t.records}</span>
                 </div>
                 <div className="grid gap-2">
                   {sessionLogs.slice().reverse().map((log, i) => (
@@ -344,9 +344,9 @@ export function Step6SubstanceLab({
                         <div className="w-8 h-8 bg-card/5 rounded-lg flex items-center justify-center border border-border/5">
                           {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : log.method === 'pill_id_scan' ? <Eye size={16} className="text-accent" /> : <FlaskConical size={16} className="text-secondary" />}
                         </div>
-                        <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-secondary">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
+                        <div className="flex flex-col"><span className="text-xs font-black uppercase text-foreground">{log.name}</span><span className="text-[9px] font-bold text-secondary">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
                       </div>
-                      <button onClick={() => removeLog(sessionLogs.length - 1 - i)} className="p-2 text-white/10 hover:text-red-500 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      <button onClick={() => removeLog(sessionLogs.length - 1 - i)} className="p-2 text-muted-foreground hover:text-red-500 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
                   ))}
                 </div>
@@ -360,7 +360,7 @@ export function Step6SubstanceLab({
                 return (
                   <button key={s.id} onClick={() => handleSelectSubstance(s)} className={cn("aspect-square border rounded-3xl flex flex-col items-center justify-center gap-2 transition-all active:scale-95 group relative shadow-lg", active ? "bg-secondary/10 border-secondary" : "bg-card/[0.02] border-border/5")}>
                     <div className={cn("p-3 rounded-xl bg-card/40 border border-border/5 group-hover:scale-110 transition-transform", s.color)}><s.icon size={22} /></div>
-                    <span className={cn("text-[8px] font-black uppercase tracking-widest text-center px-1 leading-tight", active ? "text-secondary" : "text-white/40")}>{localizedName}</span>
+                    <span className={cn("text-[8px] font-black uppercase tracking-widest text-center px-1 leading-tight", active ? "text-secondary" : "text-muted-foreground")}>{localizedName}</span>
                   </button>
                 );
               })}
@@ -378,13 +378,13 @@ export function Step6SubstanceLab({
           <div className="px-6 py-10 flex flex-col items-center text-center space-y-8 flex-1">
             <button onClick={() => setActiveSubstance(null)} className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10"><X size={20} /></button>
             <div className={cn("w-24 h-24 rounded-[2rem] bg-card/5 flex items-center justify-center border-2 border-border/10 shadow-2xl mb-4", activeSubstance.color)}><activeSubstance.icon size={48} /></div>
-            <div className="space-y-2"><h2 className="text-4xl font-black uppercase tracking-tighter text-white">{lang === 'en' ? activeSubstance.name : activeSubstance.deName}</h2><p className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">{t.intake}</p></div>
+            <div className="space-y-2"><h2 className="text-4xl font-black uppercase tracking-tighter text-foreground">{lang === 'en' ? activeSubstance.name : activeSubstance.deName}</h2><p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em]">{t.intake}</p></div>
             {activeSubstance.inputType === 'manual' ? (
-              <div className="w-full max-w-xs space-y-6"><div className="flex flex-col items-center gap-4 relative"><span className="text-[10px] font-black text-primary uppercase tracking-widest">{t.amount} ({activeSubstance.unit})</span><div className="relative w-full"><input type="number" step="0.1" value={manualValue} onChange={(e) => setManualValue(e.target.value)} placeholder="0.0" className="w-full h-24 bg-card/5 border-2 border-border/10 rounded-[2rem] text-center text-5xl font-black text-white focus:border-secondary transition-all outline-none" /><button onClick={() => startDictation('manual')} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all", isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/10 text-white/40 hover:text-secondary")}>{isListening ? <MicOff size={24} /> : <Mic size={24} />}</button></div></div></div>
+              <div className="w-full max-w-xs space-y-6"><div className="flex flex-col items-center gap-4 relative"><span className="text-[10px] font-black text-primary uppercase tracking-widest">{t.amount} ({activeSubstance.unit})</span><div className="relative w-full"><input type="number" step="0.1" value={manualValue} onChange={(e) => setManualValue(e.target.value)} placeholder="0.0" className="w-full h-24 bg-card/5 border-2 border-border/10 rounded-[2rem] text-center text-5xl font-black text-foreground focus:border-secondary transition-all outline-none" /><button onClick={() => startDictation('manual')} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all", isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/10 text-muted-foreground hover:text-secondary")}>{isListening ? <MicOff size={24} /> : <Mic size={24} />}</button></div></div></div>
             ) : (
               <div className="w-full max-w-md grid grid-cols-2 gap-3">{alcoholCart.map((item, i) => (<div key={i} className="bg-card/5 border border-border/10 rounded-2xl p-4 flex flex-col items-center gap-3"><span className="text-[10px] font-black uppercase text-white/40">{item.type}</span><div className="flex items-center gap-4"><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: Math.max(0, c.count - 1) } : c))} className="p-2 bg-card/5 rounded-lg"><Minus size={14} /></button><span className="text-xl font-black text-white">{item.count}</span><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: c.count + 1 } : c))} className="p-2 bg-primary/20 rounded-lg text-primary"><Plus size={14} /></button></div></div>))}</div>
             )}
-            <div className="w-full max-sm pt-10"><button onClick={handleSaveAttempt} className="w-full h-20 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all">{t.confirm}</button><button onClick={() => setActiveSubstance(null)} className="w-full h-14 mt-4 text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.cancel}</button></div>
+              <div className="w-full max-sm pt-10"><button onClick={handleSaveAttempt} className="w-full h-20 bg-primary text-foreground rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all">{t.confirm}</button><button onClick={() => setActiveSubstance(null)} className="w-full h-14 mt-4 text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em]">{t.cancel}</button></div>
           </div>
         </div>
       )}

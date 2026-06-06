@@ -62,12 +62,12 @@ export function Step5SubstanceLab({ userData, onComplete }: { userData: Onboardi
       <h2 className="font-headline text-4xl font-black uppercase mb-8">Substance Lab</h2>
       
       <div className="relative w-full mb-8">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <Input 
           placeholder="SEARCH SUBSTANCES..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="bg-card border-2 border-border/20 h-16 pl-14 rounded-2xl focus:border-secondary uppercase font-black tracking-widest text-xs text-white"
+          className="bg-card border-2 border-border/20 h-16 pl-14 rounded-2xl focus:border-secondary uppercase font-black tracking-widest text-xs text-foreground"
         />
       </div>
 
@@ -79,7 +79,7 @@ export function Step5SubstanceLab({ userData, onComplete }: { userData: Onboardi
             className={`px-8 py-4 rounded-full border-2 transition-all font-headline font-black uppercase text-xs tracking-wider ${
               selected.includes(s) 
                 ? 'bg-secondary border-secondary text-black shadow-[0_0_15px_rgba(57,255,20,0.5)]' 
-                : 'bg-transparent border-border/20 text-white/60 hover:border-border/50'
+                : 'bg-transparent border-border/20 text-muted-foreground hover:border-border/50'
             }`}
           >
             {s}
@@ -89,7 +89,7 @@ export function Step5SubstanceLab({ userData, onComplete }: { userData: Onboardi
 
       <div className="w-full max-w-md bg-card rounded-[2.5rem] border-2 border-border/10 p-10 mb-12">
         <div className="flex justify-between items-center mb-6">
-          <span className="font-headline font-black uppercase tracking-[0.3em] text-xs text-white/30">Risk Profile</span>
+          <span className="font-headline font-black uppercase tracking-[0.3em] text-xs text-muted-foreground">Risk Profile</span>
           {loading && <Loader2 className="w-5 h-5 animate-spin text-secondary" />}
         </div>
         
@@ -106,7 +106,7 @@ export function Step5SubstanceLab({ userData, onComplete }: { userData: Onboardi
               <AlertTriangle className={`w-6 h-6 ${riskColor.replace('bg-', 'text-')}`} />
               <span className={riskColor.replace('bg-', 'text-')}>{assessment.overallRiskLevel} Risk</span>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed font-bold">{assessment.summary}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed font-bold">{assessment.summary}</p>
           </div>
         )}
       </div>

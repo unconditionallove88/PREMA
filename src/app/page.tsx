@@ -32,12 +32,12 @@ export default function Home() {
   const content = {
     en: {
       slogan: "You are safe, you are loved",
-      getStarted: "Enter Prema",
+      getStarted: "Enter",
       footer: "Created in harmony"
     },
     de: {
       slogan: "Du bist sicher, du bist geliebt",
-      getStarted: "Enter Prema",
+      getStarted: "Enter",
       footer: "Mit Anmut geschaffen"
     }
   };
