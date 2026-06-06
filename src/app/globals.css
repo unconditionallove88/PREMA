@@ -11,19 +11,19 @@
     --popover: 25 90% 97%;
     --popover-foreground: 25 18% 18%;
     /* Desert Dawn Grace - adjusted for AA contrast */
-    --primary: 346 68% 48%; /* darker pink for readable white labels */
+    --primary: 150 60% 44%; /* green-forward primary for actions */
     --primary-foreground: 0 0% 100%;
-    --secondary: 266 32% 48%; /* deeper secondary for contrast */
+    --secondary: 346 68% 58%; /* pink accent for highlights */
     --secondary-foreground: 0 0% 100%;
-    --muted: 325 22% 44%;
-    --muted-foreground: 230 8% 36%; /* darker muted text for small labels/placeholders */
-    --accent: 286 48% 76%;
+    --muted: 220 12% 50%;
+    --muted-foreground: 220 12% 30%; /* stronger muted contrast for labels/placeholders */
+    --accent: 340 72% 68%; /* warm pink highlight */
     --accent-foreground: 0 0% 100%;
     --destructive: 10 76% 62%;
     --destructive-foreground: 0 0% 98%;
     --border: 24 52% 80%;
     --input: 25 92% 97%;
-    --ring: 335 70% 80%;
+    --ring: 150 60% 44%; /* green ring to match primary actions */
     --radius: 2.5rem;
     --shadow-color: 15, 18, 44;
   }
