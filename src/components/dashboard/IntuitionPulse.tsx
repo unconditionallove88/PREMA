@@ -22,10 +22,10 @@ export function IntuitionPulse({ className, variant = 'normal' }: IntuitionPulse
       )} />
       
       <div className={cn(
-        "relative z-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border",
+        "relative z-10 w-12 h-12 bg-card rounded-full shadow-xl flex items-center justify-center border",
         isEmergency ? "border-red-100" : "border-emerald-100"
       )}>
-        <Heart size={24} fill={isEmergency ? "#ef4444" : "#10b981"} className={isEmergency ? "text-red-500" : "text-emerald-500"} />
+        <Heart size={24} fill={isEmergency ? "#ef4444" : "hsl(var(--primary))"} className={isEmergency ? "text-red-500" : "text-emerald-500"} />
       </div>
     </div>
   );

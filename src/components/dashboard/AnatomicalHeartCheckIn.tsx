@@ -81,12 +81,12 @@ export function AnatomicalHeartCheckIn() {
   const currentStatus = statuses.find(s => s.label[lang] === status) || statuses[2];
 
   return (
-    <div className="flex flex-col items-center p-8 bg-[#0a0a0a] rounded-[3rem] border border-white/10 shadow-2xl font-headline w-full max-w-lg mx-auto">
+    <div className="flex flex-col items-center p-8 bg-card rounded-[3rem] border border-border/10 shadow-2xl font-headline w-full max-w-lg mx-auto">
       <div className="flex items-center gap-3 mb-2">
-        <Heart size={24} className="text-[#10B981] fill-[#10B981]/20" />
+        <Heart size={24} className="text-primary fill-[hsl(var(--primary))]/20" />
         <h3 className="text-white font-black text-2xl uppercase tracking-tighter leading-none">{t.title}</h3>
       </div>
-      <p className="text-[#10B981] text-[10px] mb-8 uppercase tracking-[0.4em] font-black text-center">{t.sub}</p>
+      <p className="text-primary text-[10px] mb-8 uppercase tracking-[0.4em] font-black text-center">{t.sub}</p>
 
       <div className="relative w-64 h-80 flex items-center justify-center">
         <svg viewBox="0 0 200 250" className="absolute w-full h-full drop-shadow-[0_0_15px_rgba(16,185,129,0.2)]">
@@ -113,8 +113,8 @@ export function AnatomicalHeartCheckIn() {
                 className={cn(
                   "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 border-2 flex items-center gap-3 relative overflow-hidden",
                   isActive 
-                    ? "bg-white/10 border-white/40 scale-110 shadow-xl" 
-                    : "bg-black/40 text-white/20 border-white/5 hover:border-white/20"
+                    ? "bg-card/10 border-border/40 scale-110 shadow-xl" 
+                    : "bg-card/40 text-white/20 border-border/5 hover:border-border/20"
                 )}
                 style={isActive ? { borderColor: s.color, color: s.color } : {}}
               >

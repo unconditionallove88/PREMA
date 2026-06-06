@@ -63,7 +63,7 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
         {/* Header */}
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center border-2 border-white/20 shadow-lg animate-alert-pulse">
+            <div className="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center border-2 border-border/20 shadow-lg animate-alert-pulse">
               <ShieldAlert size={28} className="text-white" />
             </div>
             <div>
@@ -73,14 +73,14 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
               </p>
             </div>
           </div>
-          <div className="bg-black/40 px-4 py-2 rounded-xl border border-white/10 flex items-center gap-3">
+          <div className="bg-card/40 px-4 py-2 rounded-xl border border-border/10 flex items-center gap-3">
             <Timer size={14} className="text-red-500" />
             <span className="font-mono text-lg font-black text-red-500">{timeLeft}</span>
           </div>
         </div>
 
         {/* Guidance */}
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
+        <div className="bg-card/5 border border-border/10 rounded-3xl p-6">
           <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
             I love and respect my body enough to rest. For your resonance, additional intake is currently paused while we monitor your recovery 🌿
           </p>
@@ -88,14 +88,14 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
 
         {/* Vital Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-black/40 border border-white/5 rounded-2xl p-5 flex items-center gap-4">
+          <div className="bg-card/40 border border-border/5 rounded-2xl p-5 flex items-center gap-4">
             <HeartPulse size={20} className="text-red-500" />
             <div>
               <span className="block text-[8px] font-black text-white/30 uppercase tracking-widest">Last Vitals</span>
               <span className="text-xl font-black text-white">{status.lastHeartRate} BPM</span>
             </div>
           </div>
-          <div className="bg-black/40 border border-white/5 rounded-2xl p-5 flex items-center gap-4">
+          <div className="bg-card/40 border border-border/5 rounded-2xl p-5 flex items-center gap-4">
             <Beaker size={20} className="text-amber-500" />
             <div>
               <span className="block text-[8px] font-black text-white/30 uppercase tracking-widest">Active Substances</span>
@@ -107,7 +107,7 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
         </div>
 
         {/* CTA */}
-        <button className="w-full h-16 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all">
+        <button className="w-full h-16 bg-card text-black rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all">
           View Integration Protocol <ArrowRight size={14} />
         </button>
       </div>

@@ -76,22 +76,22 @@ export function Step4Medications({ selected, onComplete, onSkip, onBack }: { sel
           const Icon = med.icon;
           const isActive = current.includes(med.id);
           return (
-            <div key={med.id} onClick={() => toggle(med.id)} className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all h-[72px] cursor-pointer ${isActive ? 'bg-[#1A1A1A] border-[#3EB489]/50' : 'bg-[#0a0a0a] border-white/10 hover:border-white/20'}`}>
+            <div key={med.id} onClick={() => toggle(med.id)} className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all h-[72px] cursor-pointer ${isActive ? 'bg-card border-secondary/50' : 'bg-card border-border/10 hover:border-border/20'}`}>
               <div className="flex items-center gap-4 text-left">
-                <div className={isActive ? 'text-[#3EB489]' : 'text-white/40'}><Icon size={24} /></div>
+                <div className={isActive ? 'text-secondary' : 'text-white/40'}><Icon size={24} /></div>
                 <div>
-                  <div className={`font-black text-xs uppercase tracking-tight ${isActive ? 'text-[#3EB489]' : 'text-white/70'}`}>{med.label}</div>
+                  <div className={`font-black text-xs uppercase tracking-tight ${isActive ? 'text-secondary' : 'text-white/70'}`}>{med.label}</div>
                   <div className="text-[8px] text-white/30 uppercase font-bold tracking-widest leading-none">{med.desc}</div>
                 </div>
               </div>
-              <div className="flex items-center bg-white/5 px-4 py-2 rounded-xl border border-white/10 pointer-events-none"><Switch checked={isActive} className="data-[state=checked]:bg-[#3EB489]" /></div>
+              <div className="flex items-center bg-card/5 px-4 py-2 rounded-xl border border-border/10 pointer-events-none"><Switch checked={isActive} className="data-[state=checked]:bg-secondary" /></div>
             </div>
           );
         })}
       </div>
       <div className="w-full flex flex-col gap-4 items-center shrink-0">
-        <button onClick={() => toggle('none')} className={`w-full p-5 rounded-[1.5rem] border font-black text-[10px] uppercase tracking-[0.2em] transition-all h-[64px] ${current.includes('none') ? 'bg-[#3EB489]/10 border-[#3EB489] text-[#3EB489] neon-glow' : 'bg-[#0a0a0a] border-white/10 text-white/30'}`}>{t.none}</button>
-        <button onClick={() => onComplete(current)} disabled={current.length === 0} className={`pill-button w-full max-w-sm h-[64px] uppercase tracking-[0.2em] font-black text-xl transition-all ${current.length > 0 ? 'bg-[#3EB489] text-black neon-glow active:scale-95' : 'bg-white/10 text-white/10 cursor-not-allowed border-2 border-white/5 opacity-50'}`}>{t.confirm}</button>
+        <button onClick={() => toggle('none')} className={`w-full p-5 rounded-[1.5rem] border font-black text-[10px] uppercase tracking-[0.2em] transition-all h-[64px] ${current.includes('none') ? 'bg-secondary/10 border-secondary text-secondary neon-glow' : 'bg-card border-border/10 text-white/30'}`}>{t.none}</button>
+        <button onClick={() => onComplete(current)} disabled={current.length === 0} className={`pill-button w-full max-w-sm h-[64px] uppercase tracking-[0.2em] font-black text-xl transition-all ${current.length > 0 ? 'bg-secondary text-black neon-glow active:scale-95' : 'bg-card/10 text-white/10 cursor-not-allowed border-2 border-border/5 opacity-50'}`}>{t.confirm}</button>
       </div>
     </div>
   );

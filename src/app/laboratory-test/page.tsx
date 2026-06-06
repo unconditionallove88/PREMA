@@ -7,7 +7,7 @@ import { StepLaboratoryTesting } from "@/components/onboarding/StepLaboratoryTes
 export default function LaboratoryTestPage() {
   const router = useRouter();
   return (
-    <main className="min-h-screen bg-black flex items-center justify-center p-6 pt-safe pb-safe">
+    <main className="min-h-screen bg-card flex items-center justify-center p-6 pt-safe pb-safe">
       <StepLaboratoryTesting 
         onBack={() => router.back()} 
         onComplete={() => router.push('/dashboard')} 

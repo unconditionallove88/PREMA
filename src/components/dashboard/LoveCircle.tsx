@@ -118,7 +118,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
     switch(state) {
       case 'distress': return '#DC2626'; // Red
       case 'elevated': return '#F59E0B'; // Yellow
-      default: return '#10B981'; // Green
+      default: return 'hsl(var(--primary))'; // Green
     }
   };
 
@@ -136,7 +136,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
           <div 
             className="absolute inset-0 rounded-full blur-[100px] transition-all duration-1000" 
             style={{ 
-              backgroundColor: '#1b4d3e',
+              backgroundColor: 'hsl(var(--primary))',
               opacity: pulseOpacity,
               transform: `scale(${1 + (pulseIntensity * 0.5)})`,
               animation: `tender-aura-ring ${pulseDuration} ease-in-out infinite`
@@ -168,7 +168,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                       "absolute w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border-2 z-20 group",
                       isActive 
                         ? `${arc.bg} border-primary shadow-[0_0_30px_rgba(27,77,62,0.4)] scale-110` 
-                        : "bg-black/40 border-white/5 opacity-40 hover:opacity-100"
+                        : "bg-card/40 border-border/5 opacity-40 hover:opacity-100"
                     )}
                     style={{ 
                       left: `${50 + radius * Math.cos((angle * Math.PI) / 180)}%`,
@@ -179,14 +179,14 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                     <arc.icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-white/20")} />
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="bg-black/95 border-white/10 px-4 py-2 rounded-xl text-center space-y-2 max-w-[150px]">
+                <TooltipContent side="top" className="bg-card/95 border-border/10 px-4 py-2 rounded-xl text-center space-y-2 max-w-[150px]">
                   <p className="text-[10px] font-black uppercase tracking-widest text-primary">
                     {currentLang === 'de' ? arc.de : arc.en}
                   </p>
                   <p className="text-[8px] text-white/40 font-bold uppercase mt-1 italic">"{arc.sentence}"</p>
                   <button 
                     onClick={(e) => { e.stopPropagation(); setLearningArchetype(arc); }}
-                    className="flex items-center gap-1.5 mx-auto text-[7px] font-black text-blue-400 uppercase tracking-widest pt-1 border-t border-white/10 w-full justify-center"
+                    className="flex items-center gap-1.5 mx-auto text-[7px] font-black text-blue-400 uppercase tracking-widest pt-1 border-t border-border/10 w-full justify-center"
                   >
                     {currentLang === 'de' ? 'Mehr erfahren heute' : 'Learn Intelligence Now'} <ExternalLink size={8} />
                   </button>
@@ -196,7 +196,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
           })}
 
           {/* Unity Core (Mirror Reflection) - Background is Dark Green */}
-          <div className="relative w-48 h-48 md:w-56 md:h-56 bg-[#051a14] rounded-full border-2 border-primary/20 flex items-center justify-center p-4 shadow-2xl z-10 overflow-hidden">
+          <div className="relative w-48 h-48 md:w-56 md:h-56 bg-card rounded-full border-2 border-primary/20 flex items-center justify-center p-4 shadow-2xl z-10 overflow-hidden">
             <div 
               className="absolute inset-0 bg-primary/10 rounded-full transition-all duration-1000"
               style={{ 
@@ -236,10 +236,10 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                         <span className="text-[7px] font-black text-white/40 uppercase tracking-tighter group-hover/friend:text-white">{friend.name}</span>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="bg-black/95 border-white/10 px-4 py-2 rounded-xl text-center">
+                    <TooltipContent side="top" className="bg-card/95 border-border/10 px-4 py-2 rounded-xl text-center">
                       <p className="text-[9px] font-black text-white">{friend.name}</p>
                       <p className="text-[8px] font-bold text-white/40 uppercase mt-1 italic">"{friend.msg}"</p>
-                      <div className="flex items-center justify-center gap-1.5 mt-1 pt-1 border-t border-white/5">
+                      <div className="flex items-center justify-center gap-1.5 mt-1 pt-1 border-t border-border/5">
                         <Radio size={8} className="text-blue-400" />
                         <span className="text-[7px] font-black text-blue-400 uppercase tracking-widest">{friend.dist} Mesh</span>
                       </div>
@@ -280,10 +280,10 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
       </div>
 
       <Dialog open={!!learningArchetype} onOpenChange={() => setLearningArchetype(null)}>
-        <DialogContent className="bg-black border-white/10 max-md p-8 rounded-[3rem] font-headline animate-in zoom-in-95 duration-300">
+        <DialogContent className="bg-card border-border/10 max-md p-8 rounded-[3rem] font-headline animate-in zoom-in-95 duration-300">
           <DialogHeader className="mb-6">
             <div className="flex items-center gap-4">
-              <div className={cn("p-4 rounded-2xl bg-white/5 border border-white/10", learningArchetype?.color)}>
+              <div className={cn("p-4 rounded-2xl bg-card/5 border border-border/10", learningArchetype?.color)}>
                 {learningArchetype && <learningArchetype.icon size={32} />}
               </div>
               <div>
@@ -308,7 +308,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
             </div>
             <button 
               onClick={() => setLearningArchetype(null)}
-              className="w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all"
+              className="w-full py-5 bg-card text-black rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all"
             >
               Continue Calibration
             </button>

@@ -168,7 +168,7 @@ export function LoveCircleChat() {
 
   if (!hasAgreement) {
     return (
-      <div className="flex flex-col h-full bg-black font-headline overflow-hidden">
+      <div className="flex flex-col h-full bg-card font-headline overflow-hidden">
         <ScrollArea className="flex-1 touch-pan-y">
           <div className="flex flex-col items-center justify-center min-h-[70vh] p-10 text-center space-y-16">
             <div className="relative">
@@ -181,7 +181,7 @@ export function LoveCircleChat() {
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-4">
                 <h2 className="text-5xl font-black uppercase tracking-tighter text-white leading-none">{t.title}</h2>
-                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
                   {isSpeaking ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
@@ -192,8 +192,8 @@ export function LoveCircleChat() {
 
             <div className="space-y-4 w-full max-w-sm">
               {t.items.map((item, i) => (
-                <div key={i} className="flex items-center gap-6 p-6 bg-white/[0.02] border border-white/10 rounded-[2.5rem] text-left transition-all hover:bg-white/[0.04] group">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/40 transition-all">
+                <div key={i} className="flex items-center gap-6 p-6 bg-card/[0.02] border border-border/10 rounded-[2.5rem] text-left transition-all hover:bg-card/[0.04] group">
+                  <div className="w-14 h-14 bg-card/5 rounded-2xl flex items-center justify-center border border-border/10 group-hover:border-primary/40 transition-all">
                     <item.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
@@ -206,7 +206,7 @@ export function LoveCircleChat() {
 
             <button 
               onClick={() => { playHeartbeat(); setHasAgreement(true); }}
-              className="w-full max-w-sm h-24 bg-[#1b4d3e] text-white text-xl font-black uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_50px_rgba(27,77,62,0.3)] border-2 border-primary/20 rounded-full flex items-center justify-center mb-10"
+              className="w-full max-w-sm h-24 bg-primary text-white text-xl font-black uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_50px_rgba(245,169,133,0.25)] border-2 border-primary/20 rounded-full flex items-center justify-center mb-10"
             >
               {t.button}
             </button>
@@ -217,8 +217,8 @@ export function LoveCircleChat() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-black font-body overflow-hidden pb-safe">
-      <div className="px-8 py-10 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between shrink-0">
+    <div className="flex flex-col h-full bg-card font-body overflow-hidden pb-safe">
+      <div className="px-8 py-10 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center justify-between shrink-0">
         <div className="flex items-center gap-5">
           <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center border border-primary/20 shadow-lg">
             <HeartHandshake size={32} className="text-primary" />
@@ -237,13 +237,13 @@ export function LoveCircleChat() {
       </div>
 
       {showCreateGroup && (
-        <div className="p-8 bg-white/[0.02] border-b border-white/5 animate-in slide-in-from-top-4 shrink-0">
+        <div className="p-8 bg-card/[0.02] border-b border-border/5 animate-in slide-in-from-top-4 shrink-0">
           <form onSubmit={handleCreateGroup} className="space-y-4 max-w-md mx-auto">
             <input 
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               placeholder={t.createTitle}
-              className="w-full bg-black border-2 border-white/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
+              className="w-full bg-card border-2 border-border/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
               required
             />
             <input 
@@ -251,11 +251,11 @@ export function LoveCircleChat() {
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder={t.inviteTitle}
               type="email"
-              className="w-full bg-black border-2 border-white/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
+              className="w-full bg-card border-2 border-border/10 p-6 rounded-2xl text-white font-black uppercase text-sm focus:border-primary outline-none transition-all shadow-inner"
             />
             <div className="flex gap-4 pt-2">
               <button type="submit" className="flex-1 bg-primary text-white h-16 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-lg shadow-primary/10 active:scale-95 transition-all">{t.createBtn}</button>
-              <button type="button" onClick={() => setShowCreateGroup(false)} className="flex-1 bg-white/5 text-white/40 h-16 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/5"> {t.cancelBtn} </button>
+              <button type="button" onClick={() => setShowCreateGroup(false)} className="flex-1 bg-card/5 text-white/40 h-16 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-border/5"> {t.cancelBtn} </button>
             </div>
           </form>
         </div>
@@ -285,7 +285,7 @@ export function LoveCircleChat() {
                   "p-8 rounded-[3.5rem] text-base font-bold leading-relaxed max-w-[85%] shadow-2xl border transition-all duration-500",
                   isMe 
                     ? "bg-primary text-white border-primary/40 rounded-tr-none" 
-                    : "bg-white/[0.03] text-white/90 border-white/10 rounded-tl-none shadow-inner"
+                    : "bg-card/[0.03] text-white/90 border-border/10 rounded-tl-none shadow-inner"
                 )}>
                   {msg.text}
                 </div>
@@ -295,7 +295,7 @@ export function LoveCircleChat() {
         </div>
       </ScrollArea>
 
-      <div className="px-8 py-12 bg-black border-t border-white/5 shrink-0">
+      <div className="px-8 py-12 bg-card border-t border-border/5 shrink-0">
         <div className="relative flex items-center max-w-2xl mx-auto gap-5">
           <div className="relative flex-1">
             <input
@@ -303,7 +303,7 @@ export function LoveCircleChat() {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder={isListening ? t.listening : t.placeholder}
-              className="w-full bg-white/[0.03] border-2 border-white/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none text-white shadow-inner"
+              className="w-full bg-card/[0.03] border-2 border-border/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none text-white shadow-inner"
             />
             <button 
               onClick={startDictation}
@@ -318,7 +318,7 @@ export function LoveCircleChat() {
           <button
             onClick={handleSend}
             disabled={!input.trim()}
-            className="p-7 bg-[#1b4d3e] text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30"
+            className="p-7 bg-primary text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30"
           >
             <Send className="w-8 h-8" />
           </button>

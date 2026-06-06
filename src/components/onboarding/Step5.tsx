@@ -15,12 +15,12 @@ export function Step5SafetyNetwork({ onComplete }: { onComplete: () => void }) {
 
       <div className="w-full max-w-sm space-y-8">
         {/* QR Code Placeholder */}
-        <div className="bg-white p-8 rounded-3xl aspect-square flex flex-col items-center justify-center gap-4 shadow-[0_0_30px_rgba(255,255,255,0.1)] group">
+        <div className="bg-card p-8 rounded-3xl aspect-square flex flex-col items-center justify-center gap-4 shadow-[0_0_30px_rgba(255,255,255,0.1)] group">
           <QrCode className="w-32 h-32 text-black transition-transform group-hover:scale-105" />
           <span className="font-headline font-bold uppercase text-black tracking-widest text-xs">My Code</span>
         </div>
 
-        <div className="bg-[#0a0a0a] rounded-2xl border border-white/10 p-6 flex items-center justify-between">
+        <div className="bg-card rounded-2xl border border-border/10 p-6 flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <Label htmlFor="share-location" className="font-headline font-bold uppercase tracking-wider text-sm">Share Location with Awareness</Label>
             <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold">Only active during emergency alerts</p>
@@ -29,18 +29,18 @@ export function Step5SafetyNetwork({ onComplete }: { onComplete: () => void }) {
             id="share-location"
             checked={shareLocation}
             onCheckedChange={setShareLocation}
-            className="data-[state=checked]:bg-[#39FF14]"
+            className="data-[state=checked]:bg-secondary"
           />
         </div>
 
         <div className="flex items-center gap-3 text-white/40 justify-center">
-          <ShieldCheck className="w-4 h-4 text-[#39FF14]" />
+          <ShieldCheck className="w-4 h-4 text-secondary" />
           <span className="text-[10px] font-bold uppercase tracking-widest">End-to-End Encrypted Safety Link</span>
         </div>
 
         <button
           onClick={onComplete}
-          className="pill-button w-full bg-[#39FF14] text-black text-lg neon-glow font-headline uppercase tracking-wide"
+          className="pill-button w-full bg-secondary text-black text-lg neon-glow font-headline uppercase tracking-wide"
         >
           CONFIRM NETWORK
         </button>

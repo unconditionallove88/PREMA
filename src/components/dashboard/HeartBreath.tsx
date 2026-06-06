@@ -78,7 +78,7 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-[7000] bg-[#050505] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe">
+    <div className="fixed inset-0 z-[7000] bg-card flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden pt-safe pb-safe">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(244,63,94,0.15)_0%,_transparent_70%)] animate-pulse" />
       
       <div 
@@ -103,7 +103,7 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
         </div>
         <button 
           onClick={onClose} 
-          className="p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all active:scale-95"
+          className="p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-all active:scale-95"
         >
           <X size={20} />
         </button>
@@ -113,7 +113,7 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
         <div className="relative">
           <div className="absolute inset-0 bg-rose-500/20 blur-[100px] rounded-full animate-aura-pulse-outer" />
           <div 
-            className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-rose-500/30 flex items-center justify-center bg-black/40 backdrop-blur-xl shadow-2xl relative z-10"
+            className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-rose-500/30 flex items-center justify-center bg-card/40 backdrop-blur-xl shadow-2xl relative z-10"
             style={{ animation: 'heart-beat-inner 8s ease-in-out infinite' }}
           >
             <Heart 
@@ -146,12 +146,12 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
       <footer className="relative z-20 p-12 flex flex-col items-center gap-8 pb-safe">
         <div className="flex gap-3">
           {t.affirmations.map((_, i) => (
-            <div key={i} className={cn("h-1.5 rounded-full transition-all duration-500", i === currentAffirmation ? "w-8 bg-rose-500" : "w-1.5 bg-white/10")} />
+            <div key={i} className={cn("h-1.5 rounded-full transition-all duration-500", i === currentAffirmation ? "w-8 bg-rose-500" : "w-1.5 bg-card/10")} />
           ))}
         </div>
         <button 
           onClick={() => { playHeartbeat(); onClose(); }}
-          className="px-10 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all hover:bg-white/10"
+          className="px-10 py-4 rounded-full border border-border/10 bg-card/5 backdrop-blur-md text-white font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all hover:bg-card/10"
         >
           {t.return}
         </button>

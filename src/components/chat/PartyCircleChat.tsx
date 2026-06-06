@@ -178,7 +178,7 @@ export function PartyCircleChat() {
 
   if (isBlocked) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-10 text-center space-y-10 bg-black font-headline overflow-hidden">
+      <div className="flex flex-col items-center justify-center h-full p-10 text-center space-y-10 bg-card font-headline overflow-hidden">
         <GuardianLogo size={80} className="animate-pulse" />
         <div className="space-y-4">
           <h2 className="text-3xl font-black uppercase tracking-tighter text-white">{t.blockedTitle}</h2>
@@ -190,7 +190,7 @@ export function PartyCircleChat() {
 
   if (!hasAgreedToRules) {
     return (
-      <div className="flex flex-col h-full bg-black font-headline overflow-hidden">
+      <div className="flex flex-col h-full bg-card font-headline overflow-hidden">
         <ScrollArea className="flex-1">
           <div className="p-10 flex flex-col items-center justify-center text-center space-y-12 min-h-[70vh]">
             <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center border-2 border-primary/30 shadow-2xl">
@@ -202,7 +202,7 @@ export function PartyCircleChat() {
             </div>
             <div className="w-full space-y-4 text-left max-w-sm">
               {t.rules.map((rule, idx) => (
-                <div key={idx} className="p-5 bg-white/[0.02] rounded-[1.5rem] border border-white/10 flex items-center gap-5">
+                <div key={idx} className="p-5 bg-card/[0.02] rounded-[1.5rem] border border-border/10 flex items-center gap-5">
                   <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
                   <span className="text-sm font-bold uppercase text-white/80 leading-tight">{rule}</span>
                 </div>
@@ -212,7 +212,7 @@ export function PartyCircleChat() {
               <button 
                 onClick={handleEnterChat}
                 disabled={isEntering}
-                className="w-full bg-[#1b4d3e] text-white h-24 rounded-full font-black uppercase tracking-[0.2em] shadow-[0_0_50px_rgba(27,77,62,0.3)] active:scale-95 transition-all flex items-center justify-center px-10 border-2 border-primary/20"
+                className="w-full bg-primary text-white h-24 rounded-full font-black uppercase tracking-[0.2em] shadow-[0_0_50px_rgba(245,169,133,0.25)] active:scale-95 transition-all flex items-center justify-center px-10 border-2 border-primary/20"
               >
                 {isEntering ? <Loader2 className="animate-spin w-8 h-8" /> : <span className="text-xl">{t.enterBtn}</span>}
               </button>
@@ -224,7 +224,7 @@ export function PartyCircleChat() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-black font-body overflow-hidden">
+    <div className="flex flex-col h-full bg-card font-body overflow-hidden">
       <div className="bg-primary/10 border-b border-primary/30 px-8 py-4 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
           <GuardianLogo size={24} />
@@ -233,7 +233,7 @@ export function PartyCircleChat() {
         <CircleDot size={16} className="text-primary animate-pulse" />
       </div>
 
-      <div className="px-8 py-10 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between shrink-0">
+      <div className="px-8 py-10 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center justify-between shrink-0">
         <div className="flex items-center gap-5">
           <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/30">
             <Users2 size={32} className="text-primary" />
@@ -256,20 +256,20 @@ export function PartyCircleChat() {
                   <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em]">{isMe ? 'YOU' : msg.senderAlias.toUpperCase()}</span>
                   {!isMe && <button onClick={() => logViolation(msg.text, `Reported by Heart from ${msg.senderAlias}`, 'USER_REPORT')} className="text-white/10 hover:text-red-500 transition-colors"><Flag size={14} /></button>}
                 </div>
-                <div className={cn("p-7 rounded-[3rem] text-base font-bold leading-relaxed max-w-[85%] shadow-xl border transition-all duration-500", isMe ? "bg-primary text-white border-primary/40 rounded-tr-none" : "bg-white/[0.03] text-white/80 border-white/5 rounded-tl-none")}>{msg.text}</div>
+                <div className={cn("p-7 rounded-[3rem] text-base font-bold leading-relaxed max-w-[85%] shadow-xl border transition-all duration-500", isMe ? "bg-primary text-white border-primary/40 rounded-tr-none" : "bg-card/[0.03] text-white/80 border-border/5 rounded-tl-none")}>{msg.text}</div>
               </div>
             );
           })}
         </div>
       </ScrollArea>
 
-      <div className="px-8 py-12 bg-black border-t border-white/5 shrink-0 pb-safe">
+      <div className="px-8 py-12 bg-card border-t border-border/5 shrink-0 pb-safe">
         <div className="relative flex items-center max-w-2xl mx-auto gap-5">
           <div className="relative flex-1">
-            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} placeholder={isListening ? t.listening : t.placeholder} disabled={isSending} className="w-full bg-white/[0.03] border-2 border-white/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none disabled:opacity-50 text-white shadow-inner" />
+            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} placeholder={isListening ? t.listening : t.placeholder} disabled={isSending} className="w-full bg-card/[0.03] border-2 border-border/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none disabled:opacity-50 text-white shadow-inner" />
             <button onClick={startDictation} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all duration-500", isListening ? "bg-primary text-white animate-pulse" : "text-white/20 hover:text-primary")}>{isListening ? <MicOff size={28} /> : <Mic size={28} />}</button>
           </div>
-          <button onClick={handleSend} disabled={!input.trim() || isSending} className="p-7 bg-[#1b4d3e] text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30">{isSending ? <Loader2 className="w-8 h-8 animate-spin" /> : <Send className="w-8 h-8" />}</button>
+          <button onClick={handleSend} disabled={!input.trim() || isSending} className="p-7 bg-primary text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30">{isSending ? <Loader2 className="w-8 h-8 animate-spin" /> : <Send className="w-8 h-8" />}</button>
         </div>
         <p className="text-center text-[11px] font-black text-white uppercase tracking-[0.6em] mt-8 shining-white">
           {t.shiningFooter}

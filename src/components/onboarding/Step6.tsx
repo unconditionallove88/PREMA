@@ -28,7 +28,7 @@ export function Step6GearCheck({ onComplete }: { onComplete: () => void }) {
   return (
     <div className="w-full flex flex-col relative">
       <div className="absolute -top-16 right-0">
-        <div className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${streakBoost ? 'bg-[#39FF14]/20 border-[#39FF14] text-[#39FF14] neon-glow' : 'bg-white/5 border-white/10 text-white/40'}`}>
+        <div className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${streakBoost ? 'bg-secondary/20 border-secondary text-secondary neon-glow' : 'bg-card/5 border-border/10 text-white/40'}`}>
           <span className="text-xl">🔥</span>
           <span className="font-headline font-bold uppercase text-xs tracking-tighter">Safety Streak</span>
         </div>
@@ -42,13 +42,13 @@ export function Step6GearCheck({ onComplete }: { onComplete: () => void }) {
           <div 
             key={item} 
             className={`p-5 rounded-2xl border flex items-center gap-4 transition-all cursor-pointer ${
-              checked.includes(item) ? 'bg-[#39FF14]/10 border-[#39FF14]/50' : 'bg-[#0a0a0a] border-white/10'
+              checked.includes(item) ? 'bg-secondary/10 border-secondary/50' : 'bg-card border-border/10'
             }`}
             onClick={() => toggle(item)}
           >
             <Checkbox 
               checked={checked.includes(item)}
-              className="w-6 h-6 border-white/20 data-[state=checked]:bg-[#39FF14] data-[state=checked]:text-black"
+              className="w-6 h-6 border-border/20 data-[state=checked]:bg-secondary data-[state=checked]:text-black"
             />
             <Label className="font-headline font-bold uppercase tracking-wide text-sm cursor-pointer flex-1">
               {item}
@@ -59,7 +59,7 @@ export function Step6GearCheck({ onComplete }: { onComplete: () => void }) {
 
       <button
         onClick={onComplete}
-        className="pill-button w-full bg-[#39FF14] text-black text-lg neon-glow font-headline uppercase tracking-wide"
+        className="pill-button w-full bg-secondary text-black text-lg neon-glow font-headline uppercase tracking-wide"
       >
         I'M READY
       </button>

@@ -189,11 +189,11 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
 
   if (step === 'sent') {
     return (
-      <div className="fixed inset-0 bg-[#050505] z-[4000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in fade-in duration-700">
-        <div className="absolute inset-0 bg-[#58c55a]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="fixed inset-0 bg-card z-[4000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in fade-in duration-700">
+        <div className="absolute inset-0 bg-secondary/5 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-[#58c55a]/20 blur-3xl rounded-full animate-ping" />
+          <div className="absolute inset-0 bg-secondary/20 blur-3xl rounded-full animate-ping" />
           <Heart size={100} fill="#58c55a" className="text-[#58c55a] animate-pulse-heart drop-shadow-[0_0_40px_rgba(88,197,90,0.5)] relative z-10" />
         </div>
         
@@ -201,7 +201,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
           <h1 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">
             {isFriendMode ? t.friendLoved(friendName!) : t.loved} <br/> <span className="text-[#58c55a]">{t.takenCareOf}</span>
           </h1>
-          <div className="bg-white/5 border border-[#58c55a]/20 rounded-[2.5rem] p-8 space-y-4 text-left shadow-2xl">
+          <div className="bg-card/5 border border-[#58c55a]/20 rounded-[2.5rem] p-8 space-y-4 text-left shadow-2xl">
             <div className="flex items-center gap-4 text-white/80">
               <CheckCircle2 size={18} className="text-[#58c55a]" />
               <p className="text-xs font-bold uppercase tracking-widest leading-tight">{t.dispatched}</p>
@@ -231,7 +231,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
 
   if (step === 'sending') {
     return (
-      <div className="fixed inset-0 bg-black/95 z-[4000] flex flex-col items-center justify-center px-8 text-center font-headline">
+      <div className="fixed inset-0 bg-card/95 z-[4000] flex flex-col items-center justify-center px-8 text-center font-headline">
         <Loader2 size={80} className="text-[#58c55a] animate-spin mb-8" />
         <h1 className="text-3xl font-black uppercase tracking-tighter text-white mb-2">{t.connecting}</h1>
         <p className="text-[#58c55a] font-black uppercase tracking-[0.3em] text-[10px]">
@@ -242,12 +242,12 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
   }
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[4000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
-      <div className="bg-[#0a0a0a] w-full max-w-2xl rounded-t-[3.5rem] sm:rounded-[3.5rem] border-t-2 sm:border-2 border-white/10 flex flex-col h-[95dvh] sm:h-[90vh] max-h-[95dvh] sm:max-h-[90vh] shadow-[0_-20px_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
+    <div className="fixed inset-0 bg-card/80 backdrop-blur-md z-[4000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
+      <div className="bg-card w-full max-w-2xl rounded-t-[3.5rem] sm:rounded-[3.5rem] border-t-2 sm:border-2 border-border/10 flex flex-col h-[95dvh] sm:h-[90vh] max-h-[95dvh] sm:max-h-[90vh] shadow-[0_-20px_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
         
         <button 
           onClick={() => { playHeartbeat(); onClose(); }}
-          className="absolute top-8 right-8 p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all z-[100]"
+          className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-all z-[100]"
         >
           <X size={18} />
         </button>
@@ -275,14 +275,14 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
             </div>
 
             <Tabs defaultValue="emergency" className="w-full">
-              <TabsList className="w-full h-14 bg-white/5 border border-white/10 rounded-full p-1.5 mb-6">
+              <TabsList className="w-full h-14 bg-card/5 border border-border/10 rounded-full p-1.5 mb-6">
                 <TabsTrigger value="emergency" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-red-600 data-[state=active]:text-white">
                   {t.tabs.emergency}
                 </TabsTrigger>
-                <TabsTrigger value="support" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-[#F59E0B] data-[state=active]:text-black">
+                <TabsTrigger value="support" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-black">
                   {t.tabs.circle}
                 </TabsTrigger>
-                <TabsTrigger value="family" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-[#A855F7] data-[state=active]:text-white">
+                <TabsTrigger value="family" className="flex-1 rounded-full text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-accent data-[state=active]:text-white">
                   {t.tabs.family}
                 </TabsTrigger>
                 {!isFriendMode && (
@@ -331,7 +331,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
                   </p>
                   <button 
                     onClick={() => handleSendSOS('standard')}
-                    className="w-full py-6 bg-[#F59E0B] text-black rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
+                    className="w-full py-6 bg-primary text-black rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
                   >
                     {t.circle.button}
                   </button>
@@ -339,14 +339,14 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
               </TabsContent>
 
               <TabsContent value="family" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 focus-visible:outline-none">
-                <div className="p-6 bg-[#A855F7]/5 border-2 border-[#A855F7]/20 rounded-[2rem] space-y-4">
+                <div className="p-6 bg-accent/5 border-2 border-accent/20 rounded-[2rem] space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 bg-[#A855F7]/20 rounded-xl">
-                      <Users2 className="text-[#A855F7]" size={24} />
+                    <div className="p-3 bg-accent/20 rounded-xl">
+                      <Users2 className="text-accent" size={24} />
                     </div>
                     <div>
                       <p className="text-sm font-black uppercase text-white tracking-tight">{t.family.title}</p>
-                      <p className="text-[10px] font-bold text-[#A855F7] uppercase tracking-widest">{t.family.sub}</p>
+                      <p className="text-[10px] font-bold text-accent uppercase tracking-widest">{t.family.sub}</p>
                     </div>
                   </div>
                   <p className="text-xs text-white/60 leading-relaxed font-medium uppercase tracking-wide">
@@ -354,7 +354,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
                   </p>
                   <button 
                     onClick={() => handleSendSOS('family')}
-                    className="w-full py-6 bg-[#A855F7] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
+                    className="w-full py-6 bg-accent text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all"
                   >
                     {t.family.button}
                   </button>
@@ -387,7 +387,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
               )}
             </Tabs>
 
-            <div className="mt-6 pt-6 border-t border-white/5 text-center">
+            <div className="mt-6 pt-6 border-t border-border/5 text-center">
               <button 
                 onClick={() => { playHeartbeat(); onClose(); }}
                 className="text-primary font-black text-xs uppercase tracking-[0.4em] hover:underline underline-offset-8 transition-all active:scale-95"
@@ -398,7 +398,7 @@ export function SOSAlert({ onClose, onHeartBreath, friendName, friendStatus }: S
           </div>
         </ScrollArea>
 
-        <div className="p-8 pt-4 bg-black/40 backdrop-blur-md border-t border-white/5 text-center shrink-0">
+        <div className="p-8 pt-4 bg-card/40 backdrop-blur-md border-t border-border/5 text-center shrink-0">
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 shining-white">
             {t.footer}
           </p>

@@ -85,8 +85,8 @@ const STEPS = [
       }
     },
     icon: Users2,
-    color: "text-[#A855F7]",
-    bg: "bg-[#A855F7]/10"
+    color: "text-accent",
+    bg: "bg-accent/10"
   },
   {
     id: 'lab',
@@ -105,7 +105,7 @@ const STEPS = [
       }
     },
     icon: Microscope,
-    color: "text-[#10B981]",
+    color: "text-primary",
     bg: "bg-primary/10"
   },
   {
@@ -216,7 +216,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
     return (
       <button 
         onClick={() => setIsOpen(true)}
-        className="w-full flex items-center justify-between p-6 bg-white/[0.03] border border-white/10 rounded-[2rem] hover:bg-white/[0.05] transition-all group mb-6 shadow-lg"
+        className="w-full flex items-center justify-between p-6 bg-card/[0.03] border border-border/10 rounded-[2rem] hover:bg-card/[0.05] transition-all group mb-6 shadow-lg"
       >
         <div className="flex items-center gap-4">
           <Sparkles className="text-primary animate-pulse" size={18} />
@@ -230,7 +230,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
   }
 
   return (
-    <div className="fixed inset-0 z-[8000] bg-black flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden h-[100dvh]">
+    <div className="fixed inset-0 z-[8000] bg-card flex flex-col animate-in fade-in duration-500 font-headline pt-safe pb-safe overflow-hidden h-[100dvh]">
       {/* Background Ambient Aura */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(27,77,62,0.15)_0%,_transparent_70%)] pointer-events-none" />
 
@@ -250,7 +250,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
         {!forceOpen && (
           <button 
             onClick={() => setIsOpen(false)} 
-            className="p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-colors"
+            className="p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-colors"
           >
             <X size={20} />
           </button>
@@ -259,11 +259,11 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
 
       {/* Main Content Area - Responsive Organic Fit */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 min-h-0">
-        <div className="w-full max-w-lg bg-white/[0.03] border-2 border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-white/20 transition-all max-h-[75vh]">
+        <div className="w-full max-w-lg bg-card/[0.03] border-2 border-border/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-700 hover:border-border/20 transition-all max-h-[75vh]">
           <div className="p-8 pb-4 flex flex-col items-center text-center space-y-4 shrink-0">
             {/* Tool Identity */}
             <div className={cn(
-              "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-white/10 shadow-2xl transition-all duration-700", 
+              "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border/10 shadow-2xl transition-all duration-700", 
               step.bg
             )}>
               <Icon size={40} className={cn("animate-pulse", step.color)} />
@@ -281,11 +281,11 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
 
           {/* Detailed Structured Intelligence - Scrollable */}
           <ScrollArea className="flex-1 px-8 pb-8">
-            <div className="w-full space-y-6 pt-4 border-t border-white/5">
+            <div className="w-full space-y-6 pt-4 border-t border-border/5">
               {/* Description Block */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-white/20" />
+                  <div className="w-1 h-1 rounded-full bg-card/20" />
                   <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">{labels.desc}</span>
                 </div>
                 <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{step.content[currentLang].description}</p>
@@ -294,7 +294,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
               {/* Functions Block */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-white/20" />
+                  <div className="w-1 h-1 rounded-full bg-card/20" />
                   <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">{labels.func}</span>
                 </div>
                 <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{step.content[currentLang].functions}</p>
@@ -314,7 +314,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
       </main>
 
       {/* Navigation Controls - Pinned to Bottom */}
-      <footer className="shrink-0 pb-12 pt-4 px-8 relative z-10 bg-black/60 backdrop-blur-md border-t border-white/5">
+      <footer className="shrink-0 pb-12 pt-4 px-8 relative z-10 bg-card/60 backdrop-blur-md border-t border-border/5">
         <div className="max-w-lg mx-auto flex flex-col gap-6">
           <div className="flex items-center justify-between">
             {/* Progress Dots */}
@@ -324,7 +324,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
                   key={i} 
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-700", 
-                    i === currentStep ? "w-8 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.6)]" : "w-1.5 bg-white/10"
+                    i === currentStep ? "w-8 bg-primary shadow-[0_0_10px_rgba(27,77,62,0.6)]" : "w-1.5 bg-card/10"
                   )} 
                 />
               ))}
@@ -334,7 +334,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
               {currentStep > 0 && (
                 <button 
                   onClick={() => { playHeartbeat(); setCurrentStep(prev => prev - 1); }} 
-                  className="p-4 bg-white/5 rounded-2xl border border-white/10 text-white/40 hover:text-white active:scale-95 transition-all shadow-xl"
+                  className="p-4 bg-card/5 rounded-2xl border border-border/10 text-white/40 hover:text-white active:scale-95 transition-all shadow-xl"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
@@ -349,7 +349,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
               ) : (
                 <button 
                   onClick={handleDismiss} 
-                  className="px-10 py-5 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
+                  className="px-10 py-5 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                 >
                   {lang === 'en' ? 'Enter Prema' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
                 </button>

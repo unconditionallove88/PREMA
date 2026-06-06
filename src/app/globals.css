@@ -203,6 +203,64 @@
   height: 64px;
 }
 
+/* Prema surface overrides for legacy utility classes */
+.bg-black {
+  background-color: hsl(var(--card)) !important;
+}
+.bg-black\/40 {
+  background-color: hsl(var(--card) / 0.84) !important;
+}
+.bg-black\/60 {
+  background-color: hsl(var(--card) / 0.74) !important;
+}
+.bg-black\/80 {
+  background-color: hsl(var(--card) / 0.66) !important;
+}
+.bg-black\/90 {
+  background-color: hsl(var(--card) / 0.8) !important;
+}
+
+.bg-white {
+  background-color: hsl(var(--card)) !important;
+}
+.bg-white\/5 {
+  background-color: hsl(var(--card) / 0.12) !important;
+}
+.bg-white\/10 {
+  background-color: hsl(var(--card) / 0.18) !important;
+}
+.bg-white\/20 {
+  background-color: hsl(var(--card) / 0.24) !important;
+}
+.bg-white\/30 {
+  background-color: hsl(var(--card) / 0.3) !important;
+}
+.bg-white\/40 {
+  background-color: hsl(var(--card) / 0.38) !important;
+}
+.bg-white\/50 {
+  background-color: hsl(var(--card) / 0.5) !important;
+}
+.bg-white\/\[0\.02\] {
+  background-color: hsl(var(--card) / 0.06) !important;
+}
+.bg-white\/\[0\.03\] {
+  background-color: hsl(var(--card) / 0.08) !important;
+}
+
+.border-white\/5 {
+  border-color: hsl(var(--border) / 0.18) !important;
+}
+.border-white\/10 {
+  border-color: hsl(var(--border) / 0.3) !important;
+}
+.border-white\/20 {
+  border-color: hsl(var(--border) / 0.45) !important;
+}
+.border-black\/5 {
+  border-color: hsl(var(--card) / 0.18) !important;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }

@@ -252,22 +252,22 @@ export default function BeforePhase() {
                   {selectedWisdom?.desc}
                 </p>
                 {selectedWisdom?.kidneys && (
-                  <p className="text-[11px] font-black text-blue-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">
+                  <p className="text-[11px] font-black text-blue-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">
                     {selectedWisdom.kidneys}
                   </p>
                 )}
                 {selectedWisdom?.energy && (
-                  <p className="text-[11px] font-black text-emerald-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">
+                  <p className="text-[11px] font-black text-emerald-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">
                     {selectedWisdom.energy}
                   </p>
                 )}
                 {selectedWisdom?.timing && (
-                  <p className="text-[11px] font-black text-purple-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">
+                  <p className="text-[11px] font-black text-purple-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">
                     {selectedWisdom.timing}
                   </p>
                 )}
                 {selectedWisdom?.sync && (
-                  <p className="text-[11px] font-black text-amber-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">
+                  <p className="text-[11px] font-black text-amber-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">
                     {selectedWisdom.sync}
                   </p>
                 )}

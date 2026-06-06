@@ -59,22 +59,22 @@ export function CommunityChat() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-black font-body">
-      <div className="px-8 py-8 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between">
+    <div className="flex flex-col h-full bg-card font-body">
+      <div className="px-8 py-8 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-[#3EB489]/20 rounded-full flex items-center justify-center border border-[#3EB489]/30">
-            <Heart className="w-6 h-6 text-[#3EB489]" fill="currentColor" />
+          <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center border border-secondary/30">
+            <Heart className="w-6 h-6 text-secondary" fill="currentColor" />
           </div>
           <div>
             <h2 className="text-[20px] font-black uppercase tracking-tight">Party Circle</h2>
-            <p className="text-[9px] text-[#3EB489] font-black uppercase tracking-[0.2em]">Connected with Love</p>
+            <p className="text-[9px] text-secondary font-black uppercase tracking-[0.2em]">Connected with Love</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-[#3EB489]/5 border-b border-[#3EB489]/10 px-8 py-4 flex items-center gap-3">
-        <ShieldCheck className="w-4 h-4 text-[#3EB489]" />
-        <p className="text-[10px] font-bold text-[#3EB489] uppercase tracking-widest leading-none">
+      <div className="bg-secondary/5 border-b border-secondary/10 px-8 py-4 flex items-center gap-3">
+        <ShieldCheck className="w-4 h-4 text-secondary" />
+        <p className="text-[10px] font-bold text-secondary uppercase tracking-widest leading-none">
           I love and respect my privacy. You are chatting as <span className="underline">{partyAlias}</span>
         </p>
       </div>
@@ -83,7 +83,7 @@ export function CommunityChat() {
         <div className="space-y-6 max-w-2xl mx-auto">
           {isLoading && (
             <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 text-[#3EB489] animate-spin" />
+              <Loader2 className="w-8 h-8 text-secondary animate-spin" />
             </div>
           )}
           
@@ -106,8 +106,8 @@ export function CommunityChat() {
                 <div className={cn(
                   "p-5 rounded-[2rem] text-sm font-bold leading-relaxed max-w-[85%] shadow-lg border transition-all",
                   isMe 
-                    ? "bg-[#3EB489] text-black border-[#3EB489] rounded-tr-none" 
-                    : "bg-white/5 text-white border-white/10 rounded-tl-none"
+                    ? "bg-secondary text-black border-secondary rounded-tr-none" 
+                    : "bg-card/5 text-white border-border/10 rounded-tl-none"
                 )}>
                   {msg.text}
                 </div>
@@ -117,19 +117,19 @@ export function CommunityChat() {
         </div>
       </ScrollArea>
 
-      <div className="px-6 py-10 bg-black border-t border-white/5">
+      <div className="px-6 py-10 bg-card border-t border-border/5">
         <div className="relative flex items-center max-w-2xl mx-auto gap-4">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Share kindness with the circle..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-full py-6 px-10 text-base font-bold focus:border-[#3EB489] transition-all outline-none"
+            className="flex-1 bg-card/5 border border-border/10 rounded-full py-6 px-10 text-base font-bold focus:border-secondary transition-all outline-none"
           />
           <button
             onClick={handleSend}
             disabled={!input.trim()}
-            className="p-6 bg-[#3EB489] text-black rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(62,180,137,0.4)]"
+            className="p-6 bg-secondary text-black rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(62,180,137,0.4)]"
           >
             <Send className="w-6 h-6" />
           </button>

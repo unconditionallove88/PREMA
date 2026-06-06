@@ -54,7 +54,7 @@ export function Step4SubstanceLab({ userData, onComplete }: { userData: Onboardi
     ? 'bg-red-600' 
     : assessment?.overallRiskLevel === 'Medium' 
       ? 'bg-yellow-500' 
-      : 'bg-[#39FF14]';
+      : 'bg-secondary';
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -66,7 +66,7 @@ export function Step4SubstanceLab({ userData, onComplete }: { userData: Onboardi
           placeholder="SEARCH SUBSTANCES..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="bg-[#0a0a0a] border-white/20 h-14 pl-12 rounded-xl focus:border-[#39FF14] uppercase font-bold tracking-widest text-xs"
+          className="bg-card border-border/20 h-14 pl-12 rounded-xl focus:border-secondary uppercase font-bold tracking-widest text-xs"
         />
       </div>
 
@@ -77,8 +77,8 @@ export function Step4SubstanceLab({ userData, onComplete }: { userData: Onboardi
             onClick={() => toggle(s)}
             className={`px-6 py-3 rounded-full border-2 transition-all font-headline font-bold uppercase text-xs tracking-wider ${
               selected.includes(s) 
-                ? 'bg-[#39FF14] border-[#39FF14] text-black shadow-[0_0_15px_rgba(57,255,20,0.5)]' 
-                : 'bg-transparent border-white/20 text-white/60 hover:border-white/50'
+                ? 'bg-secondary border-secondary text-black shadow-[0_0_15px_rgba(57,255,20,0.5)]' 
+                : 'bg-transparent border-border/20 text-white/60 hover:border-border/50'
             }`}
           >
             {s}
@@ -87,13 +87,13 @@ export function Step4SubstanceLab({ userData, onComplete }: { userData: Onboardi
       </div>
 
       {/* Risk Meter */}
-      <div className="w-full max-w-md bg-[#0a0a0a] rounded-2xl border border-white/10 p-6 mb-12">
+      <div className="w-full max-w-md bg-card rounded-2xl border border-border/10 p-6 mb-12">
         <div className="flex justify-between items-center mb-4">
           <span className="font-headline font-bold uppercase tracking-widest text-sm">Risk Profile</span>
-          {loading && <Loader2 className="w-4 h-4 animate-spin text-[#39FF14]" />}
+          {loading && <Loader2 className="w-4 h-4 animate-spin text-secondary" />}
         </div>
         
-        <div className="w-full h-4 bg-white/5 rounded-full overflow-hidden mb-4 border border-white/10">
+        <div className="w-full h-4 bg-card/5 rounded-full overflow-hidden mb-4 border border-border/10">
           <div 
             className={`h-full transition-all duration-500 ${riskColor}`}
             style={{ width: assessment ? (assessment.overallRiskLevel === 'Critical' ? '100%' : assessment.overallRiskLevel === 'High' ? '75%' : assessment.overallRiskLevel === 'Medium' ? '40%' : '15%') : '0%' }}
@@ -113,7 +113,7 @@ export function Step4SubstanceLab({ userData, onComplete }: { userData: Onboardi
 
       <button
         onClick={() => onComplete(selected)}
-        className="pill-button w-full max-w-sm bg-[#39FF14] text-black text-lg neon-glow font-headline uppercase tracking-wide"
+        className="pill-button w-full max-w-sm bg-secondary text-black text-lg neon-glow font-headline uppercase tracking-wide"
       >
         VALIDATE MIX
       </button>

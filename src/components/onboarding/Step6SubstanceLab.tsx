@@ -279,15 +279,15 @@ export function Step6SubstanceLab({
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col h-full bg-black font-headline relative overflow-hidden">
-      <header className="px-6 pt-10 pb-4 space-y-4 flex flex-col shrink-0 bg-black/95 backdrop-blur-md z-[60] border-b border-white/5">
+    <div className="flex flex-col h-full bg-card font-headline relative overflow-hidden">
+      <header className="px-6 pt-10 pb-4 space-y-4 flex flex-col shrink-0 bg-card/95 backdrop-blur-md z-[60] border-b border-border/5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#10B981]/10 flex items-center justify-center border border-[#10B981]/20"><Microscope size={24} className="text-white" /></div>
+            <div className="w-10 h-10 rounded-xl bg-[hsl(var(--primary))]/10 flex items-center justify-center border border-[hsl(var(--primary))]/20"><Microscope size={24} className="text-white" /></div>
             <h1 className="text-xl font-black tracking-tighter uppercase leading-none text-white">{t.title}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setWisdomOpen(true)} className="px-4 py-2 bg-[#1b4d3e] border border-primary/30 rounded-full flex items-center gap-2 active:scale-95 transition-all shadow-lg"><BookOpen size={14} className="text-primary" /><span className="text-[9px] font-black uppercase text-white tracking-widest">{t.wisdom}</span></button>
+            <button onClick={() => setWisdomOpen(true)} className="px-4 py-2 bg-primary border border-primary/30 rounded-full flex items-center gap-2 active:scale-95 transition-all shadow-lg"><BookOpen size={14} className="text-primary" /><span className="text-[9px] font-black uppercase text-white tracking-widest">{t.wisdom}</span></button>
             <button onClick={() => setChatOpen(true)} className="p-3 bg-blue-600/10 border border-blue-500/30 rounded-xl active:scale-95 transition-all"><HeartHandshake size={18} className="text-blue-400 animate-pulse" /></button>
           </div>
         </div>
@@ -309,10 +309,10 @@ export function Step6SubstanceLab({
           </button>
           <button 
             onClick={() => { setVisualScanMode('pill'); setVisualScanOpen(true); }}
-            className="w-full p-6 bg-[#A855F7]/10 border-2 border-[#A855F7]/40 rounded-[2rem] flex items-center gap-5 active:scale-95 transition-all shadow-xl group"
+            className="w-full p-6 bg-accent/10 border-2 border-accent/40 rounded-[2rem] flex items-center gap-5 active:scale-95 transition-all shadow-xl group"
           >
-            <div className="w-14 h-14 bg-[#A855F7]/20 rounded-2xl flex items-center justify-center border border-[#A855F7]/30 shrink-0">
-               <Eye className="text-[#A855F7] animate-pulse" size={28} />
+            <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center border border-accent/30 shrink-0">
+               <Eye className="text-accent animate-pulse" size={28} />
             </div>
             <div className="text-left">
               <span className="block text-base font-black uppercase tracking-tight text-white">{t.pillIdScan}</span>
@@ -323,8 +323,8 @@ export function Step6SubstanceLab({
 
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
-          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white/5 border border-white/10 h-14 pl-10 pr-12 rounded-2xl focus:border-[#3EB489] text-sm outline-none text-white transition-all"/>
-          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-[#3EB489] animate-pulse" : "text-white/20 hover:text-[#3EB489]")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
+          <input type="search" placeholder={isListening ? t.listening : t.search} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-card/5 border border-border/10 h-14 pl-10 pr-12 rounded-2xl focus:border-secondary text-sm outline-none text-white transition-all"/>
+          <button onClick={() => startDictation('search')} className={cn("absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all", isListening ? "text-secondary animate-pulse" : "text-white/20 hover:text-secondary")}>{isListening ? <MicOff size={16} /> : <Mic size={16} />}</button>
         </div>
       </header>
 
@@ -334,17 +334,17 @@ export function Step6SubstanceLab({
             {showDiary && sessionLogs.length > 0 && (
               <div className="space-y-3 animate-in slide-in-from-top-4 duration-500">
                 <div className="flex items-center justify-between px-1">
-                  <h3 className="text-[9px] font-black text-[#10B981] uppercase tracking-[0.3em] flex items-center gap-2"><Calendar className="w-3 h-3" /> {t.diary}</h3>
+                  <h3 className="text-[9px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-2"><Calendar className="w-3 h-3" /> {t.diary}</h3>
                   <span className="text-[8px] font-bold text-white/20 uppercase tracking-widest">{sessionLogs.length} {t.records}</span>
                 </div>
                 <div className="grid gap-2">
                   {sessionLogs.slice().reverse().map((log, i) => (
-                    <div key={i} className="bg-white/[0.03] border border-white/5 rounded-xl p-4 flex items-center justify-between">
+                    <div key={i} className="bg-card/[0.03] border border-border/5 rounded-xl p-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
-                          {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : log.method === 'pill_id_scan' ? <Eye size={16} className="text-[#A855F7]" /> : <FlaskConical size={16} className="text-[#3EB489]" />}
+                        <div className="w-8 h-8 bg-card/5 rounded-lg flex items-center justify-center border border-border/5">
+                          {log.method === 'visual_scan' || log.method?.includes('line') || log.method?.includes('tip') ? <Scaling size={16} className="text-primary" /> : log.method === 'pill_id_scan' ? <Eye size={16} className="text-accent" /> : <FlaskConical size={16} className="text-secondary" />}
                         </div>
-                        <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-[#3EB489]">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
+                        <div className="flex flex-col"><span className="text-xs font-black uppercase text-white">{log.name}</span><span className="text-[9px] font-bold text-secondary">{log.id === 'alcohol' ? log.items.map((it: any) => `${it.count}x ${it.type}`).join(', ') : `${log.value}${log.unit}`}</span></div>
                       </div>
                       <button onClick={() => removeLog(sessionLogs.length - 1 - i)} className="p-2 text-white/10 hover:text-red-500 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
@@ -358,9 +358,9 @@ export function Step6SubstanceLab({
                 const active = sessionLogs.some(log => log.id === s.id);
                 const localizedName = lang === 'en' ? s.name : s.deName;
                 return (
-                  <button key={s.id} onClick={() => handleSelectSubstance(s)} className={cn("aspect-square border rounded-3xl flex flex-col items-center justify-center gap-2 transition-all active:scale-95 group relative shadow-lg", active ? "bg-[#3EB489]/10 border-[#3EB489]" : "bg-white/[0.02] border-white/5")}>
-                    <div className={cn("p-3 rounded-xl bg-black/40 border border-white/5 group-hover:scale-110 transition-transform", s.color)}><s.icon size={22} /></div>
-                    <span className={cn("text-[8px] font-black uppercase tracking-widest text-center px-1 leading-tight", active ? "text-[#3EB489]" : "text-white/40")}>{localizedName}</span>
+                  <button key={s.id} onClick={() => handleSelectSubstance(s)} className={cn("aspect-square border rounded-3xl flex flex-col items-center justify-center gap-2 transition-all active:scale-95 group relative shadow-lg", active ? "bg-secondary/10 border-secondary" : "bg-card/[0.02] border-border/5")}>
+                    <div className={cn("p-3 rounded-xl bg-card/40 border border-border/5 group-hover:scale-110 transition-transform", s.color)}><s.icon size={22} /></div>
+                    <span className={cn("text-[8px] font-black uppercase tracking-widest text-center px-1 leading-tight", active ? "text-secondary" : "text-white/40")}>{localizedName}</span>
                   </button>
                 );
               })}
@@ -369,20 +369,20 @@ export function Step6SubstanceLab({
         </ScrollArea>
       </div>
 
-      <footer className="shrink-0 h-[100px] bg-black/95 backdrop-blur-2xl border-t border-white/5 flex items-center justify-center px-6 z-[70] pb-safe">
-        <button onClick={() => { playHeartbeat(); onComplete(sessionLogs); }} className="w-full py-5 bg-[#3EB489] text-black rounded-full font-black uppercase text-base tracking-[0.1em] neon-glow active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3"><CheckCircle2 size={20} /> {t.sync}</button>
+      <footer className="shrink-0 h-[100px] bg-card/95 backdrop-blur-2xl border-t border-border/5 flex items-center justify-center px-6 z-[70] pb-safe">
+        <button onClick={() => { playHeartbeat(); onComplete(sessionLogs); }} className="w-full py-5 bg-secondary text-black rounded-full font-black uppercase text-base tracking-[0.1em] neon-glow active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3"><CheckCircle2 size={20} /> {t.sync}</button>
       </footer>
 
       {activeSubstance && (
-        <div className="fixed inset-0 z-[100] bg-black/95 animate-in slide-in-from-bottom duration-500 flex flex-col pt-safe">
+        <div className="fixed inset-0 z-[100] bg-card/95 animate-in slide-in-from-bottom duration-500 flex flex-col pt-safe">
           <div className="px-6 py-10 flex flex-col items-center text-center space-y-8 flex-1">
-            <button onClick={() => setActiveSubstance(null)} className="absolute top-8 right-8 p-3 bg-white/5 rounded-full border border-white/10"><X size={20} /></button>
-            <div className={cn("w-24 h-24 rounded-[2rem] bg-white/5 flex items-center justify-center border-2 border-white/10 shadow-2xl mb-4", activeSubstance.color)}><activeSubstance.icon size={48} /></div>
+            <button onClick={() => setActiveSubstance(null)} className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10"><X size={20} /></button>
+            <div className={cn("w-24 h-24 rounded-[2rem] bg-card/5 flex items-center justify-center border-2 border-border/10 shadow-2xl mb-4", activeSubstance.color)}><activeSubstance.icon size={48} /></div>
             <div className="space-y-2"><h2 className="text-4xl font-black uppercase tracking-tighter text-white">{lang === 'en' ? activeSubstance.name : activeSubstance.deName}</h2><p className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">{t.intake}</p></div>
             {activeSubstance.inputType === 'manual' ? (
-              <div className="w-full max-w-xs space-y-6"><div className="flex flex-col items-center gap-4 relative"><span className="text-[10px] font-black text-[#10B981] uppercase tracking-widest">{t.amount} ({activeSubstance.unit})</span><div className="relative w-full"><input type="number" step="0.1" value={manualValue} onChange={(e) => setManualValue(e.target.value)} placeholder="0.0" className="w-full h-24 bg-white/5 border-2 border-white/10 rounded-[2rem] text-center text-5xl font-black text-white focus:border-[#3EB489] transition-all outline-none" /><button onClick={() => startDictation('manual')} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all", isListening ? "bg-[#3EB489] text-black animate-pulse shadow-lg" : "bg-white/10 text-white/40 hover:text-[#3EB489]")}>{isListening ? <MicOff size={24} /> : <Mic size={24} />}</button></div></div></div>
+              <div className="w-full max-w-xs space-y-6"><div className="flex flex-col items-center gap-4 relative"><span className="text-[10px] font-black text-primary uppercase tracking-widest">{t.amount} ({activeSubstance.unit})</span><div className="relative w-full"><input type="number" step="0.1" value={manualValue} onChange={(e) => setManualValue(e.target.value)} placeholder="0.0" className="w-full h-24 bg-card/5 border-2 border-border/10 rounded-[2rem] text-center text-5xl font-black text-white focus:border-secondary transition-all outline-none" /><button onClick={() => startDictation('manual')} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all", isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/10 text-white/40 hover:text-secondary")}>{isListening ? <MicOff size={24} /> : <Mic size={24} />}</button></div></div></div>
             ) : (
-              <div className="w-full max-w-md grid grid-cols-2 gap-3">{alcoholCart.map((item, i) => (<div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col items-center gap-3"><span className="text-[10px] font-black uppercase text-white/40">{item.type}</span><div className="flex items-center gap-4"><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: Math.max(0, c.count - 1) } : c))} className="p-2 bg-white/5 rounded-lg"><Minus size={14} /></button><span className="text-xl font-black text-white">{item.count}</span><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: c.count + 1 } : c))} className="p-2 bg-primary/20 rounded-lg text-primary"><Plus size={14} /></button></div></div>))}</div>
+              <div className="w-full max-w-md grid grid-cols-2 gap-3">{alcoholCart.map((item, i) => (<div key={i} className="bg-card/5 border border-border/10 rounded-2xl p-4 flex flex-col items-center gap-3"><span className="text-[10px] font-black uppercase text-white/40">{item.type}</span><div className="flex items-center gap-4"><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: Math.max(0, c.count - 1) } : c))} className="p-2 bg-card/5 rounded-lg"><Minus size={14} /></button><span className="text-xl font-black text-white">{item.count}</span><button onClick={() => setAlcoholCart(prev => prev.map((c, idx) => idx === i ? { ...c, count: c.count + 1 } : c))} className="p-2 bg-primary/20 rounded-lg text-primary"><Plus size={14} /></button></div></div>))}</div>
             )}
             <div className="w-full max-sm pt-10"><button onClick={handleSaveAttempt} className="w-full h-20 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all">{t.confirm}</button><button onClick={() => setActiveSubstance(null)} className="w-full h-14 mt-4 text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">{t.cancel}</button></div>
           </div>
@@ -390,14 +390,14 @@ export function Step6SubstanceLab({
       )}
 
       <Dialog open={visualScanOpen} onOpenChange={setVisualScanOpen}>
-        <DialogContent className="bg-black border-white/10 p-0 max-w-2xl h-[90vh] overflow-hidden rounded-[2.5rem]">
+        <DialogContent className="bg-card border-border/10 p-0 max-w-2xl h-[90vh] overflow-hidden rounded-[2.5rem]">
           <DialogTitle className="sr-only">Visual Dose Assistant</DialogTitle>
           <VisualDoseAssistant initialMode={visualScanMode} onComplete={handleVisualScanComplete} onCancel={() => setVisualScanOpen(false)} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={responsibilityOpen} onOpenChange={setResponsibilityOpen}>
-        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
+        <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Sovereign Responsibility</DialogTitle>
           <div className="p-10 flex flex-col items-center text-center space-y-10">
             {activeMixingRisk ? (
@@ -414,7 +414,7 @@ export function Step6SubstanceLab({
               </div>
             ) : (
               <div className="w-full space-y-6">
-                <div className="relative"><div className="absolute inset-0 bg-[#F59E0B]/20 blur-3xl rounded-full animate-pulse" /><div className="w-20 h-20 bg-[#F59E0B]/10 border-2 border-[#F59E0B]/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl mx-auto"><UserCheck size={40} className="text-[#F59E0B]" /></div></div>
+                <div className="relative"><div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" /><div className="w-20 h-20 bg-primary/10 border-2 border-primary/30 rounded-full flex items-center justify-center relative z-10 shadow-2xl mx-auto"><UserCheck size={40} className="text-primary" /></div></div>
                 <div className="space-y-4">
                   <p className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white leading-tight">{t.honestyTitle}</p>
                   <p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest max-w-xs mx-auto">{t.honestyDesc}</p>
@@ -427,14 +427,14 @@ export function Step6SubstanceLab({
       </Dialog>
 
       <Dialog open={chatOpen} onOpenChange={setChatOpen}>
-        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
+        <DialogContent className="bg-card border-border/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
           <DialogTitle className="sr-only">Safety Advisor</DialogTitle>
           <AiSafetyChat userProfile={userData} currentIntake={activeIntakeText} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={wisdomOpen} onOpenChange={setWisdomOpen}>
-        <DialogContent className="bg-black border-white/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
+        <DialogContent className="bg-card border-border/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%]">
           <DialogTitle className="sr-only">Mixing Wisdom</DialogTitle>
           <WisdomProtocol onComplete={() => setWisdomOpen(false)} isStandAlone={true} />
         </DialogContent>

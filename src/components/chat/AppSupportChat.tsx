@@ -48,8 +48,8 @@ export function AppSupportChat() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-black font-body">
-      <div className="px-8 py-6 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center justify-between">
+    <div className="flex flex-col h-full bg-card font-body">
+      <div className="px-8 py-6 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 bg-blue-600/20 rounded-full flex items-center justify-center border border-blue-500/30">
             <MessageCircle className="w-5 h-5 text-blue-500" />
@@ -65,8 +65,8 @@ export function AppSupportChat() {
         <div className="space-y-8 max-w-2xl mx-auto">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-                <SupporterIcon className="w-8 h-8 text-[#1b4d3e]" />
+              <div className="w-16 h-16 bg-card/5 rounded-full flex items-center justify-center border border-border/10">
+                <SupporterIcon className="w-8 h-8 text-primary" />
               </div>
               <div className="space-y-2">
                 <p className="text-lg font-bold text-white/80">How can we improve your experience?</p>
@@ -85,13 +85,13 @@ export function AppSupportChat() {
             >
               <div className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center shrink-0 border",
-                msg.role === 'user' ? "bg-white/10 border-white/10" : "bg-blue-600/20 border-blue-500/30 text-blue-500"
+                msg.role === 'user' ? "bg-card/10 border-border/10" : "bg-blue-600/20 border-blue-500/30 text-blue-500"
               )}>
                 {msg.role === 'user' ? <User className="w-5 h-5" /> : <SupporterIcon className="w-5 h-5" />}
               </div>
               <div className={cn(
                 "p-5 rounded-3xl text-sm leading-relaxed max-w-[80%]",
-                msg.role === 'user' ? "bg-white/5 text-white rounded-tr-none" : "bg-white/10 text-white/90 rounded-tl-none border border-white/5 shadow-sm"
+                msg.role === 'user' ? "bg-card/5 text-white rounded-tr-none" : "bg-card/10 text-white/90 rounded-tl-none border border-border/5 shadow-sm"
               )}>
                 {msg.content}
               </div>
@@ -103,7 +103,7 @@ export function AppSupportChat() {
               <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/30 text-blue-500 flex items-center justify-center">
                 <Loader2 className="w-5 h-5 animate-spin" />
               </div>
-              <div className="p-5 rounded-3xl bg-white/10 text-white/40 italic text-sm animate-pulse">
+              <div className="p-5 rounded-3xl bg-card/10 text-white/40 italic text-sm animate-pulse">
                 Thinking...
               </div>
             </div>
@@ -111,19 +111,19 @@ export function AppSupportChat() {
         </div>
       </ScrollArea>
 
-      <div className="px-6 py-8 bg-black border-t border-white/5">
+      <div className="px-6 py-8 bg-card border-t border-border/5">
         <div className="relative flex items-center max-w-2xl mx-auto gap-3">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your feedback or question..."
-            className="w-full bg-white/5 border border-white/10 rounded-full py-5 px-8 text-base focus:border-[#1b4d3e] transition-all outline-none"
+            className="w-full bg-card/5 border border-border/10 rounded-full py-5 px-8 text-base focus:border-[hsl(var(--primary))] transition-all outline-none"
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
-            className="p-4 bg-[#1b4d3e] text-white rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-lg"
+            className="p-4 bg-primary text-white rounded-full disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shadow-lg"
           >
             <Send className="w-6 h-6" />
           </button>

@@ -121,17 +121,17 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
 
   if (isSent) {
     return (
-      <div className="p-10 text-center animate-in zoom-in duration-500 font-headline flex flex-col items-center gap-8 bg-black min-h-[400px] justify-center">
+      <div className="p-10 text-center animate-in zoom-in duration-500 font-headline flex flex-col items-center gap-8 bg-card min-h-[400px] justify-center">
         <div className="relative">
-          <div className="absolute inset-0 bg-[#3EB489]/20 blur-3xl rounded-full animate-pulse" />
-          <div className="w-24 h-24 bg-[#3EB489]/10 rounded-full flex items-center justify-center border-2 border-[#3EB489]/30 relative z-10">
-            <ShieldCheck className="text-[#3EB489] w-12 h-12" />
+          <div className="absolute inset-0 bg-secondary/20 blur-3xl rounded-full animate-pulse" />
+          <div className="w-24 h-24 bg-secondary/10 rounded-full flex items-center justify-center border-2 border-secondary/30 relative z-10">
+            <ShieldCheck className="text-secondary w-12 h-12" />
           </div>
         </div>
         <div className="space-y-3">
           <div className="flex items-center justify-center gap-3">
             <h3 className="text-3xl font-black uppercase tracking-tighter text-white">{t.successTitle}</h3>
-            <button onClick={handleVoice} disabled={isSpeaking} className="p-2 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+            <button onClick={handleVoice} disabled={isSpeaking} className="p-2 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
               {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
             </button>
           </div>
@@ -141,7 +141,7 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
         </div>
         <button 
           onClick={onComplete} 
-          className="mt-4 text-[10px] font-black uppercase text-[#3EB489] tracking-[0.4em] hover:text-white transition-colors"
+          className="mt-4 text-[10px] font-black uppercase text-secondary tracking-[0.4em] hover:text-white transition-colors"
         >
           {t.return}
         </button>
@@ -150,11 +150,11 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
   }
 
   return (
-    <div className="p-8 font-headline flex flex-col h-full bg-black min-h-[500px]">
+    <div className="p-8 font-headline flex flex-col h-full bg-card min-h-[500px]">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <div className="p-4 bg-[#3EB489]/20 rounded-2xl border border-[#3EB489]/30">
-            <PenLine size={24} className="text-[#3EB489]" />
+          <div className="p-4 bg-secondary/20 rounded-2xl border border-secondary/30">
+            <PenLine size={24} className="text-secondary" />
           </div>
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tighter text-white">{t.title}</h2>
@@ -165,7 +165,7 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
           onClick={startDictation}
           className={cn(
             "p-4 rounded-2xl transition-all",
-            isListening ? "bg-[#3EB489] text-black animate-pulse shadow-lg" : "bg-white/5 text-white/20 hover:text-[#3EB489]"
+            isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/5 text-white/20 hover:text-secondary"
           )}
         >
           {isListening ? <MicOff size={24} /> : <Mic size={24} />}
@@ -180,7 +180,7 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder={isListening ? t.listening : t.placeholder}
-        className="w-full flex-1 p-6 bg-white/5 border-2 border-white/10 rounded-[2rem] focus:border-[#3EB489] outline-none text-base text-white placeholder:text-white/10 resize-none transition-all mb-8 font-bold"
+        className="w-full flex-1 p-6 bg-card/5 border-2 border-border/10 rounded-[2rem] focus:border-secondary outline-none text-base text-white placeholder:text-white/10 resize-none transition-all mb-8 font-bold"
       />
 
       <div className="space-y-4">
@@ -190,8 +190,8 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
           className={cn(
             "w-full h-20 rounded-full font-black text-xl uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-4",
             !message.trim() || isSending 
-              ? "bg-white/5 text-white/10 border-2 border-white/5 cursor-not-allowed"
-              : "bg-[#1b4d3e] text-white neon-glow active:scale-95"
+              ? "bg-card/5 text-white/10 border-2 border-border/5 cursor-not-allowed"
+              : "bg-primary text-white neon-glow active:scale-95"
           )}
         >
           {isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.button} <Send size={24} /></>}

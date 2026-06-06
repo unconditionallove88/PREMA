@@ -72,7 +72,7 @@ export function Step6StripeVerify({ onComplete, onBack }: { onComplete: (data: {
   if (isSuccess) {
     return (
       <div className="w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 font-headline animate-in fade-in zoom-in-95 duration-1000">
-        <div className="w-32 h-32 bg-[#3EB489]/10 rounded-full flex items-center justify-center mb-8 border-2 border-[#3EB489]/30 shadow-[0_0_50px_rgba(62,180,137,0.2)]"><ShieldCheck size={64} className="text-[#3EB489]" /></div>
+        <div className="w-32 h-32 bg-secondary/10 rounded-full flex items-center justify-center mb-8 border-2 border-secondary/30 shadow-[0_0_50px_rgba(62,180,137,0.2)]"><ShieldCheck size={64} className="text-secondary" /></div>
         <h2 className="text-4xl font-black uppercase tracking-tighter text-white mb-4">{t.successHeader}</h2>
         <p className="text-white/60 text-lg font-bold max-sm leading-tight">{t.successSub}</p>
       </div>
@@ -88,11 +88,11 @@ export function Step6StripeVerify({ onComplete, onBack }: { onComplete: (data: {
         <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] max-w-[280px] mx-auto">{t.sub}</p>
       </div>
       <div className="w-full space-y-4 mb-10">
-        <div className="p-8 bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 text-left">
+        <div className="p-8 bg-card rounded-[2rem] border-2 border-border/10 text-left">
           <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] mb-6">{t.stripeLabel}</p>
           <div className="space-y-4">
-            <div className="h-16 w-full bg-white/5 border-2 border-white/10 rounded-xl flex items-center px-6 text-white/20 text-xl font-black tracking-[0.2em] font-mono">4242 4242 4242 4242</div>
-            <div className="flex gap-4"><div className="h-16 flex-1 bg-white/5 border-2 border-white/10 rounded-xl flex items-center px-6 text-white/20 text-lg font-black uppercase font-mono">MM / YY</div><div className="h-16 w-32 bg-white/5 border-2 border-white/10 rounded-xl flex items-center px-6 text-white/20 text-lg font-black uppercase font-mono">CVC</div></div>
+            <div className="h-16 w-full bg-card/5 border-2 border-border/10 rounded-xl flex items-center px-6 text-white/20 text-xl font-black tracking-[0.2em] font-mono">4242 4242 4242 4242</div>
+            <div className="flex gap-4"><div className="h-16 flex-1 bg-card/5 border-2 border-border/10 rounded-xl flex items-center px-6 text-white/20 text-lg font-black uppercase font-mono">MM / YY</div><div className="h-16 w-32 bg-card/5 border-2 border-border/10 rounded-xl flex items-center px-6 text-white/20 text-lg font-black uppercase font-mono">CVC</div></div>
           </div>
         </div>
         <div className="flex items-start gap-4 p-5 bg-blue-50/5 rounded-2xl border border-blue-500/20 text-left"><CircleDot size={18} className="text-blue-500 shrink-0 mt-0.5" /><p className="text-[10px] text-blue-200/60 font-bold leading-relaxed uppercase tracking-widest leading-tight">{t.peaceOfMind}</p></div>

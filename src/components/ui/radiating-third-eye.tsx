@@ -14,7 +14,7 @@ interface RadiatingThirdEyeProps {
 
 export const RadiatingThirdEye = ({ 
   size = 48, 
-  color = "#10B981",
+  color = "hsl(var(--primary))",
   className 
 }: RadiatingThirdEyeProps) => (
   <svg 

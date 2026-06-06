@@ -81,45 +81,45 @@ export function Step2WhoAreYou({ initialData, onComplete, onSkip, onBack }: { in
       {onBack && <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft className="w-4 h-4" /> {t.back}</button>}
       <div className="text-center mb-8 mt-12">
         <h2 className="text-[22px] font-black uppercase mb-1 text-white tracking-tighter">{t.header}</h2>
-        <p className="text-[#10B981] font-black uppercase tracking-[0.3em] text-[10px] mb-4">{t.sub}</p>
+        <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4">{t.sub}</p>
         <p className="text-[9px] font-black text-white/30 uppercase tracking-widest max-w-[280px] mx-auto leading-relaxed">{t.text}</p>
       </div>
       <div className="w-full space-y-4 mb-10">
         <div className="space-y-2">
-          <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-[#10B981] block">{t.nameLabel}</Label>
+          <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-primary block">{t.nameLabel}</Label>
           <Input 
             value={form.name} 
             onChange={(e) => setForm(p => ({...p, name: e.target.value.toUpperCase()}))} 
-            className="bg-[#0a0a0a] border-2 border-white/20 h-16 px-6 rounded-[1rem] focus:border-[#3EB489] text-2xl font-black uppercase text-white" 
+            className="bg-card border-2 border-border/20 h-16 px-6 rounded-[1rem] focus:border-secondary text-2xl font-black uppercase text-white" 
             placeholder={t.namePlaceholder} 
           />
         </div>
         <div className="space-y-2">
-          <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-[#10B981] block">{t.dobLabel}</Label>
+          <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-primary block">{t.dobLabel}</Label>
           <Input 
             type="text" 
             placeholder={t.dobPlaceholder} 
             value={form.dob} 
             onChange={(e) => handleDobInput(e.target.value)} 
-            className="bg-[#0a0a0a] border-2 h-16 px-6 rounded-[1rem] focus:border-[#3EB489] text-2xl font-black text-white" 
+            className="bg-card border-2 h-16 px-6 rounded-[1rem] focus:border-secondary text-2xl font-black text-white" 
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-[#10B981] block">{t.weightLabel}</Label>
+            <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-primary block">{t.weightLabel}</Label>
             <Input 
               value={form.weight} 
               onChange={(e) => setForm(p => ({...p, weight: e.target.value.replace(/\D/g, '')}))} 
-              className="bg-[#0a0a0a] border-2 h-16 px-6 rounded-[1rem] focus:border-[#3EB489] text-2xl font-black text-white" 
+              className="bg-card border-2 h-16 px-6 rounded-[1rem] focus:border-secondary text-2xl font-black text-white" 
               placeholder="70" 
             />
           </div>
           <div className="space-y-2">
-            <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-[#10B981] block">{t.heightLabel}</Label>
+            <Label className="uppercase font-black tracking-[0.3em] text-[10px] text-primary block">{t.heightLabel}</Label>
             <Input 
               value={form.height} 
               onChange={(e) => setForm(p => ({...p, height: e.target.value.replace(/\D/g, '')}))} 
-              className="bg-[#0a0a0a] border-2 h-16 px-6 rounded-[1rem] focus:border-[#3EB489] text-2xl font-black text-white" 
+              className="bg-card border-2 h-16 px-6 rounded-[1rem] focus:border-secondary text-2xl font-black text-white" 
               placeholder="175" 
             />
           </div>
@@ -128,7 +128,7 @@ export function Step2WhoAreYou({ initialData, onComplete, onSkip, onBack }: { in
       <button 
         onClick={() => onComplete({...form, weight: weightVal, height: heightVal, age})} 
         disabled={!isFormValid} 
-        className={`pill-button w-full max-w-sm text-xl font-black uppercase tracking-[0.2em] transition-all h-[64px] ${isFormValid ? 'bg-[#1b4d3e] text-white neon-glow active:scale-95' : 'bg-white/10 text-white/10 cursor-not-allowed opacity-50'}`}
+        className={`pill-button w-full max-w-sm text-xl font-black uppercase tracking-[0.2em] transition-all h-[64px] ${isFormValid ? 'bg-primary text-white neon-glow active:scale-95' : 'bg-card/10 text-white/10 cursor-not-allowed opacity-50'}`}
       >
         {t.confirm}
       </button>

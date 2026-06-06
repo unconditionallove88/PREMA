@@ -86,7 +86,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
         <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">{t.sub}</p>
       </div>
 
-      <div className="bg-[#0a0a0a] border border-white/10 rounded-[2rem] p-8 mb-8 space-y-6 text-left w-full">
+      <div className="bg-card border border-border/10 rounded-[2rem] p-8 mb-8 space-y-6 text-left w-full">
         <p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest italic">
           "{t.desc}"
         </p>
@@ -110,7 +110,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
                 onClick={() => setSelectedLab(lab.id)}
                 className={cn(
                   "p-6 rounded-2xl border-2 transition-all text-left",
-                  selectedLab === lab.id ? "bg-primary/10 border-primary shadow-lg" : "bg-white/5 border-white/10 hover:border-white/20"
+                  selectedLab === lab.id ? "bg-primary/10 border-primary shadow-lg" : "bg-card/5 border-border/10 hover:border-border/20"
                 )}
               >
                 <div className="flex justify-between items-center">
@@ -129,7 +129,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
             disabled={!selectedLab || isBooking}
             className={cn(
               "pill-button w-full h-20 text-xl font-black uppercase tracking-widest transition-all",
-              selectedLab ? "bg-[#1b4d3e] text-white shadow-2xl" : "bg-white/5 text-white/10 cursor-not-allowed border border-white/5"
+              selectedLab ? "bg-primary text-white shadow-2xl" : "bg-card/5 text-white/10 cursor-not-allowed border border-border/5"
             )}
           >
             {isBooking ? <Loader2 className="animate-spin" /> : t.btn}
@@ -146,7 +146,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
           </div>
           <button 
             onClick={onComplete}
-            className="pill-button w-full bg-white text-black text-xl font-black uppercase tracking-widest active:scale-95 transition-all shadow-lg"
+            className="pill-button w-full bg-card text-black text-xl font-black uppercase tracking-widest active:scale-95 transition-all shadow-lg"
           >
             {t.confirm}
           </button>

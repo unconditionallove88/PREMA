@@ -65,7 +65,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   };
 
   return (
-    <div className="w-full h-full flex flex-col font-headline bg-black relative animate-in fade-in duration-700">
+    <div className="w-full h-full flex flex-col font-headline bg-card relative animate-in fade-in duration-700">
       {onBack && (
         <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
           <ArrowLeft className="w-4 h-4" /> BACK
@@ -84,7 +84,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
         <ScrollArea className="h-full px-6">
           <div className="space-y-4 pb-40">
             {/* Intake Limit */}
-            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+            <div className="p-6 bg-card border border-border/10 rounded-[2rem] flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-amber-500/10 rounded-xl">
@@ -96,10 +96,10 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                   </div>
                 </div>
                 <Select value={settings.intakeLimit} onValueChange={(val) => setSettings({...settings, intakeLimit: val})}>
-                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                  <SelectContent className="bg-zinc-900 border-border/10 font-headline">
                     {["3", "4", "5", "6", "8"].map(num => (
                       <SelectItem key={num} value={num} className="font-black uppercase">{num} Units</SelectItem>
                     ))}
@@ -109,7 +109,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
             </div>
 
             {/* Departure Time */}
-            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+            <div className="p-6 bg-card border border-border/10 rounded-[2rem] flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-blue-400/10 rounded-xl">
@@ -124,13 +124,13 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                   type="time" 
                   value={settings.leaveTime} 
                   onChange={(e) => setSettings({...settings, leaveTime: e.target.value})}
-                  className="w-24 h-10 bg-white/5 border border-white/10 rounded-xl px-2 font-black text-white text-xs outline-none focus:border-primary transition-all"
+                  className="w-24 h-10 bg-card/5 border border-border/10 rounded-xl px-2 font-black text-white text-xs outline-none focus:border-primary transition-all"
                 />
               </div>
             </div>
 
             {/* Rest Breaks */}
-            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+            <div className="p-6 bg-card border border-border/10 rounded-[2rem] flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-purple-400/10 rounded-xl">
@@ -142,10 +142,10 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                   </div>
                 </div>
                 <Select value={settings.restInterval} onValueChange={(val) => setSettings({...settings, restInterval: val})}>
-                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                  <SelectContent className="bg-zinc-900 border-border/10 font-headline">
                     {["30", "60", "90", "120"].map(min => (
                       <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
                     ))}
@@ -155,7 +155,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
             </div>
 
             {/* Hydration */}
-            <div className="p-6 bg-[#0a0a0a] border border-white/10 rounded-[2rem] flex flex-col gap-4">
+            <div className="p-6 bg-card border border-border/10 rounded-[2rem] flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-cyan-400/10 rounded-xl">
@@ -167,10 +167,10 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                   </div>
                 </div>
                 <Select value={settings.waterInterval} onValueChange={(val) => setSettings({...settings, waterInterval: val})}>
-                  <SelectTrigger className="w-24 bg-white/5 border-white/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-white/10 font-headline">
+                  <SelectContent className="bg-zinc-900 border-border/10 font-headline">
                     {["20", "30", "45", "60"].map(min => (
                       <SelectItem key={min} value={min} className="font-black uppercase">{min} Min</SelectItem>
                     ))}
@@ -189,7 +189,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black to-transparent pt-12 pointer-events-none pb-safe">
         <button 
           onClick={handleComplete}
-          className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-[#1b4d3e] text-white rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
+          className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-white rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
         >
           {t.confirm} <CheckCircle2 size={24} />
         </button>

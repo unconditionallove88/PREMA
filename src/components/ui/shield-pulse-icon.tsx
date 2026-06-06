@@ -14,7 +14,7 @@ interface ShieldPulseIconProps {
 
 export const ShieldPulseIcon = ({ 
   size = 48, 
-  color = "#10B981",
+  color = "hsl(var(--primary))",
   className 
 }: ShieldPulseIconProps) => (
   <svg 

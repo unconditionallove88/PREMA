@@ -93,7 +93,7 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
   if (isSaved) {
     return (
       <div className="w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 font-headline animate-in fade-in zoom-in-95 duration-1000">
-        <h2 className="text-4xl font-black uppercase tracking-tighter text-[#1b4d3e] mb-4">{t.success}</h2>
+        <h2 className="text-4xl font-black uppercase tracking-tighter text-primary mb-4">{t.success}</h2>
         <p className="text-white/60 text-lg font-bold max-sm leading-tight">"{lang === 'EN' ? 'Unconditional love always' : 'Bedingungslose Liebe immerzu hier'}"</p>
       </div>
     );
@@ -116,7 +116,7 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
               disabled={isSaving} 
               className={cn(
                 "p-5 rounded-[2.5rem] border-2 flex items-center gap-6 transition-all active:scale-[0.98] text-left relative overflow-hidden", 
-                isSelected ? `bg-white/5 ${vibe.activeBorder}` : "bg-[#0a0a0a] border-white/5 hover:border-white/20"
+                isSelected ? `bg-card/5 ${vibe.activeBorder}` : "bg-card border-border/5 hover:border-border/20"
               )}
             >
               <div className="w-12 flex justify-center relative z-10">
@@ -141,12 +141,12 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
           disabled={!selected || isSaving} 
           className={cn(
             "pill-button w-full max-w-sm uppercase tracking-[0.2em] font-black text-xl h-[64px] transition-all shadow-lg", 
-            selected && !isSaving ? 'bg-[#1b4d3e] text-white neon-glow' : 'bg-white/10 text-white/10 cursor-not-allowed opacity-50'
+            selected && !isSaving ? 'bg-primary text-white neon-glow' : 'bg-card/10 text-white/10 cursor-not-allowed opacity-50'
           )}
         >
           {isSaving ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : t.btn}
         </button>
-        <p className="text-center text-[10px] text-[#1b4d3e] font-black uppercase tracking-[0.5em]">{t.footer}</p>
+        <p className="text-center text-[10px] text-primary font-black uppercase tracking-[0.5em]">{t.footer}</p>
       </div>
     </div>
   );

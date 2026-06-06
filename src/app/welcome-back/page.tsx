@@ -72,7 +72,7 @@ export default function WelcomeBack() {
         <div className="h-[180px] w-full flex items-center justify-center">
           <div className="relative">
             <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-radiate-out" />
-            <Heart size={80} fill="#10B981" className="text-primary animate-pulse-heart relative z-10" />
+            <Heart size={80} fill="hsl(var(--primary))" className="text-primary animate-pulse-heart relative z-10" />
           </div>
         </div>
 

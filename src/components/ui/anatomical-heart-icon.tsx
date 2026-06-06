@@ -9,7 +9,7 @@ type Props = {
 
 export function AnatomicalHeartIcon({
   size = 140,
-  color = "#10B981",
+  color = "hsl(var(--primary))",
   glow = true,
   className,
 }: Props) {

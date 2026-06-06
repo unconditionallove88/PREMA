@@ -16,7 +16,7 @@ export default function PoppersCard({ lang = "en" }: { lang?: "en" | "de" }) {
   return (
     <div
       onClick={() => setExpanded(!expanded)}
-      className="bg-[#0a0a0a] border border-amber-900/40 rounded-[2.5rem] p-8 cursor-pointer transition-all hover:border-amber-700/60 active:scale-[0.98] shadow-2xl group relative overflow-hidden"
+      className="bg-card border border-amber-900/40 rounded-[2.5rem] p-8 cursor-pointer transition-all hover:border-amber-700/60 active:scale-[0.98] shadow-2xl group relative overflow-hidden"
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl -z-10" />
       
@@ -58,7 +58,7 @@ export default function PoppersCard({ lang = "en" }: { lang?: "en" | "de" }) {
 
       {/* Expanded Harm Reduction */}
       {expanded && (
-        <div className="space-y-4 mt-6 border-t border-white/5 pt-6 animate-in slide-in-from-top-4 duration-500">
+        <div className="space-y-4 mt-6 border-t border-border/5 pt-6 animate-in slide-in-from-top-4 duration-500">
           <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-black">
             {isEn ? "Harm Reduction" : "Schadensminimierung"}
           </p>
@@ -69,7 +69,7 @@ export default function PoppersCard({ lang = "en" }: { lang?: "en" | "de" }) {
             isEn ? "Use in ventilated spaces only" : "Nur in belüfteten Räumen verwenden",
             isEn ? "Sit down during use" : "Während der Anwendung hinsetzen",
           ].map((tip, i) => (
-            <div key={i} className="flex items-start gap-4 bg-white/5 p-3 rounded-xl border border-white/5">
+            <div key={i} className="flex items-start gap-4 bg-card/5 p-3 rounded-xl border border-border/5">
               <AlertTriangle size={14} className="text-amber-500 mt-0.5 shrink-0" />
               <p className="text-slate-300 text-[11px] font-bold uppercase tracking-wide leading-relaxed">{tip}</p>
             </div>
@@ -78,7 +78,7 @@ export default function PoppersCard({ lang = "en" }: { lang?: "en" | "de" }) {
       )}
 
       <div className="pt-4 text-center">
-        <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.4em] group-hover:text-[#10B981] transition-colors">
+        <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.4em] group-hover:text-primary transition-colors">
           {expanded ? (isEn ? "Tap to close" : "Tippen zum Schließen") : (isEn ? "Tap for safety tips" : "Tippen für Sicherheitstipps")}
         </p>
       </div>

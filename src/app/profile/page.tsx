@@ -128,7 +128,7 @@ export default function ProfilePage() {
 
   if (!mounted || isUserLoading || isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="flex items-center justify-center min-h-screen bg-card">
         <div className="text-center space-y-8">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
@@ -143,10 +143,10 @@ export default function ProfilePage() {
   const displayName = profile?.name || "VALUED HEART";
 
   return (
-    <main className="min-h-screen bg-black text-white font-headline pb-32 pt-safe">
-      <nav className="bg-black/90 backdrop-blur-2xl border-b border-white/5 px-6 py-8 sticky top-0 z-[100]">
+    <main className="min-h-screen bg-card text-white font-headline pb-32 pt-safe">
+      <nav className="bg-card/90 backdrop-blur-2xl border-b border-border/5 px-6 py-8 sticky top-0 z-[100]">
         <div className="max-w-xl mx-auto flex items-center justify-between">
-          <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all"><ArrowLeft size={20} /></button>
+          <button onClick={() => router.push("/dashboard")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all"><ArrowLeft size={20} /></button>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
             <ShieldCheck className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase text-primary tracking-widest">{t.safeSpace}</span>
@@ -157,7 +157,7 @@ export default function ProfilePage() {
       <div className="px-6 py-10 max-xl mx-auto space-y-10">
         <section className="text-center space-y-6">
           <div className="relative inline-block">
-            <div className="w-28 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto border-2 border-white/10 shadow-2xl relative overflow-hidden group">
+            <div className="w-28 h-24 bg-card/5 rounded-full flex items-center justify-center mx-auto border-2 border-border/10 shadow-2xl relative overflow-hidden group">
               <User size={48} className="text-white/20 group-hover:text-primary transition-colors" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -176,42 +176,42 @@ export default function ProfilePage() {
         )}
 
         <div className="space-y-6">
-          <div className="bg-white/5 rounded-[2rem] border border-white/10 p-8 space-y-8 relative overflow-hidden">
+          <div className="bg-card/5 rounded-[2rem] border border-border/10 p-8 space-y-8 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-10" />
             <h3 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-3"><Leaf size={14} className="text-primary" /> {t.essence}</h3>
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase text-primary tracking-widest ml-1">{t.name}</label>
-                <input type="text" defaultValue={profile?.name} onBlur={(e) => handleUpdate({ name: e.target.value.toUpperCase() })} className="w-full h-16 px-6 bg-white/5 border border-white/10 rounded-2xl focus:border-primary outline-none transition-all text-xl font-black uppercase placeholder:text-white/10" placeholder="ENTER NAME" />
+                <input type="text" defaultValue={profile?.name} onBlur={(e) => handleUpdate({ name: e.target.value.toUpperCase() })} className="w-full h-16 px-6 bg-card/5 border border-border/10 rounded-2xl focus:border-primary outline-none transition-all text-xl font-black uppercase placeholder:text-white/10" placeholder="ENTER NAME" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-primary tracking-widest ml-1">{t.weight}</label>
-                  <input type="number" defaultValue={profile?.biometrics?.weightKg} onBlur={(e) => handleUpdate({ "biometrics.weightKg": Number(e.target.value) })} className="w-full h-16 px-6 bg-white/5 border border-white/10 rounded-2xl focus:border-primary outline-none text-xl font-black" placeholder="70" />
+                  <input type="number" defaultValue={profile?.biometrics?.weightKg} onBlur={(e) => handleUpdate({ "biometrics.weightKg": Number(e.target.value) })} className="w-full h-16 px-6 bg-card/5 border border-border/10 rounded-2xl focus:border-primary outline-none text-xl font-black" placeholder="70" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-primary tracking-widest ml-1">{t.height}</label>
-                  <input type="number" defaultValue={profile?.biometrics?.heightCm} onBlur={(e) => handleUpdate({ "biometrics.heightCm": Number(e.target.value) })} className="w-full h-16 px-6 bg-white/5 border border-white/10 rounded-2xl focus:border-primary outline-none text-xl font-black" placeholder="175" />
+                  <input type="number" defaultValue={profile?.biometrics?.heightCm} onBlur={(e) => handleUpdate({ "biometrics.heightCm": Number(e.target.value) })} className="w-full h-16 px-6 bg-card/5 border border-border/10 rounded-2xl focus:border-primary outline-none text-xl font-black" placeholder="175" />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/5 rounded-[2rem] border border-white/10 p-8 space-y-6">
+          <div className="bg-card/5 rounded-[2rem] border border-border/10 p-8 space-y-6">
             <h3 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-3"><Shield size={14} className="text-primary" /> {t.circle}</h3>
-            <button onClick={() => router.push("/safety-network")} className="w-full flex items-center justify-between p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <button onClick={() => router.push("/safety-network")} className="w-full flex items-center justify-between p-6 bg-card/5 rounded-2xl border border-border/5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary/10 rounded-xl group-hover:scale-110 transition-transform"><Heart size={24} className="text-primary" /></div>
                 <div className="text-left"><span className="block font-black text-sm uppercase tracking-tight">{t.trusted}</span><span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">{t.resonant}</span></div>
               </div>
               <ChevronRight size={16} className="text-white/20 group-hover:text-primary" />
             </button>
-            <div className="flex items-center justify-between p-6 bg-white/5 rounded-2xl border border-white/5">
+            <div className="flex items-center justify-between p-6 bg-card/5 rounded-2xl border border-border/5">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-blue-500/10 rounded-xl"><Bell size={24} className="text-blue-400" /></div>
                 <div className="text-left"><span className="block font-black text-sm uppercase tracking-tight">{t.reminders}</span><span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">{t.checkins}</span></div>
               </div>
-              <div className="w-12 h-6 bg-primary rounded-full relative cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"><div className="absolute right-1 top-1 w-4 h-4 bg-black rounded-full" /></div>
+              <div className="w-12 h-6 bg-primary rounded-full relative cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"><div className="absolute right-1 top-1 w-4 h-4 bg-card rounded-full" /></div>
             </div>
           </div>
 
@@ -232,7 +232,7 @@ export default function ProfilePage() {
             </div>
           </button>
 
-          <div className="bg-white/5 rounded-[2rem] border border-white/10 p-8 text-center space-y-6">
+          <div className="bg-card/5 rounded-[2rem] border border-border/10 p-8 text-center space-y-6">
              <div className="flex justify-center"><Lock size={24} className="text-white/10" /></div>
              <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest leading-relaxed">{t.journey}</p>
              <button onClick={() => setPrivacyOpen(true)} className="text-[8px] font-black text-primary uppercase tracking-[0.3em] hover:underline underline-offset-8">{t.promise}</button>
@@ -247,7 +247,7 @@ export default function ProfilePage() {
       </div>
 
       <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
-        <DialogContent className="bg-[#050505] border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden flex flex-col font-headline h-[90vh] max-h-[90vh] pb-safe">
+        <DialogContent className="bg-card border-border/10 max-lg p-0 rounded-[2rem] overflow-hidden flex flex-col font-headline h-[90vh] max-h-[90vh] pb-safe">
           <DialogTitle className="sr-only">Privacy Policy</DialogTitle>
           <div className="p-8 pb-4 shrink-0">
             <div className="flex items-center gap-4 mb-6">
@@ -261,7 +261,7 @@ export default function ProfilePage() {
               <section className="space-y-3"><h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.privacy.encryption}</h4><p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.privacy.encryptionDesc}</p></section>
               <section className="space-y-3"><h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.privacy.freedom}</h4><p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.privacy.freedomDesc}</p></section>
               <section className="space-y-3"><h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.privacy.acceptance}</h4><p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest">{t.privacy.acceptanceDesc}</p></section>
-              <section className="pt-10 border-t border-white/5 text-center space-y-6 pb-8">
+              <section className="pt-10 border-t border-border/5 text-center space-y-6 pb-8">
                 <div className="flex flex-col items-center gap-2"><p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">{t.privacy.questions}</p><button onClick={() => { setPrivacyOpen(false); setCoCreationOpen(true); }} className="flex items-center gap-3 bg-primary/10 border border-primary/20 px-8 py-4 rounded-2xl text-[10px] font-black text-primary uppercase tracking-[0.4em] hover:bg-primary/20 transition-all active:scale-95"><HelpCircle size={14} /> {t.privacy.qBtn}</button></div>
                 <p className="text-[8px] font-black uppercase tracking-[0.5em] shining-white">{t.privacy.footer}</p>
               </section>
@@ -271,7 +271,7 @@ export default function ProfilePage() {
       </Dialog>
 
       <Dialog open={coCreationOpen} onOpenChange={setCoCreationOpen}>
-        <DialogContent className="bg-black border-white/10 max-lg p-0 rounded-[2rem] overflow-hidden h-[85dvh]">
+        <DialogContent className="bg-card border-border/10 max-lg p-0 rounded-[2rem] overflow-hidden h-[85dvh]">
           <DialogTitle className="sr-only">Co-Creation</DialogTitle>
           <CoCreation onComplete={() => setCoCreationOpen(false)} />
         </DialogContent>

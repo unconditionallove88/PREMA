@@ -71,12 +71,12 @@ export default function AwarenessDashboard() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white font-headline pb-32">
+    <main className="min-h-screen bg-card text-white font-headline pb-32">
       {/* Care Hub Header */}
-      <div className="bg-black/90 backdrop-blur-2xl border-b border-red-600/20 px-6 py-8 sticky top-0 z-[100]">
+      <div className="bg-card/90 backdrop-blur-2xl border-b border-red-600/20 px-6 py-8 sticky top-0 z-[100]">
         <div className="max-w-xl mx-auto flex flex-col gap-6">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard" className="p-3 bg-white/5 rounded-full border border-white/10">
+            <Link href="/dashboard" className="p-3 bg-card/5 rounded-full border border-border/10">
               <ArrowLeft className="w-5 h-5 text-white/40" />
             </Link>
             <div className="flex items-center gap-2 px-4 py-1.5 bg-red-600/10 border border-red-600/30 rounded-full">
@@ -104,7 +104,7 @@ export default function AwarenessDashboard() {
           <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto w-full">
             {activeAlerts.length > 0 ? (
               activeAlerts.map((alert) => (
-                <div key={alert.id} className="bg-[#0a0a0a] border-2 border-red-600 rounded-[2.5rem] p-8 shadow-[0_0_40px_rgba(220,38,38,0.15)] animate-in slide-in-from-bottom-4 duration-500">
+                <div key={alert.id} className="bg-card border-2 border-red-600 rounded-[2.5rem] p-8 shadow-[0_0_40px_rgba(220,38,38,0.15)] animate-in slide-in-from-bottom-4 duration-500">
                   <div className="space-y-8">
                     {/* Header: Identity & Time */}
                     <div className="flex justify-between items-start">
@@ -112,7 +112,7 @@ export default function AwarenessDashboard() {
                         <h3 className="text-4xl font-black uppercase tracking-tighter">{alert.user}</h3>
                         <div className="flex items-center gap-2 mt-2">
                           <span className="text-[9px] font-black bg-red-600 text-white px-3 py-1 rounded-full uppercase">{alert.time}</span>
-                          <span className="text-[9px] font-black border border-white/10 text-white/40 px-3 py-1 rounded-full uppercase">ID: {alert.id}</span>
+                          <span className="text-[9px] font-black border border-border/10 text-white/40 px-3 py-1 rounded-full uppercase">ID: {alert.id}</span>
                         </div>
                       </div>
                       <div className="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/30">
@@ -131,7 +131,7 @@ export default function AwarenessDashboard() {
                       </div>
                       
                       <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        <div className="flex-1 bg-black/40 rounded-xl p-4 border border-white/5 w-full">
+                        <div className="flex-1 bg-card/40 rounded-xl p-4 border border-border/5 w-full">
                           <span className="block text-[8px] font-black text-white/20 uppercase tracking-widest mb-1">Tactical Grid</span>
                           <span className="font-mono text-xs text-red-400 font-bold">{alert.coords}</span>
                         </div>
@@ -142,13 +142,13 @@ export default function AwarenessDashboard() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/5 p-4 rounded-2xl border border-white/5 space-y-1">
+                      <div className="bg-card/5 p-4 rounded-2xl border border-border/5 space-y-1">
                         <span className="text-[8px] font-black text-white/30 uppercase tracking-widest flex items-center gap-1.5">
                           <Beaker className="w-3 h-3 text-orange-500" /> Intake
                         </span>
                         <p className="text-xs font-bold text-red-400 leading-tight uppercase">{alert.substances}</p>
                       </div>
-                      <div className="bg-white/5 p-4 rounded-2xl border border-white/5 space-y-1">
+                      <div className="bg-card/5 p-4 rounded-2xl border border-border/5 space-y-1">
                         <span className="text-[8px] font-black text-white/30 uppercase tracking-widest flex items-center gap-1.5">
                           <Activity className="w-3 h-3 text-blue-500" /> Biometrics
                         </span>
@@ -187,7 +187,7 @@ export default function AwarenessDashboard() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 pt-2">
-                      <button className="bg-white text-black font-black uppercase text-[10px] tracking-widest py-5 rounded-2xl active:scale-95 transition-all">
+                      <button className="bg-card text-black font-black uppercase text-[10px] tracking-widest py-5 rounded-2xl active:scale-95 transition-all">
                         Assign care
                       </button>
                       <button 
@@ -201,8 +201,8 @@ export default function AwarenessDashboard() {
                 </div>
               ))
             ) : (
-              <div className="py-20 text-center border-2 border-dashed border-white/5 rounded-[3rem] opacity-40">
-                <CheckCircle2 className="w-12 h-12 text-[#3EB489] mx-auto mb-4" />
+              <div className="py-20 text-center border-2 border-dashed border-border/5 rounded-[3rem] opacity-40">
+                <CheckCircle2 className="w-12 h-12 text-secondary mx-auto mb-4" />
                 <p className="text-[10px] font-black uppercase tracking-[0.4em]">All clear</p>
                 <p className="text-[8px] font-bold uppercase tracking-widest mt-1">No active support requests</p>
               </div>
@@ -212,23 +212,23 @@ export default function AwarenessDashboard() {
 
         {/* Resolved Case History */}
         {resolvedAlerts.length > 0 && (
-          <section className="space-y-6 pt-10 border-t border-white/5">
+          <section className="space-y-6 pt-10 border-t border-border/5">
             <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white/20 flex items-center gap-3 px-2">
               <History className="w-4 h-4" /> Resolved history
             </h2>
             <div className="grid gap-3">
               {resolvedAlerts.map((alert, i) => (
-                <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center justify-between opacity-60">
+                <div key={i} className="bg-card/5 border border-border/10 rounded-2xl p-5 flex items-center justify-between opacity-60">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#3EB489]/10 rounded-full flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-[#3EB489]" />
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
                       <p className="text-sm font-black uppercase text-white">{alert.user}</p>
                       <p className="text-[8px] font-bold text-white/30 uppercase tracking-widest">At peace since {alert.resolvedAt} • {alert.location}</p>
                     </div>
                   </div>
-                  <button className="text-[8px] font-black text-white/40 uppercase tracking-widest px-4 py-2 border border-white/10 rounded-full">Archive</button>
+                  <button className="text-[8px] font-black text-white/40 uppercase tracking-widest px-4 py-2 border border-border/10 rounded-full">Archive</button>
                 </div>
               ))}
             </div>
@@ -237,17 +237,17 @@ export default function AwarenessDashboard() {
       </div>
 
       {/* Persistent Care Hub Navbar */}
-      <footer className="fixed bottom-0 left-0 right-0 h-[90px] bg-black border-t border-white/10 px-8 flex items-center justify-between z-[100]">
+      <footer className="fixed bottom-0 left-0 right-0 h-[90px] bg-card border-t border-border/10 px-8 flex items-center justify-between z-[100]">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-[#3EB489]/20 rounded-full flex items-center justify-center border border-[#3EB489]/30">
-            <Users className="w-5 h-5 text-[#3EB489]" />
+          <div className="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center border border-secondary/30">
+            <Users className="w-5 h-5 text-secondary" />
           </div>
           <div>
             <p className="text-xs font-black uppercase text-white">Holder: Care Hub A</p>
-            <p className="text-[8px] font-bold text-[#3EB489] uppercase tracking-widest">Watching with Love</p>
+            <p className="text-[8px] font-bold text-secondary uppercase tracking-widest">Watching with Love</p>
           </div>
         </div>
-        <button className="p-4 bg-white/5 rounded-2xl border border-white/10">
+        <button className="p-4 bg-card/5 rounded-2xl border border-border/10">
           <PhoneCall className="w-5 h-5 text-white/40" />
         </button>
       </footer>

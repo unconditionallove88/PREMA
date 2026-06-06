@@ -51,7 +51,7 @@ export default function SelfCare() {
   };
 
   return (
-    <main className="h-screen w-full bg-[#54a5d5] text-white flex flex-col font-headline relative overflow-hidden pt-safe pb-safe">
+    <main className="h-screen w-full bg-primary/20 text-white flex flex-col font-headline relative overflow-hidden pt-safe pb-safe">
       <div className="flex-1 flex flex-col items-center justify-center px-6">
         <div className="w-full text-center space-y-12">
           <div className="flex items-center justify-center gap-12 relative min-h-[120px]">
@@ -75,13 +75,13 @@ export default function SelfCare() {
       <footer className="p-12 flex flex-col items-center justify-center shrink-0 pb-16 gap-4">
         <button 
           onClick={() => { playHeartbeat(); router.push('/heart-status'); }}
-          className="w-full max-w-sm py-5 bg-white text-black rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-2xl"
+          className="w-full max-w-sm py-5 bg-card text-black rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-2xl"
         >
           <HeartHandshake size={18} /> {t.next} <ArrowRight size={14} />
         </button>
         <button 
           onClick={() => { playHeartbeat(); router.push('/dashboard'); }}
-          className="px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md transition-all active:scale-95 group hover:bg-white/10"
+          className="px-8 py-3 rounded-full border border-border/10 bg-card/5 backdrop-blur-md transition-all active:scale-95 group hover:bg-card/10"
         >
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white transition-colors">
             {t.button}

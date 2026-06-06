@@ -17,8 +17,8 @@ import { checkSafetyStatus } from '@/lib/guardian';
 
 const DEVICES = [
   { id: 'apple', name: 'Apple Watch', icon: Smartphone, color: 'text-white' },
-  { id: 'oura', name: 'Oura Ring', icon: Watch, color: 'text-[#EBFB3B]' },
-  { id: 'whoop', name: 'Whoop Strap', icon: Bluetooth, color: 'text-[#EBFB3B]' },
+  { id: 'oura', name: 'Oura Ring', icon: Watch, color: 'text-[hsl(var(--accent))]' },
+  { id: 'whoop', name: 'Whoop Strap', icon: Bluetooth, color: 'text-[hsl(var(--accent))]' },
 ];
 
 const CONTENT = {
@@ -153,7 +153,7 @@ export function WearablesSync({ onComplete }: { onComplete: () => void }) {
   };
 
   return (
-    <div className="p-10 font-headline bg-black rounded-[3rem]">
+    <div className="p-10 font-headline bg-card rounded-[3rem]">
       <div className="text-center mb-10">
         <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">{t.title}</h2>
         <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">{t.sub}</p>
@@ -172,14 +172,14 @@ export function WearablesSync({ onComplete }: { onComplete: () => void }) {
               className={cn(
                 "w-full p-6 rounded-3xl border-2 flex items-center justify-between transition-all group",
                 isConnected 
-                  ? "bg-[#EBFB3B]/10 border-[#EBFB3B] text-[#EBFB3B]" 
-                  : "bg-white/5 border-white/10 hover:border-white/30"
+                  ? "bg-[hsl(var(--accent))]/10 border-[hsl(var(--accent))] text-[hsl(var(--accent))]" 
+                  : "bg-card/5 border-border/10 hover:border-border/30"
               )}
             >
               <div className="flex items-center gap-5">
                 <div className={cn(
                   "w-12 h-12 rounded-2xl flex items-center justify-center border",
-                  isConnected ? "bg-[#EBFB3B]/20 border-[#EBFB3B]/30" : "bg-white/5 border-white/10"
+                  isConnected ? "bg-[hsl(var(--accent))]/20 border-[hsl(var(--accent))]/30" : "bg-card/5 border-border/10"
                 )}>
                   <device.icon className={cn("w-6 h-6", device.color)} />
                 </div>
@@ -194,9 +194,9 @@ export function WearablesSync({ onComplete }: { onComplete: () => void }) {
               {isConnecting ? (
                 <Loader2 className="w-5 h-5 animate-spin text-white/40" />
               ) : isConnected ? (
-                <Radio className="w-6 h-6 text-[#EBFB3B] animate-pulse" />
+                <Radio className="w-6 h-6 text-[hsl(var(--accent))] animate-pulse" />
               ) : (
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-all">
+                <div className="w-10 h-10 rounded-full border border-border/10 flex items-center justify-center group-hover:bg-card/10 transition-all">
                   <Bluetooth className="w-4 h-4 text-white/20" />
                 </div>
               )}
@@ -206,17 +206,17 @@ export function WearablesSync({ onComplete }: { onComplete: () => void }) {
       </div>
 
       {isCalibrating && (
-        <div className="mb-8 p-6 bg-[#EBFB3B]/10 border-2 border-[#EBFB3B]/30 rounded-2xl flex flex-col items-center gap-4 animate-in fade-in">
+        <div className="mb-8 p-6 bg-[hsl(var(--accent))]/10 border-2 border-[hsl(var(--accent))]/30 rounded-2xl flex flex-col items-center gap-4 animate-in fade-in">
           <div className="flex items-center gap-3">
-            <Loader2 className="w-5 h-5 animate-spin text-[#EBFB3B]" />
-            <span className="text-xs font-black uppercase tracking-widest text-[#EBFB3B]">{t.calibrating}</span>
+            <Loader2 className="w-5 h-5 animate-spin text-[hsl(var(--accent))]" />
+            <span className="text-xs font-black uppercase tracking-widest text-[hsl(var(--accent))]">{t.calibrating}</span>
           </div>
           <p className="text-[9px] text-white/40 text-center uppercase tracking-widest">{t.analyzing}</p>
         </div>
       )}
 
-      <div className="bg-[#EBFB3B]/5 border border-[#EBFB3B]/20 p-6 rounded-2xl flex items-start gap-4 mb-8">
-        <Info className="w-5 h-5 text-[#EBFB3B] shrink-0" />
+      <div className="bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/20 p-6 rounded-2xl flex items-start gap-4 mb-8">
+        <Info className="w-5 h-5 text-[hsl(var(--accent))] shrink-0" />
         <p className="text-[10px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">
           {t.guardianInfo}
         </p>
@@ -224,7 +224,7 @@ export function WearablesSync({ onComplete }: { onComplete: () => void }) {
 
       <button
         onClick={onComplete}
-        className="w-full h-16 bg-[#EBFB3B] text-black font-black uppercase text-sm tracking-widest rounded-full shadow-[0_0_20px_rgba(235,251,59,0.2)] active:scale-95 transition-all"
+        className="w-full h-16 bg-[hsl(var(--accent))] text-black font-black uppercase text-sm tracking-widest rounded-full shadow-[0_0_20px_rgba(235,251,59,0.2)] active:scale-95 transition-all"
       >
         {t.done}
       </button>

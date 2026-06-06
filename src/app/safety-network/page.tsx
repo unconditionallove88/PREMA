@@ -126,7 +126,7 @@ export default function SafetyNetworkPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+      <div className="min-h-screen bg-card flex flex-col items-center justify-center gap-8">
         <Loader2 className="animate-spin text-primary/20" />
       </div>
     );
@@ -163,10 +163,10 @@ export default function SafetyNetworkPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white font-headline pb-32 pt-safe">
-      <nav className="bg-black/90 backdrop-blur-2xl border-b border-white/5 px-6 py-8 sticky top-0 z-[100]">
+    <main className="min-h-screen bg-card text-white font-headline pb-32 pt-safe">
+      <nav className="bg-card/90 backdrop-blur-2xl border-b border-border/5 px-6 py-8 sticky top-0 z-[100]">
         <div className="max-md mx-auto flex items-center justify-between">
-          <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all">
+          <button onClick={() => router.push("/dashboard")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all">
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
@@ -177,7 +177,7 @@ export default function SafetyNetworkPage() {
       </nav>
 
       <div className="px-6 py-10 max-md mx-auto space-y-10">
-        <section className="bg-gradient-to-br from-[#1b4d3e] to-[#0a0a0a] rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group border border-primary/20">
+        <section className="bg-gradient-to-br from-primary/20 to-card rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group border border-primary/20">
           <Heart className="absolute -right-6 -bottom-6 opacity-10 rotate-12 transition-transform group-hover:scale-110" size={160} fill="currentColor" />
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
@@ -204,7 +204,7 @@ export default function SafetyNetworkPage() {
               <div className="py-20 flex justify-center"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
             ) : contacts?.length ? (
               contacts.map((contact) => (
-                <div key={contact.id} className="bg-white/5 border border-white/10 rounded-[2.5rem] p-6 flex items-center justify-between group hover:border-primary/30 transition-all">
+                <div key={contact.id} className="bg-card/5 border border-border/10 rounded-[2.5rem] p-6 flex items-center justify-between group hover:border-primary/30 transition-all">
                   <div className="flex items-center gap-5">
                     <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
                       <User className="w-6 h-6 text-primary" />
@@ -220,7 +220,7 @@ export default function SafetyNetworkPage() {
                 </div>
               ))
             ) : (
-              <div className="py-20 text-center border-2 border-dashed border-white/5 rounded-[3rem] opacity-40">
+              <div className="py-20 text-center border-2 border-dashed border-border/5 rounded-[3rem] opacity-40">
                 <p className="text-[10px] font-black uppercase tracking-[0.4em]">{t.empty}</p>
               </div>
             )}
@@ -229,9 +229,9 @@ export default function SafetyNetworkPage() {
           {guardiansCount < 5 && !showAddForm && (
             <button 
               onClick={() => setShowAddForm(true)} 
-              className="w-full bg-white/5 border-2 border-dashed border-white/10 rounded-[2.5rem] py-12 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/30 transition-all group"
+              className="w-full bg-card/5 border-2 border-dashed border-border/10 rounded-[2.5rem] py-12 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/30 transition-all group"
             >
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-white/10 group-hover:border-primary transition-all">
+              <div className="w-12 h-12 bg-card/5 rounded-full flex items-center justify-center border border-border/10 group-hover:border-primary transition-all">
                 <UserPlus className="w-6 h-6 text-white/20 group-hover:text-primary" />
               </div>
               <span className="text-[10px] font-black uppercase text-white/20 group-hover:text-primary tracking-[0.3em]">{t.add}</span>
@@ -239,7 +239,7 @@ export default function SafetyNetworkPage() {
           )}
 
           {showAddForm && (
-            <form onSubmit={handleAddContact} className="bg-[#0a0a0a] border-2 border-primary/30 rounded-[3rem] p-10 space-y-8 animate-in slide-in-from-bottom-4 duration-300">
+            <form onSubmit={handleAddContact} className="bg-card border-2 border-primary/30 rounded-[3rem] p-10 space-y-8 animate-in slide-in-from-bottom-4 duration-300">
               <div className="flex items-center gap-3 mb-2">
                 <UserPlus size={24} className="text-primary" />
                 <h2 className="text-2xl font-black uppercase tracking-tight">{t.newTitle}</h2>
@@ -247,31 +247,31 @@ export default function SafetyNetworkPage() {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-[9px] font-black uppercase text-white/30 tracking-widest ml-1">Full Name</label>
-                  <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder="Enter name" className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
+                  <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder="Enter name" className="w-full bg-card/5 border-2 border-border/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[9px] font-black uppercase text-white/30 tracking-widest ml-1">Relationship</label>
-                    <select value={form.relationship} onChange={(e) => setForm({...form, relationship: e.target.value})} className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold appearance-none" required>
-                      <option value="" className="bg-black">Select role</option>
-                      {RELATIONSHIP_OPTIONS.map(opt => <option key={opt} value={opt} className="bg-black">{opt}</option>)}
+                    <select value={form.relationship} onChange={(e) => setForm({...form, relationship: e.target.value})} className="w-full bg-card/5 border-2 border-border/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold appearance-none" required>
+                      <option value="" className="bg-card">Select role</option>
+                      {RELATIONSHIP_OPTIONS.map(opt => <option key={opt} value={opt} className="bg-card">{opt}</option>)}
                     </select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[9px] font-black uppercase text-white/30 tracking-widest ml-1">Phone Number</label>
-                    <input value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})} placeholder="+..." className="w-full bg-white/5 border-2 border-white/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
+                    <input value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})} placeholder="+..." className="w-full bg-card/5 border-2 border-border/10 h-16 px-6 rounded-2xl focus:border-primary outline-none text-white font-bold" required suppressHydrationWarning />
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <button type="button" onClick={() => setShowAddForm(false)} className="h-16 bg-white/5 text-white/40 font-black uppercase text-[10px] rounded-2xl border border-white/5">Cancel</button>
+                <button type="button" onClick={() => setShowAddForm(false)} className="h-16 bg-card/5 text-white/40 font-black uppercase text-[10px] rounded-2xl border border-border/5">Cancel</button>
                 <button type="submit" className="h-16 bg-primary text-white font-black uppercase text-[10px] rounded-2xl shadow-xl active:scale-95 transition-all">{t.save}</button>
               </div>
             </form>
           )}
         </section>
 
-        <section className="bg-white/5 rounded-[3rem] border-2 border-primary/20 p-10 space-y-8 relative overflow-hidden">
+        <section className="bg-card/5 rounded-[3rem] border-2 border-primary/20 p-10 space-y-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-10" />
           <div className="flex items-center gap-5">
             <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20"><Lock size={32} className="text-primary" /></div>
@@ -282,7 +282,7 @@ export default function SafetyNetworkPage() {
           </div>
           <p className="text-sm font-bold text-white/40 leading-relaxed uppercase tracking-widest">{t.codeDesc}</p>
           <div className="flex flex-col gap-4">
-            <input type="text" value={secretWordInput} onChange={(e) => setSecretWordInput(e.target.value)} placeholder={profile?.secretWord || t.codePlaceholder} className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-5 text-xl font-black uppercase outline-none focus:border-primary transition-all" suppressHydrationWarning />
+            <input type="text" value={secretWordInput} onChange={(e) => setSecretWordInput(e.target.value)} placeholder={profile?.secretWord || t.codePlaceholder} className="w-full bg-card/5 border-2 border-border/10 rounded-2xl px-8 py-5 text-xl font-black uppercase outline-none focus:border-primary transition-all" suppressHydrationWarning />
             <button onClick={handleSaveSecretWord} className="w-full bg-primary text-white py-6 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all shadow-xl shadow-primary/20">{t.seal}</button>
           </div>
           {profile?.secretWord && <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] text-center animate-pulse">{t.activeCode(profile.secretWord)}</p>}

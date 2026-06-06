@@ -98,7 +98,7 @@ function MapContent() {
 
   if (isLoading) {
     return (
-      <main className="h-screen bg-black flex flex-col items-center justify-center gap-4">
+      <main className="h-screen bg-card flex flex-col items-center justify-center gap-4">
         <div className="relative">
           <div className="absolute inset-0 animate-ping rounded-full bg-emerald-500/10" />
           <Loader2 className="w-10 h-10 animate-spin text-emerald-500 relative z-10" />
@@ -109,12 +109,12 @@ function MapContent() {
   }
 
   return (
-    <main className="h-screen bg-black text-white relative overflow-hidden font-headline animate-in fade-in duration-1000">
-      <div className="absolute inset-0 bg-[#050505]">
+    <main className="h-screen bg-card text-white relative overflow-hidden font-headline animate-in fade-in duration-1000">
+      <div className="absolute inset-0 bg-card">
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
           <svg width="100%" height="100%">
             <pattern id="radarGrid" width="100" height="100" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="#3EB489" />
+              <circle cx="1" cy="1" r="1" fill="hsl(var(--secondary))" />
             </pattern>
             <rect width="100%" height="100%" fill="url(#radarGrid)" />
           </svg>
@@ -124,12 +124,12 @@ function MapContent() {
           <div className={cn("transition-all duration-1000 scale-90 md:scale-100", !isSharing && "grayscale opacity-30")}>
             <div className="relative flex items-center justify-center w-32 h-32 md:w-40 md:h-40">
               <div className={cn("absolute w-full h-full rounded-full opacity-10 animate-ping", isGuardActive ? "bg-red-500" : "bg-emerald-400")} />
-              <div className="relative z-10 bg-black/40 p-4 rounded-full backdrop-blur-md border border-white/5">
-                <RadiatingThirdEye size={56} className="md:w-20 md:h-20" color={isGuardActive ? "#ef4444" : "#10b981"} />
+              <div className="relative z-10 bg-card/40 p-4 rounded-full backdrop-blur-md border border-border/5">
+                <RadiatingThirdEye size={56} className="md:w-20 md:h-20" color={isGuardActive ? "#ef4444" : "hsl(var(--primary))"} />
               </div>
             </div>
           </div>
-          <div className="mt-4 bg-black/60 px-4 py-1.5 rounded-full border border-white/5 inline-block backdrop-blur-sm">
+          <div className="mt-4 bg-card/60 px-4 py-1.5 rounded-full border border-border/5 inline-block backdrop-blur-sm">
             <span className="text-[9px] font-black uppercase tracking-widest text-white/60">{t.here}</span>
           </div>
         </div>
@@ -139,10 +139,10 @@ function MapContent() {
           <div className="absolute top-[35%] left-[25%] animate-in zoom-in duration-1000">
             <div className="relative flex flex-col items-center">
               <div className="absolute inset-0 bg-red-600/20 blur-xl rounded-full animate-ping" />
-              <div className="w-12 h-12 bg-black/80 rounded-full border-2 border-red-600 flex items-center justify-center shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+              <div className="w-12 h-12 bg-card/80 rounded-full border-2 border-red-600 flex items-center justify-center shadow-[0_0_20px_rgba(220,38,38,0.4)]">
                 <Heart className="text-red-500 w-6 h-6 animate-pulse-heart" fill="#ef4444" />
               </div>
-              <div className="absolute top-14 bg-red-600/90 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">
+              <div className="absolute top-14 bg-red-600/90 px-3 py-1 rounded-full border border-border/10 whitespace-nowrap">
                 <span className="text-[8px] font-black text-white uppercase">{familyDistress.dist} Presence Needed</span>
               </div>
             </div>
@@ -154,10 +154,10 @@ function MapContent() {
           <div className="absolute top-[30%] right-[20%] animate-in zoom-in duration-1000">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-ping" />
-              <div className="w-10 h-10 bg-black/80 rounded-full border-2 border-primary flex items-center justify-center">
+              <div className="w-10 h-10 bg-card/80 rounded-full border-2 border-primary flex items-center justify-center">
                 <Radio className="text-primary w-5 h-5 animate-pulse" />
               </div>
-              <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">
+              <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-card/60 px-3 py-1 rounded-full border border-border/10 whitespace-nowrap">
                 <span className="text-[8px] font-black text-white uppercase">{focusName}</span>
               </div>
             </div>
@@ -167,18 +167,18 @@ function MapContent() {
 
       <div className="relative z-10 p-6 flex flex-col h-full pointer-events-none">
         <header className="flex justify-between items-center pointer-events-auto w-full max-w-5xl mx-auto shrink-0 animate-in slide-in-from-top-4 duration-700">
-          <Link href="/dashboard" className="bg-black/60 backdrop-blur-xl p-4 rounded-full border border-white/10 hover:border-[#3EB489] transition-all group active:scale-95 shadow-xl">
+          <Link href="/dashboard" className="bg-card/60 backdrop-blur-xl p-4 rounded-full border border-border/10 hover:border-secondary transition-all group active:scale-95 shadow-xl">
             <ArrowLeft className="w-5 h-5 text-white/40 group-hover:text-white" />
           </Link>
           
-          <div className="bg-black/60 backdrop-blur-md px-5 py-3 rounded-full border border-white/10 flex items-center gap-4 transition-all hover:border-white/20 shadow-xl">
-            <div className="flex items-center gap-2 pr-2 border-r border-white/10">
-              {isSharing ? <CircleDot size={14} className="text-[#3EB489]" /> : <Lock size={14} className="text-white/20" />}
-              <span className={cn("text-[9px] font-black uppercase tracking-widest", isSharing ? "text-[#3EB489]" : "text-white/20")}>
+          <div className="bg-card/60 backdrop-blur-md px-5 py-3 rounded-full border border-border/10 flex items-center gap-4 transition-all hover:border-border/20 shadow-xl">
+            <div className="flex items-center gap-2 pr-2 border-r border-border/10">
+              {isSharing ? <CircleDot size={14} className="text-secondary" /> : <Lock size={14} className="text-white/20" />}
+              <span className={cn("text-[9px] font-black uppercase tracking-widest", isSharing ? "text-secondary" : "text-white/20")}>
                 {isSharing ? t.visible : t.private}
               </span>
             </div>
-            <Switch checked={isSharing} onCheckedChange={setIsSharing} className="data-[state=checked]:bg-[#3EB489] scale-90" />
+            <Switch checked={isSharing} onCheckedChange={setIsSharing} className="data-[state=checked]:bg-secondary scale-90" />
           </div>
         </header>
         
@@ -191,9 +191,9 @@ function MapContent() {
 
             <div className="w-full md:w-auto pointer-events-auto flex flex-col items-center md:items-end">
               {familyDistress ? (
-                <div className="bg-[#A855F7]/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl shadow-[#A855F7]/40 animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
+                <div className="bg-accent/90 backdrop-blur-xl border border-border/20 rounded-[2.5rem] p-6 shadow-2xl shadow-[0_0_20px_rgba(167,139,250,0.25)] animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
                   <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
+                    <div className="w-14 h-14 bg-card/20 rounded-2xl flex items-center justify-center border border-border/30 shrink-0">
                       <Heart size={32} className="text-white animate-pulse" fill="currentColor" />
                     </div>
                     <div>
@@ -203,15 +203,15 @@ function MapContent() {
                   </div>
                   
                   <button 
-                    className="w-full h-16 bg-white text-[#A855F7] rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all"
+                    className="w-full h-16 bg-card text-accent rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all"
                   >
                     <Navigation size={16} /> {t.helpFamily}
                   </button>
                 </div>
               ) : isFriendDistress ? (
-                <div className="bg-red-600/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl shadow-red-600/40 animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
+                <div className="bg-red-600/90 backdrop-blur-xl border border-border/20 rounded-[2.5rem] p-6 shadow-2xl shadow-red-600/40 animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
                   <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
+                    <div className="w-14 h-14 bg-card/20 rounded-2xl flex items-center justify-center border border-border/30 shrink-0">
                       <AlertTriangle size={32} className="text-white animate-pulse" />
                     </div>
                     <div>
@@ -223,19 +223,19 @@ function MapContent() {
                   <div className="flex gap-2">
                     <button 
                       onClick={() => setSosActive(true)}
-                      className="flex-1 h-16 bg-white text-red-600 rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all"
+                      className="flex-1 h-16 bg-card text-red-600 rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all"
                     >
                       <PhoneCall size={16} /> {t.notify}
                     </button>
-                    <button className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all">
+                    <button className="w-16 h-16 bg-card/10 rounded-2xl flex items-center justify-center border border-border/20 hover:bg-card/20 transition-all">
                       <Navigation size={20} className="text-white" />
                     </button>
                   </div>
                 </div>
               ) : isFindingFriend ? (
-                <div className="bg-primary/90 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-6 shadow-2xl animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
+                <div className="bg-primary/90 backdrop-blur-xl border border-border/20 rounded-[2.5rem] p-6 shadow-2xl animate-in slide-in-from-right-4 duration-500 space-y-5 w-full max-w-sm">
                   <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30 shrink-0">
+                    <div className="w-14 h-14 bg-card/20 rounded-2xl flex items-center justify-center border border-border/30 shrink-0">
                       <Navigation size={32} className="text-white animate-bounce" />
                     </div>
                     <div>
@@ -252,10 +252,10 @@ function MapContent() {
                   >
                     <Shield size={28} />
                   </button>
-                  <div className="bg-black/60 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white/5 items-center gap-4 animate-in fade-in duration-1000 flex">
-                    <Radio size={14} className="text-[#3EB489] animate-pulse" />
+                  <div className="bg-card/60 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-border/5 items-center gap-4 animate-in fade-in duration-1000 flex">
+                    <Radio size={14} className="text-secondary animate-pulse" />
                     <div className="text-left">
-                      <span className="block text-[9px] font-black uppercase tracking-widest text-[#3EB489]">{t.meshActive}</span>
+                      <span className="block text-[9px] font-black uppercase tracking-widest text-secondary">{t.meshActive}</span>
                       <p className="text-[8px] font-bold text-white/30 leading-none uppercase tracking-widest mt-1">Mesh Triangulation Active</p>
                     </div>
                   </div>
@@ -279,7 +279,7 @@ function MapContent() {
 
 export default function MapView() {
   return (
-    <Suspense fallback={<div className="h-screen bg-black flex items-center justify-center"><Loader2 className="animate-spin text-[#10B981]" /></div>}>
+    <Suspense fallback={<div className="h-screen bg-card flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>}>
       <MapContent />
     </Suspense>
   );

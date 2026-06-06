@@ -36,7 +36,7 @@ const OPTIONS = [
     icon: ShieldCheck, 
     label: "Practice absolute honesty", 
     de: "Absolute Ehrlichkeit heute praktizieren", 
-    color: "text-[#10B981]", 
+    color: "text-primary", 
     bg: "bg-primary/5",
     border: "border-primary/20"
   }
@@ -89,10 +89,10 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
               onClick={() => handleSelect(opt.id)}
               className={cn(
                 "w-full p-8 rounded-[2.5rem] border-2 flex items-center gap-6 transition-all active:scale-[0.98] text-left",
-                isActive ? `${opt.bg} border-primary shadow-2xl` : "bg-[#0a0a0a] border-white/5 hover:border-white/10"
+                isActive ? `${opt.bg} border-primary shadow-2xl` : "bg-card border-border/5 hover:border-border/10"
               )}
             >
-              <div className={cn("p-4 rounded-2xl", isActive ? "bg-white/10 text-white" : "bg-white/5 text-white/20")}>
+              <div className={cn("p-4 rounded-2xl", isActive ? "bg-card/10 text-white" : "bg-card/5 text-white/20")}>
                 <Icon size={28} />
               </div>
               <span className={cn("font-black text-lg uppercase tracking-tight leading-tight", isActive ? "text-white" : "text-white/40")}>
@@ -109,7 +109,7 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
           disabled={!selected} 
           className={cn(
             "pill-button w-full h-20 text-xl font-black uppercase tracking-widest transition-all shadow-lg",
-            selected ? 'bg-[#1b4d3e] text-white' : 'bg-white/5 text-white/10 cursor-not-allowed border border-white/5'
+            selected ? 'bg-primary text-white' : 'bg-card/5 text-white/10 cursor-not-allowed border border-border/5'
           )}
         >
           {t.confirm}

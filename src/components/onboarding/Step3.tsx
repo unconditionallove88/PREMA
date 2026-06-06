@@ -50,12 +50,12 @@ export function Step3Medications({ selected, onComplete }: { selected: string[],
               onClick={() => toggle(med.id)}
               className={`p-8 rounded-[2rem] border-2 text-left transition-all duration-300 flex flex-col gap-3 group ${
                 isActive 
-                  ? 'bg-[#3EB489]/10 border-[#3EB489] shadow-[0_0_25px_rgba(57,255,20,0.3)]' 
-                  : 'bg-[#0a0a0a] border-white/10 hover:border-white/30'
+                  ? 'bg-secondary/10 border-secondary shadow-[0_0_25px_rgba(57,255,20,0.3)]' 
+                  : 'bg-card border-border/10 hover:border-border/30'
               }`}
             >
               <span className="text-3xl mb-2">{med.emoji}</span>
-              <span className={`font-headline font-black text-xl uppercase tracking-tight ${isActive ? 'text-[#3EB489]' : 'text-white'}`}>
+              <span className={`font-headline font-black text-xl uppercase tracking-tight ${isActive ? 'text-secondary' : 'text-white'}`}>
                 {med.label}
               </span>
               <span className="text-[10px] text-white/40 uppercase font-bold tracking-widest leading-tight">
@@ -70,11 +70,11 @@ export function Step3Medications({ selected, onComplete }: { selected: string[],
         onClick={() => toggle('none')}
         className={`w-full p-8 rounded-[2rem] border-2 text-center transition-all duration-300 mb-12 ${
           current.includes('none')
-            ? 'bg-[#3EB489]/10 border-[#3EB489] shadow-[0_0_25px_rgba(62,180,137,0.3)]'
-            : 'bg-[#0a0a0a] border-white/10 hover:border-white/30'
+            ? 'bg-secondary/10 border-secondary shadow-[0_0_25px_rgba(62,180,137,0.3)]'
+            : 'bg-card border-border/10 hover:border-border/30'
         }`}
       >
-        <span className={`font-headline font-black text-xl uppercase tracking-[0.2em] ${current.includes('none') ? 'text-[#3EB489]' : 'text-white/40'}`}>
+        <span className={`font-headline font-black text-xl uppercase tracking-[0.2em] ${current.includes('none') ? 'text-secondary' : 'text-white/40'}`}>
           NONE OF THE ABOVE / NONE OF THESE
         </span>
       </button>
@@ -84,8 +84,8 @@ export function Step3Medications({ selected, onComplete }: { selected: string[],
         disabled={current.length === 0}
         className={`pill-button w-full max-w-sm py-8 text-2xl font-black uppercase tracking-[0.2em] transition-all ${
           current.length > 0
-            ? 'bg-[#3EB489] text-black neon-glow active:scale-95'
-            : 'bg-white/10 text-white/10 cursor-not-allowed border-2 border-white/5'
+            ? 'bg-secondary text-black neon-glow active:scale-95'
+            : 'bg-card/10 text-white/10 cursor-not-allowed border-2 border-border/5'
         }`}
       >
         NEXT STEP

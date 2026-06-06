@@ -156,21 +156,21 @@ export function Step3SafetyShields({
                     onClick={() => toggle(item.id)}
                     className={`flex items-center justify-between p-4 rounded-xl border transition-all h-[72px] cursor-pointer ${
                       isActive 
-                        ? 'bg-[#1A1A1A] border-[#3EB489]/50' 
-                        : 'bg-[#0a0a0a] border-white/10 hover:border-white/20'
+                        ? 'bg-card border-secondary/50' 
+                        : 'bg-card border-border/10 hover:border-border/20'
                     }`}
                   >
                     <div className="flex items-center gap-4">
                       <span className="text-xl">{item.emoji}</span>
-                      <span className={`font-black text-xs uppercase tracking-tight ${isActive ? 'text-[#3EB489]' : 'text-white/70'}`}>
+                      <span className={`font-black text-xs uppercase tracking-tight ${isActive ? 'text-secondary' : 'text-white/70'}`}>
                         {item.label}
                       </span>
                     </div>
                     
-                    <div className="flex items-center bg-white/5 px-4 py-2 rounded-xl border border-white/10 pointer-events-none">
+                    <div className="flex items-center bg-card/5 px-4 py-2 rounded-xl border border-border/10 pointer-events-none">
                       <Switch 
                         checked={isActive}
-                        className="data-[state=checked]:bg-[#3EB489]"
+                        className="data-[state=checked]:bg-secondary"
                       />
                     </div>
                   </div>
@@ -186,8 +186,8 @@ export function Step3SafetyShields({
           onClick={() => toggle('none')}
           className={`w-full p-5 rounded-[1.5rem] border font-black text-[10px] uppercase tracking-[0.2em] transition-all h-[64px] ${
             isNoneSelected
-              ? 'bg-[#3EB489]/10 border-[#3EB489] text-[#3EB489] neon-glow'
-              : 'bg-[#0a0a0a] border-white/10 text-white/30'
+              ? 'bg-secondary/10 border-secondary text-secondary neon-glow'
+              : 'bg-card border-border/10 text-white/30'
           }`}
         >
           {content[lang].none}
@@ -198,8 +198,8 @@ export function Step3SafetyShields({
           disabled={current.length === 0}
           className={`pill-button w-full max-w-sm h-[64px] uppercase tracking-[0.2em] font-black text-xl transition-all ${
             current.length > 0
-              ? 'bg-[#3EB489] text-black neon-glow active:scale-95'
-              : 'bg-white/10 text-white/10 cursor-not-allowed border-2 border-white/5 opacity-50'
+              ? 'bg-secondary text-black neon-glow active:scale-95'
+              : 'bg-card/10 text-white/10 cursor-not-allowed border-2 border-border/5 opacity-50'
           }`}
         >
           {content[lang].confirm}

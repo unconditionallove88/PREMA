@@ -130,7 +130,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
 
   if (activePhase === 'before') {
     return (
-      <div className="h-full bg-black text-white flex flex-col font-headline relative animate-in fade-in duration-500">
+      <div className="h-full bg-card text-white flex flex-col font-headline relative animate-in fade-in duration-500">
         <header className="p-8 pb-4 shrink-0 flex items-center justify-between">
           <button onClick={() => setActivePhase('root')} className="text-white/40 text-[10px] font-black uppercase tracking-widest">Back</button>
           <div className="flex items-center gap-2">
@@ -166,12 +166,12 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                 </div>
               </button>
 
-              <div className="p-6 rounded-[2rem] bg-white/[0.03] border border-white/10 space-y-4">
+              <div className="p-6 rounded-[2rem] bg-card/[0.03] border border-border/10 space-y-4">
                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">{t.prepWisdom}</p>
                  <div className="grid grid-cols-1 gap-2">
                     <button 
                       onClick={() => { playHeartbeat(); setSelectedWisdom({...t.details.hydration, icon: <Droplets className="text-blue-400" />}); }}
-                      className="w-full flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all group"
+                      className="w-full flex items-center justify-between p-4 bg-card/5 rounded-2xl hover:bg-card/10 transition-all group"
                     >
                       <div className="flex items-center gap-3">
                         <Droplets size={16} className="text-blue-400" />
@@ -181,7 +181,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                     </button>
                     <button 
                       onClick={() => { playHeartbeat(); setSelectedWisdom({...t.details.nutrition, icon: <Apple className="text-emerald-400" />}); }}
-                      className="w-full flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all group"
+                      className="w-full flex items-center justify-between p-4 bg-card/5 rounded-2xl hover:bg-card/10 transition-all group"
                     >
                       <div className="flex items-center gap-3">
                         <Apple size={16} className="text-emerald-400" />
@@ -191,7 +191,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                     </button>
                     <button 
                       onClick={() => { playHeartbeat(); setSelectedWisdom({...t.details.rest, icon: <Moon className="text-purple-400" />}); }}
-                      className="w-full flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all group"
+                      className="w-full flex items-center justify-between p-4 bg-card/5 rounded-2xl hover:bg-card/10 transition-all group"
                     >
                       <div className="flex items-center gap-3">
                         <Moon size={16} className="text-purple-400" />
@@ -204,7 +204,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
 
               <button 
                 onClick={() => router.push('/before')}
-                className="p-6 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-between"
+                className="p-6 rounded-[2rem] bg-card/5 border border-border/10 flex items-center justify-between"
               >
                 <span className="text-xs font-black uppercase tracking-widest">Full Preparation Guide</span>
                 <ArrowRight size={16} />
@@ -214,25 +214,25 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
         </ScrollArea>
 
         <Dialog open={intentionOpen} onOpenChange={setIntentionOpen}>
-          <DialogContent className="bg-black border-white/10 p-0 max-w-xl h-[80vh]">
+          <DialogContent className="bg-card border-border/10 p-0 max-w-xl h-[80vh]">
             <DialogTitle className="sr-only">Intention</DialogTitle>
             <StepPartyGoal onComplete={() => setIntentionOpen(false)} />
           </DialogContent>
         </Dialog>
 
         <Dialog open={gearOpen} onOpenChange={setGearOpen}>
-          <DialogContent className="bg-black border-white/10 p-0 max-w-xl h-[80vh]">
+          <DialogContent className="bg-card border-border/10 p-0 max-w-xl h-[80vh]">
             <DialogTitle className="sr-only">Gear Check</DialogTitle>
             <Step7GearCheck onComplete={() => setGearOpen(false)} />
           </DialogContent>
         </Dialog>
 
         <Dialog open={!!selectedWisdom} onOpenChange={() => setSelectedWisdom(null)}>
-          <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
+          <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-[0_0_100px_rgba(0,0,0,0.9)]">
             <DialogTitle className="sr-only">{t.wisdomTitle}</DialogTitle>
             <div className="p-10 text-center space-y-8">
               <div className="flex flex-col items-center gap-6">
-                <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-white/10 bg-white/5">
+                <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border/10 bg-card/5">
                   {selectedWisdom?.icon && React.cloneElement(selectedWisdom.icon as React.ReactElement, { size: 40 })}
                 </div>
                 <div className="space-y-1">
@@ -241,14 +241,14 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                 </div>
               </div>
               <div className="space-y-6 text-left">
-                <div className="p-6 bg-white/[0.03] border border-white/5 rounded-3xl space-y-4">
+                <div className="p-6 bg-card/[0.03] border border-border/5 rounded-3xl space-y-4">
                   <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{selectedWisdom?.desc}</p>
-                  {selectedWisdom?.kidneys && <p className="text-[11px] font-black text-blue-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">{selectedWisdom.kidneys}</p>}
-                  {selectedWisdom?.energy && <p className="text-[11px] font-black text-emerald-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">{selectedWisdom.energy}</p>}
-                  {selectedWisdom?.timing && <p className="text-[11px] font-black text-purple-400/80 leading-relaxed uppercase tracking-widest border-t border-white/5 pt-4">{selectedWisdom.timing}</p>}
+                  {selectedWisdom?.kidneys && <p className="text-[11px] font-black text-blue-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">{selectedWisdom.kidneys}</p>}
+                  {selectedWisdom?.energy && <p className="text-[11px] font-black text-emerald-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">{selectedWisdom.energy}</p>}
+                  {selectedWisdom?.timing && <p className="text-[11px] font-black text-purple-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">{selectedWisdom.timing}</p>}
                 </div>
               </div>
-              <button onClick={() => { playHeartbeat(); setSelectedWisdom(null); }} className="w-full h-16 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg">{t.closeBtn}</button>
+              <button onClick={() => { playHeartbeat(); setSelectedWisdom(null); }} className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg">{t.closeBtn}</button>
             </div>
           </DialogContent>
         </Dialog>
@@ -257,7 +257,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
   }
 
   return (
-    <div className="h-full bg-black text-white flex flex-col font-headline relative overflow-hidden">
+    <div className="h-full bg-card text-white flex flex-col font-headline relative overflow-hidden">
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/5 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -277,14 +277,14 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
               <SupporterIcon className="text-emerald-500" size={24} />
               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">{t.supporter}</p>
             </div>
-            <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+            <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
               {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
             </button>
           </div>
           <h2 className="text-4xl font-black uppercase tracking-tighter leading-none mb-4">
             {t.question.split(' ').slice(0, -1).join(' ')} <br /> <span className="text-emerald-500">{t.question.split(' ').pop()}</span>
           </h2>
-          <p className="text-[#10B981] text-sm font-bold leading-relaxed max-w-[280px] uppercase tracking-widest">
+          <p className="text-primary text-sm font-bold leading-relaxed max-w-[280px] uppercase tracking-widest">
             {t.subtitle}
           </p>
         </section>
@@ -307,12 +307,12 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
                 phase.color
               )}
             >
-              <div className="p-4 rounded-2xl bg-black/40 border border-white/10 group-hover:scale-110 transition-transform mr-5">
+              <div className="p-4 rounded-2xl bg-card/40 border border-border/10 group-hover:scale-110 transition-transform mr-5">
                 {phase.icon}
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-black uppercase tracking-tight">{phase.title}</h3>
-                <p className="text-[10px] font-black text-[#10B981] uppercase tracking-widest mt-1">{phase.desc}</p>
+                <p className="text-[10px] font-black text-primary uppercase tracking-widest mt-1">{phase.desc}</p>
               </div>
               <ArrowRight size={18} className="text-white/10 group-hover:text-white group-hover:translate-x-1 transition-all" />
             </button>

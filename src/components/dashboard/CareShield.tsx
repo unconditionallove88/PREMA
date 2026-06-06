@@ -35,15 +35,15 @@ export default function CareShield({ reason, unlockAt, lang, onNeedSupport }: Ca
   const unlockTime = typeof unlockAt === 'string' ? new Date(unlockAt).getTime() : unlockAt;
 
   return (
-    <div className="w-full min-h-[500px] rounded-[3rem] bg-[#0a0a0a] border border-[#10B981]/20 p-10 text-center flex flex-col items-center justify-center shadow-2xl relative overflow-hidden font-headline">
+    <div className="w-full min-h-[500px] rounded-[3rem] bg-card border border-[hsl(var(--primary))]/20 p-10 text-center flex flex-col items-center justify-center shadow-2xl relative overflow-hidden font-headline">
       {/* Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#10B981]/5 blur-[100px] rounded-full -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-[hsl(var(--primary))]/5 blur-[100px] rounded-full -z-10" />
       
       {/* Pulsing Icon */}
       <div className="relative mb-8">
-        <div className="absolute inset-0 bg-[#10B981]/20 blur-2xl rounded-full animate-pulse" />
-        <div className="relative w-24 h-24 rounded-full bg-black flex items-center justify-center border-2 border-[#10B981]/50 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-          <ShieldAlert size={40} className="text-[#10B981]" />
+        <div className="absolute inset-0 bg-[hsl(var(--primary))]/20 blur-2xl rounded-full animate-pulse" />
+        <div className="relative w-24 h-24 rounded-full bg-card flex items-center justify-center border-2 border-[hsl(var(--primary))]/50 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+          <ShieldAlert size={40} className="text-primary" />
         </div>
       </div>
 
@@ -56,12 +56,12 @@ export default function CareShield({ reason, unlockAt, lang, onNeedSupport }: Ca
       </p>
 
       {/* Breathing Exercise Block */}
-      <div className="w-full bg-white/5 rounded-3xl p-6 mb-10 flex items-center gap-5 border border-white/10 group transition-all hover:bg-white/10">
-        <div className="w-12 h-12 bg-[#10B981]/10 rounded-2xl flex items-center justify-center border border-[#10B981]/20">
-          <Wind className="text-[#10B981] animate-bounce" size={24} />
+      <div className="w-full bg-card/5 rounded-3xl p-6 mb-10 flex items-center gap-5 border border-border/10 group transition-all hover:bg-card/10">
+        <div className="w-12 h-12 bg-[hsl(var(--primary))]/10 rounded-2xl flex items-center justify-center border border-[hsl(var(--primary))]/20">
+          <Wind className="text-primary animate-bounce" size={24} />
         </div>
         <div className="text-left">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#10B981] font-black">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-primary font-black">
             {isEn ? "Focus on your breath" : "Konzentriere dich auf deinen Atem"}
           </p>
           <p className="text-[9px] text-white/20 font-bold uppercase mt-1 tracking-widest">Inhale peace • Exhale tension</p>
@@ -81,8 +81,8 @@ export default function CareShield({ reason, unlockAt, lang, onNeedSupport }: Ca
         <p className="text-[10px] text-white/20 uppercase tracking-0.4em font-black">
           {isEn ? "Lab resting until" : "Lab ruht bis"}
         </p>
-        <div className="px-4 py-1.5 bg-white/5 rounded-full border border-white/10">
-          <span className="font-mono text-[#10B981] text-sm font-black">
+        <div className="px-4 py-1.5 bg-card/5 rounded-full border border-border/10">
+          <span className="font-mono text-primary text-sm font-black">
             {new Date(unlockTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>

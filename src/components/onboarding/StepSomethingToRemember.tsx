@@ -98,7 +98,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
   const t = UI[lang] || UI.en;
 
   return (
-    <div className="w-full h-full flex flex-col font-headline bg-black relative animate-in fade-in duration-700 overflow-x-hidden">
+    <div className="w-full h-full flex flex-col font-headline bg-card relative animate-in fade-in duration-700 overflow-x-hidden">
       {!isStandAlone && onBack && (
         <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
           <ArrowLeft className="w-4 h-4" /> BACK
@@ -124,12 +124,12 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                   <button 
                     key={row.id} 
                     onClick={() => setSelectedPair(row)}
-                    className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
+                    className="bg-card border border-border/10 rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-primary/30 group w-full overflow-hidden text-left active:scale-[0.98]"
                   >
                     <div className="flex justify-between items-start gap-4">
                       <span className="text-xs font-black text-white/90 uppercase tracking-tight flex-1 break-words">{row.s1} + {row.s2}</span>
                       <div className="flex items-center gap-2">
-                         <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-white/5 shrink-0", row.color)}>
+                         <span className={cn("text-[8px] font-black uppercase px-2 py-1 rounded-md bg-card/5 shrink-0", row.color)}>
                            {row.risk}
                          </span>
                          <ChevronRight size={12} className="text-white/20 group-hover:text-primary transition-colors" />
@@ -147,12 +147,12 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                   onClick={() => setAcknowledge(!acknowledged)}
                   className={cn(
                     "w-full p-6 rounded-2xl border-2 flex items-center gap-4 transition-all active:scale-[0.98] shadow-lg mt-8",
-                    acknowledged ? "bg-primary/10 border-primary" : "bg-white/5 border-white/10"
+                    acknowledged ? "bg-primary/10 border-primary" : "bg-card/5 border-border/10"
                   )}
                 >
                   <div className={cn(
                     "w-6 h-6 rounded-full border flex items-center justify-center shrink-0 transition-all",
-                    acknowledged ? "bg-primary border-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "border-white/20"
+                    acknowledged ? "bg-primary border-primary shadow-[0_0_10px_rgba(27,77,62,0.5)]" : "border-border/20"
                   )}>
                     {acknowledged && <Check className="w-3.5 h-3.5 text-white" />}
                   </div>
@@ -171,13 +171,13 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
       </div>
 
       <Dialog open={!!selectedPair} onOpenChange={() => setSelectedPair(null)}>
-        <DialogContent className="bg-black border-white/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-2xl">
+        <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-2xl">
           <DialogTitle className="sr-only">{t.medicalTitle}</DialogTitle>
           
           <div className="p-10 flex flex-col items-center text-center space-y-8">
             <div className="relative">
               <div className={cn("absolute inset-0 blur-3xl rounded-full opacity-20", selectedPair?.color.replace('text-', 'bg-'))} />
-              <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center border-2 border-white/10 relative z-10">
+              <div className="w-20 h-20 bg-card/5 rounded-3xl flex items-center justify-center border-2 border-border/10 relative z-10">
                 <ShieldAlert size={40} className={selectedPair?.color} />
               </div>
             </div>
@@ -191,7 +191,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
               </p>
             </div>
 
-            <div className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] p-8 text-left space-y-6">
+            <div className="w-full bg-card/[0.03] border border-border/5 rounded-[2rem] p-8 text-left space-y-6">
               <div className="flex items-center gap-3">
                 <Brain size={18} className="text-primary/60" />
                 <span className="text-[10px] font-black uppercase text-primary/60 tracking-widest">{t.medicalSub}</span>
@@ -201,7 +201,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                 {lang === 'en' ? selectedPair?.med?.en : selectedPair?.med?.de}
               </p>
 
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border/5">
                  <div className="flex items-center gap-2">
                    <HeartPulse size={14} className="text-red-500" />
                    <span className="text-[8px] font-black uppercase text-white/30 tracking-widest">Cardiac Load: High</span>
@@ -215,7 +215,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
 
             <button 
               onClick={() => setSelectedPair(null)}
-              className="w-full h-16 bg-[#1b4d3e] text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
+              className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest active:scale-95 transition-all shadow-lg"
             >
               {t.close}
             </button>
@@ -230,7 +230,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
             disabled={!acknowledged}
             className={cn(
               "pointer-events-auto w-full max-w-sm mx-auto h-20 rounded-full uppercase tracking-[0.2em] font-black text-lg transition-all shadow-2xl flex items-center justify-center gap-3",
-              acknowledged ? 'bg-[#1b4d3e] text-white neon-glow active:scale-95' : 'bg-white/10 text-white/10 border-2 border-white/5 cursor-not-allowed opacity-50'
+              acknowledged ? 'bg-primary text-white neon-glow active:scale-95' : 'bg-card/10 text-white/10 border-2 border-border/5 cursor-not-allowed opacity-50'
             )}
           >
             {t.confirm}

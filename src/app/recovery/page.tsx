@@ -172,15 +172,15 @@ export default function RecoveryView() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen bg-black text-white font-headline pb-64 pt-safe">
-      <div className="bg-black/95 backdrop-blur-xl border-b border-white/5 px-6 py-8 sticky top-0 z-50">
+    <main className="min-h-screen bg-card text-white font-headline pb-64 pt-safe">
+      <div className="bg-card/95 backdrop-blur-xl border-b border-border/5 px-6 py-8 sticky top-0 z-50">
         <div className="max-w-xl mx-auto space-y-6">
           <button onClick={() => router.back()} className="flex items-center gap-2 text-white/40 uppercase font-black text-[10px] tracking-widest hover:text-primary transition-colors"><ArrowLeft className="w-4 h-4" /> Back to home</button>
           <div className="flex justify-between items-end">
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-4xl font-black uppercase tracking-tighter leading-none">{isFinished ? t.integrated : t.recovery}</h1>
-                <button onClick={handleVoice} disabled={isSpeaking} className="p-2 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all disabled:opacity-30">
+                <button onClick={handleVoice} disabled={isSpeaking} className="p-2 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
                   {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
@@ -194,7 +194,7 @@ export default function RecoveryView() {
       <ScrollArea className="h-full">
         <div className="px-6 py-10 max-xl mx-auto space-y-12 pb-40">
           {!isFinished && (
-            <section className="bg-white/[0.03] border-2 border-white/10 rounded-[2.5rem] p-8 space-y-6">
+            <section className="bg-card/[0.03] border-2 border-border/10 rounded-[2.5rem] p-8 space-y-6">
                <div className="flex items-center gap-4">
                  <div className="w-12 h-12 bg-red-600/10 rounded-2xl flex items-center justify-center border border-red-600/20"><Trash2 className="text-red-500" size={24} /></div>
                  <div>
@@ -240,18 +240,18 @@ export default function RecoveryView() {
                   key={p.id} 
                   onClick={() => p.action?.()}
                   className={cn(
-                    "p-8 rounded-[2.5rem] border border-white/10 bg-white/5 flex flex-col gap-4 group transition-all",
+                    "p-8 rounded-[2.5rem] border border-border/10 bg-card/5 flex flex-col gap-4 group transition-all",
                     p.action ? "border-primary/40 bg-primary/5 cursor-pointer hover:bg-primary/10" : "hover:bg-primary/40"
                   )}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <div className={cn("p-3 rounded-2xl bg-white/5", p.color)}><p.icon className="w-6 h-6" /></div>
+                      <div className={cn("p-3 rounded-2xl bg-card/5", p.color)}><p.icon className="w-6 h-6" /></div>
                       <div className="flex flex-col"><span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">{p.time}</span><span className="text-xl font-black uppercase text-white">{p.text}</span></div>
                     </div>
                     {p.action ? <ChevronRight className="w-5 h-5 text-primary animate-pulse" /> : <CheckCircle2 className="w-5 h-5 text-primary/20" />}
                   </div>
-                  <p className="text-sm font-bold text-white/60 leading-relaxed pl-2 border-l-2 border-white/10">{p.desc}</p>
+                  <p className="text-sm font-bold text-white/60 leading-relaxed pl-2 border-l-2 border-border/10">{p.desc}</p>
                 </div>
               ))}
             </div>
@@ -259,9 +259,9 @@ export default function RecoveryView() {
         </div>
       </ScrollArea>
 
-      <footer className="fixed bottom-0 left-0 right-0 py-8 bg-black/95 backdrop-blur-xl border-t border-white/5 flex flex-col items-center justify-center px-6 z-50 gap-4 pb-safe">
+      <footer className="fixed bottom-0 left-0 right-0 py-8 bg-card/95 backdrop-blur-xl border-t border-border/5 flex flex-col items-center justify-center px-6 z-50 gap-4 pb-safe">
         {isFinished && (
-          <button onClick={() => router.push('/dashboard')} className="w-full max-w-sm py-6 bg-white text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
+          <button onClick={() => router.push('/dashboard')} className="w-full max-w-sm py-6 bg-card text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
         )}
         <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">Created in harmony</p>
       </footer>

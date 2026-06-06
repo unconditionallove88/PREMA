@@ -30,7 +30,7 @@ const VIBES = [
       de: "Dein Licht leuchtet heute hell"
     },
     color: "text-[#FFD700]", 
-    bg: "bg-[#FFD700]/10", 
+    bg: "bg-primary/10", 
     border: "border-[#FFD700]/30",
     hex: "#FFD700"
   },
@@ -44,7 +44,7 @@ const VIBES = [
       de: "Du bist im Einklang mit deinem Rhythmus"
     },
     color: "text-[#8FBC8F]", 
-    bg: "bg-[#8FBC8F]/10", 
+    bg: "bg-secondary/10", 
     border: "border-[#8FBC8F]/30",
     hex: "#8FBC8F"
   },
@@ -58,7 +58,7 @@ const VIBES = [
       de: "Alles ist genau so wie es sein soll"
     },
     color: "text-[#87CEEB]", 
-    bg: "bg-[#87CEEB]/10", 
+    bg: "bg-accent/10", 
     border: "border-[#87CEEB]/30",
     hex: "#87CEEB"
   },
@@ -72,7 +72,7 @@ const VIBES = [
       de: "Es ist okay sich auszuruhen"
     },
     color: "text-[#C0C0C0]", 
-    bg: "bg-[#C0C0C0]/10", 
+    bg: "bg-card/10", 
     border: "border-[#C0C0C0]/30",
     hex: "#C0C0C0"
   },
@@ -86,7 +86,7 @@ const VIBES = [
       de: "Du wirst gehalten Dein Kreis ist hier"
     },
     color: "text-[#E2725B]", 
-    bg: "bg-[#E2725B]/10", 
+    bg: "bg-primary/10", 
     border: "border-[#E2725B]/30",
     hex: "#E2725B"
   },
@@ -141,7 +141,7 @@ export function VibeMirror({ vibe, onVibeUpdate }: VibeMirrorProps) {
           "flex items-center gap-3 px-5 py-3 rounded-full border transition-all active:scale-95 group", 
           currentTheme.border, 
           currentTheme.bg,
-          "hover:bg-white/5 shadow-lg"
+          "hover:bg-card/5 shadow-lg"
         )}
       >
         <span className="group-hover:scale-110 transition-transform flex items-center justify-center relative z-10">
@@ -154,15 +154,15 @@ export function VibeMirror({ vibe, onVibeUpdate }: VibeMirrorProps) {
       </button>
 
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side="bottom" className="bg-black border-white/10 p-8 rounded-t-[3.5rem] h-auto max-h-[90vh] overflow-y-auto shadow-[0_-30px_100px_rgba(0,0,0,0.8)]">
+        <SheetContent side="bottom" className="bg-card border-border/10 p-8 rounded-t-[3.5rem] h-auto max-h-[90vh] overflow-y-auto shadow-[0_-30px_100px_rgba(0,0,0,0.8)]">
           <SheetHeader className="mb-10">
-            <div className="w-16 h-16 bg-[#10B981]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#10B981]/20">
-              <Heart className="text-[#10B981]" size={32} />
+            <div className="w-16 h-16 bg-[hsl(var(--primary))]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[hsl(var(--primary))]/20">
+              <Heart className="text-primary" size={32} />
             </div>
             <SheetTitle className="text-center text-2xl font-black uppercase tracking-tighter text-white">
               {UI.header}
             </SheetTitle>
-            <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] mt-2 text-[#10B981]">
+            <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] mt-2 text-primary">
               {UI.sub}
             </p>
           </SheetHeader>
@@ -179,7 +179,7 @@ export function VibeMirror({ vibe, onVibeUpdate }: VibeMirrorProps) {
                   disabled={isSaving} 
                   className={cn(
                     "flex items-center gap-6 p-6 rounded-[2.5rem] border-2 transition-all active:scale-[0.98] text-left group relative overflow-hidden", 
-                    isActive ? `bg-white/5 ${v.border} shadow-2xl` : "bg-[#0a0a0a] border-white/5 hover:border-white/20"
+                    isActive ? `bg-card/5 ${v.border} shadow-2xl` : "bg-card border-border/5 hover:border-border/20"
                   )}
                 >
                   <div className="w-12 flex justify-center group-hover:scale-110 transition-transform relative z-10">
@@ -198,8 +198,8 @@ export function VibeMirror({ vibe, onVibeUpdate }: VibeMirrorProps) {
             })}
           </div>
           
-          <div className="mt-4 pt-6 border-t border-white/5 max-w-md mx-auto">
-            <p className="text-center text-[10px] text-[#10B981] font-black uppercase tracking-[0.5em]">
+          <div className="mt-4 pt-6 border-t border-border/5 max-w-md mx-auto">
+            <p className="text-center text-[10px] text-primary font-black uppercase tracking-[0.5em]">
               {UI.footer}
             </p>
           </div>

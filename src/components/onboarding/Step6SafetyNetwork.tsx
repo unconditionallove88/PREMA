@@ -101,30 +101,30 @@ export function Step6SafetyNetwork({
 
       <div className="flex-1 w-full space-y-4 mb-10 overflow-y-auto max-h-[55vh] custom-scrollbar pr-2 pb-10">
         {/* Proactive Dispatch Option */}
-        <div className="bg-[#1b4d3e]/10 rounded-[2.5rem] border-2 border-[#A855F7] p-6 flex flex-col gap-4 group hover:bg-[#1b4d3e]/20 transition-all text-left shadow-2xl relative overflow-hidden">
+        <div className="bg-primary/10 rounded-[2.5rem] border-2 border-accent p-6 flex flex-col gap-4 group hover:bg-primary/20 transition-all text-left shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-10">
-            <Radio size={80} className="text-[#A855F7]" />
+            <Radio size={80} className="text-accent" />
           </div>
           <div className="flex items-center justify-between relative z-10">
             <div className="flex flex-col gap-1 pr-4">
               <div className="flex items-center gap-2">
-                <ShieldAlert size={18} className="text-[#A855F7]" />
+                <ShieldAlert size={18} className="text-accent" />
                 <Label className="text-lg font-black tracking-tight text-white leading-tight uppercase">{t.proactive}</Label>
               </div>
-              <p className="text-[10px] text-[#A855F7] font-black uppercase tracking-widest">{t.proactiveSub}</p>
+              <p className="text-[10px] text-accent font-black uppercase tracking-widest">{t.proactiveSub}</p>
             </div>
             <Switch 
               checked={proactiveCare}
               onCheckedChange={setProactiveCare}
-              className="data-[state=checked]:bg-[#A855F7] scale-125"
+              className="data-[state=checked]:bg-accent scale-125"
             />
           </div>
-          <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-relaxed border-t border-white/10 pt-4 relative z-10">
+          <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-relaxed border-t border-border/10 pt-4 relative z-10">
             I authorize the Pulse Guardian to share Mesh location and biological vitals with the Awareness Team if I am in a critical state for more than 10 minutes. They can contact me via the app to assess presence.
           </p>
         </div>
 
-        <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 flex flex-col gap-4 group hover:border-[#3EB489]/30 transition-all text-left">
+        <div className="bg-card rounded-[2rem] border-2 border-border/10 p-6 flex flex-col gap-4 group hover:border-secondary/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1 pr-4">
               <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.shareLocation}</Label>
@@ -133,15 +133,15 @@ export function Step6SafetyNetwork({
             <Switch 
               checked={shareLocation}
               onCheckedChange={setShareLocation}
-              className="data-[state=checked]:bg-[#3EB489]"
+              className="data-[state=checked]:bg-secondary"
             />
           </div>
-          <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-white/5 pt-4">
+          <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed border-t border-border/5 pt-4">
             {t.revokeInfo}
           </p>
         </div>
 
-        <div className="bg-[#0a0a0a] rounded-[2rem] border-2 border-white/10 p-6 space-y-6 group hover:border-[#3EB489]/30 transition-all text-left">
+        <div className="bg-card rounded-[2rem] border-2 border-border/10 p-6 space-y-6 group hover:border-secondary/30 transition-all text-left">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1">
               <Label className="text-base font-black tracking-tight text-white leading-tight uppercase">{t.radar}</Label>
@@ -150,39 +150,39 @@ export function Step6SafetyNetwork({
             <Switch 
               checked={friendRadar}
               onCheckedChange={setFriendRadar}
-              className="data-[state=checked]:bg-[#3EB489]"
+              className="data-[state=checked]:bg-secondary"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => { setShowMyCode(!showMyCode); setScanning(false); }}
-              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${showMyCode ? 'bg-[#3EB489] text-black border-[#3EB489] shadow-[0_0_20px_#3EB489]' : 'bg-white/5 border-white/10 text-white hover:border-white/30'}`}
+              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${showMyCode ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-white hover:border-border/30'}`}
             >
               <QrCode className="w-4 h-4" /> {t.myCode}
             </button>
             <button 
               onClick={() => { setScanning(!scanning); setShowMyCode(false); }}
-              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${scanning ? 'bg-[#3EB489] text-black border-[#3EB489] shadow-[0_0_20px_#3EB489]' : 'bg-white/5 border-white/10 text-white hover:border-white/30'}`}
+              className={`flex items-center justify-center gap-3 border-2 p-5 rounded-xl transition-all font-black text-[10px] tracking-widest ${scanning ? 'bg-secondary text-black border-secondary shadow-[0_0_20px_rgba(245,169,133,0.25)]' : 'bg-card/5 border-border/10 text-white hover:border-border/30'}`}
             >
               <Scan className="w-4 h-4" /> {t.scan}
             </button>
           </div>
 
           {(scanning || showMyCode) && (
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#3EB489] animate-in zoom-in-95 duration-500 bg-black aspect-square max-w-xs mx-auto flex items-center justify-center w-full mt-4">
+            <div className="relative rounded-2xl overflow-hidden border-2 border-secondary animate-in zoom-in-95 duration-500 bg-card aspect-square max-w-xs mx-auto flex items-center justify-center w-full mt-4">
               {scanning && (
                 <>
                   <video ref={videoRef} className="w-full h-full object-cover opacity-60" autoPlay muted />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-48 h-48 border-2 border-[#3EB489] rounded-3xl relative overflow-hidden">
-                      <div className="absolute top-0 left-0 w-full h-1 bg-[#3EB489] shadow-[0_0_15px_#3EB489] animate-[bounce_2s_infinite]" />
+                    <div className="w-48 h-48 border-2 border-secondary rounded-3xl relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-1 bg-secondary shadow-[0_0_15px_rgba(245,169,133,0.2)] animate-[bounce_2s_infinite]" />
                     </div>
                   </div>
                 </>
               )}
               {showMyCode && (
-                <div className="bg-white p-6 rounded-2xl shadow-[0_0_50px_rgba(62,180,137,0.3)]">
+                <div className="bg-card p-6 rounded-2xl shadow-[0_0_50px_rgba(62,180,137,0.3)]">
                   <QrCode className="w-40 h-40 text-black" />
                 </div>
               )}
@@ -194,7 +194,7 @@ export function Step6SafetyNetwork({
       <div className="w-full shrink-0 flex flex-col items-center gap-6 mt-4 pb-safe">
         <button
           onClick={onComplete}
-          className="pill-button w-full max-w-sm bg-[#3EB489] text-black text-xl font-black neon-glow active:scale-95 transition-all h-[64px]"
+          className="pill-button w-full max-w-sm bg-secondary text-black text-xl font-black neon-glow active:scale-95 transition-all h-[64px]"
         >
           {t.confirm}
         </button>

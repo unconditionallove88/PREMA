@@ -20,11 +20,11 @@ export default function SupportConsole() {
   const { data: logs, isLoading } = useCollection(logsQuery);
 
   return (
-    <div className="min-h-screen bg-black text-white font-headline pb-20">
-      <div className="bg-zinc-900 border-b border-white/10 p-6 sticky top-0 z-50">
+    <div className="min-h-screen bg-card text-white font-headline pb-20">
+      <div className="bg-zinc-900 border-b border-border/10 p-6 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="p-2 hover:bg-white/5 rounded-full">
+            <Link href="/dashboard" className="p-2 hover:bg-card/5 rounded-full">
               <ArrowLeft />
             </Link>
             <div>
@@ -83,7 +83,7 @@ export default function SupportConsole() {
                   </span>
                 </div>
 
-                <div className="bg-black/40 rounded-xl p-4 border border-white/5">
+                <div className="bg-card/40 rounded-xl p-4 border border-border/5">
                   <div className="flex items-center gap-2 mb-2 text-white/40">
                     <MessageSquare size={14} />
                     <span className="text-[10px] font-bold uppercase">Offending Content:</span>

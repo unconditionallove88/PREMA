@@ -41,21 +41,21 @@ export default function HeartCheckRedirect() {
   const t = CONTENT[lang];
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-6 font-headline overflow-hidden relative">
-      <div className="absolute inset-0 bg-[#10B981]/5 blur-[120px] rounded-full" />
+    <div className="min-h-screen bg-card flex flex-col items-center justify-center text-center px-6 font-headline overflow-hidden relative">
+      <div className="absolute inset-0 bg-[hsl(var(--primary))]/5 blur-[120px] rounded-full" />
       <div className="relative z-10 flex flex-col items-center gap-8">
         <div className="relative flex items-center justify-center">
-          <div className="absolute inset-0 w-48 h-48 bg-[#10B981]/10 blur-[60px] rounded-full" />
+          <div className="absolute inset-0 w-48 h-48 bg-[hsl(var(--primary))]/10 blur-[60px] rounded-full" />
           <Heart 
             size={80} 
-            fill="#10B981" 
-            className="relative z-10 animate-pulse-heart text-[#10B981]" 
-            style={{ filter: 'blur(12px) drop-shadow(0 0 15px #10B981)' }}
+            fill="hsl(var(--primary))" 
+            className="relative z-10 animate-pulse-heart text-primary" 
+            style={{ filter: 'blur(12px) drop-shadow(0 0 15px hsl(var(--primary)))' }}
           />
         </div>
         <div className="space-y-2">
-          <h1 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">{t.title} <br /> <span className="text-[#10B981]">{t.highlight}</span></h1>
-          <p className="text-[#10B981] text-[10px] font-black uppercase tracking-[0.4em] opacity-60">{t.sub}</p>
+          <h1 className="text-4xl font-black uppercase tracking-tighter text-white leading-none">{t.title} <br /> <span className="text-primary">{t.highlight}</span></h1>
+          <p className="text-primary text-[10px] font-black uppercase tracking-[0.4em] opacity-60">{t.sub}</p>
         </div>
       </div>
     </div>

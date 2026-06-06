@@ -26,13 +26,13 @@ export default function MapView() {
   }, []);
 
   return (
-    <main className="h-screen bg-black text-white relative overflow-hidden font-headline">
+    <main className="h-screen bg-card text-white relative overflow-hidden font-headline">
       {/* Map Grid Background */}
-      <div className="absolute inset-0 bg-[#080808]">
+      <div className="absolute inset-0 bg-card">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <svg width="100%" height="100%">
             <pattern id="radarGrid" width="80" height="80" patternUnits="userSpaceOnUse">
-              <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#3EB489" strokeWidth="0.5" />
+              <path d="M 80 0 L 0 0 0 80" fill="none" stroke="hsl(var(--secondary))" strokeWidth="0.5" />
             </pattern>
             <rect width="100%" height="100%" fill="url(#radarGrid)" />
           </svg>
@@ -46,7 +46,7 @@ export default function MapView() {
           )}>
             <IntuitionPulse />
           </div>
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/80 px-4 py-1.5 rounded-full border border-white/10成果 whitespace-nowrap">
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-card/80 px-4 py-1.5 rounded-full border border-border/10成果 whitespace-nowrap">
              <span className="text-[10px] font-black uppercase tracking-widest text-white">I am here</span>
           </div>
         </div>
@@ -54,8 +54,8 @@ export default function MapView() {
         {/* Friend Nodes (Only if sharing is active) */}
         {isSharing && (
           <div className="absolute top-[30%] left-[40%] animate-bounce" style={{ animationDuration: '3000ms' }}>
-             <div className="w-6 h-6 bg-[#3EB489] rounded-full border-[3px] border-white shadow-[0_0_20px_#3EB489]" />
-             <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-white/5 whitespace-nowrap">
+             <div className="w-6 h-6 bg-secondary rounded-full border-[3px] border-white shadow-[0_0_20px_rgba(245,169,133,0.25)]" />
+             <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-card/60 px-3 py-1 rounded-full border border-border/5 whitespace-nowrap">
                 <span className="text-[8px] font-black uppercase">Max (Circle)</span>
              </div>
           </div>
@@ -67,7 +67,7 @@ export default function MapView() {
               <Shield className="w-6 h-6 text-white" />
            </div>
            <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-emerald-600/20 px-4 py-2 rounded-xl border border-emerald-500/40 whitespace-nowrap">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981]">Safety Hub A</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-primary">Safety Hub A</span>
            </div>
         </div>
       </div>
@@ -75,15 +75,15 @@ export default function MapView() {
       {/* UI Overlays */}
       <div className="relative z-10 p-6 flex flex-col h-full pointer-events-none">
         <div className="flex justify-between items-start pointer-events-auto w-full max-w-4xl mx-auto">
-          <Link href="/dashboard" className="bg-black/80 backdrop-blur-xl p-4 rounded-full border border-white/10 hover:border-[#3EB489] transition-all">
+          <Link href="/dashboard" className="bg-card/80 backdrop-blur-xl p-4 rounded-full border border-border/10 hover:border-secondary transition-all">
             <ArrowLeft className="w-6 h-6" />
           </Link>
           
           <div className="flex flex-col items-end gap-3">
-            <div className="bg-black/80 backdrop-blur-md px-6 py-4 rounded-[2.5rem] border border-white/10 flex items-center gap-6">
+            <div className="bg-card/80 backdrop-blur-md px-6 py-4 rounded-[2.5rem] border border-border/10 flex items-center gap-6">
               <div className="flex flex-col gap-1">
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Location Privacy</span>
-                <span className={cn("text-xs font-bold flex items-center gap-2", isSharing ? "text-[#3EB489]" : "text-white/40")}>
+                <span className={cn("text-xs font-bold flex items-center gap-2", isSharing ? "text-secondary" : "text-white/40")}>
                   {isSharing ? (
                     <><Sparkles size={12} /> Sharing with Circle</>
                   ) : (
@@ -91,11 +91,11 @@ export default function MapView() {
                   )}
                 </span>
               </div>
-              <Switch checked={isSharing} onCheckedChange={setIsSharing} className="data-[state=checked]:bg-[#3EB489]" />
+              <Switch checked={isSharing} onCheckedChange={setIsSharing} className="data-[state=checked]:bg-secondary" />
             </div>
             
             {!isSharing && (
-              <div className="bg-white/5 px-4 py-2 rounded-full border border-white/10 animate-in fade-in slide-in-from-right-4">
+              <div className="bg-card/5 px-4 py-2 rounded-full border border-border/10 animate-in fade-in slide-in-from-right-4">
                 <span className="text-[8px] font-black uppercase text-white/40 tracking-widest">Invisible to awareness</span>
               </div>
             )}
@@ -105,10 +105,10 @@ export default function MapView() {
         <div className="mt-auto space-y-4 pointer-events-auto w-full max-w-xl mx-auto">
           <div className="flex justify-start items-end min-h-[120px]">
             {showRadarInfo && (
-              <div className="bg-black/90 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/10 max-w-[280px] animate-in fade-in slide-out-to-left duration-1000 space-y-3">
+              <div className="bg-card/90 backdrop-blur-md p-8 rounded-[2.5rem] border border-border/10 max-w-[280px] animate-in fade-in slide-out-to-left duration-1000 space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">✨</span>
-                  <span className="text-[10px] font-black uppercase text-[#3EB489] tracking-widest">I respect my limits</span>
+                  <span className="text-[10px] font-black uppercase text-secondary tracking-widest">I respect my limits</span>
                 </div>
                 <p className="text-sm font-bold leading-tight text-white/80">I love and respect myself enough to decide when I want to be seen. Privacy is my right. 💚</p>
               </div>

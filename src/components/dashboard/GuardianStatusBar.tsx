@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview GuardianStatusBar Component.
- * Status color sync: #1b4d3e (Abundant Green)
+ * Status color sync: hsl(var(--primary)) (Abundant Green)
  * Purified of mood-dependent notes.
  */
 
@@ -26,7 +26,7 @@ export default function GuardianStatusBar({
 }: Props) {
   const config = {
     safe: {
-      color: "#1b4d3e", // Wise and abundant green
+      color: "hsl(var(--primary))", // Wise and abundant green
       icon: <HeartHandshake size={16} />,
       text: {
         en: "Pulse Guardian: You are in a steady rhythm",

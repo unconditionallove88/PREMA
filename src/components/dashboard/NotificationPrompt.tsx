@@ -88,8 +88,8 @@ export default function NotificationPrompt({ onClose }: NotificationPromptProps)
 
   if (isEnabled) {
     return (
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[5000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
-        <div className="bg-[#0a0a0a] w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] border-t-2 sm:border-2 border-primary/30 p-12 text-center shadow-[0_-20px_100px_rgba(0,0,0,0.5)]">
+      <div className="fixed inset-0 bg-card/80 backdrop-blur-md z-[5000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
+        <div className="bg-card w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] border-t-2 sm:border-2 border-primary/30 p-12 text-center shadow-[0_-20px_100px_rgba(0,0,0,0.5)]">
           <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-primary/20 shadow-[0_0_40px_rgba(27,77,62,0.1)]">
             <Heart size={48} fill="currentColor" className="text-primary animate-pulse-heart" />
           </div>
@@ -105,15 +105,15 @@ export default function NotificationPrompt({ onClose }: NotificationPromptProps)
   }
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[5000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
-      <div className="bg-[#0a0a0a] w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] border-t-2 sm:border-2 border-white/10 p-8 pb-12 shadow-[0_-20px_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
+    <div className="fixed inset-0 bg-card/80 backdrop-blur-md z-[5000] flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-500 font-headline">
+      <div className="bg-card w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] border-t-2 sm:border-2 border-border/10 p-8 pb-12 shadow-[0_-20px_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-10" />
         
-        <div className="w-16 h-1 bg-white/10 rounded-full mx-auto mb-10 sm:hidden" />
+        <div className="w-16 h-1 bg-card/10 rounded-full mx-auto mb-10 sm:hidden" />
 
         <button
           onClick={onClose}
-          className="absolute top-8 right-8 p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all z-10"
+          className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-all z-10"
         >
           <X size={18} />
         </button>
@@ -140,7 +140,7 @@ export default function NotificationPrompt({ onClose }: NotificationPromptProps)
                 "py-5 px-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border-2",
                 preferredHour === option.value
                   ? "bg-primary/10 border-primary text-primary shadow-lg shadow-primary/10"
-                  : "bg-white/5 border-white/5 text-white/40 hover:border-white/20"
+                  : "bg-card/5 border-border/5 text-white/40 hover:border-border/20"
               )}
             >
               {option.label}

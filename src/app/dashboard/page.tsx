@@ -295,9 +295,9 @@ function DashboardContent() {
                 <Watch size={32} className="text-accent" />
                 <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-accent">The Sync</span>
               </button>
-              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-card border-4 border-[#10B981]/20 flex flex-col items-center justify-center gap-2 hover:border-[#10B981] transition-all group shadow-soft">
-                <Sprout size={32} className="text-[#10B981]" />
-                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-[#10B981]">The Voice</span>
+              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-card border-4 border-[hsl(var(--primary))]/20 flex flex-col items-center justify-center gap-2 hover:border-[hsl(var(--primary))] transition-all group shadow-soft">
+                <Sprout size={32} className="text-primary" />
+                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Voice</span>
               </button>
             </div>
 
@@ -315,10 +315,10 @@ function DashboardContent() {
                 <div className="flex gap-8 animate-in zoom-in-95 duration-500">
                   <button 
                     onClick={() => router.push('/heart-status?chat=holders')}
-                    className="w-36 h-36 rounded-full bg-card border-4 border-[#10B981] flex flex-col items-center justify-center group hover:bg-[#10B981]/10 transition-all shadow-soft"
+                    className="w-36 h-36 rounded-full bg-card border-4 border-[hsl(var(--primary))] flex flex-col items-center justify-center group hover:bg-[hsl(var(--primary))]/10 transition-all shadow-soft"
                   >
-                    <Users2 size={36} className="text-[#10B981] mb-2" />
-                    <span className="text-[10px] font-semibold uppercase tracking-widest text-[#10B981]">{t.holders}</span>
+                    <Users2 size={36} className="text-primary mb-2" />
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">{t.holders}</span>
                   </button>
                   <button 
                     onClick={() => router.push('/heart-status?chat=spectators')}

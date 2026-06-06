@@ -101,11 +101,11 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
 
   if (mode === 'beauty') {
     const prismaticColors = [
-      'bg-[#f43f5e]', 
-      'bg-[#10b981]', 
-      'bg-[#3b82f6]', 
-      'bg-[#8b5cf6]', 
-      'bg-[#ffffff]', 
+      'bg-primary', 
+      'bg-[hsl(var(--primary))]', 
+      'bg-accent', 
+      'bg-accent', 
+      'bg-card/95', 
     ];
 
     return (
@@ -122,7 +122,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
              <div className="flex flex-col items-start gap-1">
                <div className={cn(
                  "flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-md transition-colors",
-                 currentSlide % prismaticColors.length === 4 ? "bg-black/10 border-black/20" : "bg-white/20 border-white/30"
+                 currentSlide % prismaticColors.length === 4 ? "bg-card/10 border-black/20" : "bg-card/20 border-border/30"
                )}>
                  <Wind size={14} className="animate-bounce" />
                  <span className="text-[10px] font-black uppercase tracking-widest">{t.emergencyHeader}</span>
@@ -132,7 +132,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
            )}
            <button onClick={onClose} className={cn(
              "p-3 rounded-full border transition-all backdrop-blur-md",
-             currentSlide % prismaticColors.length === 4 ? "bg-black/5 border-black/10 text-black/40 hover:text-black" : "bg-white/10 border-white/20 text-white/60 hover:text-white"
+             currentSlide % prismaticColors.length === 4 ? "bg-card/5 border-black/10 text-black/40 hover:text-black" : "bg-card/10 border-border/20 text-white/60 hover:text-white"
            )}>
              <X size={20} />
            </button>
@@ -178,7 +178,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
                 onClick={() => { playHeartbeat(); router.push('/self-care'); }}
                 className={cn(
                   "w-full py-5 rounded-full font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all flex items-center justify-center gap-3 shadow-xl",
-                  currentSlide % prismaticColors.length === 4 ? "bg-black text-white" : "bg-white text-[#f43f5e]"
+                  currentSlide % prismaticColors.length === 4 ? "bg-card text-white" : "bg-card text-[#f43f5e]"
                 )}
               >
                 {t.next} <ArrowRight size={14} />
@@ -188,7 +188,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
               onClick={() => { playHeartbeat(); onClose(); }}
               className={cn(
                 "px-8 py-4 rounded-full border backdrop-blur-md font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all",
-                currentSlide % prismaticColors.length === 4 ? "border-black/20 bg-black/5 text-black" : "border-white/20 bg-black/40 text-white"
+                currentSlide % prismaticColors.length === 4 ? "border-black/20 bg-card/5 text-black" : "border-border/20 bg-card/40 text-white"
               )}
             >
               {t.return}
@@ -201,12 +201,12 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-[6000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in slide-in-from-bottom-4 duration-700 pb-safe pt-safe overflow-hidden">
+    <div className="fixed inset-0 bg-card z-[6000] flex flex-col items-center justify-center px-8 text-center font-headline animate-in slide-in-from-bottom-4 duration-700 pb-safe pt-safe overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-rose-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse" />
       
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all z-10"
+        className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-all z-10"
       >
         <X size={20} />
       </button>
@@ -228,7 +228,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
           </p>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8">
+        <div className="bg-card/5 border border-border/10 rounded-[2.5rem] p-8">
           <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">
             "{t.intro}"
           </p>
@@ -236,7 +236,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
 
         <button 
           onClick={() => { playHeartbeat(); setMode('beauty'); }}
-          className="w-full h-20 bg-[#f43f5e] text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-rose-500/20 transition-all flex items-center justify-center gap-4"
+          className="w-full h-20 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-rose-500/20 transition-all flex items-center justify-center gap-4"
         >
           {t.button}
           <Wind size={24} />

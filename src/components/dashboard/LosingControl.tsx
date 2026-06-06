@@ -77,7 +77,7 @@ export function LosingControl({ onClose }: LosingControlProps) {
 
   if (mode === 'beauty') {
     return (
-      <div className="fixed inset-0 bg-black z-[1000] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden">
+      <div className="fixed inset-0 bg-card z-[1000] flex flex-col font-headline animate-in fade-in duration-1000 overflow-hidden">
         {/* Immersive Color Vision Layer */}
         <div className="absolute inset-0 transition-opacity duration-1000" style={{ opacity: isFading ? 0.3 : 1 }}>
           <img 
@@ -86,7 +86,7 @@ export function LosingControl({ onClose }: LosingControlProps) {
             className="w-full h-full object-cover scale-110 animate-[pulse_20s_infinite_alternate]"
             data-ai-hint={PlaceHolderImages[currentSlide].imageHint}
           />
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-card/20 backdrop-blur-[1px]" />
         </div>
 
         {/* Affirmation Layer */}
@@ -108,12 +108,12 @@ export function LosingControl({ onClose }: LosingControlProps) {
         <footer className="relative z-10 p-12 flex flex-col items-center gap-6 pb-safe">
           <div className="flex gap-2">
             {PlaceHolderImages.map((_, i) => (
-              <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-all duration-500", i === currentSlide ? "bg-white w-6" : "bg-white/20")} />
+              <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-all duration-500", i === currentSlide ? "bg-card w-6" : "bg-card/20")} />
             ))}
           </div>
           <button 
             onClick={() => { playHeartbeat(); onClose(); }}
-            className="px-8 py-3 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all"
+            className="px-8 py-3 rounded-full border border-border/20 bg-card/40 backdrop-blur-md text-white font-black uppercase text-[10px] tracking-[0.4em] active:scale-95 transition-all"
           >
             {t.return}
           </button>
@@ -123,12 +123,12 @@ export function LosingControl({ onClose }: LosingControlProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-[1000] flex flex-col items-center justify-center p-8 text-center font-headline animate-in slide-in-from-bottom-4 duration-700 pb-safe pt-safe">
+    <div className="fixed inset-0 bg-card z-[1000] flex flex-col items-center justify-center p-8 text-center font-headline animate-in slide-in-from-bottom-4 duration-700 pb-safe pt-safe">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/10 blur-[120px] rounded-full pointer-events-none animate-pulse" />
       
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 p-3 bg-white/5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all z-10"
+        className="absolute top-8 right-8 p-3 bg-card/5 rounded-full border border-border/10 text-white/40 hover:text-white transition-all z-10"
       >
         <X size={20} />
       </button>
@@ -150,7 +150,7 @@ export function LosingControl({ onClose }: LosingControlProps) {
           </p>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 space-y-4">
+        <div className="bg-card/5 border border-border/10 rounded-[2.5rem] p-8 space-y-4">
           <div className="flex items-center gap-4 text-left">
             <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center border border-primary/30">
               <Sparkles size={20} className="text-primary" />
@@ -163,7 +163,7 @@ export function LosingControl({ onClose }: LosingControlProps) {
 
         <button 
           onClick={() => { playHeartbeat(); setMode('beauty'); }}
-          className="w-full h-20 bg-[#1b4d3e] text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-4"
+          className="w-full h-20 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest active:scale-95 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-4"
         >
           {t.button}
           <Wind size={24} />

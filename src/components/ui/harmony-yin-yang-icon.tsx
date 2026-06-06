@@ -4,7 +4,7 @@ import React from "react";
  * @fileOverview HarmonyIcon Component.
  * A high-fidelity bespoke icon representing the "In Harmony" state.
  * Features a brain and a heart connected by a glowing line of unconditional love.
- * Rendered in vibrant yellow (#EBFB3B).
+ * Rendered in vibrant yellow (hsl(var(--accent))).
  */
 
 interface HarmonyIconProps {

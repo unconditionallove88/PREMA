@@ -83,12 +83,12 @@ export default function PulseGuardianBanner({
       <div className="space-y-4 px-2">
         {t.sections.map((item, i) => {
           const Icons = [Bluetooth, Activity, Database, PhoneCall];
-          const Colors = ["text-[#EBFB3B]", "text-[#10B981]", "text-blue-400", "text-red-500"];
-          const Bgs = ["bg-[#EBFB3B]/10", "bg-[#10B981]/10", "bg-blue-400/10", "bg-red-500/10"];
+          const Colors = ["text-[hsl(var(--accent))]", "text-primary", "text-blue-400", "text-red-500"];
+          const Bgs = ["bg-[hsl(var(--accent))]/10", "bg-[hsl(var(--primary))]/10", "bg-blue-400/10", "bg-red-500/10"];
           const Icon = Icons[i];
           
           return (
-            <div key={i} className="flex items-start gap-5 p-6 rounded-[2rem] bg-white/5 border border-white/5 transition-all hover:bg-white/10">
+            <div key={i} className="flex items-start gap-5 p-6 rounded-[2rem] bg-card/5 border border-border/5 transition-all hover:bg-card/10">
               <div className={cn(Colors[i], "mt-0.5 shrink-0 p-2.5 rounded-xl", Bgs[i])}>
                 <Icon size={18} />
               </div>
@@ -104,14 +104,14 @@ export default function PulseGuardianBanner({
       <div className="mt-8 px-2">
         <button 
           onClick={handleOpenGuide}
-          className="w-full py-5 bg-[#1b4d3e] border-2 border-primary/20 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all flex items-center justify-center gap-3"
+          className="w-full py-5 bg-primary border-2 border-primary/20 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg active:scale-95 transition-all flex items-center justify-center gap-3"
         >
           <Sparkles size={16} className="text-primary" />
           {t.viewGuide}
         </button>
       </div>
 
-      <div className="mt-12 pt-8 border-t border-white/5 text-center">
+      <div className="mt-12 pt-8 border-t border-border/5 text-center">
         <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">
           {t.footer}
         </p>
@@ -126,31 +126,31 @@ export default function PulseGuardianBanner({
           <TooltipTrigger asChild>
             <SheetTrigger asChild>
               {variant === "banner" ? (
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl mb-6 border border-[#A855F7]/20 bg-[#A855F7]/5 text-left transition hover:border-[#A855F7]/40 active:scale-[0.99]">
+                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl mb-6 border border-accent/20 bg-accent/5 text-left transition hover:border-accent/40 active:scale-[0.99]">
                   <GuardianLogo size={24} className="shrink-0" />
                   <div className="flex-1">
-                    <p className="text-[#A855F7] text-[10px] font-black uppercase tracking-widest leading-none">{t.title}</p>
+                    <p className="text-accent text-[10px] font-black uppercase tracking-widest leading-none">{t.title}</p>
                     <p className="text-white/40 text-[9px] mt-1 font-bold uppercase tracking-widest">{t.tapInfo}</p>
                   </div>
                   <span className="text-white/20 text-[10px]">›</span>
                 </button>
               ) : (
-                <button type="button" className="p-2 bg-[#A855F7]/10 rounded-full border border-[#A855F7]/30 hover:border-[#A855F7] transition-all active:scale-95 flex items-center justify-center group"><GuardianLogo size={28} /></button>
+                <button type="button" className="p-2 bg-accent/10 rounded-full border border-accent/30 hover:border-accent transition-all active:scale-95 flex items-center justify-center group"><GuardianLogo size={28} /></button>
               )}
             </SheetTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="bg-zinc-900 border-white/10 text-[#A855F7] font-bold uppercase text-[9px] tracking-widest px-4 py-2">{t.title}: {t.sub}</TooltipContent>
+          <TooltipContent side="bottom" className="bg-zinc-900 border-border/10 text-accent font-bold uppercase text-[9px] tracking-widest px-4 py-2">{t.title}: {t.sub}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
-      <SheetContent side="top" className="bg-black border-white/10 p-0 rounded-b-[3.5rem] h-[90vh] max-h-[90vh] overflow-hidden flex flex-col shadow-[0_30px_100px_rgba(0,0,0,0.8)] z-[5000]">
+      <SheetContent side="top" className="bg-card border-border/10 p-0 rounded-b-[3.5rem] h-[90vh] max-h-[90vh] overflow-hidden flex flex-col shadow-[0_30px_100px_rgba(0,0,0,0.8)] z-[5000]">
         <SheetHeader className="p-8 pb-4 shrink-0">
           <div className="flex items-center justify-between max-w-2xl mx-auto w-full">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#A855F7]/10 border border-[#A855F7]/20 flex items-center justify-center shadow-lg"><GuardianLogo size={32} /></div>
+              <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center shadow-lg"><GuardianLogo size={32} /></div>
               <div>
                 <SheetTitle className="text-white font-black text-2xl uppercase tracking-tighter text-left">{t.title}</SheetTitle>
-                <p className="text-[9px] text-[#A855F7] font-black uppercase tracking-[0.3em] mt-1.5 text-left">{t.sub}</p>
+                <p className="text-[9px] text-accent font-black uppercase tracking-[0.3em] mt-1.5 text-left">{t.sub}</p>
               </div>
             </div>
           </div>

@@ -44,10 +44,10 @@ export default function DuringPhase() {
 
   if (!mounted || isUserLoading || isProfileLoading) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-8">
+      <div className="min-h-screen bg-card flex flex-col items-center justify-center gap-8">
         <div className="relative flex items-center justify-center">
           <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
-          <Heart size={64} fill="#1b4d3e" className="relative z-10 animate-pulse-heart text-[#1b4d3e]" style={{ filter: 'blur(12px)' }} />
+          <Heart size={64} fill="hsl(var(--primary))" className="relative z-10 animate-pulse-heart text-primary" style={{ filter: 'blur(12px)' }} />
         </div>
         <Loader2 className="animate-spin text-primary/20" />
       </div>
@@ -81,9 +81,9 @@ export default function DuringPhase() {
   };
 
   return (
-    <main className="h-screen bg-black flex flex-col overflow-hidden font-headline">
-      <header className="px-6 py-8 border-b border-white/5 bg-black/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
-        <button onClick={() => router.push("/dashboard")} className="p-3 bg-white/5 rounded-full border border-white/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
+    <main className="h-screen bg-card flex flex-col overflow-hidden font-headline">
+      <header className="px-6 py-8 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
+        <button onClick={() => router.push("/dashboard")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
         <div>
           <h1 className="text-xl font-black uppercase tracking-tighter">
             {t.title}
@@ -117,14 +117,14 @@ export default function DuringPhase() {
               </div>
               <button 
                 onClick={() => { playHeartbeat(); router.push('/self-care'); }}
-                className="w-full py-4 bg-[#1b4d3e] text-white rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg active:scale-95 transition-all"
+                className="w-full py-4 bg-primary text-white rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg active:scale-95 transition-all"
               >
                 {t.ritualBtn}
               </button>
             </div>
 
             {/* Chat section */}
-            <div className="h-[500px] border border-white/5 rounded-[2rem] overflow-hidden bg-black/40">
+            <div className="h-[500px] border border-border/5 rounded-[2rem] overflow-hidden bg-card/40">
               <AiSafetyChat userProfile={profile} currentIntake={activeIntake} />
             </div>
           </div>
