@@ -233,7 +233,9 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
             <div className="p-10 text-center space-y-8">
               <div className="flex flex-col items-center gap-6">
                 <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border/10 bg-card/5">
-                  {selectedWisdom?.icon && React.cloneElement(selectedWisdom.icon as React.ReactElement, { size: 40 })}
+                  {selectedWisdom?.icon && React.isValidElement(selectedWisdom.icon)
+                    ? React.cloneElement(selectedWisdom.icon as React.ReactElement<any>, ({ size: 40 } as any))
+                    : null}
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-3xl font-black uppercase tracking-tighter text-white">{selectedWisdom?.title}</h3>

@@ -37,6 +37,7 @@ export function Step5SubstanceLab({ userData, onComplete }: { userData: Onboardi
           substancesToTake: selected,
           age: 25, // Fallback if data not available
           weightKg: userData.weight || 70,
+          lang: 'en',
         });
         setAssessment(res);
       } catch (e) {

@@ -2,8 +2,9 @@
 
 import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy, limit } from "firebase/firestore";
-import { ShieldAlert, AlertCircle, User, Clock, MessageSquare, ArrowLeft } from "lucide-react";
+import { ShieldAlert, AlertCircle, User, Clock, MessageSquare, ArrowLeft, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function SupportConsole() {
   const firestore = useFirestore();
@@ -111,4 +112,3 @@ export default function SupportConsole() {
   );
 }
 
-import { cn } from "@/lib/utils";

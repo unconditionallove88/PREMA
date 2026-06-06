@@ -85,7 +85,7 @@ export function HeartBreath({ onClose, lang = 'en' }: HeartBreathProps) {
         className="absolute inset-0 flex items-center justify-center p-8 text-center transition-all duration-1000 transform"
         style={{ 
           opacity: isFading ? 0 : 0.4,
-          translateY: isFading ? '10px' : '0px'
+          transform: isFading ? 'translateY(10px)' : 'translateY(0px)'
         }}
       >
         <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-rose-500/20 select-none">

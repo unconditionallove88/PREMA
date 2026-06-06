@@ -2,7 +2,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Target, Shield, Lock, Navigation } from 'lucide-react';
+import { ArrowLeft, Target, Shield, Lock, Navigation, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';

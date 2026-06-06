@@ -143,7 +143,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
             className="transition-all duration-1000 transform"
             style={{ 
               opacity: isFading ? 0 : 1,
-              translateY: isFading ? '20px' : '0px'
+              transform: isFading ? 'translateY(20px)' : 'translateY(0px)'
             }}
           >
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter drop-shadow-2xl leading-tight max-w-lg mx-auto">
