@@ -153,8 +153,8 @@ function AuthContent() {
 
         <div className="mb-6 flex items-center justify-between gap-3 rounded-full border border-border bg-popover/70 px-4 py-3 backdrop-blur-md">
           <div className="text-left">
-            <p className="text-[9px] font-black uppercase tracking-[0.35em] text-muted-foreground">Choose your vibe</p>
-            <p className="text-[11px] text-foreground/80">Light Dawn or Lunar Night.</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.35em] text-muted-foreground">Choose vibe</p>
+            <p className="text-[11px] text-foreground/80"></p>
           </div>
           <div className="inline-flex rounded-full bg-background/90 p-1 border border-border">
             {(['light', 'dark'] as const).map((option) => (
