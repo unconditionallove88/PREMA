@@ -33,11 +33,13 @@ export default function Home() {
     en: {
       slogan: "You are loved",
       getStarted: "Enter",
+      touchToBegin: "Touch to begin",
       footer: "Created in harmony"
     },
     de: {
       slogan: "Du bist geliebt",
       getStarted: "Enter",
+      touchToBegin: "Zum Beginnen berühren",
       footer: "Mit Anmut geschaffen"
     }
   };
@@ -73,7 +75,9 @@ export default function Home() {
                 style={{ filter: 'blur(12px) drop-shadow(0 0 10px rgba(245,179,141,0.55))' }} 
               />
             </div>
-          </div>
+          </div><p className="text-[10px] uppercase tracking-[0.2em] text-primary/50 animate-pulse mt-4">
+  {content[lang].touchToBegin}
+</p>
           <h1 className="mt-10 text-5xl md:text-7xl font-semibold tracking-normal leading-none text-foreground text-center">PREMA</h1>
           <p className="text-primary font-semibold mt-4 tracking-[0.12em] uppercase text-[10px] italic opacity-90">{content[lang].slogan}</p>
         </div>
