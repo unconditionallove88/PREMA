@@ -4,55 +4,76 @@
 
 @layer base {
   :root {
-    --background: 20 74% 96%;
-    --foreground: 25 16% 18%;
-    --card: 23 82% 97%;
-    --card-foreground: 25 18% 18%;
-    --popover: 25 90% 97%;
-    --popover-foreground: 25 18% 18%;
-    /* Desert Dawn Grace - adjusted for AA contrast */
-    --primary: 150 60% 44%; /* green-forward primary for actions */
+    /* Vibrant Sky — Light Dawn */
+    --background: 30 55% 97%;
+    --foreground: 220 30% 15%;
+
+    --card: 28 60% 96%;
+    --card-foreground: 220 28% 16%;
+
+    --popover: 28 65% 97%;
+    --popover-foreground: 220 28% 16%;
+
+    /* Primary — глубокий лесной зелёный */
+    --primary: 155 45% 36%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 346 68% 58%; /* pink accent for highlights */
+
+    /* Secondary — персиково-закатный */
+    --secondary: 22 80% 62%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 220 12% 50%;
-    --muted-foreground: 220 12% 30%; /* stronger muted contrast for labels/placeholders */
-    --accent: 340 72% 68%; /* warm pink highlight */
+
+    /* Muted — серо-синий, читаемый */
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 18% 38%;
+
+    /* Accent — лавандовый */
+    --accent: 275 32% 68%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 10 76% 62%;
+
+    /* Destructive — тёплый красный */
+    --destructive: 10 72% 58%;
     --destructive-foreground: 0 0% 98%;
-    --border: 24 52% 80%;
-    --input: 25 92% 97%;
-    --ring: 150 60% 44%; /* green ring to match primary actions */
+
+    --border: 25 40% 82%;
+    --input: 28 55% 96%;
+    --ring: 155 45% 36%;
+
     --radius: 2.5rem;
     --shadow-color: 15, 18, 44;
   }
 
   .dark {
-    --background: 235 22% 7%;
-    --foreground: 255 94% 98%;
-    --card: 236 18% 10%;
-    --card-foreground: 255 96% 98%;
-    --popover: 236 18% 08%;
-    --popover-foreground: 255 96% 98%;
-    --primary: 270 72% 72%;
-    --primary-foreground: 255 96% 100%;
-    --secondary: 282 60% 78%;
-    --secondary-foreground: 255 96% 100%;
-    --muted: 252 20% 68%;
-    --muted-foreground: 255 86% 94%;
-    --accent: 292 68% 70%;
-    --accent-foreground: 255 96% 100%;
-    --destructive: 10 72% 68%;
+    /* Lunar Night — глубокий индиго */
+    --background: 230 35% 10%;
+    --foreground: 30 40% 92%;
+
+    --card: 228 32% 13%;
+    --card-foreground: 30 35% 90%;
+
+    --popover: 228 32% 12%;
+    --popover-foreground: 30 35% 90%;
+
+    --primary: 155 50% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 22 75% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 228 25% 20%;
+    --muted-foreground: 220 15% 65%;
+
+    --accent: 275 40% 62%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 10 68% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 236 18% 15%;
-    --input: 235 18% 12%;
-    --ring: 276 72% 72%;
-    --sidebar-background: 236 18% 11%;
-    --sidebar-foreground: 255 96% 98%;
-    --sidebar-border: 238 18% 14%;
-    --sidebar-primary: 270 72% 72%;
-    --sidebar-accent: 282 60% 78%;
+
+    --border: 228 25% 22%;
+    --input: 228 28% 15%;
+    --ring: 155 50% 48%;
+
+    --radius: 2.5rem;
+    --shadow-color: 10, 8, 30;
   }
 }
 
