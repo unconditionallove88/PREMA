@@ -20,13 +20,13 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = typeof window !== 'undefined' ? localStorage.getItem('stayonbeat_lang') : 'en';
+    const savedLang = typeof window !== 'undefined' ? localStorage.getItem('prema_lang') : 'en';
     if (['en', 'de'].includes(savedLang?.toLowerCase() as string)) setLang(savedLang?.toLowerCase() as any);
   }, []);
 
   const handleLangChange = (newLang: 'en' | 'de') => {
     setLang(newLang);
-    localStorage.setItem('stayonbeat_lang', newLang);
+    localStorage.setItem('prema_lang', newLang);
   };
 
   const content = {
