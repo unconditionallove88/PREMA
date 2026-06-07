@@ -67,7 +67,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   return (
     <div className="w-full h-full flex flex-col font-headline bg-card relative animate-in fade-in duration-700">
       {onBack && (
-        <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
+        <button onClick={onBack} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-[100] pt-4">
           <ArrowLeft className="w-4 h-4" /> BACK
         </button>
       )}
@@ -76,8 +76,8 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-primary/20">
           <ZapOff size={28} className="text-primary" />
         </div>
-        <h2 className="text-[22px] font-black uppercase mb-1 text-white leading-tight tracking-tighter">{t.header}</h2>
-        <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] mb-8">{t.sub}</p>
+        <h2 className="text-[22px] font-black uppercase mb-1 text-foreground leading-tight tracking-tighter">{t.header}</h2>
+        <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-[10px] mb-8">{t.sub}</p>
       </div>
 
       <div className="flex-1 min-h-0 relative">
@@ -91,12 +91,12 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                     <ZapOff size={20} className="text-amber-500" />
                   </div>
                   <div>
-                    <p className="text-sm font-black uppercase text-white">{t.limit}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.limitSub}</p>
+                    <p className="text-sm font-black uppercase text-foreground">{t.limit}</p>
+                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{t.limitSub}</p>
                   </div>
                 </div>
                 <Select value={settings.intakeLimit} onValueChange={(val) => setSettings({...settings, intakeLimit: val})}>
-                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-foreground">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-border/10 font-headline">
@@ -116,15 +116,15 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                     <Clock size={20} className="text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-black uppercase text-white">{t.leave}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.leaveSub}</p>
+                    <p className="text-sm font-black uppercase text-foreground">{t.leave}</p>
+                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{t.leaveSub}</p>
                   </div>
                 </div>
                 <input 
                   type="time" 
                   value={settings.leaveTime} 
                   onChange={(e) => setSettings({...settings, leaveTime: e.target.value})}
-                  className="w-24 h-10 bg-card/5 border border-border/10 rounded-xl px-2 font-black text-white text-xs outline-none focus:border-primary transition-all"
+                  className="w-24 h-10 bg-card/5 border border-border/10 rounded-xl px-2 font-black text-foreground text-xs outline-none focus:border-primary transition-all"
                 />
               </div>
             </div>
@@ -137,12 +137,12 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                     <Moon size={20} className="text-purple-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-black uppercase text-white">{t.rest}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.restSub}</p>
+                    <p className="text-sm font-black uppercase text-foreground">{t.rest}</p>
+                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{t.restSub}</p>
                   </div>
                 </div>
                 <Select value={settings.restInterval} onValueChange={(val) => setSettings({...settings, restInterval: val})}>
-                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-foreground">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-border/10 font-headline">
@@ -162,12 +162,12 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                     <GlassWater size={20} className="text-cyan-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-black uppercase text-white">{t.water}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{t.waterSub}</p>
+                    <p className="text-sm font-black uppercase text-foreground">{t.water}</p>
+                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{t.waterSub}</p>
                   </div>
                 </div>
                 <Select value={settings.waterInterval} onValueChange={(val) => setSettings({...settings, waterInterval: val})}>
-                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-white">
+                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-foreground">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-border/10 font-headline">
@@ -180,16 +180,16 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
             </div>
 
             <div className="pt-8 text-center">
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground">{t.created}</p>
             </div>
           </div>
         </ScrollArea>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black to-transparent pt-12 pointer-events-none pb-safe">
+      <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black dark:to-transparent pt-12 pointer-events-none pb-safe">
         <button 
           onClick={handleComplete}
-          className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-white rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
+          className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-primary-foreground rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
         >
           {t.confirm} <CheckCircle2 size={24} />
         </button>

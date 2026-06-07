@@ -164,7 +164,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
             </section>
 
             <div className="pt-4 text-center">
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] shining-white">{t.created}</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground">{t.created}</p>
             </div>
           </div>
         </ScrollArea>
@@ -224,7 +224,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
       </Dialog>
 
       {!isStandAlone && (
-        <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black to-transparent pt-12 pointer-events-none pb-safe">
+        <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black dark:to-transparent pt-12 pointer-events-none pb-safe">
           <button 
             onClick={() => onComplete({ acknowledged })} 
             disabled={!acknowledged}

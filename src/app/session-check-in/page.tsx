@@ -56,7 +56,7 @@ export default function SessionCheckIn() {
   if (!mounted || !data) return null;
 
   return (
-    <main className="min-h-screen bg-card text-white px-6 py-4 flex flex-col items-center justify-center overflow-hidden">
+    <main className="min-h-screen bg-card text-foreground px-6 py-4 flex flex-col items-center justify-center overflow-hidden">
       <div className="w-full max-w-xl">
         {step === 1 && (
           <StepPartyGoal 
