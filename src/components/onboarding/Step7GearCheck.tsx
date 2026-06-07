@@ -38,18 +38,18 @@ export function Step7GearCheck({ onComplete, onBack }: { onComplete: () => void,
 
   return (
     <div className="w-full min-h-[85vh] flex flex-col items-center justify-center font-headline max-xl mx-auto px-4 text-center relative">
-      {onBack && <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft className="w-4 h-4" /> BACK</button>}
-      <div className="mt-12 mb-8 relative w-full"><div className="flex flex-col items-center gap-2"><h2 className="text-[22px] font-black text-white leading-tight tracking-tighter">{t.header}</h2><p className="text-white/40 text-[10px] font-black uppercase tracking-widest">{t.sub}</p></div><div className={`absolute -top-4 -right-2 flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-500 ${streakBoost ? 'bg-primary/10 border-primary text-primary neon-glow' : 'bg-card/5 border-border/10 text-white/40'}`}><Flame className={`w-3.5 h-3.5 ${streakBoost ? 'text-orange-500 fill-orange-500' : 'text-white/20'}`} /><span className="font-headline font-black uppercase text-[8px] tracking-[0.1em]">{t.streak}</span></div></div>
-      <div className="mb-6"><p className={`text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-500 ${streakBoost ? 'text-primary animate-pulse' : 'text-white/30'}`}>{t.boost}</p></div>
+      {onBack && <button onClick={onBack} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft className="w-4 h-4" /> BACK</button>}
+      <div className="mt-12 mb-8 relative w-full"><div className="flex flex-col items-center gap-2"><h2 className="text-[22px] font-black text-foreground leading-tight tracking-tighter">{t.header}</h2><p className="text-muted-foreground text-[10px] font-black uppercase tracking-widest">{t.sub}</p></div><div className={`absolute -top-4 -right-2 flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-500 ${streakBoost ? 'bg-primary/10 border-primary text-primary neon-glow' : 'bg-card/5 border-border/10 text-muted-foreground'}`}><Flame className={`w-3.5 h-3.5 ${streakBoost ? 'text-orange-500 fill-orange-500' : 'text-muted-foreground/40'}`} /><span className="font-headline font-black uppercase text-[8px] tracking-[0.1em]">{t.streak}</span></div></div>
+      <div className="mb-6"><p className={`text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-500 ${streakBoost ? 'text-primary animate-pulse' : 'text-muted-foreground/60'}`}>{t.boost}</p></div>
       <div className="flex-1 w-full overflow-y-auto max-h-[45vh] custom-scrollbar pr-2 mb-8 space-y-3">
         {items.map((item) => {
           const isChecked = checked.includes(item);
           return (
-            <div key={item} className={`flex items-center gap-4 p-4 rounded-[1.25rem] border transition-all duration-200 cursor-pointer h-[64px] ${isChecked ? 'bg-card border-primary/50 shadow-sm' : 'bg-card border-border/10 hover:border-border/20'}`} onClick={() => toggle(item)}><div className={`w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300 shrink-0 ${isChecked ? 'bg-primary border-primary' : 'bg-transparent border-border/20'}`}>{isChecked && <Check className="w-3.5 h-3.5 text-white" />}</div><Label className="font-headline font-black tracking-tight text-sm cursor-pointer flex-1 text-left text-white/90">{item}</Label></div>
+            <div key={item} className={`flex items-center gap-4 p-4 rounded-[1.25rem] border transition-all duration-200 cursor-pointer h-[64px] ${isChecked ? 'bg-card border-primary/50 shadow-sm' : 'bg-card border-border/10 hover:border-border/20'}`} onClick={() => toggle(item)}><div className={`w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300 shrink-0 ${isChecked ? 'bg-primary border-primary' : 'bg-transparent border-border/20'}`}>{isChecked && <Check className="w-3.5 h-3.5 text-primary-foreground" />}</div><Label className="font-headline font-black tracking-tight text-sm cursor-pointer flex-1 text-left text-foreground/90">{item}</Label></div>
           );
         })}
       </div>
-      <button onClick={onComplete} className="pill-button w-full max-w-sm bg-primary text-white text-xl font-black neon-glow active:scale-95 transition-all h-[64px]">{t.button}</button>
+      <button onClick={onComplete} className="pill-button w-full max-w-sm bg-primary text-primary-foreground text-xl font-black neon-glow active:scale-95 transition-all h-[64px]">{t.button}</button>
     </div>
   );
 }

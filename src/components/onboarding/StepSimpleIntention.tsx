@@ -66,7 +66,7 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
   return (
     <div className="w-full min-h-[85vh] flex flex-col items-center justify-center font-headline max-w-xl mx-auto px-6 text-center relative pt-safe pb-safe">
       {onBack && (
-        <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50">
+        <button onClick={onBack} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50">
           <ArrowLeft className="w-4 h-4" /> BACK
         </button>
       )}
@@ -75,8 +75,8 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-primary/20">
           <Sparkles size={28} className="text-primary animate-pulse" />
         </div>
-        <h2 className="text-[28px] font-black uppercase mb-1 text-white leading-tight tracking-tighter">{t.header}</h2>
-        <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px]">{t.sub}</p>
+        <h2 className="text-[28px] font-black uppercase mb-1 text-foreground leading-tight tracking-tighter">{t.header}</h2>
+        <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-[10px]">{t.sub}</p>
       </div>
 
       <div className="w-full space-y-4 mb-12">
@@ -92,10 +92,10 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
                 isActive ? `${opt.bg} border-primary shadow-2xl` : "bg-card border-border/5 hover:border-border/10"
               )}
             >
-              <div className={cn("p-4 rounded-2xl", isActive ? "bg-card/10 text-white" : "bg-card/5 text-white/20")}>
+              <div className={cn("p-4 rounded-2xl", isActive ? "bg-card/10 text-foreground" : "bg-card/5 text-muted-foreground/50")}>
                 <Icon size={28} />
               </div>
-              <span className={cn("font-black text-lg uppercase tracking-tight leading-tight", isActive ? "text-white" : "text-white/40")}>
+              <span className={cn("font-black text-lg uppercase tracking-tight leading-tight", isActive ? "text-foreground" : "text-muted-foreground")}>
                 {lang === 'en' ? opt.label : opt.de}
               </span>
             </button>
@@ -109,12 +109,12 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
           disabled={!selected} 
           className={cn(
             "pill-button w-full h-20 text-xl font-black uppercase tracking-widest transition-all shadow-lg",
-            selected ? 'bg-primary text-white' : 'bg-card/5 text-white/10 cursor-not-allowed border border-border/5'
+            selected ? 'bg-primary text-primary-foreground' : 'bg-card/5 text-muted-foreground/50 cursor-not-allowed border border-border/5'
           )}
         >
           {t.confirm}
         </button>
-        <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">
+        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em] shining-white">
           {t.footer}
         </p>
       </div>

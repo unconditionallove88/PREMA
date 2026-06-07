@@ -4,43 +4,38 @@
 
 @layer base {
   :root {
-    /* Vibrant Sky — Light Dawn */
-    --background: 30 55% 97%;
-    --foreground: 220 30% 15%;
+  /* Vibrant Sky — Light Dawn (fixed contrast) */
+  --background: 28 35% 93%;
+  --foreground: 220 40% 10%;
 
-    --card: 28 60% 96%;
-    --card-foreground: 220 28% 16%;
+  --card: 28 40% 95%;
+  --card-foreground: 220 40% 10%;
 
-    --popover: 28 65% 97%;
-    --popover-foreground: 220 28% 16%;
+  --popover: 28 40% 95%;
+  --popover-foreground: 220 40% 10%;
 
-    /* Primary — глубокий лесной зелёный */
-    --primary: 155 45% 36%;
-    --primary-foreground: 0 0% 100%;
+  --primary: 155 45% 32%;
+  --primary-foreground: 0 0% 100%;
 
-    /* Secondary — персиково-закатный */
-    --secondary: 22 80% 62%;
-    --secondary-foreground: 0 0% 100%;
+  --secondary: 22 75% 55%;
+  --secondary-foreground: 0 0% 100%;
 
-    /* Muted — серо-синий, читаемый */
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 18% 38%;
+  --muted: 220 15% 88%;
+  --muted-foreground: 220 25% 28%;
 
-    /* Accent — лавандовый */
-    --accent: 275 32% 68%;
-    --accent-foreground: 0 0% 100%;
+  --accent: 275 32% 58%;
+  --accent-foreground: 0 0% 100%;
 
-    /* Destructive — тёплый красный */
-    --destructive: 10 72% 58%;
-    --destructive-foreground: 0 0% 98%;
+  --destructive: 10 72% 52%;
+  --destructive-foreground: 0 0% 98%;
 
-    --border: 25 40% 82%;
-    --input: 28 55% 96%;
-    --ring: 155 45% 36%;
+  --border: 25 30% 72%;
+  --input: 28 40% 94%;
+  --ring: 155 45% 32%;
 
-    --radius: 2.5rem;
-    --shadow-color: 15, 18, 44;
-  }
+  --radius: 2.5rem;
+  --shadow-color: 15, 18, 44;
+}
 
   .dark {
     /* Lunar Night — глубокий индиго */

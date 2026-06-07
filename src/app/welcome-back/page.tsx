@@ -15,6 +15,8 @@ export default function WelcomeBack() {
   const router = useRouter();
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [mounted, setMounted] = useState(false);
+  const [orbFocused, setOrbFocused] = useState(false);
+  const [orbHovered, setOrbHovered] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -29,18 +31,29 @@ export default function WelcomeBack() {
     localStorage.setItem('stayonbeat_lang', newLang);
   };
 
+  const handleOrbActivate = () => {
+    router.push('/dashboard');
+  };
+
+  const handleOrbKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleOrbActivate();
+    }
+  };
+
   const content = {
     EN: {
       title: "HEY, NICE TO",
       highlight: "SEE YOU AGAIN",
       subtitle: "YOUR RESONANCE PROFILE IS READY LET’S GET YOU CALIBRATED",
-      button: "Enter"
+      helper: "Touch to begin"
     },
     DE: {
       title: "HEY, SCHÖN DICH",
       highlight: "WIEDERZUSEHEN",
       subtitle: "DEIN RESONANZ-PROFIL IST BEREIT SCHÜTZEN WIR DICH",
-      button: "ZUM DASHBOARD GEHEN"
+      helper: "ZUM STARTEN BERÜHREN"
     }
   };
 
@@ -69,13 +82,57 @@ export default function WelcomeBack() {
       </div>
 
       <div className="w-full max-w-xl flex flex-col items-center gap-10 py-10 relative z-10">
-        <div className="h-[180px] w-full flex items-center justify-center">
-          <div className="relative">
-            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-radiate-out" />
-            <Heart size={80} fill="hsl(var(--primary))" className="text-primary animate-pulse-heart relative z-10" />
-          </div>
+        {/* Interactive Orb - Primary CTA */}
+        <div className="h-[240px] w-full flex flex-col items-center justify-center">
+          <button
+            onClick={handleOrbActivate}
+            onKeyDown={handleOrbKeyDown}
+            onFocus={() => setOrbFocused(true)}
+            onBlur={() => setOrbFocused(false)}
+            onMouseEnter={() => setOrbHovered(true)}
+            onMouseLeave={() => setOrbHovered(false)}
+            tabIndex={0}
+            className="relative focus:outline-none group"
+            aria-label="Enter dashboard"
+          >
+            {/* Pulsing Rings - Enhanced with hover state */}
+            <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              orbHovered || orbFocused ? 'bg-primary/30' : 'bg-primary/15'
+            } blur-3xl animate-radiate-out`} />
+            
+            {/* Additional focus ring */}
+            {(orbFocused || orbHovered) && (
+              <div className="absolute inset-0 rounded-full border-2 border-primary/40 animate-pulse" />
+            )}
+            
+            {/* Core orb */}
+            <div className={`relative z-10 transition-all duration-300 ${
+              orbHovered || orbFocused ? 'scale-110' : 'scale-100'
+            }`}>
+              <Heart 
+                size={80} 
+                fill="hsl(var(--primary))" 
+                className={`text-primary ${
+                  orbHovered || orbFocused 
+                    ? 'animate-pulse-heart drop-shadow-lg' 
+                    : 'animate-pulse-heart'
+                }`}
+                style={orbHovered || orbFocused ? {
+                  filter: 'drop-shadow(0 0 25px hsl(var(--primary)))'
+                } : {
+                  filter: 'drop-shadow(0 0 15px hsl(var(--primary)))'
+                }}
+              />
+            </div>
+          </button>
+          
+          {/* Helper Text - Appears below orb */}
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mt-6 animate-pulse">
+            {content[lang].helper}
+          </p>
         </div>
 
+        {/* Text Content - Below the Orb */}
         <div className="space-y-4">
           <h1 className="text-[28px] font-semibold uppercase tracking-normal leading-tight text-foreground">
             {content[lang].title} <br/>
@@ -86,18 +143,10 @@ export default function WelcomeBack() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-6 w-full max-w-md pt-4">
-          <button 
-            onClick={() => router.push('/dashboard')}
-            className="pill-button w-full bg-primary text-primary-foreground text-xl font-semibold uppercase tracking-widest active:scale-95 transition-all shadow-soft h-[72px]"
-          >
-            {content[lang].button}
-          </button>
-          
-          <div className="flex items-center justify-center gap-3 text-muted-foreground">
-            <ShieldCheck className="w-4 h-4" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Resonance Protocol v2.5</span>
-          </div>
+        {/* Protocol Info */}
+        <div className="flex items-center justify-center gap-3 text-muted-foreground">
+          <ShieldCheck className="w-4 h-4" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Resonance Protocol v2.5</span>
         </div>
       </div>
     </main>

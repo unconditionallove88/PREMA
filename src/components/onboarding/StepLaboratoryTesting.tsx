@@ -76,18 +76,18 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
 
   return (
     <div className="w-full min-h-[85vh] flex flex-col items-center justify-center font-headline max-w-xl mx-auto px-4 text-center relative pt-safe pb-safe">
-      {onBack && <button onClick={onBack} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft size={16} /> BACK</button>}
+      {onBack && <button onClick={onBack} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft size={16} /> BACK</button>}
       
       <div className="mt-12 mb-8">
         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-primary/20">
           <Microscope size={32} className="text-primary" />
         </div>
-        <h2 className="text-[22px] font-black uppercase mb-1 text-white leading-tight tracking-tighter">{t.header}</h2>
+        <h2 className="text-[22px] font-black uppercase mb-1 text-foreground leading-tight tracking-tighter">{t.header}</h2>
         <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">{t.sub}</p>
       </div>
 
       <div className="bg-card border border-border/10 rounded-[2rem] p-8 mb-8 space-y-6 text-left w-full">
-        <p className="text-sm font-bold text-white/60 leading-relaxed uppercase tracking-widest italic">
+        <p className="text-sm font-bold text-muted-foreground leading-relaxed uppercase tracking-widest italic">
           "{t.desc}"
         </p>
         
@@ -95,7 +95,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
           {t.steps.map((step, i) => (
             <div key={i} className="flex items-center gap-4">
               <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 text-[10px] font-black text-primary">{i+1}</div>
-              <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">{step}</span>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{step}</span>
             </div>
           ))}
         </div>
@@ -115,8 +115,8 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
               >
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-sm font-black uppercase text-white">{lab.name}</p>
-                    <p className="text-[9px] font-bold text-white/30 uppercase mt-1 tracking-widest">{lab.address}</p>
+                    <p className="text-sm font-black uppercase text-foreground">{lab.name}</p>
+                    <p className="text-[9px] font-bold text-muted-foreground/60 uppercase mt-1 tracking-widest">{lab.address}</p>
                   </div>
                   {selectedLab === lab.id && <CheckCircle2 size={20} className="text-primary" />}
                 </div>
@@ -129,7 +129,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
             disabled={!selectedLab || isBooking}
             className={cn(
               "pill-button w-full h-20 text-xl font-black uppercase tracking-widest transition-all",
-              selectedLab ? "bg-primary text-white shadow-2xl" : "bg-card/5 text-white/10 cursor-not-allowed border border-border/5"
+              selectedLab ? "bg-primary text-primary-foreground shadow-2xl" : "bg-card/5 text-muted-foreground/50 cursor-not-allowed border border-border/5"
             )}
           >
             {isBooking ? <Loader2 className="animate-spin" /> : t.btn}
@@ -141,7 +141,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
             <Lock size={32} className="text-primary mx-auto" />
             <div>
               <p className="text-[10px] font-black uppercase text-primary tracking-[0.4em]">{t.anonCode}</p>
-              <p className="text-4xl font-black text-white tracking-tighter mt-2">{bookingCode}</p>
+              <p className="text-4xl font-black text-foreground tracking-tighter mt-2">{bookingCode}</p>
             </div>
           </div>
           <button 
@@ -153,7 +153,7 @@ export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () =
         </div>
       )}
 
-      <p className="mt-8 text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">{t.footer}</p>
+      <p className="mt-8 text-[8px] font-black text-muted-foreground uppercase tracking-[0.5em]">{t.footer}</p>
     </div>
   );
 }

@@ -94,15 +94,15 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
     return (
       <div className="w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 font-headline animate-in fade-in zoom-in-95 duration-1000">
         <h2 className="text-4xl font-black uppercase tracking-tighter text-primary mb-4">{t.success}</h2>
-        <p className="text-white/60 text-lg font-bold max-sm leading-tight">"{lang === 'EN' ? 'Unconditional love always' : 'Bedingungslose Liebe immerzu hier'}"</p>
+        <p className="text-muted-foreground text-lg font-bold max-sm leading-tight">"{ lang === 'EN' ? 'Unconditional love always' : 'Bedingungslose Liebe immerzu hier'}'"</p>
       </div>
     );
   }
 
   return (
     <div className="w-full min-h-[80vh] flex flex-col items-center justify-center font-headline max-xl mx-auto px-4 text-center relative pt-safe pb-safe">
-      {onBack && <button onClick={onBack} disabled={isSaving} className="absolute top-0 left-4 text-white/40 hover:text-white flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft className="w-4 h-4" /> {t.back}</button>}
-      <div className="mt-12 mb-10"><h2 className="text-[28px] font-black uppercase mb-2 text-white leading-none tracking-tighter">{t.header}</h2></div>
+      {onBack && <button onClick={onBack} disabled={isSaving} className="absolute top-0 left-4 text-muted-foreground hover:text-foreground flex items-center gap-2 text-[10px] font-black uppercase tracking-widest z-50"><ArrowLeft className="w-4 h-4" /> {t.back}</button>}
+      <div className="mt-12 mb-10"><h2 className="text-[28px] font-black uppercase mb-2 text-foreground leading-none tracking-tighter">{t.header}</h2></div>
       <div className="grid grid-cols-1 gap-3 w-full mb-12 overflow-y-auto max-h-[50vh] pr-2 custom-scrollbar">
         {VIBE_OPTIONS.map((vibe) => {
           const VibeIcon = vibe.icon;
@@ -129,7 +129,7 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
                 >
                   {label}
                 </span>
-                <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mt-1">{desc}</span>
+                <span className="text-[10px] font-black text-muted-foreground/60 uppercase tracking-widest leading-none mt-1">{desc}</span>
               </div>
             </button>
           );
@@ -141,7 +141,7 @@ export function Step7VibeCheck({ onComplete, onBack, isOnboarding = false, final
           disabled={!selected || isSaving} 
           className={cn(
             "pill-button w-full max-w-sm uppercase tracking-[0.2em] font-black text-xl h-[64px] transition-all shadow-lg", 
-            selected && !isSaving ? 'bg-primary text-white neon-glow' : 'bg-card/10 text-white/10 cursor-not-allowed opacity-50'
+            selected && !isSaving ? 'bg-primary text-primary-foreground neon-glow' : 'bg-card/10 text-muted-foreground/50 cursor-not-allowed opacity-50'
           )}
         >
           {isSaving ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : t.btn}

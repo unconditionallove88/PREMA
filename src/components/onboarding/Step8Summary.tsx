@@ -52,11 +52,11 @@ export function Step9Summary({ data, onComplete }: { data: OnboardingData, onCom
       </div>
 
       <div className="text-center mb-16 space-y-4">
-        <h2 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-white">
+        <h2 className="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-foreground">
           {t.header} <br/>
           <span className="text-secondary drop-shadow-[0_0_20px_rgba(62,180,137,0.4)]">{name}</span>!
         </h2>
-        <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-sm md:text-base">
+        <p className="text-muted-foreground font-bold uppercase tracking-[0.3em] text-sm md:text-base">
           {t.sub}
         </p>
       </div>
@@ -71,8 +71,8 @@ export function Step9Summary({ data, onComplete }: { data: OnboardingData, onCom
           <div key={item.label} className="bg-card border-2 border-border/10 rounded-[2.5rem] p-8 flex flex-col items-center gap-4 group hover:border-secondary transition-all duration-500 hover:scale-105">
             <item.icon className="w-10 h-10 text-secondary group-hover:scale-110 transition-transform" />
             <div className="text-center">
-              <span className="block font-headline font-black uppercase tracking-[0.3em] text-[10px] text-white/40 mb-2">{item.label}</span>
-              <span className="text-3xl font-headline font-black text-white">{item.count}</span>
+              <span className="block font-headline font-black uppercase tracking-[0.3em] text-[10px] text-muted-foreground mb-2">{item.label}</span>
+              <span className="text-3xl font-headline font-black text-foreground">{item.count}</span>
             </div>
           </div>
         ))}
