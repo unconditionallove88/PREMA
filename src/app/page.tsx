@@ -31,12 +31,12 @@ export default function Home() {
 
   const content = {
     en: {
-      slogan: "You are safe, you are loved",
+      slogan: "You are loved",
       getStarted: "Enter",
       footer: "Created in harmony"
     },
     de: {
-      slogan: "Du bist sicher, du bist geliebt",
+      slogan: "Du bist geliebt",
       getStarted: "Enter",
       footer: "Mit Anmut geschaffen"
     }
@@ -60,7 +60,10 @@ export default function Home() {
 
       <div className="flex flex-col items-center w-full max-w-2xl text-center flex-1 justify-center py-12 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-1000">
         <div className="flex flex-col items-center justify-center mb-16">
-          <div className="relative flex items-center justify-center">
+          <div 
+  className="relative flex items-center justify-center cursor-pointer"
+  onClick={() => router.push('/auth?mode=signin')}
+>
             <div className="absolute inset-0 w-48 h-48 bg-primary/10 blur-[80px] rounded-full" />
             <div className="w-32 h-32 bg-primary/15 rounded-full flex items-center justify-center border-2 border-primary/20 shadow-[0_0_50px_rgba(245,169,133,0.18)] relative z-10">
               <Heart 
@@ -75,15 +78,7 @@ export default function Home() {
           <p className="text-primary font-semibold mt-4 tracking-[0.12em] uppercase text-[10px] italic opacity-90">{content[lang].slogan}</p>
         </div>
         
-        {/* Circular Entry Portals */}
-        <div className="w-full max-w-xs mx-auto">
-          <button 
-            onClick={() => router.push('/auth?mode=signin')} 
-            className="w-full h-20 rounded-[2.5rem] bg-primary text-primary-foreground border border-primary/30 backdrop-blur-md shadow-soft transition-all hover:scale-[1.01] active:scale-[0.98] uppercase tracking-[0.2em] text-base font-semibold"
-          >
-            {content[lang].getStarted}
-          </button>
-        </div>
+
       </div>
 
       <footer className="w-full text-center mt-12 relative z-10">
