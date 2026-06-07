@@ -72,41 +72,6 @@
   }
 }
 
-  .dark {
-    /* Lunar Night — глубокий индиго */
-    --background: 230 35% 10%;
-    --foreground: 30 40% 92%;
-
-    --card: 228 32% 13%;
-    --card-foreground: 30 35% 90%;
-
-    --popover: 228 32% 12%;
-    --popover-foreground: 30 35% 90%;
-
-    --primary: 155 50% 48%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 22 75% 58%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 228 25% 20%;
-    --muted-foreground: 220 15% 65%;
-
-    --accent: 275 40% 62%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 10 68% 55%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 228 25% 22%;
-    --input: 228 28% 15%;
-    --ring: 155 50% 48%;
-
-    --radius: 2.5rem;
-    --shadow-color: 10, 8, 30;
-  }
-}
-
 /* Accessibility helpers */
 .text-muted { color: hsl(var(--muted-foreground)); }
 .small-label { font-size: 10px; color: hsl(var(--muted-foreground)); letter-spacing: 0.12em; }
