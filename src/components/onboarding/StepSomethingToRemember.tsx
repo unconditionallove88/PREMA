@@ -79,8 +79,8 @@ const UI = {
     medicalTitle: "Biological Impact", medicalSub: "Internal Systems Analysis", close: "Continue Calibration"
   },
   de: {
-    header: "Etwas zum Erinnern heute", sub: "Weisheit für deine Reise", wisdom: "Misch-Weisheiten Guide",
-    acknowledge: "Ich übernehme Verantwortung", confirm: "Weisheit jetzt setzen hier", created: "In Harmonie erschaffen hier",
+    header: "Wichtiger Hinweis", sub: "Weisheit für deine Reise", wisdom: "Misch-Weisheiten Guide",
+    acknowledge: "Ich übernehme Verantwortung", confirm: "Ich übernehme Verantwortung", created: "In Harmonie erschaffen hier",
     medicalTitle: "Biologische Folgen heute", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
   }
 };
@@ -224,7 +224,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
       </Dialog>
 
       {!isStandAlone && (
-        <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black dark:to-transparent pt-12 pointer-events-none pb-safe">
+        <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-background dark:via-background dark:to-transparent pt-12 pointer-events-none pb-safe">
           <button 
             onClick={() => onComplete({ acknowledged })} 
             disabled={!acknowledged}

@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 const UI = {
   EN: {
     header: "Set care alarms",
-    sub: "Connected to central intelligence",
+    sub: "Connected to Pulse Guardian",
     limit: "Intake Limit",
     limitSub: "Total logged units",
     leave: "Departure Time",
@@ -29,18 +29,18 @@ const UI = {
     created: "Created in harmony"
   },
   DE: {
-    header: "Fürsorge Alarme setzen heute",
-    sub: "Verbunden mit zentraler Intelligenz",
-    limit: "Intake Limit",
-    limitSub: "Gezählte Einheiten heute",
-    leave: "Aufbruchs Zeit",
-    leaveSub: "Geplante Zeit gehen",
-    rest: "Ruhe Intervalle",
-    restSub: "Atempausen Frequenz heute",
-    water: "Hydrierung Sync",
-    waterSub: "Wasser Erinnerung Frequenz",
-    confirm: "Fürsorge Alarme jetzt aktivieren",
-    created: "In Harmonie erschaffen hier"
+    header: "Pflege-Alarme aktivieren",
+    sub: "Verbunden mit dem Pulse Guardian",
+    limit: "Limit",
+    limitSub: "Gesamte Einheiten",
+    leave: "Abfahrtzeit",
+    leaveSub: "Geplante Abfahrt",
+    rest: "Pausen Intervalle",
+    restSub: "Atempausen-Frequenz",
+    water: "Hydration",
+    waterSub: "Wasser-Erinnerung",
+    confirm: "Alarme aktivieren",
+    created: "In Harmonie erschaffen"
   }
 };
 
@@ -186,7 +186,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
         </ScrollArea>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-black dark:via-black dark:to-transparent pt-12 pointer-events-none pb-safe">
+      <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-background dark:via-background dark:to-transparent pt-12 pointer-events-none pb-safe">
         <button 
           onClick={handleComplete}
           className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-primary-foreground rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
