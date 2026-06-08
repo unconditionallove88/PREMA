@@ -176,14 +176,14 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
-                    <arc.icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-white/20")} />
+                    <arc.icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-foreground/30")} />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="top" className="bg-card/95 border-border/10 px-4 py-2 rounded-xl text-center space-y-2 max-w-[150px]">
                   <p className="text-[10px] font-black uppercase tracking-widest text-primary">
                     {currentLang === 'de' ? arc.de : arc.en}
                   </p>
-                  <p className="text-[8px] text-white/40 font-bold uppercase mt-1 italic">"{arc.sentence}"</p>
+                  <p className="text-[8px] text-muted-foreground font-bold uppercase mt-1 italic">"{arc.sentence}"</p>
                   <button 
                     onClick={(e) => { e.stopPropagation(); setLearningArchetype(arc); }}
                     className="flex items-center gap-1.5 mx-auto text-[7px] font-black text-blue-400 uppercase tracking-widest pt-1 border-t border-border/10 w-full justify-center"
@@ -231,14 +231,14 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                           }}
                         >
                           <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: fColor, animationDuration: pulseDuration }} />
-                          <Heart size={14} fill={fColor} className="text-white/10" style={{ animation: `heart-beat-inner ${pulseDuration} ease-in-out infinite` }} />
+                          <Heart size={14} fill={fColor} className="text-primary/10" style={{ animation: `heart-beat-inner ${pulseDuration} ease-in-out infinite` }} />
                         </div>
-                        <span className="text-[7px] font-black text-white/40 uppercase tracking-tighter group-hover/friend:text-white">{friend.name}</span>
+                        <span className="text-[7px] font-black text-muted-foreground uppercase tracking-tighter group-hover/friend:text-foreground">{friend.name}</span>
                       </div>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="bg-card/95 border-border/10 px-4 py-2 rounded-xl text-center">
-                      <p className="text-[9px] font-black text-white">{friend.name}</p>
-                      <p className="text-[8px] font-bold text-white/40 uppercase mt-1 italic">"{friend.msg}"</p>
+                      <p className="text-[9px] font-black text-foreground">{friend.name}</p>
+                      <p className="text-[8px] font-bold text-muted-foreground uppercase mt-1 italic">"{friend.msg}"</p>
                       <div className="flex items-center justify-center gap-1.5 mt-1 pt-1 border-t border-border/5">
                         <Radio size={8} className="text-blue-400" />
                         <span className="text-[7px] font-black text-blue-400 uppercase tracking-widest">{friend.dist} Mesh</span>
@@ -264,7 +264,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                 <Heart 
                   size={48} 
                   fill="#DC2626" 
-                  className="text-white/20 transition-all duration-700" 
+                  className="text-foreground/20 transition-all duration-700" 
                   style={{ 
                     filter: 'blur(4px) drop-shadow(0 0 15px #DC2626)',
                     opacity: 0.8
@@ -287,24 +287,24 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                 {learningArchetype && <learningArchetype.icon size={32} />}
               </div>
               <div>
-                <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-white">
+                <DialogTitle className="text-2xl font-black uppercase tracking-tighter text-foreground">
                   {currentLang === 'de' ? learningArchetype?.de : learningArchetype?.en}
                 </DialogTitle>
-                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">Wisdom Protocol</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Wisdom Protocol</p>
               </div>
             </div>
           </DialogHeader>
           <div className="space-y-8">
             <div className="space-y-2">
                <span className="text-[9px] font-black text-primary uppercase tracking-[0.4em]">Explanation</span>
-               <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">{learningArchetype?.explanation}</p>
+               <p className="text-sm font-bold text-foreground/80 leading-relaxed uppercase tracking-widest">{learningArchetype?.explanation}</p>
             </div>
             <div className="p-6 bg-primary/5 border border-primary/20 rounded-2xl space-y-3">
                <div className="flex items-center gap-3">
                  <Sparkles size={16} className="text-primary" />
                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.4em]">Development Practice</span>
                </div>
-               <p className="text-xs font-bold text-white leading-relaxed uppercase tracking-wider italic">{learningArchetype?.practice}</p>
+               <p className="text-xs font-bold text-foreground leading-relaxed uppercase tracking-wider italic">{learningArchetype?.practice}</p>
             </div>
             <button 
               onClick={() => setLearningArchetype(null)}
