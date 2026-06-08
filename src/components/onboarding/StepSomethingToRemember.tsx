@@ -32,7 +32,7 @@ const MIXING_WISDOM = [
   },
   { 
     id: 'mdpv-alc', s1: 'Monkey Dust', s2: 'Alcohol', risk: 'Critical', color: 'text-red-500', 
-    note: 'Extreme cardiac load risk', deNote: 'Extreme Herzbelastung heute hier',
+    note: 'Extreme cardiac load risk', deNote: 'Extreme Herzbelastung',
     med: {
       en: "Monkey Dust (MDPV) is a highly potent stimulant. Mixing with alcohol creates massive strain on the heart and can trigger acute psychiatric emergencies or hyperthermia.",
       de: "Monkey Dust ist ein hochpotentes Stimulans. Die Mischung mit Alkohol belastet das Herz massiv und kann akute psychiatrische Notfälle oder Überhitzung auslösen heute hier."
@@ -40,7 +40,7 @@ const MIXING_WISDOM = [
   },
   { 
     id: 'dmt-maoi', s1: 'DMT', s2: 'MAOIs', risk: 'High', color: 'text-red-400', 
-    note: 'Uncontrolled potentiation risk', deNote: 'Unkontrollierte Wirkungsverstärkung heute hier',
+    note: 'Uncontrolled potentiation risk', deNote: 'Unkontrollierte Wirkungsverstärkung',
     med: {
       en: "MAO inhibitors prevent the breakdown of DMT, leading to an uncontrolled and potentially overwhelming experience. It can also cause a dangerous spike in blood pressure.",
       de: "MAO-Hemmer verhindern den Abbau von DMT, was zu einer unkontrollierten und überwältigenden Erfahrung führt. Es kann zudem gefährlichen Bluthochdruck verursachen heute hier."
@@ -80,8 +80,8 @@ const UI = {
   },
   de: {
     header: "Wichtiger Hinweis", sub: "Weisheit für deine Reise", wisdom: "Misch-Weisheiten Guide",
-    acknowledge: "Ich übernehme Verantwortung", confirm: "Ich übernehme Verantwortung", created: "In Harmonie erschaffen hier",
-    medicalTitle: "Biologische Folgen heute", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
+    acknowledge: "Ich übernehme Verantwortung", confirm: "Ich übernehme Verantwortung", created: "In Harmonie erschaffen",
+    medicalTitle: "Biologische Auswirkungen", medicalSub: "Analyse der Organsysteme", close: "Kalibrierung fortsetzen"
   }
 };
 
@@ -91,7 +91,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
   const [selectedPair, setSelectedPair] = useState<any>(null);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'en').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'en').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

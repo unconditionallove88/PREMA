@@ -18,11 +18,11 @@ const CONTENT = {
     back: "BACK", header: "Foundations of care", subtext: "I read and honor our shared understanding",
     agree: "Walk with love", understand: "I accept and respect",
     sections: [
-      { id: 'harmReduction', title: 'Harm minimization', text: 'StayOnBeat is a tool for risk and harm minimization designed to provide information and support It is not intended to encourage illegal activities' },
+      { id: 'harmReduction', title: 'Harm minimization', text: 'Prema is a tool for risk and harm minimization designed to provide information and support It is not intended to encourage illegal activities' },
       { id: 'medicalAdvice', title: 'Not medical advice', text: 'The information provided by this space is for educational purposes and does not constitute medical advice or diagnosis' },
       { id: 'privacy', title: 'Freedom & trust (GDPR)', text: 'We take your privacy seriously Your biometric data is encrypted We honor your data sovereignty and comply with GDPR standards' },
       { id: 'voice', title: 'Voice resonance protocol', text: 'You may use voice dictation to interact with the space Your audio is processed locally and used only to convert speech to text for your convenience' },
-      { id: 'safetyNetwork', title: 'Circle of love', text: 'StayOnBeat allows you to create a network of trusted bonds who can be notified in case of a need for connection or support' },
+      { id: 'safetyNetwork', title: 'Circle of love', text: 'Prema allows you to create a network of trusted bonds who can be notified in case of a need for connection or support' },
       { id: 'immediateHelp', title: 'Care support', text: 'In need of support, you can notify your Circle or trusted bonds Alerts are handled with absolute discretion and respect for your journey' },
     ]
   },
@@ -30,11 +30,11 @@ const CONTENT = {
     back: "ZURÜCK", header: "Fundament der Fürsorge", subtext: "Ich achte unser gemeinsames Verständnis",
     agree: "Gehe diesen Weg mit Liebe", understand: "Ich akzeptiere und respektiere",
     sections: [
-      { id: 'harmReduction', title: 'Schadensminimierung', text: 'StayOnBeat ist ein Tool zur Risiko- und Schadensminimierung, das Informationen und Unterstützung bietet Es ist nicht dazu gedacht, illegale Aktivitäten zu fördern' },
+      { id: 'harmReduction', title: 'Schadensminimierung', text: 'Prema ist ein Tool zur Risiko- und Schadensminimierung, das Informationen und Unterstützung bietet Es ist nicht dazu gedacht, illegale Aktivitäten zu fördern' },
       { id: 'medicalAdvice', title: 'Kein medizinischer Rat', text: 'Die von diesem Raum bereitgestellten Informationen dienen Bildungszwecken und stellen keine medizinische Beratung dar' },
       { id: 'privacy', title: 'Freiheit & Vertrauen (DSGVO)', text: 'Wir nehmen deine Privatsphäre ernst Deine biometrischen Daten sind verschlüsselt Wir achten deine Datensouveränität' },
       { id: 'voice', title: 'Sprach Resonanz Protokoll', text: 'Du kannst Sprachbefehle nutzen heute hier Deine Audio-Daten werden nur lokal verarbeitet um Text zu erstellen heute hier' },
-      { id: 'safetyNetwork', title: 'Circle of Love', text: 'StayOnBeat ermöglicht es dir, ein Netzwerk aus vertrauenswürdigen Verbindungen zu erstellen, die bei Bedarf informiert werden können' },
+      { id: 'safetyNetwork', title: 'Circle of Love', text: 'Prema ermöglicht es dir, ein Netzwerk aus vertrauenswürdigen Verbindungen zu erstellen, die bei Bedarf informiert werden können' },
       { id: 'immediateHelp', title: 'Care Support', text: 'Wenn du Unterstützung benötigst, kannst du deinen Circle oder vertrauenswürdige Bindungen rufen Meldungen werden absolut diskret und mit Respekt behandelt' },
     ]
   }
@@ -47,7 +47,7 @@ export function Step1ImportantStuff({ onComplete }: { onComplete: (legal: LegalA
   });
   
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE'].includes(savedLang)) setLang(savedLang);
   }, []);
 

@@ -41,56 +41,56 @@ import {
 const ARCHETYPES = [
   { 
     id: 'brother', icon: ShieldCheck, color: "text-blue-200", bg: "bg-blue-500/5", 
-    en: "Brotherly Protection Love", de: "Brüderlicher Halt heute", 
+    en: "Brotherly Love", de: "Brüderliche Liebe", 
     sentence: "Existence is protected and held",
     explanation: "Brotherly love represents the shield and support offered in a circle of trust. It is the unwavering strength found in shared responsibility.",
     practice: "Visualize a protective circle around the group. Breathe into the feeling of safety and mutual support."
   },
   { 
     id: 'mother', icon: Heart, color: "text-rose-200", bg: "bg-rose-500/5", 
-    en: "Motherly Care Love", de: "Mütterliche Fürsorge heute", 
+    en: "Mother", de: "Mütter", 
     sentence: "Nurturing love surrounds existence",
     explanation: "Motherly love is the foundation of unconditional care and emotional safety. It is the gentle warmth that heals even the deepest unrest.",
     practice: "Place a hand over the heart. Breathe into the warmth of being cared for."
   },
   { 
     id: 'sister', icon: User, color: "text-indigo-200", bg: "bg-indigo-500/5", 
-    en: "Sisterly Bond Love", de: "Schwesterliche Bindung heute", 
+    en: "Sister", de: "Schwester", 
     sentence: "Shared strength in unity",
     explanation: "Sisterly love is the resonance of equality and shared wisdom. It is about understanding the journey without words.",
     practice: "Reflect on shared connection. Feel the resonance of that connection in the solar plexus."
   },
   { 
     id: 'romantic', icon: Star, color: "text-pink-200", bg: "bg-pink-500/5", 
-    en: "Romantic Unity Love", de: "Romantische Einheit heute", 
+    en: "Romantic", de: "Romantik", 
     sentence: "Hearts beating as one",
     explanation: "Romantic love is the spark of intimacy and deep emotional merging. It is the celebration of two hearts finding a singular rhythm.",
     practice: "Synchronize breathing with the central pulsing heart. Feel the intimacy of the present moment."
   },
   { 
     id: 'erotic', icon: Flame, color: "text-orange-200", bg: "bg-orange-500/5", 
-    en: "Erotic Fire Love", de: "Erotisches Feuer heute", 
+    en: "Erotic", de: "Erotik", 
     sentence: "Passion flows through life",
     explanation: "Erotic love is the life-force and creative fire of existence. It is the energy that drives exploration of the beauty of life.",
     practice: "Feel the warmth in the body. Breathe deeply into the abdomen and imagine light radiating outward."
   },
   { 
     id: 'friend', icon: Users, color: "text-emerald-200", bg: "bg-emerald-500/5", 
-    en: "Friendship Trust Love", de: "Freundschaftliches Vertrauen heute", 
+    en: "Friendship", de: "Freundschaft", 
     sentence: "Trust is the foundation",
     explanation: "Friendship love is the social mesh that holds everyone together. It is built on trust, honesty, and shared experiences.",
     practice: "Think of a bond that brings joy. Send a mental note of gratitude right now."
   },
   { 
     id: 'human', icon: Globe, color: "text-cyan-200", bg: "bg-cyan-500/5", 
-    en: "Humanity Unity Love", de: "Menschliche Einheit heute", 
+    en: "We are One", de: "Wir sind Eins", 
     sentence: "All are connected now",
     explanation: "Humanity love is the recognition of the collective heartbeat. It is the ultimate expression of unconditional love for all beings.",
     practice: "Imagine a thin golden thread connecting every person in the space and the world beyond."
   },
   { 
     id: 'life', icon: Infinity, color: "text-primary", bg: "bg-primary/5", 
-    en: "Pure Life Love", de: "Reines Leben heute", 
+    en: "Life", de: "Leben", 
     sentence: "Existence is a gift",
     explanation: "Life love is the gratitude for the breath in the lungs and the rhythm in the chest. It is love for the experience of being alive.",
     practice: "Take a deep breath and acknowledge the gift of life. Repeat this three times."
@@ -98,9 +98,9 @@ const ARCHETYPES = [
 ];
 
 const MOCK_FRIENDS = [
-  { id: 'f1', name: 'MAX', hr: 72, state: 'steady', msg: "Chilling near the bar", dist: "12m" },
-  { id: 'f2', name: 'LUNA', hr: 115, state: 'elevated', msg: "Dancing intensely", dist: "45m" },
-  { id: 'f3', name: 'JELIZAVETA', hr: 140, state: 'distress', msg: "Needs a hydration break", dist: "82m" },
+  { id: 'f1', name: 'GABRIEL', hr: 72, state: 'steady', msg: "Chilling near the bar", dist: "12m" },
+  { id: 'f2', name: 'LEANDRO', hr: 115, state: 'elevated', msg: "Dancing intensely", dist: "45m" },
+  { id: 'f3', name: 'MARINA', hr: 140, state: 'distress', msg: "Needs a hydration break", dist: "82m" },
 ];
 
 export default function LoveCircle({ lang = "en", variant = "dashboard", heartRate = 75 }: { lang?: string, variant?: "dashboard" | "map", heartRate?: number }) {
