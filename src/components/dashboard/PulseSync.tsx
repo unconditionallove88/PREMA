@@ -185,19 +185,19 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
                 </div>
                 <div className="text-left">
                   <span className="block font-black uppercase text-sm tracking-tight text-white">{device.name}</span>
-                  <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
                     {isConnecting ? t.negotiating : isConnected ? t.active : t.clickConnect}
                   </span>
                 </div>
               </div>
 
               {isConnecting ? (
-                <Loader2 className="w-5 h-5 animate-spin text-white/40" />
+                <Loader2 className="w-5 h-5 animate-spin text-primary (or text-foreground)" />
               ) : isConnected ? (
                 <Radio className="w-6 h-6 text-[hsl(var(--accent))] animate-pulse" />
               ) : (
                 <div className="w-10 h-10 rounded-full border border-border/10 flex items-center justify-center group-hover:bg-card/10 transition-all">
-                  <Bluetooth className="w-4 h-4 text-white/20" />
+                  <Bluetooth className="w-4 h-4 text-foreground/30" />
                 </div>
               )}
             </button>
@@ -211,13 +211,13 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
             <Loader2 className="w-5 h-5 animate-spin text-[hsl(var(--accent))]" />
             <span className="text-xs font-black uppercase tracking-widest text-[hsl(var(--accent))]">{t.calibrating}</span>
           </div>
-          <p className="text-[9px] text-white/40 text-center uppercase tracking-widest">{t.analyzing}</p>
+          <p className="text-[9px] text-muted-foreground text-center uppercase tracking-widest">{t.analyzing}</p>
         </div>
       )}
 
       <div className="bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/20 p-6 rounded-2xl flex items-start gap-4 mb-8">
         <Info className="w-5 h-5 text-[hsl(var(--accent))] shrink-0" />
-        <p className="text-[10px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">
+        <p className="text-[10px] font-bold text-foreground/80 leading-relaxed uppercase tracking-widest">
           {t.guardianInfo}
         </p>
       </div>
