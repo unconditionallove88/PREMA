@@ -20,7 +20,7 @@ interface VisionOfLoveProps {
 const CONTENT = {
   en: {
     title: "Vision of Love",
-    sub: "Welcome to Harmony. Love is here. Let's get back on beat together.",
+    sub: "Welcome to Harmony. All is well. You are balanced.",
     intro: "I respect resonance",
     affirmations: [
       "Welcome to Harmony",
@@ -38,26 +38,26 @@ const CONTENT = {
     exhale: "Breathe Out Love",
     footer: "Created in harmony"
   },
-  de: {
-    title: "Vision der Liebe",
-    sub: "Willkommen in Harmonie heute. Liebe ist jetzt hier. Gemeinsam im Takt heute.",
-    intro: "Ich achte Resonanz heute",
-    affirmations: [
-      "Willkommen in Harmonie heute",
-      "Liebe ist jetzt hier",
-      "Wieder im Takt heute",
-      "Alles fügt sich heute",
-      "Gegenwart ist jetzt hier"
-    ],
-    button: "Vision öffnen",
-    return: "Zum Zuhause zurückkehren",
-    next: "Weiter: Atem der Liebe",
-    emergencyHeader: "Atem der Liebe heute",
-    emergencySub: "Einatmen Frieden • Ausatmen Angst",
-    inhale: "Atme sanft Liebe ein",
-    exhale: "Atme sanft Liebe aus",
-    footer: "In Harmonie erschaffen hier"
-  }
+de: {
+  title: "Vision der Liebe",
+  sub: "Willkommen in Harmonie. Du bist geliebt. Das Leben ist Liebe.",
+  intro: "Ich achte Resonanz",
+  affirmations: [
+    "Willkommen in Harmonie",
+    "Du bist geliebt",
+    "Das Leben ist Liebe",
+    "Alles fügt sich heute",
+    "Gegenwart ist jetzt"
+  ],
+  button: "Vision öffnen",
+  return: "Zum Zuhause zurückkehren",
+  next: "Weiter: Atem der Liebe",
+  emergencyHeader: "Atem der Liebe",
+  emergencySub: "Einatmen Liebe • Ausatmen Liebe",
+  inhale: "Einatmen Liebe",
+  exhale: "Ausatmen Liebe",
+  footer: "Created in harmony"
+},
 };
 
 export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps) {
