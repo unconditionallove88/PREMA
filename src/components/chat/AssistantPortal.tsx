@@ -28,7 +28,7 @@ const i18n = {
     supporter: "Supporter",
     question: "How is your inner state?",
     subtitle: "Select your current phase for tailored guidance and love. 🌿",
-    intention: "Your Intention",
+    intention: "Intention",
     gearCheck: "Gear Check",
     prepWisdom: "Biology & Prep",
     wisdomTitle: "Grace Wisdom",
@@ -61,18 +61,18 @@ const i18n = {
   },
   de: {
     title: "PREMA",
-    supporter: "Unterstützer heute hier",
+    supporter: "Unterstützer",
     question: "Wie ist dein innerer Zustand?",
     subtitle: "Wähle deine aktuelle Phase für maßgeschneiderte Begleitung. 🌿",
-    intention: "Deine Intention heute",
-    gearCheck: "Ausrüstungs Check heute",
+    intention: "Die Intention",
+    gearCheck: "Ausrüstungs Check ",
     prepWisdom: "Biologie & Vorbereitung",
     wisdomTitle: "Gnaden Weisheit",
     closeBtn: "Ich verstehe",
     phases: [
-      { title: "Vorher", desc: "Körper & Geist vorbereiten heute" },
-      { title: "Währenddessen", desc: "Sicher & verbunden bleiben heute" },
-      { title: "Danach", desc: "Erholen & regenerieren heute" }
+      { title: "Vorher", desc: "Körper & Geist vorbereiten" },
+      { title: "Währenddessen", desc: "Sicher & verbunden bleiben" },
+      { title: "Danach", desc: "Erholen & regenerieren" }
     ],
     details: {
       hydration: {
@@ -89,7 +89,7 @@ const i18n = {
       },
       rest: {
         title: "Kalibrierung des Nervensystems",
-        why: "Tiefe Erholung heute",
+        why: "Tiefe Erholung",
         desc: "Erholung ermöglicht es deinem Nervensystem sich zu kalibrieren und speichert wichtiges Glykogen für deine Reise Schlaf bereitet deinen Geist auf eine erweiterte Resonanz vor",
         timing: "Biorhythmus: Ruhe vor 23:00 Uhr optimiert deinen Hormonhaushalt und stärkt deine Pulse-Basis für den nächsten Tag"
       }

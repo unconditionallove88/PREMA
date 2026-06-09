@@ -12,23 +12,23 @@ import { cn } from '@/lib/utils';
  */
 
 const POSITIVE_GOALS = [
-  { id: 'dance', icon: Music, label: 'Dance all night', de: 'Tanzen' },
-  { id: 'social', icon: Users, label: 'Meet new people', de: 'menschen kennenlernen' },
-  { id: 'forget-self', icon: CircleDot, label: 'Forget myself now', de: 'Sich ganz vergessen' },
-  { id: 'intimacy', icon: Heart, label: 'Find intimacy today', de: 'Intimität finden' },
-  { id: 'hydrate', icon: Shield, label: 'Stay hydrated always', de: 'Immer Wasser trinken' },
-  { id: 'discover', icon: Target, label: 'Discover music today', de: 'Musik heute entdecken' },
+  { id: 'dance', icon: Music, label: 'Dance', de: 'Tanzen' },
+  { id: 'social', icon: Users, label: 'Meet people', de: 'Menschen kennenlernen' },
+  { id: 'forget-self', icon: CircleDot, label: 'Forget myself', de: 'Sich ganz vergessen' },
+  { id: 'intimacy', icon: Heart, label: 'Find intimacy', de: 'Intimität finden' },
+  { id: 'hydrate', icon: Shield, label: 'Stay hydrated', de: 'Wasser trinken' },
+  { id: 'discover', icon: Target, label: 'Discover music', de: 'Musik entdecken' },
 ];
 
 const RESONANCE_GOALS = [
-  { id: 'radiate-presence', icon: Radio, label: 'Radiate Presence Now', de: 'Präsenz ausstrahlen' },
-  { id: 'deep-listening', icon: Ear, label: 'Practice Deep Listening', de: 'Tiefes Zuhören üben' },
+  { id: 'radiate-presence', icon: Radio, label: 'Radiate Presence', de: 'Präsenz ausstrahlen' },
+  { id: 'deep-listening', icon: Ear, label: 'Deep Listening', de: 'Zuhören üben' },
   { id: 'shining-love', icon: Heart, label: 'Shining with Love', de: 'Liebe Strahlen' },
 ];
 
 const UI = {
-  en: { header: 'Your intention', sub: 'What is your main focus?', res: 'The Resonance', pos: 'Positive Intentions', confirm: 'Confirm intention' },
-  de: { header: 'Deine Intention heute', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Intention bestätigen' }
+  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Resonance', pos: 'Positive Intentions', confirm: 'Confirm intention' },
+  de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Intention bestätigen' }
 };
 
 export function StepPartyGoal({ onComplete, onBack }: { onComplete: (goals: string[]) => void, onBack?: () => void }) {
