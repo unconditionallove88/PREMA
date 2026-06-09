@@ -41,7 +41,7 @@ import {
 const ARCHETYPES = [
   { 
     id: 'brother', icon: ShieldCheck, color: "text-blue-200", bg: "bg-blue-500/5", 
-    en: "Brotherly Love", de: "Brüderliche Liebe", 
+    en: "Brother", de: "Brüderliche Liebe", 
     sentence: "Existence is protected and held",
     explanation: "Brotherly love represents the shield and support offered in a circle of trust. It is the unwavering strength found in shared responsibility.",
     practice: "Visualize a protective circle around the group. Breathe into the feeling of safety and mutual support."
@@ -62,14 +62,14 @@ const ARCHETYPES = [
   },
   { 
     id: 'romantic', icon: Star, color: "text-pink-200", bg: "bg-pink-500/5", 
-    en: "Romantic", de: "Romantik", 
+    en: "Romance", de: "Romantik", 
     sentence: "Hearts beating as one",
     explanation: "Romantic love is the spark of intimacy and deep emotional merging. It is the celebration of two hearts finding a singular rhythm.",
     practice: "Synchronize breathing with the central pulsing heart. Feel the intimacy of the present moment."
   },
   { 
     id: 'erotic', icon: Flame, color: "text-orange-200", bg: "bg-orange-500/5", 
-    en: "Erotic", de: "Erotik", 
+    en: "Erotica", de: "Erotik", 
     sentence: "Passion flows through life",
     explanation: "Erotic love is the life-force and creative fire of existence. It is the energy that drives exploration of the beauty of life.",
     practice: "Feel the warmth in the body. Breathe deeply into the abdomen and imagine light radiating outward."
@@ -188,7 +188,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                     onClick={(e) => { e.stopPropagation(); setLearningArchetype(arc); }}
                     className="flex items-center gap-1.5 mx-auto text-[7px] font-black text-blue-400 uppercase tracking-widest pt-1 border-t border-border/10 w-full justify-center"
                   >
-                    {currentLang === 'de' ? 'Mehr erfahren heute' : 'Learn Intelligence Now'} <ExternalLink size={8} />
+                    {currentLang === 'de' ? 'Mehr erfahren' : 'Learn Intelligence'} <ExternalLink size={8} />
                   </button>
                 </TooltipContent>
               </Tooltip>

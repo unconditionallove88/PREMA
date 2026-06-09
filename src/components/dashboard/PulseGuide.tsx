@@ -31,7 +31,7 @@ const STEPS = [
   {
     id: 'radar',
     title: { en: "Pulse Mesh Radar", de: "Pulse Mesh Radar" },
-    desc: { en: "Find friends now", de: "Freunde jetzt finden heute" },
+    desc: { en: "Find friends now", de: "Freunde jetzt finden" },
     content: {
       en: {
         description: "Your location tracker shared only with those you love using the Sovereign Mesh triangulation protocol",
@@ -39,9 +39,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Analyzes Mesh triangulation to direct awareness staff to your precise tactical grid location"
       },
       de: {
-        description: "Standort-Tracker nur mit vertrauten Menschen geteilt heute via Mesh Protokoll heute hier",
-        functions: "Sehe Freunde und Hubs auf dem Grid Schalte Sichtbarkeit um oder sende Notrufe via Mesh heute",
-        intelligence: "Pulse Guardian: Analysiert die Triangulation um Hilfe präzise zu deinem Standort zu leiten heute hier"
+        description: "Standort-Tracker nur mit vertrauten Menschen geteilt heute via Mesh Protokoll",
+        functions: "Sehe Freunde und Hubs auf dem Grid Schalte Sichtbarkeit um oder sende Notrufe via Mesh",
+        intelligence: "Pulse Guardian: Analysiert die Triangulation um Hilfe präzise zu deinem Standort zu leiten"
       }
     },
     icon: Radio,
@@ -50,8 +50,8 @@ const STEPS = [
   },
   {
     id: 'bonds',
-    title: { en: "Trusted Bonds", de: "Vertraute Bindungen heute" },
-    desc: { en: "The inner circle", de: "Der innere Kreis heute" },
+    title: { en: "Trusted Bonds", de: "Vertraute Bindungen" },
+    desc: { en: "The inner circle", de: "Der innere Kreis" },
     content: {
       en: {
         description: "The inner circle of trusted bonds who hold space for existence unconditionally and without judgment",
@@ -59,9 +59,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Verifies bond encryption to ensure data sovereignty remains absolute within the chosen circle"
       },
       de: {
-        description: "Der innere Kreis der Seelen die dich bedingungslos lieben heute ohne jedes Urteil heute",
-        functions: "Füge bis zu 5 Bindungen im Profil hinzu Nur diese sehen den Standort heute hier",
-        intelligence: "Pulse Guardian: Verifiziert die Verschlüsselung damit die Datensouveränität absolut gewahrt bleibt heute hier"
+        description: "Der innere Kreis der Seelen die dich bedingungslos lieben heute ohne jedes Urteil",
+        functions: "Füge bis zu 5 Bindungen im Profil hinzu Nur diese sehen den Standort",
+        intelligence: "Pulse Guardian: Verifiziert die Verschlüsselung damit die Datensouveränität absolut gewahrt bleibt"
       }
     },
     icon: HeartHandshake,
@@ -70,8 +70,8 @@ const STEPS = [
   },
   {
     id: 'family',
-    title: { en: "Collective Care", de: "Kollektive Fürsorge heute" },
-    desc: { en: "The Universal Family", de: "Die universelle Familie heute" },
+    title: { en: "Collective Care", de: "Kollektive Betreuung" },
+    desc: { en: "The Universal Family", de: "Die universelle Familie" },
     content: {
       en: {
         description: "A shared protocol that alerts nearby hearts when a heart is in critical danger embodying the principle of brotherly love",
@@ -79,9 +79,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Decides when a private distress call should evolve into a collective call for love based on stress levels"
       },
       de: {
-        description: "Ein Protokoll das Seelen in der Nähe alarmiert wenn Gefahr droht Ein Ausdruck der Nächstenliebe heute",
-        functions: "Aktiviere die 'Familien Präsenz' um deinen Standort zu senden Ein Ruf nach Hilfe erscheint auf deren Radar heute",
-        intelligence: "Pulse Guardian: Entscheidet wann ein privater Notruf zu einem kollektiven Ruf nach Liebe werden sollte heute hier"
+        description: "Ein Protokoll das Seelen in der Nähe alarmiert wenn Gefahr droht Ein Ausdruck der Nächstenliebe",
+        functions: "Aktiviere die 'Familien Präsenz' um deinen Standort zu senden Ein Ruf nach Hilfe erscheint auf deren Radar",
+        intelligence: "Pulse Guardian: Entscheidet wann ein privater Notruf zu einem kollektiven Ruf nach Liebe werden sollte"
       }
     },
     icon: Users2,
@@ -90,8 +90,8 @@ const STEPS = [
   },
   {
     id: 'lab',
-    title: { en: "Sovereign Lab", de: "Souveränitäts Lab heute" },
-    desc: { en: "Log the truth", de: "Die Wahrheit notieren heute" },
+    title: { en: "Lab", de: "Lab" },
+    desc: { en: "Log the truth", de: "Die Wahrheit notieren" },
     content: {
       en: {
         description: "A space for absolute honesty regarding session intake and biological limits in this space",
@@ -99,9 +99,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Calculates specific safety thresholds by cross-referencing the medical profile with active substance logs"
       },
       de: {
-        description: "Ein Raum für absolute Ehrlichkeit bezüglich der Aufnahme und biologischer Grenzen heute hier",
-        functions: "Notiere Substanzen bei der Aufnahme Das Lab trackt Volumen und Frequenz für präzise Analysen heute",
-        intelligence: "Pulse Guardian: Berechnet spezifische Sicherheits-Limits durch Abgleich des Profils mit den aktiven Protokollen heute"
+        description: "Ein Raum für absolute Ehrlichkeit bezüglich der Aufnahme und biologischer Grenzen",
+        functions: "Notiere Substanzen bei der Aufnahme Das Lab trackt Volumen und Frequenz für präzise Analysen",
+        intelligence: "Pulse Guardian: Berechnet spezifische Sicherheits-Limits durch Abgleich des Profils mit den aktiven Protokollen"
       }
     },
     icon: Microscope,
@@ -110,8 +110,8 @@ const STEPS = [
   },
   {
     id: 'lovechat',
-    title: { en: "Love Chat", de: "Wort der Liebe heute" },
-    desc: { en: "Words of love", de: "Worte der Liebe heute" },
+    title: { en: "Love Chat", de: "Das Wort" },
+    desc: { en: "Words of love", de: "Worte der Liebe" },
     content: {
       en: {
         description: "Dedicated rooms for private connection and collective care within the circle of humanity",
@@ -119,8 +119,8 @@ const STEPS = [
         intelligence: "Pulse Guardian: Monitors public chat for dissonance to maintain the frequency of unconditional love"
       },
       de: {
-        description: "Eigene Räume für private Verbindung und kollektive Fürsorge im Kreis der Menschheit heute",
-        functions: "Nutze 'Die Holder' für den inneren Kreis oder 'Die Spectator' für gemeinschaftliche Unterstützung heute",
+        description: "Eigene Räume für private Verbindung und kollektive Fürsorge im Kreis der Menschheit",
+        functions: "Nutze 'Die Holder' für den inneren Kreis oder 'Die Spectator' für gemeinschaftliche Unterstützung",
         intelligence: "Pulse Guardian: Überwacht den öffentlichen Chat auf Dissonanz um die Frequenz der Liebe zu wahren"
       }
     },
@@ -130,8 +130,8 @@ const STEPS = [
   },
   {
     id: 'rescode',
-    title: { en: "Resonance Code", de: "Resonanz Wort heute" },
-    desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort heute" },
+    title: { en: "Resonance Code", de: "Resonanz Wort" },
+    desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort" },
     content: {
       en: {
         description: "A sacred dispatch word known only to existence and the chosen trusted bonds",
@@ -140,7 +140,7 @@ const STEPS = [
       },
       de: {
         description: "Ein heiliges Dispatch-Wort das nur dir und den vertrauten Bindungen bekannt ist heute hier",
-        functions: "Sende das Wort an Bindungen für ein sofortiges Mesh-Signal mit deinem präzisen Standort heute",
+        functions: "Sende das Wort an Bindungen für ein sofortiges Mesh-Signal mit deinem präzisen Standort",
         intelligence: "Pulse Guardian: Erkennt das Wort um Filter zu umgehen und den Kreis bei Resonanzverlust zu alarmieren"
       }
     },
@@ -150,8 +150,8 @@ const STEPS = [
   },
   {
     id: 'breath',
-    title: { en: "Heart Breath", de: "Herz Atem heute" },
-    desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync heute" },
+    title: { en: "Heart Breath", de: "Herz Atem" },
+    desc: { en: "Oxytocin love sync", de: "Oxytocin Liebe Sync" },
     content: {
       en: {
         description: "A biological ritual designed to synchronize the heart and release oxytocin for nervous system recovery",
@@ -159,9 +159,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Monitors biometric recovery during the ritual to ensure the rhythm returns to a steady baseline"
       },
       de: {
-        description: "Ein biologisches Ritual zur Synchronisation des Herzens und Freisetzung von Oxytocin zur Erholung heute",
-        functions: "Folge dem pulsierenden Licht um Liebe ein- und auszuatmen Dies beruhigt das Nervensystem ganz natürlich heute",
-        intelligence: "Pulse Guardian: Überwacht die biometrische Erholung während des Rituals für eine stabile Puls-Basis heute"
+        description: "Ein biologisches Ritual zur Synchronisation des Herzens und Freisetzung von Oxytocin zur Erholung",
+        functions: "Folge dem pulsierenden Licht um Liebe ein- und auszuatmen Dies beruhigt das Nervensystem ganz natürlich",
+        intelligence: "Pulse Guardian: Überwacht die biometrische Erholung während des Rituals für eine stabile Puls-Basis"
       }
     },
     icon: Wind,
@@ -170,8 +170,8 @@ const STEPS = [
   },
   {
     id: 'cocreation',
-    title: { en: "Co-Creation", de: "Ko Kreation heute hier" },
-    desc: { en: "Shape the space", de: "Den Raum gestalten heute" },
+    title: { en: "Co-Creation", de: "Ko Kreation" },
+    desc: { en: "Shape the space", de: "Den Raum gestalten" },
     content: {
       en: {
         description: "The portal through which the human voice directly shapes this space",
@@ -179,9 +179,9 @@ const STEPS = [
         intelligence: "Pulse Guardian: Aggregates community resonance to prioritize features that nurture the collective well-being of all hearts"
       },
       de: {
-        description: "Das Portal durch welches die menschliche Stimme die Evolution dieses Raums direkt mitgestaltet heute",
-        functions: "Teile Feedback, Ideen oder Gefühle zu den Tools Die Eingabe wird mit Liebe empfangen heute",
-        intelligence: "Pulse Guardian: Sammelt die kollektive Resonanz um Funktionen zur Förderung des Gemeinwohls zu priorisieren heute"
+        description: "Das Portal durch welches die menschliche Stimme die Evolution dieses Raums direkt mitgestaltet ",
+        functions: "Teile Feedback, Ideen oder Gefühle zu den Tools Die Eingabe wird mit Liebe empfangen",
+        intelligence: "Pulse Guardian: Sammelt die kollektive Resonanz um Funktionen zur Förderung des Gemeinwohls zu priorisieren "
       }
     },
     icon: Sprout,
@@ -202,7 +202,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
   }, [forceOpen]);
 
   const handleDismiss = () => {
-    localStorage.setItem('stayonbeat_guide_dismissed', 'true');
+    localStorage.setItem('prema_guide_dismissed', 'true');
     setIsOpen(false);
     if (onDismiss) onDismiss();
   };
@@ -210,7 +210,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
   const step = STEPS[currentStep] || STEPS[0];
   const Icon = step.icon;
   const currentLang = lang === 'en' ? 'en' : 'de';
-  const labels = lang === 'en' ? { desc: "Description", func: "How it functions", intel: "Guardian Intelligence" } : { desc: "Beschreibung", func: "Wie es funktioniert", intel: "Guardian Intelligenz heute" };
+  const labels = lang === 'en' ? { desc: "Description", func: "How it functions", intel: "Guardian Intelligence" } : { desc: "Beschreibung", func: "Wie es funktioniert", intel: "Guardian Intelligenz" };
 
   if (!isOpen) {
     return (

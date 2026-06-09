@@ -30,7 +30,7 @@ import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
-import { WearablesSync } from '@/components/dashboard/WearablesSync';
+import { PulseSync } from '@/components/dashboard/PulseSync';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { PulseGuide } from '@/components/dashboard/PulseGuide';
@@ -87,16 +87,16 @@ const CONTENT = {
     walkBtn: "Walk with Care"
   },
   de: { 
-    mesh: "Mesh aktiv heute hier",
-    loveChat: "Wort der Liebe heute",
-    holders: "Die Holder heute hier",
-    spectators: "Die Spectator heute hier",
-    supporterMain: "Unterstützer heute hier",
+    mesh: "Mesh aktiv",
+    loveChat: "Wort der Liebe",
+    holders: "Die Holder heute",
+    spectators: "Die Spectator",
+    supporterMain: "Unterstützer",
     presence: "Präsenz heute",
-    anchor: "Prema Anker heute hier",
-    anchorSub: "Mesh Kontext heute hier",
-    anchorBtn: "Anker jetzt setzen heute",
-    footer: "In Harmonie erschaffen heute hier",
+    anchor: "Prema Anker",
+    anchorSub: "Mesh Kontext",
+    anchorBtn: "Anker jetzt setzen",
+    footer: "In Harmonie erschaffen",
     familyAlertTitle: "Begleitung in der Nähe",
     familyAlertSub: "Universelle Familie Mesh aktiv",
     walkBtn: "Mit Herz begleiten"
@@ -418,7 +418,7 @@ function DashboardContent() {
       <Dialog open={syncOpen} onOpenChange={setSyncOpen}>
         <DialogContent className="bg-card border-border max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-soft">
           <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
-          <div className="flex-1 overflow-y-auto"><WearablesSync onComplete={() => setSyncOpen(false)} /></div>
+          <div className="flex-1 overflow-y-auto"><PulseSync onComplete={() => setSyncOpen(false)} /></div>
         </DialogContent>
       </Dialog>
 

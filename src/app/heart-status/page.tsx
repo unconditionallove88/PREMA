@@ -19,7 +19,7 @@ import { doc } from 'firebase/firestore';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { LoveCircleChat } from '@/components/chat/LoveCircleChat';
 import { PartyCircleChat } from '@/components/chat/PartyCircleChat';
-import { WearablesSync } from '@/components/dashboard/WearablesSync';
+import { PulseSync } from '@/components/dashboard/PulseSync';
 import { LoveLetter } from '@/components/dashboard/LoveLetter';
 import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
 import { playHeartbeat } from '@/lib/resonance';
@@ -216,8 +216,9 @@ function InnerHeartContent() {
       <Dialog open={syncOpen} onOpenChange={setSyncOpen}>
         <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-[0_0_80px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
-          <div className="flex-1 overflow-y-auto"><WearablesSync onComplete={() => setSyncOpen(false)} /></div>
-        </DialogContent>
+          <div className="flex-1 overflow-y-auto"></div>
+        </DialogContent><PulseSync onComplete={() => setSyncOpen(false)} />
+      
       </Dialog>
 
       <Dialog open={holdersOpen} onOpenChange={setHoldersOpen}>

@@ -55,7 +55,7 @@ const CONTENT = {
       { title: "Profil-Kalibrierung", desc: "Passt Schwellenwerte basierend auf deinen Gesundheitszuständen und Medikamenten an" },
       { title: "Sofort-Hilfe Verbindung", desc: "Aktiviert Fürsorgeprotokolle und das Schutzfenster, falls Schwellenwerte überschritten werden" },
     ],
-    footer: "In Harmonie erschaffen heute hier",
+    footer: "In Harmonie erschaffen",
     tapInfo: "Integrierte Intelligenz Engine",
     viewGuide: "Begleitung ansehen"
   }

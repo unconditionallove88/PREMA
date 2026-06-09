@@ -23,28 +23,28 @@ const CONTENT = {
     inhale: "Breathe In Love",
     exhale: "Breathe Out Love",
     affirmations: [
-      "Love is healing",
-      "Bonds are holding",
-      "Unconditional love always",
-      "Acceptance unites humanity",
-      "Pure presence now"
+      "Love heals",
+      "Forgivness",
+      "Joy",
+      "Acceptance unites",
+      "Presence"
     ],
     instruction: "Synchronize breath with heart",
-    return: "Return to Home"
+    return: "Home"
   },
   de: {
-    title: "Herz Atem heute",
-    sub: "Oxytocin Liebe fließt hier",
-    inhale: "Atme sanft Liebe ein",
-    exhale: "Atme sanft Liebe aus",
+    title: "Herz Atem",
+    sub: "Oxytocin Liebe fließt",
+    inhale: "Atme Liebe ein",
+    exhale: "Atme Liebe aus",
     affirmations: [
-      "Liebe heilt jetzt heute",
-      "Bande halten jetzt heute",
-      "Bedingungslose Liebe immerzu hier",
-      "Akzeptanz vereint die Menschheit",
-      "Reine Gegenwart jetzt hier"
+      "Liebe heilt",
+      "Versöhnlichkeit",
+      "Freude",
+      "Akzeptanz vereint",
+      "Gegenwart"
     ],
-    instruction: "Atem jetzt synchronisieren heute",
+    instruction: "Atem jetzt synchronisieren",
     return: "Zum Zuhause zurückkehren"
   }
 };
