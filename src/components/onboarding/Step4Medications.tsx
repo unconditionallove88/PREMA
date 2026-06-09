@@ -51,7 +51,7 @@ export function Step4Medications({ selected, onComplete, onSkip, onBack }: { sel
   const [lang, setLang] = useState<'EN' | 'DE' | 'PT' | 'RU'>('EN');
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE', 'PT', 'RU'].includes(savedLang)) setLang(savedLang);
   }, []);
 

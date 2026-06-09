@@ -42,7 +42,7 @@ const prompt = ai.definePrompt({
   name: 'aiSafetyChatPrompt',
   input: {schema: AiSafetyChatInputSchema},
   output: {schema: AiSafetyChatOutputSchema},
-  prompt: `You are the StayOnBeat Safety Advisor, the voice of the Pulse Guardian.
+  prompt: `You are the PREMA Safety Advisor, the voice of the Pulse Guardian.
 
 Context from Pulse Lab:
 - Current Session Intake: {{{substance}}}

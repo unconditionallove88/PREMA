@@ -163,9 +163,9 @@ export function Step6SubstanceLab({
 
   useEffect(() => {
     setMounted(true);
-    const savedLogs = JSON.parse(localStorage.getItem('stayonbeat_logs') || '[]');
+    const savedLogs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
     setSessionLogs(savedLogs);
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 
@@ -257,7 +257,7 @@ export function Step6SubstanceLab({
     if (!pendingEntry) return;
     const updated = [...sessionLogs, pendingEntry];
     setSessionLogs(updated);
-    localStorage.setItem('stayonbeat_logs', JSON.stringify(updated));
+    localStorage.setItem('prema_logs', JSON.stringify(updated));
     setActiveSubstance(null);
     setManualValue('');
     setAlcoholCart([]);
@@ -270,7 +270,7 @@ export function Step6SubstanceLab({
   const removeLog = (index: number) => {
     const updated = sessionLogs.filter((_, i) => i !== index);
     setSessionLogs(updated);
-    localStorage.setItem('stayonbeat_logs', JSON.stringify(updated));
+    localStorage.setItem('prema_logs', JSON.stringify(updated));
   };
 
   const lastHR = userData?.sessionStatus?.lastHeartRate || 0;

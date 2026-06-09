@@ -54,7 +54,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   });
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE'].includes(savedLang)) setLang(savedLang);
   }, []);
 

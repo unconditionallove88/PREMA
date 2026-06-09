@@ -65,7 +65,7 @@ export default function Onboarding() {
     const final = { ...data, ...updates };
     setData(final);
     try {
-      localStorage.setItem('stayonbeat_profile', safeStringify(final));
+      localStorage.setItem('prema_profile', safeStringify(final));
     } catch (e) {
       console.error("Could not save to localStorage:", e);
     }

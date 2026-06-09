@@ -54,7 +54,7 @@ const CONTENT = {
     privacy: {
       title: "Freedom & Trust",
       sovereignty: "Data Sovereignty",
-      sovereigntyDesc: "Privacy is respected Data is sovereign StayOnBeat is built on the principle that the personal journey is a sacred trust",
+      sovereigntyDesc: "Privacy is respected Data is sovereign prema is built on the principle that the personal journey is a sacred trust",
       encryption: "High-Fidelity Encryption",
       encryptionDesc: "All biometric signals health profiles and location logs are protected by high-fidelity encryption Sensitive information is visible only to chosen bonds",
       freedom: "Inner Freedom",
@@ -77,7 +77,7 @@ const CONTENT = {
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
-      sovereigntyDesc: "Privatsphäre wird geachtet heute Daten sind souverän heute StayOnBeat baut auf dem Prinzip der persönlichen Souveränität auf",
+      sovereigntyDesc: "Privatsphäre wird geachtet heute Daten sind souverän heute prema baut auf dem Prinzip der persönlichen Souveränität auf",
       encryption: "High-Fidelity-Verschlüsselung",
       encryptionDesc: "Alle biometrischen Signale Gesundheitsprofile und Standortprotokolle sind geschützt Informationen sind nur für Vertraute sichtbar",
       freedom: "Innere Freiheit heute",
@@ -102,7 +102,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {

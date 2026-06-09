@@ -94,7 +94,7 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
   const [lang, setLang] = useState<'en' | 'de' | 'pt' | 'ru'>('en');
 
   useState(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de', 'pt', 'ru'].includes(savedLang)) setLang(savedLang);
   });
 
@@ -112,7 +112,7 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
         
         const simulatedHR = id === 'whoop' ? 135 : 82;
         const restingBPM = id === 'apple' ? 62 : 68;
-        const intakeLogs = JSON.parse(localStorage.getItem('stayonbeat_logs') || '[]');
+        const intakeLogs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
         
         if (user && firestore) {
           const userRef = doc(firestore, 'users', user.uid);

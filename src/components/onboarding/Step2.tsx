@@ -45,7 +45,7 @@ export function Step2WhoAreYou({ initialData, onComplete, onSkip, onBack }: { in
   });
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE', 'PT'].includes(savedLang)) setLang(savedLang);
   }, []);
 

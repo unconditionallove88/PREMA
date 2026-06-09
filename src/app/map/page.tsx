@@ -79,7 +79,7 @@ function MapContent() {
   const isGuardActive = profile?.guardActive || false;
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
     const timer = setTimeout(() => {

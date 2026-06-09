@@ -25,10 +25,10 @@ export default function DuringPhase() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
-    const logs = JSON.parse(localStorage.getItem('stayonbeat_logs') || '[]');
+    const logs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
     if (logs.length > 0) {
       const substanceNames = logs.map((l: any) => l.name).join(', ');
       setActiveIntake(substanceNames);

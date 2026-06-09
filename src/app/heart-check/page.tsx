@@ -26,7 +26,7 @@ export default function HeartCheckRedirect() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = localStorage.getItem('stayonbeat_lang');
+    const savedLang = localStorage.getItem('prema_lang');
     if (savedLang === 'DE') setLang('de');
     if (!auth) return;
     const unsub = onAuthStateChanged(auth, (user) => {

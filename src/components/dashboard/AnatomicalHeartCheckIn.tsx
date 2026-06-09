@@ -31,7 +31,7 @@ export function AnatomicalHeartCheckIn() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

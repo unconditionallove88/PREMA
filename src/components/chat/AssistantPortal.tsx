@@ -24,7 +24,7 @@ interface AssistantPortalProps {
 
 const i18n = {
   en: {
-    title: "StayOnBeat",
+    title: "PREMA",
     supporter: "Supporter",
     question: "How is your inner state?",
     subtitle: "Select your current phase for tailored guidance and love. 🌿",
@@ -60,7 +60,7 @@ const i18n = {
     }
   },
   de: {
-    title: "StayOnBeat",
+    title: "PREMA",
     supporter: "Unterstützer heute hier",
     question: "Wie ist dein innerer Zustand?",
     subtitle: "Wähle deine aktuelle Phase für maßgeschneiderte Begleitung. 🌿",
@@ -108,7 +108,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
   const [selectedWisdom, setSelectedWisdom] = useState<any>(null);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

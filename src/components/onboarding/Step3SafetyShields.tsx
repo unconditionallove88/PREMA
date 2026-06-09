@@ -83,7 +83,7 @@ export function Step3SafetyShields({
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('stayonbeat_lang');
+    const savedLang = localStorage.getItem('prema_lang');
     if (savedLang === 'DE' || savedLang === 'EN') {
       setLang(savedLang as 'EN' | 'DE');
     }

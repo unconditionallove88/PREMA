@@ -128,26 +128,7 @@ const STEPS = [
     color: "text-emerald-400",
     bg: "bg-emerald-500/10"
   },
-  {
-    id: 'rescode',
-    title: { en: "Resonance Code", de: "Resonanz Wort" },
-    desc: { en: "Sacred dispatch word", de: "Heiliges Notfall Wort" },
-    content: {
-      en: {
-        description: "A sacred dispatch word known only to existence and the chosen trusted bonds",
-        functions: "Text this word to bonds to trigger an immediate Mesh broadcast showing the precise tactical location",
-        intelligence: "Pulse Guardian: Recognizes the code to bypass normal privacy filters and alert the circle when resonance is lost"
-      },
-      de: {
-        description: "Ein heiliges Dispatch-Wort das nur dir und den vertrauten Bindungen bekannt ist heute hier",
-        functions: "Sende das Wort an Bindungen für ein sofortiges Mesh-Signal mit deinem präzisen Standort",
-        intelligence: "Pulse Guardian: Erkennt das Wort um Filter zu umgehen und den Kreis bei Resonanzverlust zu alarmieren"
-      }
-    },
-    icon: Lock,
-    color: "text-amber-400",
-    bg: "bg-amber-500/10"
-  },
+  
   {
     id: 'breath',
     title: { en: "Heart Breath", de: "Herz Atem" },

@@ -140,7 +140,7 @@ function DashboardContent() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     const currentLang = ['en', 'de'].includes(savedLang) ? savedLang : 'en';
     setLang(currentLang);
     const pool = AFFIRMATIONS[currentLang.toUpperCase() as keyof typeof AFFIRMATIONS];

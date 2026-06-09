@@ -20,7 +20,7 @@ export default function WelcomeBack() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = localStorage.getItem('stayonbeat_lang');
+    const savedLang = localStorage.getItem('prema_lang');
     if (savedLang === 'DE' || savedLang === 'EN') {
       setLang(savedLang as 'EN' | 'DE');
     }
@@ -28,7 +28,7 @@ export default function WelcomeBack() {
 
   const handleLangChange = (newLang: 'EN' | 'DE') => {
     setLang(newLang);
-    localStorage.setItem('stayonbeat_lang', newLang);
+    localStorage.setItem('prema_lang', newLang);
   };
 
   const handleOrbActivate = () => {

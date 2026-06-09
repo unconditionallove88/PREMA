@@ -15,7 +15,7 @@ export default function NotificationPrompt({ onClose }: NotificationPromptProps)
   const [lang, setLang] = useState<'en' | 'de' | 'pt' | 'ru'>('en');
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de', 'pt', 'ru'].includes(savedLang)) setLang(savedLang);
   }, []);
 

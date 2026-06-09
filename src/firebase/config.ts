@@ -6,9 +6,9 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 export const firebaseConfig = {
   apiKey: "AIzaSyCizjtSLlJdwSukaDbm7P4moJ-D64Psavk",
-  authDomain: "stayonbeat-production.firebaseapp.com",
-  projectId: "stayonbeat-production",
-  storageBucket: "stayonbeat-production.firebasestorage.app",
+  authDomain: "prema-production.firebaseapp.com",
+  projectId: "prema-production",
+  storageBucket: "prema-production.firebasestorage.app",
   messagingSenderId: "409299188438",
   appId: "1:409299188438:web:644758c1472dd7cdc26777"
 };

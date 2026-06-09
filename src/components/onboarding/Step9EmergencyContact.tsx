@@ -41,7 +41,7 @@ export function Step9EmergencyContact({ onComplete, onBack }: { onComplete: (con
   const [form, setForm] = useState({ name: '', phone: '' });
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE', 'PT', 'RU'].includes(savedLang)) setLang(savedLang);
   }, []);
 

@@ -32,7 +32,7 @@ export default function SelfCare() {
   const [lang, setLang] = useState<'en' | 'de'>('en');
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

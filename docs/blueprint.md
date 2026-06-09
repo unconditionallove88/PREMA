@@ -1,4 +1,4 @@
-# **App Name**: StayOnBeat
+# **App Name**: PREMA
 
 ## Core Features:
 

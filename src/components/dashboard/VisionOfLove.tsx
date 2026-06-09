@@ -68,7 +68,7 @@ export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

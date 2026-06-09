@@ -91,10 +91,10 @@ export function PartyCircleChat() {
   }, []);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
-    const agreed = localStorage.getItem('stayonbeat_spectator_agreed');
-    const blocked = localStorage.getItem('stayonbeat_spectator_blocked');
+    const agreed = localStorage.getItem('prema_spectator_agreed');
+    const blocked = localStorage.getItem('prema_spectator_blocked');
     if (agreed === 'true') setHasAgreedToRules(true);
     if (blocked === 'true') setIsBlocked(true);
   }, []);
@@ -134,7 +134,7 @@ export function PartyCircleChat() {
       const moderation = await moderateMessage({ text });
       if (!moderation.isSafe) {
         setIsBlocked(true);
-        localStorage.setItem('stayonbeat_spectator_blocked', 'true');
+        localStorage.setItem('prema_spectator_blocked', 'true');
         await logViolation(text, moderation.reason || "Dissonance detected", 'AI_FLAGGED');
         toast({ variant: "destructive", title: t.violationTitle, description: t.violationDesc });
         setIsSending(false);
@@ -172,7 +172,7 @@ export function PartyCircleChat() {
 
   const handleEnterChat = () => {
     setIsEntering(true);
-    localStorage.setItem('stayonbeat_spectator_agreed', 'true');
+    localStorage.setItem('prema_spectator_agreed', 'true');
     setTimeout(() => { setHasAgreedToRules(true); setIsEntering(false); }, 800);
   };
 

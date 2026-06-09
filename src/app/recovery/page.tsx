@@ -115,10 +115,10 @@ export default function RecoveryView() {
 
   useEffect(() => {
     setMounted(true);
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'en').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'en').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
-    const logs = JSON.parse(localStorage.getItem('stayonbeat_logs') || '[]');
+    const logs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
     setSessionLogs(logs);
     
     const timer = setInterval(() => {
@@ -152,8 +152,8 @@ export default function RecoveryView() {
 
   const handlePurge = () => {
     playHeartbeat();
-    localStorage.removeItem('stayonbeat_logs');
-    localStorage.removeItem('stayonbeat_mesh_history');
+    localStorage.removeItem('prema_logs');
+    localStorage.removeItem('prema_mesh_history');
     setIsFinished(true);
   };
 

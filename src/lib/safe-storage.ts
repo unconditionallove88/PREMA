@@ -58,6 +58,6 @@ export const getLocal = (key: string) => {
  */
 export const purgeSessionData = () => {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem('stayonbeat_logs');
-  localStorage.removeItem('stayonbeat_mesh_history');
+  localStorage.removeItem('prema_logs');
+  localStorage.removeItem('prema_mesh_history');
 };

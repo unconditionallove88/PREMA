@@ -15,14 +15,14 @@ const CONTENT = {
   EN: {
     back: "BACK", header: "Age Verification", sub: "To honor community standards and protect our circle we verify your age via a private payment method",
     stripeLabel: "Private Verification via Stripe",
-    peaceOfMind: "Your peace of mind matters No charge will be made This is a zero-euro authorization Data is encrypted and never stored by StayOnBeat",
+    peaceOfMind: "Your peace of mind matters No charge will be made This is a zero-euro authorization Data is encrypted and never stored by prema",
     button: "Verify My Identity", verifying: "Verifying...", successHeader: "Identity Verified",
     successSub: "Thank you for helping us keep this space resonant Your account is now calibrated", footer: "PCI-DSS Compliant • Encrypted • Private"
   },
   DE: {
     back: "ZURÜCK", header: "Altersverifizierung", sub: "Um Community-Standards zu erfüllen und unseren Kreis zu schützen verifizieren wir dein Alter über eine private Zahlungsmethode",
     stripeLabel: "Private Verifizierung über Stripe",
-    peaceOfMind: "Dein Seelenfrieden ist uns wichtig Es wird keine Gebühr erhoben Dies ist eine Null-Euro-Autorisierung Die Daten sind verschlüsselt und werden niemals von StayOnBeat gespeichert",
+    peaceOfMind: "Dein Seelenfrieden ist uns wichtig Es wird keine Gebühr erhoben Dies ist eine Null-Euro-Autorisierung Die Daten sind verschlüsselt und werden niemals von prema gespeichert",
     button: "Identität verifizieren", verifying: "Wird verifiziert...", successHeader: "Identität verifiziert",
     successSub: "Danke dass du uns hilfst diesen Raum resonant zu halten Dein Konto ist nun kalibriert", footer: "PCI-DSS-konform • Verschlüsselt • Privat"
   },
@@ -50,7 +50,7 @@ export function Step6StripeVerify({ onComplete, onBack }: { onComplete: (data: {
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toUpperCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toUpperCase() as any;
     if (['EN', 'DE', 'PT', 'RU'].includes(savedLang)) setLang(savedLang);
   }, []);
 

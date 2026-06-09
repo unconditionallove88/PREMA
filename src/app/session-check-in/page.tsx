@@ -21,7 +21,7 @@ export default function SessionCheckIn() {
 
   useEffect(() => {
     setMounted(true);
-    const profileStr = localStorage.getItem('stayonbeat_profile');
+    const profileStr = localStorage.getItem('prema_profile');
     
     if (profileStr) {
       setData(JSON.parse(profileStr));
@@ -37,10 +37,10 @@ export default function SessionCheckIn() {
         goals: [],
       };
       setData(defaultProfile);
-      localStorage.setItem('stayonbeat_profile', JSON.stringify(defaultProfile));
+      localStorage.setItem('prema_profile', JSON.stringify(defaultProfile));
     }
     
-    localStorage.removeItem('stayonbeat_logs');
+    localStorage.removeItem('prema_logs');
   }, []);
 
   const nextStep = () => setStep((s) => s + 1);
@@ -50,7 +50,7 @@ export default function SessionCheckIn() {
     if (!data) return;
     const final = { ...data, ...updates };
     setData(final);
-    localStorage.setItem('stayonbeat_profile', JSON.stringify(final));
+    localStorage.setItem('prema_profile', JSON.stringify(final));
   };
 
   if (!mounted || !data) return null;

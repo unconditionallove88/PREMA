@@ -52,7 +52,7 @@ export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: s
   const [lang, setLang] = useState<'en' | 'de'>('en');
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'en').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'en').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 

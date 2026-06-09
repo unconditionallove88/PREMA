@@ -50,7 +50,7 @@ export const scheduleDailyVibeReminder = (hourOfDay: number = 10): void => {
 
   // Save the scheduled time to localStorage
   localStorage.setItem(
-    "stayonbeat_reminder",
+    "prema_reminder",
     JSON.stringify({
       scheduledFor: reminderTime.toISOString(),
       hourOfDay,
@@ -71,7 +71,7 @@ export const sendLoveNotification = (): void => {
 
   const message = LOVE_REMINDERS[Math.floor(Math.random() * LOVE_REMINDERS.length)];
 
-  const notification = new Notification("StayOnBeat", {
+  const notification = new Notification("prema", {
     body: message,
     tag: "daily-vibe-check",
     silent: false,
@@ -91,6 +91,6 @@ export const askForNotificationPermission = async (
   const granted = await requestNotificationPermission();
   if (granted) {
     scheduleDailyVibeReminder(preferredHour);
-    localStorage.setItem("stayonbeat_notifications", "enabled");
+    localStorage.setItem("prema_notifications", "enabled");
   }
 };
