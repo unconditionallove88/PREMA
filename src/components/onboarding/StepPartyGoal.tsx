@@ -22,13 +22,13 @@ const POSITIVE_GOALS = [
 
 const RESONANCE_GOALS = [
   { id: 'radiate-presence', icon: Radio, label: 'Radiate Presence', de: 'Präsenz ausstrahlen' },
-  { id: 'deep-listening', icon: Ear, label: 'Deep Listening', de: 'Zuhören üben' },
+  { id: 'deep-listening', icon: Ear, label: 'Listening', de: 'Zuhören' },
   { id: 'shining-love', icon: Heart, label: 'Shining with Love', de: 'Liebe Strahlen' },
 ];
 
 const UI = {
-  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Resonance', pos: 'Positive Intentions', confirm: 'Confirm intention' },
-  de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Intention bestätigen' }
+  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Resonance', pos: 'Positive Intentions', confirm: 'Confirm' },
+  de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Bestätigen' }
 };
 
 export function StepPartyGoal({ onComplete, onBack }: { onComplete: (goals: string[]) => void, onBack?: () => void }) {
