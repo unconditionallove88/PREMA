@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, X, Heart, Wind, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 /**

@@ -1,7 +1,6 @@
 
 'use server';
 /**
- * @fileOverview A Genkit flow for text-to-speech resonance.
  *
  * - textToSpeech - A function that converts text to a playable audio data URI.
  */
@@ -52,7 +51,6 @@ const textToSpeechFlow = ai.defineFlow(
     });
 
     if (!media) {
-      throw new Error('No audio resonance returned');
     }
 
     const audioBuffer = Buffer.from(

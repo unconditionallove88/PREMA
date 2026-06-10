@@ -11,7 +11,6 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
 import { Step7GearCheck } from '@/components/onboarding/Step7GearCheck';
-import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview SupporterPortal Component.
@@ -49,12 +48,10 @@ const i18n = {
         title: "Physical Resonance",
         why: "Steady Fuel",
         desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain",
-        energy: "Why it matters: Stable nutrition prevents blood sugar crashes and keeps your physical resonance steady during intense sensory input"
       },
       rest: {
         title: "Nervous System Calibration",
         why: "Deep Recovery",
-        desc: "Resting allows your nervous system to calibrate and stores essential glycogen for your journey Sleep prepares your mind for expanded resonance",
         timing: "Circadian Rhythm: Entering rest before 23:00 optimizes your hormonal balance and strengthens your Pulse Baseline for the next day"
       }
     }

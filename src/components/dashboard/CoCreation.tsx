@@ -34,7 +34,6 @@ const i18n = {
       { key: "dislike", label: "Dissonance", prompt: "What do you not like? And why?", placeholder: "Tell us what feels off missing or could be more human and why it matters", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "What would you add?", placeholder: "A feature a word a feeling you wish was here to help us grow", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Favorite Tool", prompt: "Which tool do you love the most?", placeholder: "Tell us honestly which tool resonates deepest with your needs", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
-      { key: "survey", label: "App Survey", prompt: "Help us test the space", placeholder: "Take our structured survey to help us calibrate the resonance", icon: CircleDot, color: "text-foreground", bg: "bg-card/10" },
     ],
     send: "Send from the Heart", openSurvey: "Open Feedback Survey", sending: "Sending...",
     successTitle: "Heard", successMsg: "Your words have been received with love They will help this space grow",

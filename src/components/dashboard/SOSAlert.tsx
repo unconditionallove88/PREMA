@@ -22,7 +22,6 @@ import {
 import { cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Immediate Help (SOS) Portal.

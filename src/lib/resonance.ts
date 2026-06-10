@@ -31,7 +31,6 @@ export const playHeartbeat = () => {
       oscillator.stop(audioCtx.currentTime + 0.12);
     };
 
-    // Beat 2: The "Dub" (Slightly higher, more resonance)
     const playSecondBeat = () => {
       const oscillator = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();

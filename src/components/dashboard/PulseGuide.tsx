@@ -17,7 +17,6 @@ import {
   Users2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
@@ -157,7 +156,6 @@ const STEPS = [
       en: {
         description: "The portal through which the human voice directly shapes this space",
         functions: "Share feedback, ideas, or feelings about the tools The input is received with unconditional love",
-        intelligence: "Pulse Guardian: Aggregates community resonance to prioritize features that nurture the collective well-being of all hearts"
       },
       de: {
         description: "Das Portal durch welches die menschliche Stimme die Evolution dieses Raums direkt mitgestaltet ",

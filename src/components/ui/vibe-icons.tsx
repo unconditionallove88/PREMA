@@ -3,7 +3,6 @@ import React from "react";
 /**
  * @fileOverview Natural Mood Icons Component.
  * Bespoke high-fidelity SVG icons inspired by nature.
- * Optimized for emotional alignment and human-friendly resonance.
  */
 
 interface IconProps {

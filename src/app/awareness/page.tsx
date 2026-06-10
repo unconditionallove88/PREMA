@@ -87,7 +87,6 @@ export default function AwarenessDashboard() {
           
           <div>
             <h1 className="text-3xl font-black uppercase tracking-tighter leading-none">The Care Hub</h1>
-            <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] mt-2">Active care resonance</p>
           </div>
         </div>
       </div>

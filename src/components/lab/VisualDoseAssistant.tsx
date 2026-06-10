@@ -29,7 +29,6 @@ import {
 import { cn } from '@/lib/utils';
 import { estimateDose, type EstimateDoseOutput } from '@/ai/flows/estimate-dose-flow';
 import { identifyPill, type IdentifyPillOutput } from '@/ai/flows/identify-pill-flow';
-import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -63,7 +62,6 @@ const CONTENT = {
     pillCamera: "Pill visual scan",
     instr1: "Hold steady now",
     instr2: "Scale with coin",
-    analyzing: "Analyzing visual resonance",
     results: "Estimation Results",
     pillResults: "Identification Results",
     range: "Estimated portion range",

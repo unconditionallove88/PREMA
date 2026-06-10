@@ -8,7 +8,6 @@ import { doc } from "firebase/firestore";
 import { ArrowLeft, Droplets, Apple, Moon, Battery, ShieldCheck, Heart, Loader2, Microscope, FlaskConical, Info, X, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { playHeartbeat } from "@/lib/resonance";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 /**
@@ -42,12 +41,10 @@ const CONTENT = {
         title: "Physical Resonance",
         why: "Steady Fuel",
         desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain",
-        energy: "Why it matters: Stable nutrition prevents blood sugar crashes and keeps your physical resonance steady during intense sensory input"
       },
       rest: {
         title: "Nervous System Calibration",
         why: "Deep Recovery",
-        desc: "Resting allows your nervous system to calibrate and stores essential glycogen for your journey Sleep prepares your mind for expanded resonance",
         timing: "Circadian Rhythm: Entering rest before 23:00 optimizes your hormonal balance and strengthens your Pulse Baseline for the next day"
       },
       essentials: {

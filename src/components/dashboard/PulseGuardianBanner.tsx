@@ -37,7 +37,6 @@ const CONTENT = {
     intro: "Pulse Guardian is your central intelligence I continuously aggregate data from all tools to ensure your journey stays resonant and aligned",
     sections: [
       { title: "Pulse Sync Integration", desc: "Reads live vitals from your wearable to monitor physiological stress" },
-      { title: "Pulse Lab Awareness", desc: "Automatically recalibrates resonance limits based on your substance intake logs" },
       { title: "Profile Calibration", desc: "Adjusts thresholds based on your health conditions and medications" },
       { title: "Immediate Help Connection", desc: "Triggers care protocols and the Protection Window if thresholds are breached" },
     ],

@@ -22,7 +22,6 @@ import { PartyCircleChat } from '@/components/chat/PartyCircleChat';
 import { PulseSync } from '@/components/dashboard/PulseSync';
 import { LoveLetter } from '@/components/dashboard/LoveLetter';
 import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
-import { playHeartbeat } from '@/lib/resonance';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -79,7 +78,6 @@ function InnerHeartContent() {
     en: {
       title: "The Heart",
       sub: "Inside the Ring",
-      resonance: "Inner Resonance",
       letters: "Love Letters",
       lettersSub: "Future Self",
       breath: "Breath of Love",
@@ -93,7 +91,6 @@ function InnerHeartContent() {
     de: {
       title: "Das Herz heute",
       sub: "Im Aura-Ring heute",
-      resonance: "Innere Resonanz heute",
       letters: "Liebesbriefe heute",
       lettersSub: "Zukünftiges Ich",
       breath: "Atem der Liebe",

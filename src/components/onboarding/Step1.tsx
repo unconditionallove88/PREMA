@@ -21,7 +21,6 @@ const CONTENT = {
       { id: 'harmReduction', title: 'Harm minimization', text: 'Prema is a tool for risk and harm minimization designed to provide information and support It is not intended to encourage illegal activities' },
       { id: 'medicalAdvice', title: 'Not medical advice', text: 'The information provided by this space is for educational purposes and does not constitute medical advice or diagnosis' },
       { id: 'privacy', title: 'Freedom & trust (GDPR)', text: 'We take your privacy seriously Your biometric data is encrypted We honor your data sovereignty and comply with GDPR standards' },
-      { id: 'voice', title: 'Voice resonance protocol', text: 'You may use voice dictation to interact with the space Your audio is processed locally and used only to convert speech to text for your convenience' },
       { id: 'safetyNetwork', title: 'Circle of love', text: 'Prema allows you to create a network of trusted bonds who can be notified in case of a need for connection or support' },
       { id: 'immediateHelp', title: 'Care support', text: 'In need of support, you can notify your Circle or trusted bonds Alerts are handled with absolute discretion and respect for your journey' },
     ]

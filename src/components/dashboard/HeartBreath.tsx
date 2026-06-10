@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Heart, Wind } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Heart Breath (Oxytocin Breath) Tool.

@@ -48,7 +48,6 @@ const CONTENT = {
     back: "BACK",
     title: "Circle of Love",
     header: "Who holds you?",
-    sub: "Add people who love you unconditionally We alert them if resonance is needed",
     guardians: "Your Trusted Bonds",
     slots: (count: number) => `${count}/5 Bonds`,
     empty: "Your circle is open",

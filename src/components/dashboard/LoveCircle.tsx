@@ -18,7 +18,6 @@ import {
   Navigation
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { playHeartbeat } from "@/lib/resonance";
 import { useRouter } from "next/navigation";
 import {
   Tooltip,
@@ -57,8 +56,6 @@ const ARCHETYPES = [
     id: 'sister', icon: User, color: "text-indigo-200", bg: "bg-indigo-500/5", 
     en: "Sister", de: "Schwester", 
     sentence: "Shared strength in unity",
-    explanation: "Sisterly love is the resonance of equality and shared wisdom. It is about understanding the journey without words.",
-    practice: "Reflect on shared connection. Feel the resonance of that connection in the solar plexus."
   },
   { 
     id: 'romantic', icon: Star, color: "text-pink-200", bg: "bg-pink-500/5", 

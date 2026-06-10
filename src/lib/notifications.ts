@@ -3,7 +3,6 @@
 /**
  * @fileOverview Push Notification Service for Daily Vibe Check Reminders.
  * Built on Unconditional Love — every notification is a gentle nudge, never a demand.
- * Punctuation-free affirmations for expansive resonance.
  */
 
 export const LOVE_REMINDERS = [

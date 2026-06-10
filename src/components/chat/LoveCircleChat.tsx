@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
-import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview The Holders (Sacred Communication).
@@ -32,9 +31,7 @@ const CONTENT = {
     createBtn: "Seal Bond",
     cancelBtn: "Cancel",
     placeholder: "Speak from the heart...",
-    resonanceStart: "Start a resonance with the holders",
     successTitle: "Bond Initialized",
-    successMsg: (name: string) => `The bond of care "${name}" has been created Waiting for resonance`,
     footer: "Created in harmony",
     listening: "Listening..."
   },
@@ -54,7 +51,6 @@ const CONTENT = {
     createBtn: "Band versiegeln",
     cancelBtn: "Abbrechen",
     placeholder: "Vom Herzen sprechen heute...",
-    resonanceStart: "Starte eine Resonanz mit den Holdern",
     successTitle: "Band initialisiert",
     successMsg: (name: string) => `Das Band der Fürsorge "${name}" wurde erstellt Warte auf Resonanz`,
     footer: "In Harmonie erschaffen heute hier",
@@ -269,7 +265,6 @@ export function LoveCircleChat() {
             <div className="text-center py-24 opacity-20 space-y-8 animate-pulse">
               <HeartHandshake className="w-20 h-20 mx-auto text-primary" />
               <p className="text-sm uppercase font-black tracking-[0.5em] leading-relaxed text-white max-w-[250px] mx-auto">
-                {t.resonanceStart}
               </p>
             </div>
           )}

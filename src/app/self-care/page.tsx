@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
 import { ArrowRight, HeartHandshake } from 'lucide-react';
 
 /**

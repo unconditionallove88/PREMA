@@ -41,7 +41,6 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from '@/fireb
 import { doc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { checkSafetyStatus } from '@/lib/guardian';
-import { playHeartbeat } from '@/lib/resonance';
 import { cn } from '@/lib/utils';
 import {
   Collapsible,
@@ -66,7 +65,6 @@ function SkyIcon() {
 }
 
 const AFFIRMATIONS = {
-  EN: ["I respect resonance", "I am love", "Acceptance is here", "Unity is presence", "Peace is now", "Love is everywhere", "I am exactly here", "Life is love"],
   DE: ["Ich achte Resonanz heute", "Ich bin pure Liebe", "Annahme ist jetzt hier", "Einheit ist gegenwärtig heute", "Frieden ist jetzt hier", "Liebe ist überall heute", "Ich bin genau hier", "Leben ist Liebe heute"]
 };
 

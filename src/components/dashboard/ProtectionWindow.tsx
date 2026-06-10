@@ -82,7 +82,6 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
         {/* Guidance */}
         <div className="bg-card/5 border border-border/10 rounded-3xl p-6">
           <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
-            I love and respect my body enough to rest. For your resonance, additional intake is currently paused while we monitor your recovery 🌿
           </p>
         </div>
 

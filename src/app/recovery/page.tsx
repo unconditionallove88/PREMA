@@ -29,7 +29,6 @@ import {
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -65,7 +64,6 @@ const CONTENT = {
     improveBtn: "Help us improve", 
     minutes: "4 minutes · anonymous",
     ritualTitle: "Breath of Love", 
-    ritualDesc: "Perform the guided resonance ritual to recalibrate your nervous system",
     gpTitle: "GP Consultation", 
     gpDesc: "Contact your General Practitioner for high-fidelity STD testing and post-session health checks",
     mentalTitle: "Mental Integration", 

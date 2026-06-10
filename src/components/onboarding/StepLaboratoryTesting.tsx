@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react";
 import { Microscope, ShieldCheck, ArrowLeft, Loader2, CheckCircle2, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { playHeartbeat } from "@/lib/resonance";
 
 /**
  * @fileOverview Anonymous Laboratory Testing Onboarding Step.

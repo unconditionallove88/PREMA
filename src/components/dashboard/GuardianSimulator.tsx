@@ -3,7 +3,6 @@
 
 import React from "react";
 import { Activity, Shield, AlertCircle } from "lucide-react";
-import { playHeartbeat } from "@/lib/resonance";
 
 /**
  * @fileOverview Guardian Simulator.

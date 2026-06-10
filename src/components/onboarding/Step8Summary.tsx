@@ -9,7 +9,6 @@ import type { OnboardingData } from '@/app/onboarding/page';
  * @fileOverview Calibration Summary.
  * Color action: hsl(var(--primary))
  * Languages: EN, DE, PT.
- * Updated: Replaced rocket with Device Calibration resonance visual.
  */
 
 const CONTENT = {

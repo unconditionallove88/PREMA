@@ -11,7 +11,6 @@ import { checkSafetyStatus } from '@/lib/guardian';
 /**
  * @fileOverview Wearables Sync Component.
  * Deeply integrated with Sovereign Mesh protocols.
- * Punctuation-free for resonance.
  * Full localization for EN, DE, PT, RU.
  */
 
