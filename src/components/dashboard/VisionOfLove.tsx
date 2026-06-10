@@ -20,17 +20,18 @@ interface VisionOfLoveProps {
 const CONTENT = {
   en: {
     title: "Vision of Love",
-    sub: "Welcome to Harmony.",
-    intro: "I respect myself",
+    
+    
     affirmations: [
       "Welcome to Harmony",
-      "Love is here",
-      "Back on beat together",
+      "I respect you",
+      "I am loved",
+      "I accept you",
       "All is well",
-      "You are balanced"
+      "I love you"
     ],
-    button: "Enter Vision",
-    return: "Return Home",
+    button: "Enter",
+    return: "Home",
     next: "Next: Breath of Love",
     emergencyHeader: "Breath of Love",
     emergencySub: "Inhale Love • Exhale Love",
@@ -40,14 +41,13 @@ const CONTENT = {
   },
 de: {
   title: "Vision der Liebe",
-  sub: "Willkommen in Harmonie.",
-  intro: "Ich achte mich",
+  
   affirmations: [
     "Willkommen in Harmonie",
-    "Du bist geliebt",
-    "Das Leben ist Liebe",
-    "Alles ist gut",
-    "Du bist ausgewogen"
+    "ich bin geliebt",
+    "Ich respecktiere dich",
+    "Ich akzeptiere dich",
+    "Ich liebe dich"
   ],
   button: "Vision öffnen",
   return: "Zum Zuhause zurückkehren",
