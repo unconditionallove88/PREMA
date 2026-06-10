@@ -14,7 +14,7 @@ import { Heart } from "lucide-react";
  */
 
 const CONTENT = {
-  en: { title: "Your heart", highlight: "is home", sub: "Preparing your safe space" },
+  en: { title: "Your heart", highlight: "is home", sub: "Preparing your space" },
   de: { title: "Dein Herz", highlight: "ist dein Zuhause", sub: "Dein Raum wird vorbereitet" }
 };
 

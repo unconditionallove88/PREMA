@@ -42,14 +42,14 @@ import { cn } from "@/lib/utils";
 
 const CONTENT = {
   en: {
-    safeSpace: "Safe Space", entering: "Entering safe space", reflection: "Profile reflects light",
-    greeting: "Existence is exactly here", essence: "The Essence", name: "Username",
+    safeSpace: "Space", entering: "Entering safe space", reflection: "Profile reflects light",
+    greeting: "Existence is now", essence: "The Essence", name: "Username",
     weight: "Weight (kg)", height: "Height (cm)", circle: "Circle of Love", trusted: "Trusted Bonds",
     resonant: "Resonant contacts", reminders: "Heart Reminders", checkins: "Check-ins are active",
     journey: "Resonance is sovereign High-fidelity encryption ensures this space remains private and the heart free",
     promise: "Bonds of Trust", logout: "Step away now",
     coCreationTitle: "Shape the Space",
-    coCreationSub: "The voice shapes this space",
+    coCreationSub: "The voice creates space",
     footer: "Created in harmony",
     privacy: {
       title: "Freedom & Trust",
@@ -65,14 +65,14 @@ const CONTENT = {
     }
   },
   de: {
-    safeSpace: "Sicherer Raum", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
-    greeting: "Existenz ist genau hier", essence: "Die Essenz heute", name: "Benutzername",
+    safeSpace: "Raum", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
+    greeting: "Existenz ist jetzt", essence: "Die Essenz heute", name: "Benutzername",
     weight: "Gewicht (kg)", height: "Größe (cm)", circle: "Circle of Love", trusted: "Vertrauenswürdige Bindungen",
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
     journey: "Resonanz ist souverän heute High-Fidelity-Verschlüsselung stellt sicher dass dieser Raum privat bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
-    coCreationTitle: "Raum gestalten heute",
-    coCreationSub: "Die Stimme zählt heute",
+    coCreationTitle: "Raum gestalten",
+    coCreationSub: "Die Stimme schafft Raum",
     footer: "In Harmonie erschaffen heute hier",
     privacy: {
       title: "Freiheit & Vertrauen",

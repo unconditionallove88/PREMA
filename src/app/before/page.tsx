@@ -19,7 +19,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 const CONTENT = {
   en: {
     title: "Preparation", subtitle: "Radiate from within", header: "Ready to shine?",
-    description: "I respect myself",
+    description: "I respect you",
     sections: { hydration: "Hydration", nutrition: "Nutrition", rest: "Rest", essentials: "Essentials", testing: "Lab Testing" },
     hydrationAdvice: (liters: number) => `Based on your essence, drink ${liters} liters of water today Add electrolytes to maintain mineral balance`,
     nutritionAdvice: "Eat a solid balanced meal 3 hours before you head out Avoid heavy processed foods",
@@ -60,7 +60,7 @@ const CONTENT = {
   },
   de: {
     title: "Vorbereitung", subtitle: "Von innen heraus strahlen", header: "Bereit zu strahlen?",
-    description: "Ich respektiere mich selbst",
+    description: "Ich respektiere dich",
     sections: { hydration: "Hydrierung", nutrition: "Erährung", rest: "Erholung", essentials: "Essentials", testing: "Labor-Check" },
     hydrationAdvice: (liters: number) => `Basierend auf deinem Körpergewicht trink heute ${liters} Liter Wasser Füge Elektrolyte hinzu`,
     nutritionAdvice: "Iss 3 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit Vermeide schwere Lebensmittel",
