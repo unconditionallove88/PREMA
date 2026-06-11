@@ -45,6 +45,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { StepSomethingToRemember as WisdomProtocol } from '@/components/onboarding/StepSomethingToRemember';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { playHeartbeat } from '@/lib/resonance';
 import { VisualDoseAssistant } from '@/components/lab/VisualDoseAssistant';
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (
@@ -79,25 +80,25 @@ const CONTENT = {
   },
   de: {
     title: "Souveränitäts-Lab", advisor: "Sicherheits-Begleiter", search: "Suchen...",
-    diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session Wahrheit", intake: "Ehrlicher Eintrag heute",
-    confirm: "Die Wahrheit notieren heute", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert heute",
+    diary: "Sitzungs-Tagebuch", records: "Einträge", sync: "Session Wahrheit", intake: "Ehrlicher Eintrag",
+    confirm: "Die Wahrheit notieren", cancel: "Abbrechen", amount: "Menge", doseLogged: "Wahrheit notiert",
     addedToDiary: "dem Tagebuch hinzugefügt", causionTitle: "Pulse Guardian: Vorsicht 🧪",
     poppersHR: (hr: number) => `Der Puls liegt bei ${hr} BPM Poppers senkt den Blutdruck stark ab Bitte nimm dir Zeit, setz dich hin und atme tief durch`,
-    responsibility: "Ich übernehme Verantwortung heute",
-    honestyTitle: "Moment der Wahrheit heute",
-    honestyDesc: "Ich bin ehrlich zu mir selbst und achte die Grenzen heute. Dieser Eintrag spiegelt die souveräne Entscheidung wider.",
+    responsibility: "Ich übernehme Verantwortung",
+    honestyTitle: "Moment der Wahrheit",
+    honestyDesc: "Ich bin ehrlich zu mir selbst und achte die Grenzen. Dieser Eintrag spiegelt die souveräne Entscheidung wider.",
     affirmBtn: "Ich bestätige die Wahrheit",
-    syncProceed: "Mit Liebe fortfahren heute", noResults: "Keine Substanzen gefunden",
-    wisdom: "Misch-Weisheiten heute",
+    syncProceed: "Mit Liebe fortfahren", noResults: "Keine Substanzen gefunden",
+    wisdom: "Misch-Weisheiten",
     listening: "Höre zu...",
-    visualScan: "Dosis Scan Schätzung heute",
+    visualScan: "Dosis Scan Schätzung",
     visualSub: "Visuelle KI-Schätzung — kein Foto gespeichert",
-    pillIdScan: "Pille jetzt sicher identifizieren",
-    pillIdSub: "Visuelle Pille Analyse heute hier",
-    manualBtn: "Manuell eintragen heute",
-    mixingWarningTitle: "Kritische Misch-Warnung heute",
-    riskHigh: "Hohes Risiko Interaktion heute",
-    riskCritical: "Kritische biologische Bedrohung heute",
+    pillIdScan: "Pille sicher identifizieren",
+    pillIdSub: "Visuelle Pille Analyse",
+    manualBtn: "Manuell eintragen",
+    mixingWarningTitle: "Kritische Misch-Warnung",
+    riskHigh: "Hohes Risiko Interaktion",
+    riskCritical: "Kritische biologische Bedrohung",
     consequence: "Folgen für Gesundheit & Organe:"
   }
 };

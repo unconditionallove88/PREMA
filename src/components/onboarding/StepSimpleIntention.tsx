@@ -26,7 +26,7 @@ const OPTIONS = [
     id: 'love', 
     icon: Heart, 
     label: "Feel love", 
-    de: "Liebe fühlen", 
+    de: "Liebe erleben", 
     color: "text-rose-400", 
     bg: "bg-rose-500/5",
     border: "border-rose-500/20"
@@ -34,8 +34,8 @@ const OPTIONS = [
   { 
     id: 'honesty', 
     icon: ShieldCheck, 
-    label: "Practice absolute honesty", 
-    de: "Absolute Ehrlichkeit kultivieren", 
+    label: "Be honest to yourself", 
+    de: "Sei ehrlich zu dir selbst", 
     color: "text-primary", 
     bg: "bg-primary/5",
     border: "border-primary/20"
@@ -43,8 +43,8 @@ const OPTIONS = [
 ];
 
 const UI = {
-  en: { header: 'The Intention', sub: 'What is your focus?', confirm: 'Seal intention', footer: 'Created in harmony' },
-  de: { header: 'Die Intention', sub: 'Was ist dein Fokus?', confirm: 'Intention versiegeln', footer: 'In Harmonie erschaffen' }
+  en: { header: 'The Intention', sub: 'What is your Intention?', confirm: 'Set intention', footer: 'Created in harmony' },
+  de: { header: 'Die Intention', sub: 'Was ist deine Intention?', confirm: 'Intention setzen', footer: 'In Harmonie erschaffen' }
 };
 
 export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: string) => void, onBack?: () => void }) {

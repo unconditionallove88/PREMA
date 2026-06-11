@@ -32,6 +32,8 @@ export default function HeartStatusAura({
   const loopDuration = isHighRisk ? "2s" : isElevated ? "3.5s" : "5s";
 
   const labels = {
+    en: { resonance: "Inner Resonance" },
+    de: { resonance: "Innere Resonanz" }
   };
 
   const t = labels[lang as keyof typeof labels] || labels.en;
@@ -77,6 +79,7 @@ export default function HeartStatusAura({
 
       <div className="mt-8 text-center z-10 space-y-1">
         <p className="text-white/30 text-[9px] md:text-[10px] uppercase tracking-[0.6em] font-black group-hover:text-primary transition-colors">
+          {t.resonance}
         </p>
       </div>
     </div>

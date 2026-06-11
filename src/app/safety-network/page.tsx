@@ -54,7 +54,11 @@ const CONTENT = {
     add: "Add someone who loves you",
     newTitle: "New Trusted Bond",
     save: "Save Bond",
-    seal: "Seal Code 🔒",
+    codeTitle: "The Resonance Code",
+    codeSub: "Sacred Dispatch Word",
+    codeDesc: "If you text this word to your bonds they know to hold space for you immediately",
+    codePlaceholder: "e.g. PINEAPPLE",
+    seal: "Seal Code",
     activeCode: (code: string) => `Active Code: ${code}`,
     footer: "Bonds are private and encrypted",
     created: "Created in harmony"
@@ -62,18 +66,22 @@ const CONTENT = {
   de: {
     back: "ZURÜCK",
     title: "Circle of Love",
-    header: "Wer hält dich heute?",
-    sub: "Füge Menschen hinzu die dich lieben Wir informieren sie bei Bedarf heute",
-    guardians: "Deine vertrauten Bindungen heute",
-    slots: (count: number) => `${count}/5 Bindungen heute`,
+    header: "Wer hält dich?",
+    sub: "Füge Menschen hinzu die dich lieben Wir informieren sie bei Bedarf",
+    guardians: "Deine vertrauten Bindungen",
+    slots: (count: number) => `${count}/5 Bindungen heut`,
     empty: "Dein Circle ist offen",
     add: "Jemanden der dich liebt",
-    newTitle: "Neue vertraute Bindung heute",
-    save: "Bindung jetzt speichern heute",
-    seal: "Wort jetzt versiegeln heute 🔒",
+    newTitle: "Neue vertraute Bindung",
+    save: "Bindung speichern",
+    codeTitle: "Das Resonanz Wort",
+    codeSub: "Heiliges Dispatch Wort",
+    codeDesc: "Wenn du dieses Wort schreibst wissen deine Bindungen dass du Halt brauchst",
+    codePlaceholder: "z.B. ANANAS",
+    seal: "Wort versiegeln",
     activeCode: (code: string) => `Aktives Wort: ${code}`,
-    footer: "Bindungen sind privat geschützt heute",
-    created: "In Harmonie erschaffen heute hier"
+    footer: "Bindungen sind privat geschützt",
+    created: "In Harmonie erschaffen"
   }
 };
 

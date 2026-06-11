@@ -26,13 +26,13 @@ const CONTENT = {
   },
   de: {
     header: "Safety Network", sub: "Verbindung mit Freunden und Awareness-Teams",
-    shareLocation: "Standort mit Awareness teilen", shareLocationSub: "Erlaube dem Team dich im Notfall zu finden heute",
-    proactive: "Souveräner Einsatz heute", proactiveSub: "Erlaube automatische Hilfe wenn ich in biologischer Gefahr bin",
-    revokeInfo: "Der Zugriff kann jederzeit widerrufen werden heute Du kontrollierst deine Daten heute hier",
-    radar: "Freunde Radar heute", radarSub: "Synchronisiere mit dem Kreis um euch zu sehen",
+    shareLocation: "Standort mit Awareness teilen", shareLocationSub: "Erlaube dem Team dich im Notfall zu finden",
+    proactive: "Souveräner Einsatz", proactiveSub: "Erlaube automatische Hilfe wenn ich in biologischer Gefahr bin",
+    revokeInfo: "Der Zugriff kann jederzeit widerrufen werden Du kontrollierst deine Daten",
+    radar: "Freunde Radar", radarSub: "Synchronisiere mit dem Kreis um euch zu sehen",
     myCode: "Mein Code", scan: "Scannen",
     cameraError: "Kamera Zugriff verweigert Bitte erlaube den Zugriff in den Einstellungen",
-    gpsActive: "GPS aktiv heute", confirm: "Netzwerk jetzt bestätigen"
+    gpsActive: "GPS aktiv", confirm: "Netzwerk bestätigen"
   }
 };
 

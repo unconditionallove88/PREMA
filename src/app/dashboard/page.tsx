@@ -41,6 +41,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from '@/fireb
 import { doc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { checkSafetyStatus } from '@/lib/guardian';
+import { playHeartbeat } from '@/lib/resonance';
 import { cn } from '@/lib/utils';
 import {
   Collapsible,
@@ -65,7 +66,8 @@ function SkyIcon() {
 }
 
 const AFFIRMATIONS = {
-  DE: ["Ich achte Resonanz heute", "Ich bin pure Liebe", "Annahme ist jetzt hier", "Einheit ist gegenwärtig heute", "Frieden ist jetzt hier", "Liebe ist überall heute", "Ich bin genau hier", "Leben ist Liebe heute"]
+  EN: ["I respect myself", "I am love", "I accept myself fully", "Unity is presence", "Peace is now", "Love is everywhere", "I am exactly here", "Life is love"],
+  DE: ["Ich respektire mich", "Ich bin die Liebe", "Ich akzeptiere mich vollständig", "Einheit ist gegenwärtig", "Frieden ist jetzt", "Liebe ist überall", "Ich bin genau hier", "Leben ist Liebe"]
 };
 
 const CONTENT = {
@@ -87,13 +89,13 @@ const CONTENT = {
   de: { 
     mesh: "Mesh aktiv",
     loveChat: "Wort der Liebe",
-    holders: "Die Holder heute",
+    holders: "Die Holder",
     spectators: "Die Spectator",
     supporterMain: "Unterstützer",
-    presence: "Präsenz heute",
+    presence: "Präsenz",
     anchor: "Prema Anker",
     anchorSub: "Mesh Kontext",
-    anchorBtn: "Anker jetzt setzen",
+    anchorBtn: "Anker setzen",
     footer: "In Harmonie erschaffen",
     familyAlertTitle: "Begleitung in der Nähe",
     familyAlertSub: "Universelle Familie Mesh aktiv",
@@ -103,10 +105,10 @@ const CONTENT = {
 
 const LOCATIONS = [
   { id: 'berlin', name: 'Berlin, DE', vibe: 'City Haven' },
-  { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Intention' },
+  { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Resonance' },
   { id: 'london', name: 'London, UK', vibe: 'City Haven' },
-  { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Intention' },
-  { id: 'portugal', name: 'Alentejo, PT', vibe: 'Nature Intention' },
+  { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Resonance' },
+  { id: 'portugal', name: 'Alentejo, PT', vibe: 'Nature Resonance' },
   { id: 'lisbon', name: 'Lisbon, PT', vibe: 'City Haven' },
 ];
 

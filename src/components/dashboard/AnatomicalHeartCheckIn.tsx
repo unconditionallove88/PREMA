@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 const CONTENT = {
   en: { title: "Check Your Mood", sub: "How is your mood today?", state: "Current State", calm: "Calm" },
-  de: { title: "Check dein Befinden", sub: "Wie ist dein Befinden heute?", state: "Aktueller Zustand", calm: "Beruhigt" }
+  de: { title: "Deine Laune", sub: "Wie ist deine Laune?", state: "Aktueller Zustand", calm: "Beruhigt" }
 };
 
 export function AnatomicalHeartCheckIn() {

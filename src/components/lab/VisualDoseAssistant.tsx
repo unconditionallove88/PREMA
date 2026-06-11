@@ -29,6 +29,7 @@ import {
 import { cn } from '@/lib/utils';
 import { estimateDose, type EstimateDoseOutput } from '@/ai/flows/estimate-dose-flow';
 import { identifyPill, type IdentifyPillOutput } from '@/ai/flows/identify-pill-flow';
+import { playHeartbeat } from '@/lib/resonance';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -46,10 +47,10 @@ const SUBSTANCES = [
 const METHODS = [
   { id: 'key_tip_small', label: { en: 'Key tip (small)', de: 'Messerspitze (klein)' }, icon: '🔑' },
   { id: 'key_tip_large', label: { en: 'Key tip (large)', de: 'Messerspitze (groß)' }, icon: '🔑' },
-  { id: 'short_line', label: { en: 'Short line', de: 'Kurze Line heute' }, icon: '➖' },
-  { id: 'medium_line', label: { en: 'Medium line', de: 'Mittlere Line heute' }, icon: '➖' },
-  { id: 'long_line', label: { en: 'Long line', de: 'Lange Line heute hier' }, icon: '➖' },
-  { id: 'bump', label: { en: 'Bump', de: 'Häufchen heute hier' }, icon: '👃' },
+  { id: 'short_line', label: { en: 'Short line', de: 'Kurze Line' }, icon: '➖' },
+  { id: 'medium_line', label: { en: 'Medium line', de: 'Mittlere Line' }, icon: '➖' },
+  { id: 'long_line', label: { en: 'Long line', de: 'Lange Line' }, icon: '➖' },
+  { id: 'bump', label: { en: 'Bump', de: 'Häufchen' }, icon: '👃' },
 ];
 
 const CONTENT = {
@@ -62,6 +63,7 @@ const CONTENT = {
     pillCamera: "Pill visual scan",
     instr1: "Hold steady now",
     instr2: "Scale with coin",
+    analyzing: "Analyzing visual resonance",
     results: "Estimation Results",
     pillResults: "Identification Results",
     range: "Estimated portion range",
@@ -69,7 +71,7 @@ const CONTENT = {
     risk: "Risk Indicator",
     confirm: "Save to Lab",
     logged: "Logged to Lab",
-    backHome: "Back to Home",
+    backHome: "Back Home",
     discard: "Discard",
     notes: "Optional notes",
     mood: "How is mood?",
@@ -78,7 +80,7 @@ const CONTENT = {
     highRiskWarning: "⚠️ This estimated dose is in the high-risk range. Consider taking significantly less. If you feel unwell, contact a friend immediately or find the nearest medical tent.",
     privacyDisclaimer: "Camera data is processed in real-time and is never stored on our servers or your device. Only your confirmed log entry is saved.",
     notSure: "Identity not sure?",
-    notSureBtn: "Access Wisdom Now",
+    notSureBtn: "Access Wisdom",
     tryAgain: "Try Again",
     manualBtn: "Enter Manually",
     observation: "Visual Description",
@@ -89,39 +91,39 @@ const CONTENT = {
     footer: "Created in harmony"
   },
   de: {
-    title: "Dosier Assistent heute",
-    pillTitle: "Pille Identifizierer heute",
-    selectSub: "Substanz jetzt wählen",
-    selectMethod: "Methode jetzt wählen",
-    camera: "Portion jetzt scannen",
-    pillCamera: "Pille jetzt scannen",
-    instr1: "Ruhig halten heute",
+    title: "Dosier Assistent",
+    pillTitle: "Pille Identifizierer",
+    selectSub: "Substanz wählen",
+    selectMethod: "Methode wählen",
+    camera: "Portion scannen",
+    pillCamera: "Pille scannen",
+    instr1: "Ruhig halten",
     instr2: "Münze als Maß",
     analyzing: "Faktoren werden geprüft",
     results: "Ergebnis der Schätzung",
     pillResults: "Ergebnis der Analyse",
-    range: "Geschätzter Bereich heute",
+    range: "Geschätzter Bereich",
     confidence: "Grad der Sicherheit",
-    risk: "Risiko Anzeige heute",
+    risk: "Risiko Anzeige",
     confirm: "Im Lab speichern",
     logged: "Im Lab notiert",
     backHome: "Zurück zum Home",
     discard: "Verwerfen",
-    notes: "Optionale Notizen heute",
+    notes: "Optionale Notizen",
     mood: "Wie ist Stimmung?",
     disclaimer: "Dies ist eine ungefähre visuelle Schätzung. Das tatsächliche Gewicht hängt von Reinheit und Dichte ab. Dieses Tool ersetzt keine Waage. Beginne immer mit einer niedrigeren Dosis als geschätzt.",
     pillDisclaimer: "Visuelle Identifizierung ist NICHT zuverlässig und ersetzt keine Labortests. KI-Vorschläge können falsch sein. Nutze immer einen Reagenztest oder professionelle Checks.",
     highRiskWarning: "⚠️ Diese Dosis liegt im Hochrisikobereich. Nimm deutlich weniger. Wenn du dich unwohl fühlst, kontaktiere sofort jemanden oder suche das Sanitätszelt auf.",
     privacyDisclaimer: "Kameradaten werden in Echtzeit verarbeitet und niemals gespeichert. Nur dein bestätigter Eintrag wird gesichert.",
     notSure: "Unsicher was es ist?",
-    notSureBtn: "Weisheits Guide jetzt öffnen",
-    tryAgain: "Erneut versuchen heute",
-    manualBtn: "Manuell eintragen heute",
-    observation: "Visuelle Beschreibung heute",
-    possibleMatch: "Datenbank Abgleich heute",
-    safetyInfo: "Sicherheits Intelligenz heute",
-    warningTitle: "Sicherheits Warnung heute",
-    actionTitle: "Empfohlene Aktion heute",
+    notSureBtn: "Weisheits Guide öffnen",
+    tryAgain: "Erneut versuchen",
+    manualBtn: "Manuell eintragen",
+    observation: "Visuelle Beschreibung",
+    possibleMatch: "Datenbank Abgleich",
+    safetyInfo: "Sicherheits Intelligenz",
+    warningTitle: "Sicherheits Warnung",
+    actionTitle: "Empfohlene Aktion",
     footer: "In Harmonie erschaffen"
   }
 };

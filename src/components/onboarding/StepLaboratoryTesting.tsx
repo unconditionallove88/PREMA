@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Microscope, ShieldCheck, ArrowLeft, Loader2, CheckCircle2, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { playHeartbeat } from "@/lib/resonance";
 
 /**
  * @fileOverview Anonymous Laboratory Testing Onboarding Step.
@@ -28,26 +29,26 @@ const CONTENT = {
     footer: "Created in harmony"
   },
   de: {
-    header: "Labor Check heute",
-    sub: "Drogen jetzt anonym testen",
+    header: "Labor Check",
+    sub: "Drogen anonym testen",
     desc: "Ich achte meinen Körper. Besuche vor der Party unsere Vertragslabore für eine hochpräzise, anonyme Analyse.",
     labsTitle: "Partner Laboratorien",
     btn: "Anonymen Check buchen",
     confirm: "Ich schätze meine Gesundheit",
-    anonCode: "Deine anonyme ID heute",
+    anonCode: "Deine anonyme ID",
     steps: [
       "Wähle einen Labor-Partner",
       "Erstelle einen anonymen Code",
-      "Probe anonym abgeben heute",
+      "Probe anonym abgeben",
       "Ergebnisse im privaten Raum sehen"
     ],
-    footer: "In Harmonie erschaffen hier"
+    footer: "In Harmonie erschaffen"
   }
 };
 
 const LABS = [
   { id: 'mitte', name: "Prema Lab Mitte", address: "Torstraße, Berlin" },
-  { id: 'xberg', name: "Intention Lab X-Berg", address: "Skalitzer Str, Berlin" },
+  { id: 'xberg', name: "Resonance Lab X-Berg", address: "Skalitzer Str, Berlin" },
 ];
 
 export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () => void, onBack?: () => void }) {

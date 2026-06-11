@@ -18,11 +18,12 @@ import { useToast } from '@/hooks/use-toast';
 const CONTENT = {
   en: {
     context: "Active intake context", question: "How can I help you stay aware tonight?", sub: "I'm aware of your profile and intake. Ask me anything.",
+    water: "Check-in", placeholder: "Ask an awareness question...", analyzing: "Analyzing resonance factors...",
     interrupted: "Connection interrupted. Please ensure your care is managed by on-site staff if this is an emergency.",
     listening: "Listening..."
   },
   de: {
-    context: "Aktueller Kontext", question: "Wie kann ich dich heute begleiten?", sub: "Ich kenne dein Profil und deine Einträge. Frag mich alles.",
+    context: "Aktueller Kontext", question: "Wie kann ich dich heutbegleiten?", sub: "Ich kenne dein Profil und deine Einträge. Frag mich alles.",
     water: "Check-in", placeholder: "Resonanz-Frage stellen...", analyzing: "Faktoren werden sanft geprüft...",
     interrupted: "Verbindung unterbrochen. Bitte wende dich im Notfall direkt an das Awareness-Team vor Ort.",
     listening: "Höre zu..."

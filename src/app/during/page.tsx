@@ -8,6 +8,7 @@ import { doc } from "firebase/firestore";
 import { AiSafetyChat } from "@/components/chat/AiSafetyChat";
 import { ArrowLeft, Loader2, Heart, Sparkles, Wind } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { playHeartbeat } from "@/lib/resonance";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 /**
@@ -57,7 +58,7 @@ export default function DuringPhase() {
     en: {
       title: "Safety Advisor",
       phase: "Phase: During",
-      affirmation: "I love myself",
+      affirmation: "I love you",
       ritualTitle: "Breath of Love",
       ritualSub: "Honoring my state",
       ritualBtn: "Open Ritual"
@@ -65,7 +66,7 @@ export default function DuringPhase() {
     de: {
       title: "Sicherheits-Berater",
       phase: "Phase: Währenddessen",
-      affirmation: "Ich liebe mich selbst",
+      affirmation: "Ich liebe dich",
       ritualTitle: "Atem der Liebe",
       ritualSub: "Meinen Zustand achtend",
       ritualBtn: "Ritual öffnen"
@@ -73,7 +74,7 @@ export default function DuringPhase() {
   }[lang] || {
     title: "Safety Advisor",
     phase: "Phase: During",
-    affirmation: "I love myself",
+    affirmation: "I love you",
     ritualTitle: "Breath of Love",
     ritualSub: "Honoring my state",
     ritualBtn: "Open Ritual"

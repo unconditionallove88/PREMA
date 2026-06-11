@@ -24,10 +24,10 @@ const MIXING_WISDOM = [
   },
   { 
     id: 'mmc-ssri', s1: '3-MMC / 4-MMC', s2: 'SSRIs', risk: 'High', color: 'text-red-400', 
-    note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom heute',
+    note: 'Serotonin syndrome risk', deNote: 'Risiko Serotonin-Syndrom',
     med: {
       en: "Both 3-MMC and 4-MMC act on serotonin release. Mixing with SSRIs/SNRIs significantly increases the risk of Serotonin Syndrome. Symptoms include overheating, rapid heart rate, and potential seizures.",
-      de: "Sowohl 3-MMC als auch 4-MMC wirken auf die Serotonin-Freisetzung. Die Mischung mit SSRIs erhöht das Risiko für ein Serotonin-Syndrom erheblich. Symptome sind Überhitzung und Krampfanfälle heute hier."
+      de: "Sowohl 3-MMC als auch 4-MMC wirken auf die Serotonin-Freisetzung. Die Mischung mit SSRIs erhöht das Risiko für ein Serotonin-Syndrom erheblich. Symptome sind Überhitzung und Krampfanfälle."
     }
   },
   { 
@@ -35,7 +35,7 @@ const MIXING_WISDOM = [
     note: 'Extreme cardiac load risk', deNote: 'Extreme Herzbelastung',
     med: {
       en: "Monkey Dust (MDPV) is a highly potent stimulant. Mixing with alcohol creates massive strain on the heart and can trigger acute psychiatric emergencies or hyperthermia.",
-      de: "Monkey Dust ist ein hochpotentes Stimulans. Die Mischung mit Alkohol belastet das Herz massiv und kann akute psychiatrische Notfälle oder Überhitzung auslösen heute hier."
+      de: "Monkey Dust ist ein hochpotentes Stimulans. Die Mischung mit Alkohol belastet das Herz massiv und kann akute psychiatrische Notfälle oder Überhitzung auslösen."
     }
   },
   { 
@@ -43,7 +43,7 @@ const MIXING_WISDOM = [
     note: 'Uncontrolled potentiation risk', deNote: 'Unkontrollierte Wirkungsverstärkung',
     med: {
       en: "MAO inhibitors prevent the breakdown of DMT, leading to an uncontrolled and potentially overwhelming experience. It can also cause a dangerous spike in blood pressure.",
-      de: "MAO-Hemmer verhindern den Abbau von DMT, was zu einer unkontrollierten und überwältigenden Erfahrung führt. Es kann zudem gefährlichen Bluthochdruck verursachen heute hier."
+      de: "MAO-Hemmer verhindern den Abbau von DMT, was zu einer unkontrollierten und überwältigenden Erfahrung führt. Es kann zudem gefährlichen Bluthochdruck verursachen."
     }
   },
   { 
@@ -187,7 +187,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                 {selectedPair?.s1} + {selectedPair?.s2}
               </h3>
               <p className={cn("text-[10px] font-black uppercase tracking-[0.4em]", selectedPair?.color)}>
-                {selectedPair?.risk} Intention Interaction
+                {selectedPair?.risk} Resonance Interaction
               </p>
             </div>
 

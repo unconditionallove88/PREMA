@@ -32,7 +32,7 @@ const CONTENT = {
   de: {
     title: "Liebesbrief",
     sub: "An dein zukünftiges Ich",
-    prompt: "Während du dieses Licht heute spürst schreibe eine kurze Notiz an dein Ich von morgen Was möchtest du dir sagen wenn sich die Dinge schwer anfühlen",
+    prompt: "Während du dieses Licht spürst schreibe eine kurze Notiz an dein Ich von morgen Was möchtest du dir sagen wenn sich die Dinge schwer anfühlen",
     placeholder: "Liebes Ich erinnere dich daran dass du geliebt wirst",
     button: "Mit Liebe versiegeln",
     sealing: "Wird versiegelt...",
@@ -57,7 +57,7 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
-    const savedLang = (localStorage.getItem('stayonbeat_lang') || 'EN').toLowerCase() as any;
+    const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
   }, []);
 
