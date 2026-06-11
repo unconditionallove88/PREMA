@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Heart, ShieldCheck, UserCheck, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { playHeartbeat } from '@/lib/resonance';
 
 /**
  * @fileOverview Simplified Intention Calibration.
@@ -16,7 +17,7 @@ const OPTIONS = [
     id: 'respect', 
     icon: UserCheck, 
     label: "Cultivate self respect", 
-    de: "Selbstrespekt jetzt tief kultivieren", 
+    de: "Selbstrespekt kultivieren", 
     color: "text-blue-400", 
     bg: "bg-blue-500/5",
     border: "border-blue-500/20"
@@ -25,7 +26,7 @@ const OPTIONS = [
     id: 'love', 
     icon: Heart, 
     label: "Feel love", 
-    de: "Liebe heute fühlen", 
+    de: "Liebe fühlen", 
     color: "text-rose-400", 
     bg: "bg-rose-500/5",
     border: "border-rose-500/20"
@@ -34,7 +35,7 @@ const OPTIONS = [
     id: 'honesty', 
     icon: ShieldCheck, 
     label: "Practice absolute honesty", 
-    de: "Absolute Ehrlichkeit heute praktizieren", 
+    de: "Absolute Ehrlichkeit kultivieren", 
     color: "text-primary", 
     bg: "bg-primary/5",
     border: "border-primary/20"
@@ -42,8 +43,8 @@ const OPTIONS = [
 ];
 
 const UI = {
-  en: { header: 'The Intention', sub: 'What is your focus?', confirm: 'Seal my intention', footer: 'Created in harmony' },
-  de: { header: 'Die Intention heute', sub: 'Was ist dein Fokus?', confirm: 'Intention jetzt versiegeln heute', footer: 'In Harmonie erschaffen heute hier' }
+  en: { header: 'The Intention', sub: 'What is your focus?', confirm: 'Seal intention', footer: 'Created in harmony' },
+  de: { header: 'Die Intention', sub: 'Was ist dein Fokus?', confirm: 'Intention versiegeln', footer: 'In Harmonie erschaffen' }
 };
 
 export function StepSimpleIntention({ onComplete, onBack }: { onComplete: (id: string) => void, onBack?: () => void }) {
