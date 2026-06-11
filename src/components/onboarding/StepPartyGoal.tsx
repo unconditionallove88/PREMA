@@ -27,7 +27,7 @@ const INTENTION_GOALS = [
 ];
 
 const UI = {
-  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Resonance', pos: 'Positive Intentions', confirm: 'Confirm' },
+  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Intention', pos: 'Positive Intentions', confirm: 'Confirm' },
   de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Bestätigen' }
 };
 

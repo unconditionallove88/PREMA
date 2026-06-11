@@ -17,12 +17,12 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 const CONTENT = {
   en: {
     title: "The Holders",
-    sub: "Sacred Bond Resonance",
+    sub: "Sacred Bond Intention",
     desc: "A private space for those who hold the heart from afar Connect with truth and tenderness",
     agreementTitle: "Unity Through Presence",
     agreementSub: "Enter the private circle",
     items: [
-      { title: "Sacred Bond Resonance", sub: "Shared with the inner circle", icon: Lock },
+      { title: "Sacred Bond Intention", sub: "Shared with the inner circle", icon: Lock },
       { title: "Mutual Holding", sub: "Unity through shared truth", icon: HeartHandshake }
     ],
     button: "Enter the circle",
@@ -79,7 +79,7 @@ export function LoveCircleChat() {
 
   const t = CONTENT[lang] || CONTENT.en;
 
-  const handleVoiceResonance = async () => {
+  const handleVoiceIntention = async () => {
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
@@ -177,7 +177,7 @@ export function LoveCircleChat() {
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-4">
                 <h2 className="text-5xl font-black uppercase tracking-tighter text-white leading-none">{t.title}</h2>
-                <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
+                <button onClick={handleVoiceIntention} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
                   {isSpeaking ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
                 </button>
               </div>
@@ -324,7 +324,7 @@ export function LoveCircleChat() {
           </p>
           <div className="flex items-center gap-2 opacity-30">
             <Lock size={10} className="text-primary" />
-            <span className="text-[8px] font-black uppercase tracking-widest">Resonance Protected</span>
+            <span className="text-[8px] font-black uppercase tracking-widest">Intention Protected</span>
           </div>
         </div>
       </div>

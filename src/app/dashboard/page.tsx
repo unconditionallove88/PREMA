@@ -103,10 +103,10 @@ const CONTENT = {
 
 const LOCATIONS = [
   { id: 'berlin', name: 'Berlin, DE', vibe: 'City Haven' },
-  { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Resonance' },
+  { id: 'fusion', name: 'Fusion Festival, DE', vibe: 'Gathering Intention' },
   { id: 'london', name: 'London, UK', vibe: 'City Haven' },
-  { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Resonance' },
-  { id: 'portugal', name: 'Alentejo, PT', vibe: 'Nature Resonance' },
+  { id: 'ibiza', name: 'Ibiza, ES', vibe: 'Island Intention' },
+  { id: 'portugal', name: 'Alentejo, PT', vibe: 'Nature Intention' },
   { id: 'lisbon', name: 'Lisbon, PT', vibe: 'City Haven' },
 ];
 

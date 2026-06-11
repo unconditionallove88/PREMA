@@ -49,7 +49,7 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
   }, [status.unlockAt]);
 
   const reasonMap: Record<string, string> = {
-    "vitals_threshold_exceeded": "Resonance Threshold Exceeded",
+    "vitals_threshold_exceeded": "Intention Threshold Exceeded",
     "critical_interaction": "Critical Interaction Detected",
     "intake_limit": "Harm Reduction Intake Limit Reached"
   };
@@ -67,9 +67,9 @@ export function ProtectionWindow({ status }: ProtectionWindowProps) {
               <ShieldAlert size={28} className="text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Resonance Active</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Intention Active</h2>
               <p className="text-[10px] font-bold text-red-400 uppercase tracking-[0.3em] mt-1">
-                {reasonMap[status.lockReason] || "Resonance Threshold Reached"}
+                {reasonMap[status.lockReason] || "Intention Threshold Reached"}
               </p>
             </div>
           </div>

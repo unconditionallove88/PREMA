@@ -26,7 +26,7 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 /**
- * @fileOverview Inner Resonance Page.
+ * @fileOverview Inner Intention Page.
  * Removed possessives and words of lack.
  */
 
@@ -170,7 +170,7 @@ function InnerHeartContent() {
             </button>
           </div>
 
-          {/* Biometric Resonance Circle */}
+          {/* Biometric Intention Circle */}
           <div className="w-64 h-64 md:w-80 md:h-80 bg-card/[0.02] border border-border/10 rounded-full p-10 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl group mx-4">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
             

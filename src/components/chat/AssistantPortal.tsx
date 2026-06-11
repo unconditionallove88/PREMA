@@ -45,7 +45,7 @@ const i18n = {
         kidneys: "Kidney Shield: Your kidneys process every substance Water is their shield helping them flush toxins and maintain mineral harmony"
       },
       nutrition: {
-        title: "Physical Resonance",
+        title: "Physical Intention",
         why: "Steady Fuel",
         desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain",
       },
@@ -111,7 +111,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
 
   const t = i18n[lang] || i18n.en;
 
-  const handleVoiceResonance = async () => {
+  const handleVoiceIntention = async () => {
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
@@ -276,7 +276,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
               <SupporterIcon className="text-emerald-500" size={24} />
               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">{t.supporter}</p>
             </div>
-            <button onClick={handleVoiceResonance} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
+            <button onClick={handleVoiceIntention} disabled={isSpeaking} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
               {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
             </button>
           </div>

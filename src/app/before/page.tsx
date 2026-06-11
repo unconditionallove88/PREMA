@@ -38,7 +38,7 @@ const CONTENT = {
         kidneys: "Kidney Shield: Your kidneys process every substance Water is their shield helping them flush toxins and maintain mineral harmony"
       },
       nutrition: {
-        title: "Physical Resonance",
+        title: "Physical Intention",
         why: "Steady Fuel",
         desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain",
       },

@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { ArrowRight, HeartHandshake } from 'lucide-react';
 
 /**
- * @fileOverview Breath of Love (Pure Resonance Ritual).
+ * @fileOverview Breath of Love (Pure Intention Ritual).
  * Updated: Integrated into the recovery grounding sequence.
  */
 

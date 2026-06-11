@@ -187,7 +187,7 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
                 {selectedPair?.s1} + {selectedPair?.s2}
               </h3>
               <p className={cn("text-[10px] font-black uppercase tracking-[0.4em]", selectedPair?.color)}>
-                {selectedPair?.risk} Resonance Interaction
+                {selectedPair?.risk} Intention Interaction
               </p>
             </div>
 

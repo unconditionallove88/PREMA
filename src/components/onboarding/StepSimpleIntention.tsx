@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Heart, ShieldCheck, UserCheck, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { playHeartbeat } from '@/lib/resonance';
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview Simplified Intention Calibration.

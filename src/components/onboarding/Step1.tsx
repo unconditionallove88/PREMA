@@ -10,7 +10,7 @@ import type { LegalAgreements } from '@/app/onboarding/page';
 
 /**
  * @fileOverview Foundations of Care (Agreements).
- * Updated: Added Voice Resonance agreement.
+ * Updated: Added Voice Intention agreement.
  */
 
 const CONTENT = {

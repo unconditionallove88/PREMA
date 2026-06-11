@@ -202,7 +202,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
               }}
             />
 
-            {/* Friend Resonance Nodes */}
+            {/* Friend Intention Nodes */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               {MOCK_FRIENDS.map((friend, idx) => {
                 const fAngle = (idx * 360) / MOCK_FRIENDS.length + 45;

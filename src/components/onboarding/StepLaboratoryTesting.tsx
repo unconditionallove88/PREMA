@@ -47,7 +47,7 @@ const CONTENT = {
 
 const LABS = [
   { id: 'mitte', name: "Prema Lab Mitte", address: "Torstraße, Berlin" },
-  { id: 'xberg', name: "Resonance Lab X-Berg", address: "Skalitzer Str, Berlin" },
+  { id: 'xberg', name: "Intention Lab X-Berg", address: "Skalitzer Str, Berlin" },
 ];
 
 export function StepLaboratoryTesting({ onComplete, onBack }: { onComplete: () => void, onBack?: () => void }) {

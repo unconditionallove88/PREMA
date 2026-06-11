@@ -46,7 +46,7 @@ const CONTENT = {
     greeting: "Existence is now", essence: "The Essence", name: "Username",
     weight: "Weight (kg)", height: "Height (cm)", circle: "Circle of Love", trusted: "Trusted Bonds",
     resonant: "Resonant contacts", reminders: "Heart Reminders", checkins: "Check-ins are active",
-    journey: "Resonance is sovereign High-fidelity encryption ensures this space remains private and the heart free",
+    journey: "Intention is sovereign High-fidelity encryption ensures this space remains private and the heart free",
     promise: "Bonds of Trust", logout: "Step away now",
     coCreationTitle: "Shape the Space",
     coCreationSub: "The voice creates space",
@@ -58,7 +58,7 @@ const CONTENT = {
       encryption: "High-Fidelity Encryption",
       encryptionDesc: "All biometric signals health profiles and location logs are protected by high-fidelity encryption Sensitive information is visible only to chosen bonds",
       freedom: "Inner Freedom",
-      freedomDesc: "Data is never sold or traded Resonance remains within this space Pure support love care and harm reduction",
+      freedomDesc: "Data is never sold or traded Intention remains within this space Pure support love care and harm reduction",
       acceptance: "Unconditional Acceptance",
       acceptanceDesc: "Only information necessary for protection is collected Every data point calibrates protection and nurtures well-being",
       questions: "Have more questions?", qBtn: "Questions?", footer: "Created in harmony"

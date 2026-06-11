@@ -30,7 +30,7 @@ export function Step9Summary({ data, onComplete }: { data: OnboardingData, onCom
 
   return (
     <div className="w-full flex flex-col items-center animate-in fade-in zoom-in duration-1000 min-h-[70vh] justify-center font-headline px-6">
-      {/* Device Calibration Resonance Visual */}
+      {/* Device Calibration Intention Visual */}
       <div className="relative mb-16 flex items-center justify-center">
         <div className="absolute inset-0 bg-secondary/10 blur-[100px] rounded-full" />
         

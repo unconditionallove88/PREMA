@@ -61,7 +61,7 @@ export default function WelcomeBack() {
 
   return (
     <main className="min-h-screen w-full bg-background text-foreground flex flex-col items-center pt-10 px-6 overflow-y-auto font-headline text-center relative overflow-hidden">
-      {/* Subtle Resonance Glows */}
+      {/* Subtle Intention Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-primary/5 blur-[120px] rounded-full pointer-events-none animate-pulse" />
       
       {/* Language Toggle */}
@@ -146,7 +146,7 @@ export default function WelcomeBack() {
         {/* Protocol Info */}
         <div className="flex items-center justify-center gap-3 text-muted-foreground">
           <ShieldCheck className="w-4 h-4" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Resonance Protocol v2.5</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Intention Protocol v2.5</span>
         </div>
       </div>
     </main>

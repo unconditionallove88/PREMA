@@ -20,7 +20,7 @@ import LoveCircle from '@/components/dashboard/LoveCircle';
 
 const CONTENT = {
   en: {
-    loading: "Calibrating Resonance",
+    loading: "Calibrating Intention",
     here: "I am here 🌿",
     visible: "My heart is open",
     private: "Private",

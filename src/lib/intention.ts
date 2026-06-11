@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileOverview Resonance Audio Utility.
+ * @fileOverview Intention Audio Utility.
  * Procedurally generates a heartbeat sound (Lub-Dub) using the Web Audio API.
  * Provides emotional feedback for care interactions.
  */
@@ -57,6 +57,6 @@ export const playHeartbeat = () => {
       if (audioCtx.state !== 'closed') audioCtx.close();
     }, 1000);
   } catch (e) {
-    console.warn("Audio Resonance unavailable:", e);
+    console.warn("Audio Intention unavailable:", e);
   }
 };

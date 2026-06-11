@@ -134,7 +134,7 @@ export function CoCreation({ onComplete }: { onComplete?: () => void }) {
             <>
               <div className="flex flex-col items-center text-center space-y-6 py-4 animate-in slide-in-from-bottom-2 duration-500">
                 <div className={cn("w-28 h-28 rounded-[2.5rem] flex items-center justify-center border-2 shadow-2xl transition-all duration-700", active.bg, active.color.replace('text-', 'border-').concat('/30'))}><Icon size={56} className={cn("animate-pulse", active.color)} /></div>
-                <div className="space-y-2"><h2 className="text-3xl font-black uppercase tracking-tighter text-foreground leading-none">{active.prompt}</h2><p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/80">Resonance Phase: {active.label}</p></div>
+                <div className="space-y-2"><h2 className="text-3xl font-black uppercase tracking-tighter text-foreground leading-none">{active.prompt}</h2><p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/80">Intention Phase: {active.label}</p></div>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
