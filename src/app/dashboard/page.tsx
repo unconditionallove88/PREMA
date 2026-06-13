@@ -41,7 +41,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from '@/fireb
 import { doc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { checkSafetyStatus } from '@/lib/guardian';
-import { playHeartbeat } from '@/lib/resonance';
+import { playHeartbeat } from '@/lib/intention';
 import { cn } from '@/lib/utils';
 import {
   Collapsible,

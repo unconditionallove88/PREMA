@@ -45,7 +45,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { StepSomethingToRemember as WisdomProtocol } from '@/components/onboarding/StepSomethingToRemember';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
-import { playHeartbeat } from '@/lib/resonance';
+import { playHeartbeat } from '@/lib/intention';
 import { VisualDoseAssistant } from '@/components/lab/VisualDoseAssistant';
 
 const MushroomIcon = ({ className, size = 24 }: { className?: string, size?: number }) => (

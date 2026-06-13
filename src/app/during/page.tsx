@@ -8,7 +8,7 @@ import { doc } from "firebase/firestore";
 import { AiSafetyChat } from "@/components/chat/AiSafetyChat";
 import { ArrowLeft, Loader2, Heart, Sparkles, Wind } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { playHeartbeat } from "@/lib/resonance";
+import { playHeartbeat } from "@/lib/intention";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 /**
