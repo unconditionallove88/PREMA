@@ -235,6 +235,6 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
     >
       {t.confirm}
     </button>
-  </div>
+    </div>
   );
 }
