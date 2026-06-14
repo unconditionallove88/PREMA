@@ -224,17 +224,19 @@ export function StepSomethingToRemember({ onComplete, onBack, isStandAlone = fal
       </Dialog>
 
       {!isStandAlone && (
-  <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-none pb-safe">
-    <button
-      onClick={() => onComplete({ acknowledged })}
-      disabled={!acknowledged}
-      className={cn(
-        "pointer-events-auto w-full max-w-sm mx-auto h-20 rounded-full uppercase tracking-[0.2em] font-black text-lg transition-all shadow-2xl flex items-center justify-center gap-3",
-        acknowledged ? 'bg-primary text-primary-foreground neon-glow active:scale-95' : 'bg-card/10 text-muted-foreground border-2 border-border/5 cursor-not-allowed opacity-50'
+        
+          <button <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-background dark:via-background dark:to-transparent pt-12 pointer-events-none pb-safe">
+            onClick={() => onComplete({ acknowledged })} 
+            disabled={!acknowledged}
+            className={cn(
+              "pointer-events-auto w-full max-w-sm mx-auto h-20 rounded-full uppercase tracking-[0.2em] font-black text-lg transition-all shadow-2xl flex items-center justify-center gap-3",
+              acknowledged ? 'bg-primary text-primary-foreground neon-glow active:scale-95' : 'bg-card/10 text-muted-foreground border-2 border-border/5 cursor-not-allowed opacity-50'
+            )}
+          >
+            {t.confirm}
+          </button>
+        </div>
       )}
-    >
-      {t.confirm}
-    </button>
-  </div>
+    </div>
   );
 }

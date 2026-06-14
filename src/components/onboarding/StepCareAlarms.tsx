@@ -186,7 +186,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
         </ScrollArea>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 dark:bg-gradient-to-t dark:from-background dark:via-background dark:to-transparent pt-12 pointer-events-none pb-safe">
+      <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-none pb-safe">
         <button 
           onClick={handleComplete}
           className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-primary-foreground rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
