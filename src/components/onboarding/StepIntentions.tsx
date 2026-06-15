@@ -26,11 +26,11 @@ const INTENTION_GOALS = [
 ];
 
 const UI = {
-  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Intention', pos: 'Positive Intentions', confirm: 'Confirm' },
-  de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz', pos: 'Positive Intentionen', confirm: 'Bestätigen' }
+  en: { header: 'Intention', sub: 'What is your main focus?', res: 'The Intention',  confirm: 'Confirm' },
+  de: { header: 'Intention', sub: 'Was ist dein Hauptfokus?', res: 'Die Resonanz',  confirm: 'Bestätigen' }
 };
 
-export function StepPartyGoal({ onComplete, onBack }: { onComplete: (goals: string[]) => void, onBack?: () => void }) {
+export function StepIntentions({ onComplete, onBack }: { onComplete: (goals: string[]) => void, onBack?: () => void }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [lang, setLang] = useState<'en' | 'de'>('en');
 
