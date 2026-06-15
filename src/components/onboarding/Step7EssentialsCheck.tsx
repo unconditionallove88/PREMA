@@ -22,7 +22,7 @@ const UI_CONTENT = {
   PT: { header: "Check-list de equipamentos", sub: "Prepare seu kit para a festa", streak: "Care streak", boost: "Marque 5+ itens para aumentar seu care streak! 🔥", button: "Estou pronto" }
 };
 
-export function Step7GearCheck({ onComplete, onBack }: { onComplete: () => void, onBack?: () => void }) {
+export function Step7EssentialsCheck({ onComplete, onBack }: { onComplete: () => void, onBack?: () => void }) {
   const [checked, setChecked] = useState<string[]>([]);
   const [lang, setLang] = useState<'EN' | 'DE' | 'PT'>('EN');
 
