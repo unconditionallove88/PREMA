@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Flame, Check, ArrowLeft } from 'lucide-react';
 
 /**
- * @fileOverview Gear check step.
+ * @fileOverview Essentials step.
  * Action color: hsl(var(--primary))
  * Languages: EN, DE, PT.
  */
@@ -17,7 +17,7 @@ const ITEMS_CONTENT = {
 };
 
 const UI_CONTENT = {
-  EN: { header: "Gear check", sub: "Prepare your kit for the party", streak: "Care streak", boost: "Check 5+ items to boost your care streak! 🔥", button: "I'm ready" },
+  EN: { header: "Essentials", sub: "Prepare your kit for the party", streak: "Care streak", boost: "Check 5+ items to boost your care streak! 🔥", button: "I'm ready" },
   DE: { header: "Ausrüstungs-Check", sub: "Bereite dein Kit für die Party vor", streak: "Care-Streak", boost: "Prüfe 5+ Artikel um deinen Care-Streak zu steigern! 🔥", button: "Ich bin bereit" },
   PT: { header: "Check-list de equipamentos", sub: "Prepare seu kit para a festa", streak: "Care streak", boost: "Marque 5+ itens para aumentar seu care streak! 🔥", button: "Estou pronto" }
 };

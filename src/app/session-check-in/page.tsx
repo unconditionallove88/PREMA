@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
 import { StepSomethingToRemember } from '@/components/onboarding/StepSomethingToRemember';
 import { StepCareAlarms } from '@/components/onboarding/StepCareAlarms';
-import { Step7GearCheck } from '@/components/onboarding/Step7GearCheck';
+import { Step7EssentialsCheck } from '@/components/onboarding/Step7EssentialsCheck';
 import type { OnboardingData } from '@/app/onboarding/page';
 
 /**
  * @fileOverview Mandatory session check-in flow for returning users.
- * Includes: Detailed Intention, Mixing Wisdom, Alarms, and Gear Check.
+ * Includes: Detailed Intention, Mixing Wisdom, Alarms, and Essentials Check.
  */
 export default function SessionCheckIn() {
   const router = useRouter();
@@ -89,7 +89,7 @@ export default function SessionCheckIn() {
         )}
 
         {step === 4 && (
-          <Step7GearCheck 
+          <Step7EssentialsCheck 
             onBack={prevStep}
             onComplete={() => {
               router.push('/dashboard');

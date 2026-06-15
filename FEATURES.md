@@ -88,7 +88,7 @@ This file inventories the app's main routes, components and features. Each item 
   - Status: works end-to-end (UI-driven)
 
 - Stepwise Safety/Preparation Components
-  - Where: `src/components/onboarding/Step*` (e.g., `StepPartyGoal`, `Step7GearCheck`, `StepSomethingToRemember`)
+  - Where: `src/components/onboarding/Step*` (e.g., `StepPartyGoal`, `Step7EssentialsCheck`, `StepSomethingToRemember`)
   - What: Modular teaching/guidance steps used during onboarding and wisdom dialogs.
   - Status: works end-to-end (UI; some steps call external flows)
 

@@ -34,7 +34,7 @@ export function Step6GearCheck({ onComplete }: { onComplete: () => void }) {
         </div>
       </div>
 
-      <h2 className="font-headline text-4xl font-bold uppercase mb-4">Gear Check</h2>
+      <h2 className="font-headline text-4xl font-bold uppercase mb-4">Essentials</h2>
       <p className="text-white/50 mb-12 text-sm uppercase tracking-widest">Check 5+ items to boost your Safety Streak!</p>
 
       <div className="space-y-4 mb-12">

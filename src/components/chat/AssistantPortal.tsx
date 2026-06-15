@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
-import { Step7GearCheck } from '@/components/onboarding/Step7GearCheck';
+import { Step7EssentialsCheck } from '@/components/onboarding/Step7EssentialsCheck';
 
 /**
  * @fileOverview SupporterPortal Component.
@@ -28,7 +28,7 @@ const i18n = {
     question: "How is your inner state?",
     subtitle: "Select your current phase for tailored guidance and love. 🌿",
     intention: "Intention",
-    gearCheck: "Gear Check",
+    EssentialsCheck: "Essentials Check",
     prepWisdom: "Biology & Prep",
     wisdomTitle: "Grace Wisdom",
     closeBtn: "I understand",
@@ -62,7 +62,7 @@ const i18n = {
     question: "Wie ist dein innerer Zustand?",
     subtitle: "Wähle deine aktuelle Phase für maßgeschneiderte Begleitung. 🌿",
     intention: "Die Intention",
-    gearCheck: "Ausrüstungs Check ",
+    WesentlichesCheck: "Ausrüstungs Check ",
     prepWisdom: "Biologie & Vorbereitung",
     wisdomTitle: "Gnaden Weisheit",
     closeBtn: "Ich verstehe",
@@ -219,7 +219,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
 
         <Dialog open={gearOpen} onOpenChange={setGearOpen}>
           <DialogContent className="bg-card border-border/10 p-0 max-w-xl h-[80vh]">
-            <DialogTitle className="sr-only">Gear Check</DialogTitle>
+            <DialogTitle className="sr-only">Essentials</DialogTitle>
             <Step7GearCheck onComplete={() => setGearOpen(false)} />
           </DialogContent>
         </Dialog>
