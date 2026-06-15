@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
 const POSITIVE_GOALS = [
   { id: 'dance', icon: Music, label: 'Dance', de: 'Tanzen' },
   { id: 'social', icon: Users, label: 'Meet people', de: 'Menschen kennenlernen' },
-  { id: 'forget-self', icon: CircleDot, label: 'Forget myself', de: 'Sich ganz vergessen' },
   { id: 'intimacy', icon: Heart, label: 'Find intimacy', de: 'Intimität finden' },
   { id: 'hydrate', icon: Shield, label: 'Stay hydrated', de: 'Wasser trinken' },
   { id: 'discover', icon: Target, label: 'Discover music', de: 'Musik entdecken' },
