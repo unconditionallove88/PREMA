@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
+import { StepIntentions } from '@/components/onboarding/StepIntentions';
 import { Step7EssentialsCheck } from '@/components/onboarding/Step7EssentialsCheck';
 
 /**
@@ -213,7 +213,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
         <Dialog open={intentionOpen} onOpenChange={setIntentionOpen}>
           <DialogContent className="bg-card border-border/10 p-0 max-w-xl h-[80vh]">
             <DialogTitle className="sr-only">Intention</DialogTitle>
-            <StepPartyGoal onComplete={() => setIntentionOpen(false)} />
+            <StepIntentions onComplete={() => setIntentionOpen(false)} />
           </DialogContent>
         </Dialog>
 

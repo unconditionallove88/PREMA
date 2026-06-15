@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { StepPartyGoal } from '@/components/onboarding/StepPartyGoal';
+import { StepIntentions } from '@/components/onboarding/StepIntentions';
 import { StepSomethingToRemember } from '@/components/onboarding/StepSomethingToRemember';
 import { StepCareAlarms } from '@/components/onboarding/StepCareAlarms';
 import { Step7EssentialsCheck } from '@/components/onboarding/Step7EssentialsCheck';
@@ -59,7 +59,7 @@ export default function SessionCheckIn() {
     <main className="min-h-screen bg-card text-foreground px-6 py-4 flex flex-col items-center justify-center overflow-hidden">
       <div className="w-full max-w-xl">
         {step === 1 && (
-          <StepPartyGoal 
+          <StepIntentions 
             onBack={() => router.push('/auth')}
             onComplete={(goals) => {
               updateProfile({ goals });
