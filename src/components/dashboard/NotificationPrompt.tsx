@@ -42,7 +42,7 @@ export default function NotificationPrompt({ onClose }: NotificationPromptProps)
     },
     de: {
       successTitle: "Erinnerungen aktiv",
-      successSub: "Ich werde geliebt heute",
+      successSub: "Ich bin geliebt ",
       header: "Täglicher Heart Check-in",
       sub: "Wähle aus, wann wir bei dir nachfragen sollen",
       enable: "Erinnerungen aktivieren",

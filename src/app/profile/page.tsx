@@ -65,26 +65,26 @@ const CONTENT = {
     }
   },
   de: {
-    safeSpace: "Raum", entering: "Eintritt...", reflection: "Profil spiegelt Licht heute",
-    greeting: "Existenz ist jetzt", essence: "Die Essenz heute", name: "Benutzername",
+    safeSpace: "Raum", entering: "Eintritt...", reflection: "Profil spiegelt Licht ",
+    greeting: "Existenz ist jetzt", essence: "Die Essenz ", name: "Benutzername",
     weight: "Gewicht (kg)", height: "Größe (cm)", circle: "Circle of Love", trusted: "Vertrauenswürdige Bindungen",
     resonant: "Resonante Kontakte", reminders: "Heart Reminders", checkins: "Tägliche Check-ins aktiv",
-    journey: "Resonanz ist souverän heute High-Fidelity-Verschlüsselung stellt sicher dass dieser Raum privat bleibt",
+    journey: "Resonanz ist souverän  High-Fidelity-Verschlüsselung stellt sicher dass dieser Raum privat bleibt",
     promise: "Bindungen des Vertrauens", logout: "Jetzt heraustreten hier",
     coCreationTitle: "Raum gestalten",
     coCreationSub: "Die Stimme schafft Raum",
-    footer: "In Harmonie erschaffen heute hier",
+    footer: "In Harmonie erschaffen  hier",
     privacy: {
       title: "Freiheit & Vertrauen",
       sovereignty: "Datensouveränität",
-      sovereigntyDesc: "Privatsphäre wird geachtet heute Daten sind souverän heute prema baut auf dem Prinzip der persönlichen Souveränität auf",
+      sovereigntyDesc: "Privatsphäre wird geachtet  Daten sind souverän  prema baut auf dem Prinzip der persönlichen Souveränität auf",
       encryption: "High-Fidelity-Verschlüsselung",
       encryptionDesc: "Alle biometrischen Signale Gesundheitsprofile und Standortprotokolle sind geschützt Informationen sind nur für Vertraute sichtbar",
-      freedom: "Innere Freiheit heute",
+      freedom: "Innere Freiheit ",
       freedomDesc: "Daten werden niemals verkauft Die Resonanz bleibt in diesem Raum Reine Unterstützung Liebe Fürsorge und Schadensminimierung",
       acceptance: "Bedingungslose Akzeptanz",
       acceptanceDesc: "Nur notwendige Informationen werden gesammelt Jeder Datenpunkt kalibriert den Schutz und fördert Wohlbefinden",
-      questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen heute hier"
+      questions: "Hast du noch Fragen?", qBtn: "Fragen?", footer: "In Harmonie erschaffen  hier"
     }
   }
 };

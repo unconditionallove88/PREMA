@@ -87,26 +87,26 @@ const CONTENT = {
     circle: {
       title: "Circle-Broadcasting",
       sub: "Mesh Mesh Alarm",
-      desc: "Informiere sofort alle Mitglieder deines Circle of Love via Sovereign Mesh Ortung heute",
+      desc: "Informiere sofort alle Mitglieder deines Circle of Love via Sovereign Mesh Ortung ",
       button: "Alle im Kreis informieren"
     },
     family: {
-      title: "Kollektive Fürsorge heute",
-      sub: "Universelle Familien Präsenz heute",
-      desc: "Sende einen Ruf nach Liebe an alle Seelen in der Nähe für sofortige Hilfe heute",
+      title: "Kollektive Betreuung ",
+      sub: "Universelle Familien Präsenz ",
+      desc: "Sende einen Ruf nach Liebe an alle Seelen in der Nähe für sofortige Hilfe ",
       button: "Familie in der Nähe rufen"
     },
     stillness: {
-      title: "Herz Atem heute",
-      sub: "Präsenz Protokoll heute",
-      desc: "Ich achte auf mein Bedürfnis nach Erdung Lenke den Fokus auf die Synchronisation heute",
+      title: "Herz Atem ",
+      sub: "Präsenz Protokoll ",
+      desc: "Ich achte auf mein Bedürfnis nach Erdung Lenke den Fokus auf die Synchronisation ",
       button: "Herz Atem jetzt starten"
     },
     connecting: "Mesh-Verbindung wird aufgebaut...",
     honoring: "Die Anfrage wird liebevoll bearbeitet",
     allIsWell: "Alles ist gut",
-    loved: "Ich werde geliebt heute",
-    friendLoved: (name: string) => `${name} wird geliebt heute`,
+    loved: "Ich werde bin ",
+    friendLoved: (name: string) => `${name} bin geliebt `,
     takenCareOf: "und ist in Sicherheit",
     dispatched: "Mesh-Anfrage wurde versendet",
     meshShared: "Mesh-Ortung geteilt",

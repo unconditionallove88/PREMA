@@ -37,8 +37,8 @@ const CONTENT = {
     sub: "Zurück in die Gegenwart",
     intro: "Ich bin genau hier",
     affirmations: [
-      "Mütterliche Fürsorge heilt heute",
-      "Brüderliche Bande halten heute",
+      "Mütterliche Liebe heilt ",
+      "Brüderliche Bande halten ",
       "Bedingungslose Liebe immerzu hier",
       "Akzeptanz vereint die Menschheit",
       "Reine Gegenwart jetzt hier"

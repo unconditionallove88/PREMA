@@ -32,7 +32,7 @@ const CONTENT = {
       { id: 'harmReduction', title: 'Schadensminimierung', text: 'Prema ist ein Tool zur Risiko- und Schadensminimierung, das Informationen und Unterstützung bietet Es ist nicht dazu gedacht, illegale Aktivitäten zu fördern' },
       { id: 'medicalAdvice', title: 'Kein medizinischer Rat', text: 'Die von diesem Raum bereitgestellten Informationen dienen Bildungszwecken und stellen keine medizinische Beratung dar' },
       { id: 'privacy', title: 'Freiheit & Vertrauen (DSGVO)', text: 'Wir nehmen deine Privatsphäre ernst Deine biometrischen Daten sind verschlüsselt Wir achten deine Datensouveränität' },
-      { id: 'voice', title: 'Sprach Resonanz Protokoll', text: 'Du kannst Sprachbefehle nutzen heute hier Deine Audio-Daten werden nur lokal verarbeitet um Text zu erstellen heute hier' },
+      { id: 'voice', title: 'Sprach Resonanz Protokoll', text: 'Du kannst Sprachbefehle nutzen  hier Deine Audio-Daten werden nur lokal verarbeitet um Text zu erstellen  hier' },
       { id: 'safetyNetwork', title: 'Circle of Love', text: 'Prema ermöglicht es dir, ein Netzwerk aus vertrauenswürdigen Verbindungen zu erstellen, die bei Bedarf informiert werden können' },
       { id: 'immediateHelp', title: 'Care Support', text: 'Wenn du Unterstützung benötigst, kannst du deinen Circle oder vertrauenswürdige Bindungen rufen Meldungen werden absolut diskret und mit Respekt behandelt' },
     ]

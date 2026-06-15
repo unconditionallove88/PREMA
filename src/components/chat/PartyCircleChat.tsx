@@ -49,14 +49,14 @@ const CONTENT = {
     rules: [
       "Bedingungslose Freundlichkeit für alle",
       "Keine Bewerbung von Substanzen",
-      "Respektiere die Anonymität heute",
+      "Respektiere die Anonymität ",
       "Spreche nur aus Präsenz",
       "Einheit ist der Fokus"
     ],
     enterBtn: "Dem Kreis beitreten",
     placeholder: "Freundlichkeit jetzt teilen...",
     footer: "Geerdet in Präsenz",
-    shiningFooter: "In Harmonie erschaffen heute hier",
+    shiningFooter: "In Harmonie erschaffen  hier",
     blockedTitle: "Circle Pause",
     blockedDesc: "Der Pulse Guardian hat diese Verbindung pausiert um die Harmonie wiederherzustellen 🌿",
     blockedAffirmation: "Ruhe und Stille jetzt",

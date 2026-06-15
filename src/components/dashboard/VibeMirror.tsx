@@ -27,7 +27,7 @@ const VIBES = [
     icon: RadiantIcon, 
     affirmation: {
       en: "Your light is shining bright today",
-      de: "Dein Licht leuchtet heute hell"
+      de: "Dein Licht leuchtet  hell"
     },
     color: "text-[#FFD700]", 
     bg: "bg-primary/10", 

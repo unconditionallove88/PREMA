@@ -38,7 +38,7 @@ const CONTENT = {
   de: {
     title: "Die Holder",
     sub: "Heiliges Band Resonanz",
-    desc: "Ein privater Raum für diejenigen, die das Herz aus der Ferne halten Verbinde dich mit Wahrheit heute",
+    desc: "Ein privater Raum für diejenigen, die das Herz aus der Ferne halten Verbinde dich mit Wahrheit ",
     agreementTitle: "Einheit durch Präsenz",
     agreementSub: "Den privaten Kreis betreten",
     items: [
@@ -50,10 +50,10 @@ const CONTENT = {
     inviteTitle: "PER E-MAIL EINLADEN",
     createBtn: "Band versiegeln",
     cancelBtn: "Abbrechen",
-    placeholder: "Vom Herzen sprechen heute...",
+    placeholder: "Vom Herzen sprechen ...",
     successTitle: "Band initialisiert",
     successMsg: (name: string) => `Das Band der Fürsorge "${name}" wurde erstellt Warte auf Resonanz`,
-    footer: "In Harmonie erschaffen heute hier",
+    footer: "In Harmonie erschaffen  hier",
     listening: "Höre zu..."
   }
 };

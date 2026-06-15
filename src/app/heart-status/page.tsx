@@ -89,16 +89,16 @@ function InnerHeartContent() {
       footer: "Love Circle"
     },
     de: {
-      title: "Das Herz heute",
-      sub: "Im Aura-Ring heute",
-      letters: "Liebesbriefe heute",
+      title: "Das Herz ",
+      sub: "Im Aura-Ring ",
+      letters: "Liebesbriefe ",
       lettersSub: "Zukünftiges Ich",
       breath: "Atem der Liebe",
       breathSub: "Ritual jetzt hier",
       vision: "Vision der Liebe",
       visionSub: "Erdungs Tool",
       bioPulse: "Biologischer Puls",
-      bioPulseSub: "Rhythmus heute",
+      bioPulseSub: "Rhythmus ",
       footer: "Liebe Kreis"
     }
   }[lang];

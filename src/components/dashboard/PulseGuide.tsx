@@ -38,7 +38,7 @@ const STEPS = [
         intelligence: "Pulse Guardian: Analyzes Mesh triangulation to direct awareness staff to your precise tactical grid location"
       },
       de: {
-        description: "Standort-Tracker nur mit vertrauten Menschen geteilt heute via Mesh Protokoll",
+        description: "Standort-Tracker nur mit vertrauten Menschen geteilt  via Mesh Protokoll",
         functions: "Sehe Freunde und Hubs auf dem Grid Schalte Sichtbarkeit um oder sende Notrufe via Mesh",
         intelligence: "Pulse Guardian: Analysiert die Triangulation um Hilfe präzise zu deinem Standort zu leiten"
       }
@@ -58,7 +58,7 @@ const STEPS = [
         intelligence: "Pulse Guardian: Verifies bond encryption to ensure data sovereignty remains absolute within the chosen circle"
       },
       de: {
-        description: "Der innere Kreis der Seelen die dich bedingungslos lieben heute ohne jedes Urteil",
+        description: "Der innere Kreis der Seelen die dich bedingungslos lieben  ohne jedes Urteil",
         functions: "Füge bis zu 5 Bindungen im Profil hinzu Nur diese sehen den Standort",
         intelligence: "Pulse Guardian: Verifiziert die Verschlüsselung damit die Datensouveränität absolut gewahrt bleibt"
       }
@@ -330,7 +330,7 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
                   onClick={handleDismiss} 
                   className="px-10 py-5 bg-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest flex items-center gap-3 shadow-2xl active:scale-95 transition-all border-2 border-primary/20 shining-white"
                 >
-                  {lang === 'en' ? 'Enter' : 'Eintreten heute'} <CheckCircle2 className="w-5 h-5" />
+                  {lang === 'en' ? 'Enter' : 'Eintreten '} <CheckCircle2 className="w-5 h-5" />
                 </button>
               )}
             </div>

@@ -59,7 +59,7 @@ const CONTENT = {
     title: "Vorbereitung", subtitle: "Von innen heraus strahlen", header: "Bereit zu strahlen?",
     description: "Ich respektiere dich",
     sections: { hydration: "Hydrierung", nutrition: "Erährung", rest: "Erholung", essentials: "Essentials", testing: "Labor-Check" },
-    hydrationAdvice: (liters: number) => `Basierend auf deinem Körpergewicht trink heute ${liters} Liter Wasser Füge Elektrolyte hinzu`,
+    hydrationAdvice: (liters: number) => `Basierend auf deinem Körpergewicht trink  ${liters} Liter Wasser Füge Elektrolyte hinzu`,
     nutritionAdvice: "Iss 3 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit Vermeide schwere Lebensmittel",
     restAdvice: "Priorisiere erholsamen Schlaf und sei vor 23:00 Uhr im Bett damit dein Körper regenerieren kann",
     essentialsAdvice: "Lade dein Handy auf 100% Melde dich bei deinem Circle und kalibriere deine Pulse-Basis",
@@ -84,14 +84,14 @@ const CONTENT = {
       },
       rest: {
         title: "Kalibrierung des Nervensystems",
-        why: "Tiefe Erholung heute",
+        why: "Tiefe Erholung ",
         desc: "Erholung ermöglicht es deinem Nervensystem sich zu kalibrieren und speichert wichtiges Glykogen für deine Reise Schlaf bereitet deinen Geist auf eine erweiterte Resonanz vor",
         timing: "Biorhythmus: Ruhe vor 23:00 Uhr optimiert deinen Hormonhaushalt und stärkt deine Pulse-Basis für den nächsten Tag"
       },
       essentials: {
-        title: "Mesh Verbindung heute",
-        why: "Souveräner Link heute",
-        desc: "Ein zu 100% geladenes Handy ist deine Lebensader zum Sovereign Mesh und zum Circle of Love Verbindung ist dein wichtigstes Sicherheitsprotokoll heute",
+        title: "Mesh Verbindung ",
+        why: "Souveräner Link ",
+        desc: "Ein zu 100% geladenes Handy ist deine Lebensader zum Sovereign Mesh und zum Circle of Love Verbindung ist dein wichtigstes Sicherheitsprotokoll ",
         sync: "Sync-Pflicht: Die Kalibrierung deiner Pulse-Basis stellt sicher dass der Pulse Guardian physischen Stress genau erkennen und dein Herz schützen kann"
       }
     }

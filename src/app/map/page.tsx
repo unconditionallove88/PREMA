@@ -47,7 +47,7 @@ const CONTENT = {
     currentPulse: (status: string) => `Aktueller Status: ${status}`,
     notify: "Awareness rufen",
     meshActive: "Mesh-Ortung aktiv",
-    collectiveCare: "Kollektive Fürsorge aktiv heute",
+    collectiveCare: "Kollektive Fürsorge aktiv ",
     nearbyHeart: "Ein Herz in der Nähe braucht Begleitung",
     helpFamily: "Mit Herz begleiten"
   }
