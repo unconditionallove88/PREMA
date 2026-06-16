@@ -197,7 +197,7 @@ const hasSelection = Object.values(settings || {}).some((v) => {
         </ScrollArea>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-none pb-safe">
+      <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-auto pb-safe">
         <button
   onClick={() => {
     if (!hasSelection) return;
