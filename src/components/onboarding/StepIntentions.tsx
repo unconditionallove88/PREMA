@@ -73,20 +73,25 @@ export function StepIntentions({ onComplete, onBack }: { onComplete: (data: any)
 
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background to-transparent pt-12">
         <button
-          onClick={() => {
-            setPulseActive(true);
-            setTimeout(() => setPulseActive(false), 180);
+  onClick={() => {
+    if (selected.length === 0) return; // guard — do nothing when nothing selected
+    setPulseActive(true);
+    setTimeout(() => setPulseActive(false), 180);
 
-            pulse(30);
-            onComplete({ intentions: selected });
-          }}
-          className={cn(
-            "w-full max-w-md mx-auto h-16 rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow",
-            pulseActive ? "scale-95 ring-2 ring-primary/30 bg-primary text-primary-foreground" : "bg-primary text-primary-foreground"
-          )}
-        >
-          {t.confirm}
-        </button>
+    pulse(30);
+    onComplete({ intentions: selected });
+  }}
+  disabled={selected.length === 0}
+  aria-disabled={selected.length === 0}
+  className={cn(
+    "w-full max-w-md mx-auto h-16 rounded-full font-black uppercase text-sm tracking-widest shadow-2xl transition-all flex items-center justify-center gap-2 neon-glow",
+    selected.length === 0
+      ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500" // disabled look
+      : (pulseActive ? "scale-95 ring-2 ring-primary/30 bg-primary text-primary-foreground" : "bg-primary text-primary-foreground")
+  )}
+>
+  {t.confirm}
+</button>
       </div>
     </div>
   );
