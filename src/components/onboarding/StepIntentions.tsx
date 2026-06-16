@@ -1,3 +1,4 @@
+// src/components/onboarding/StepIntentions.tsx
 "use client"
 
 import useHaptics from '@/lib/useHaptics';
@@ -35,6 +36,7 @@ export function StepIntentions({ onComplete, onBack }: { onComplete: (data: any)
   }, []);
 
   const { pulse } = useHaptics();
+  const [pulseActive, setPulseActive] = useState(false);
 
   const t = UI[lang] || UI.en;
   const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -73,11 +75,16 @@ export function StepIntentions({ onComplete, onBack }: { onComplete: (data: any)
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background to-transparent pt-12">
         <button
           onClick={() => {
-            console.log('Intentions confirm clicked — vibrateSupported=', typeof navigator !== 'undefined' && 'vibrate' in navigator);
-            pulse(30); // short gentle haptic
+            setPulseActive(true);
+            setTimeout(() => setPulseActive(false), 180);
+
+            pulse(30);
             onComplete({ intentions: selected });
           }}
-          className="w-full max-w-md mx-auto h-16 bg-primary text-primary-foreground rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow"
+          className={cn(
+            "w-full max-w-md mx-auto h-16 rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow",
+            pulseActive ? "scale-95 ring-2 ring-primary/30 bg-primary text-primary-foreground" : "bg-primary text-primary-foreground"
+          )}
         >
           {t.confirm}
         </button>
