@@ -52,6 +52,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
     intakeLimit: "5",
+    intakeUnit: "units",,
     leaveTime: "04:00",
     restInterval: "60",
     waterInterval: "45",
