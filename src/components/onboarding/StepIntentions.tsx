@@ -1,4 +1,5 @@
 "use client"
+
 import useHaptics from '@/lib/useHaptics';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Target, Music, Users, Shield, Heart, CircleDot, Flame, ChevronRight } from 'lucide-react';
@@ -27,15 +28,17 @@ const UI = {
 export function StepIntentions({ onComplete, onBack }: { onComplete: (data: any) => void, onBack?: () => void }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [lang, setLang] = useState<'en' | 'de'>('en');
-const t = UI[lang] || UI.en;
+
   useEffect(() => {
     const saved = (localStorage.getItem('prema_lang') || 'en').toLowerCase() as any;
     setLang(saved);
   }, []);
 
-  
+  const { pulse } = useHaptics();
+
+  const t = UI[lang] || UI.en;
   const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-const { pulse } = useHaptics();
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center pt-20 px-6 font-headline bg-background pb-32">
       {onBack && <button onClick={onBack} className="absolute top-6 left-6 text-muted-foreground uppercase text-[10px] font-black tracking-widest"><ArrowLeft className="w-4 h-4 inline mr-2" /> back</button>}
@@ -63,15 +66,20 @@ const { pulse } = useHaptics();
               </p>
             </div>
             <ChevronRight className="w-3 h-3 text-muted-foreground/30 group-hover:translate-x-1 transition-transform" />
-          <button
-  onClick={() => {
-    pulse(30); // short gentle haptic
-    onComplete({ intentions: selected });
-  }}
-  className="w-full max-w-md mx-auto h-16 bg-primary text-primary-foreground rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow"
->
-  {t.confirm}
-</button>
+          </button>
+        ))}
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background to-transparent pt-12">
+        <button
+          onClick={() => {
+            pulse(30);
+            onComplete({ intentions: selected });
+          }}
+          className="w-full max-w-md mx-auto h-16 bg-primary text-primary-foreground rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow"
+        >
+          {t.confirm}
+        </button>
       </div>
     </div>
   );
