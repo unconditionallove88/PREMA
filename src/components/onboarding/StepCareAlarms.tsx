@@ -48,6 +48,9 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   const { pulse } = useHaptics();
   const [pulseActive, setPulseActive] = useState(false);
 
+  const { pulse } = useHaptics();
+  const [pulseActive, setPulseActive] = useState(false);
+
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
     intakeLimit: "5",
