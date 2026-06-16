@@ -1,4 +1,3 @@
-// src/components/onboarding/StepIntentions.tsx
 "use client"
 
 import useHaptics from '@/lib/useHaptics';
