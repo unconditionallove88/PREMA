@@ -73,7 +73,8 @@ export function StepIntentions({ onComplete, onBack }: { onComplete: (data: any)
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background to-transparent pt-12">
         <button
           onClick={() => {
-            pulse(30);
+            console.log('Intentions confirm clicked — vibrateSupported=', typeof navigator !== 'undefined' && 'vibrate' in navigator);
+            pulse(30); // short gentle haptic
             onComplete({ intentions: selected });
           }}
           className="w-full max-w-md mx-auto h-16 bg-primary text-primary-foreground rounded-full font-black uppercase text-sm tracking-widest shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2 neon-glow"
