@@ -1,10 +1,7 @@
 
 "use client"
 import useHaptics from '@/lib/useHaptics';
-import { useState } from 'react'; // add only if not already imported
 import { useState, useEffect } from 'react';
-const { pulse } = useHaptics();
-const [pulseActive, setPulseActive] = useState(false);
 import { ArrowLeft, Clock, ZapOff, GlassWater, Moon, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -48,6 +45,9 @@ const UI = {
 };
 
 export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: any) => void, onBack?: () => void }) {
+  const { pulse } = useHaptics();
+  const [pulseActive, setPulseActive] = useState(false);
+
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
     intakeLimit: "5",
