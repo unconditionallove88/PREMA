@@ -242,11 +242,11 @@ export function PulseGuide({ lang = 'en', forceOpen = false, onDismiss }: { lang
           <div className="p-8 pb-4 flex flex-col items-center text-center space-y-4 shrink-0">
             {/* Tool Identity */}
             <div className={cn(
-              "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border/10 shadow-2xl transition-all duration-700", 
-              step.bg
-            )}>
-              <Icon size={40} className={cn("animate-pulse", step.color)} />
-            </div>
+  "w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border/10 shadow-2xl transition-all duration-700 animate-pulse-bio", 
+  step.bg
+)}>
+  <Icon size={40} className={cn("animate-pulse", step.color)} />
+</div>
 
             <div className="space-y-1">
               <h3 className="text-3xl font-black uppercase tracking-tighter text-white leading-none shining-white">
