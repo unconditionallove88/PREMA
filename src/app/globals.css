@@ -333,3 +333,26 @@ input::placeholder, textarea::placeholder {
 .animate-pulse-bio {
   animation: biological-pulse 0.8s ease-in-out infinite;
 }
+/* stronger biological pulse (higher scale + glow) */
+@keyframes biological-pulse-strong {
+  0%   { transform: scale(1); opacity: 0.85; box-shadow: 0 0 0 rgba(27,77,62,0.0); }
+  12%  { transform: scale(1.18); opacity: 1;   box-shadow: 0 0 28px rgba(27,77,62,0.22); }
+  26%  { transform: scale(1);    opacity: 0.85; box-shadow: 0 0 0 rgba(27,77,62,0.0); }
+  100% { transform: scale(1);    opacity: 0.85; box-shadow: 0 0 0 rgba(27,77,62,0.0); }
+}
+.animate-pulse-bio {
+  animation: biological-pulse-strong 0.95s ease-in-out infinite !important;
+  will-change: transform, box-shadow, opacity;
+}
+
+/* small icon beat to emphasize the center glyph */
+@keyframes icon-beat {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.28); }
+  30%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+.icon-pulse {
+  animation: icon-beat 0.95s ease-in-out infinite !important;
+  transform-origin: center center;
+}
