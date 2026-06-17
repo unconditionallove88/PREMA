@@ -109,6 +109,19 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
     <SelectItem value="6">6</SelectItem>
   </SelectContent>
 </Select>
+                <Select value={settings.intakeUnit} onValueChange={(val) => setSettings({...settings, intakeUnit: val})}>
+                  <SelectTrigger className="w-32 bg-card/5 border-border/10 rounded-xl font-black text-foreground ml-2">
+                    <SelectValue placeholder="Unit" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="units">Units</SelectItem>
+                    <SelectItem value="grams">Grams</SelectItem>
+                    <SelectItem value="lines">Lines</SelectItem>
+                    <SelectItem value="joints">Joints</SelectItem>
+                    <SelectItem value="beers">Beers</SelectItem>
+                    <SelectItem value="shots">Shots</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
