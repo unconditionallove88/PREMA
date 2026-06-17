@@ -1,6 +1,6 @@
 
 "use client"
-import useHaptics from '@/lib/useHaptics';
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Clock, ZapOff, GlassWater, Moon, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -45,14 +45,9 @@ const UI = {
 };
 
 export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: any) => void, onBack?: () => void }) {
-  const { pulse } = useHaptics();
-  const [pulseActive, setPulseActive] = useState(false);
-
-
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
     intakeLimit: "5",
-    intakeUnit: "units",,
     leaveTime: "04:00",
     restInterval: "60",
     waterInterval: "45",
@@ -68,14 +63,7 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
   const handleComplete = () => {
     onComplete(settings);
   };
-const hasSelection = Object.values(settings || {}).some((v) => {
-  if (v === null || v === undefined) return false;
-  if (typeof v === "string") return v.trim() !== "";
-  if (Array.isArray(v)) return v.length > 0;
-  if (typeof v === "number") return !isNaN(v) && v !== 0;
-  if (typeof v === "boolean") return v === true;
-  return true;
-});
+
   return (
     <div className="w-full h-full flex flex-col font-headline bg-card relative animate-in fade-in duration-700">
       {onBack && (
@@ -198,31 +186,13 @@ const hasSelection = Object.values(settings || {}).some((v) => {
         </ScrollArea>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-auto pb-safe">
-        <button
-  onClick={() => {
-    if (!hasSelection) return;
-    setPulseActive(true);
-    setTimeout(() => setPulseActive(false), 180);
-
-    // attempt vibration (no-op where unsupported)
-    if (typeof pulse === 'function') pulse(30);
-
-    // REPLACE the call below with the original handler that this button used
-    // e.g. submitAlarms(), activateAlarms(), handleSave(), onComplete({...}) — keep the same call here
-    handleComplete();
-  }}
-  disabled={!hasSelection}
-  aria-disabled={!hasSelection}
-  className={cn(
-    "w-full max-w-md mx-auto h-16 rounded-full font-black uppercase text-sm tracking-widest shadow-2xl transition-all flex items-center justify-center gap-2 neon-glow",
-    !hasSelection
-      ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
-      : (pulseActive ? "scale-95 ring-2 ring-primary/30 bg-primary text-primary-foreground" : "bg-primary text-primary-foreground")
-  )}
->
-  {t.confirm}
-</button>
+      <div className="absolute bottom-0 left-0 right-0 p-6 pt-12 pointer-events-none pb-safe">
+        <button 
+          onClick={handleComplete}
+          className="pointer-events-auto w-full max-w-sm mx-auto h-20 bg-primary text-primary-foreground rounded-full font-black text-lg uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3"
+        >
+          {t.confirm} <CheckCircle2 size={24} />
+        </button>
       </div>
     </div>
   );
