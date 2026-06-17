@@ -78,7 +78,14 @@ export default function GuardianStatusBar({ status = "safe", heartRate: heartRat
       : "safe";
 
   const map = statusMap[derivedStatus];
-
+const [isLight, setIsLight] = useState(false);
+  useEffect(() => {
+    const check = () => setIsLight(document.documentElement.classList.contains('light'));
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
   return (
     <div
       role="status"
