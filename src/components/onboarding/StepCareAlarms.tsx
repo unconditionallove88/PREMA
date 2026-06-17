@@ -47,7 +47,7 @@ const UI = {
 export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: any) => void, onBack?: () => void }) {
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const [settings, setSettings] = useState({
-    intakeLimit: "5",
+    intakeLimit: "5", intakeUnit: "units",
     leaveTime: "04:00",
     restInterval: "60",
     waterInterval: "45",
@@ -96,15 +96,19 @@ export function StepCareAlarms({ onComplete, onBack }: { onComplete: (alarms: an
                   </div>
                 </div>
                 <Select value={settings.intakeLimit} onValueChange={(val) => setSettings({...settings, intakeLimit: val})}>
-                  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-foreground">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-border/10 font-headline">
-                    {["3", "4", "5", "6", "8"].map(num => (
-                      <SelectItem key={num} value={num} className="font-black uppercase">{num} Units</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+  <SelectTrigger className="w-24 bg-card/5 border-border/10 rounded-xl font-black text-foreground">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="0">0</SelectItem>
+    <SelectItem value="1">1</SelectItem>
+    <SelectItem value="2">2</SelectItem>
+    <SelectItem value="3">3</SelectItem>
+    <SelectItem value="4">4</SelectItem>
+    <SelectItem value="5">5</SelectItem>
+    <SelectItem value="6">6</SelectItem>
+  </SelectContent>
+</Select>
               </div>
             </div>
 
