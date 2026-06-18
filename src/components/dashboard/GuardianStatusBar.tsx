@@ -19,10 +19,44 @@ interface Props {
   lang?: "en" | "de";
 }
 
-export default function GuardianStatusBar({ status = "safe", heartRate: heartRateProp, lang = "en" }: Props) {
+export default function GuardianStatusBar({
+  status = "safe",
+  heartRate: heartRateProp,
+  lang = "en",
+}: Props) {
   // internal heartRate state — if a prop is provided we use it as base, otherwise default base
   const base = typeof heartRateProp === "number" ? Math.round(heartRateProp) : 75;
   const [bpm, setBpm] = useState<number>(base);
+
+  // detect light theme to increase contrast in light mode
+  const [isLight, setIsLight] = useState(false);
+  useEffect(() => {
+    const check = () =>
+      setIsLight(
+        Boolean(
+          typeof window !== "undefined" &&
+            (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ||
+            document.documentElement.classList.contains("light")
+        )
+      );
+    check();
+    try {
+      const m = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)");
+      const upd = () =>
+        setIsLight(Boolean((m && m.matches) || document.documentElement.classList.contains("light")));
+      if (m && m.addEventListener) m.addEventListener("change", upd);
+      else if (m && m.addListener) m.addListener(upd);
+      const observer = new MutationObserver(check);
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+      return () => {
+        if (m && m.removeEventListener) m.removeEventListener("change", upd);
+        else if (m && m.removeListener) m.removeListener(upd);
+        observer.disconnect();
+      };
+    } catch {
+      return;
+    }
+  }, []);
 
   // Simulate gentle BPM fluctuations when not driven externally.
   useEffect(() => {
@@ -32,14 +66,14 @@ export default function GuardianStatusBar({ status = "safe", heartRate: heartRat
       const smoothing = setInterval(() => {
         // tiny smoothing noise around the prop value
         const noise = Math.round((Math.random() - 0.5) * 2); // -1..1
-        setBpm(prev => Math.round(heartRateProp + noise));
+        setBpm(() => Math.round((heartRateProp as number) + noise));
       }, 1200);
       return () => clearInterval(smoothing);
     }
 
     // Otherwise, free simulation around base.
     const interval = setInterval(() => {
-      setBpm(prev => {
+      setBpm((prev) => {
         // vary +/- up to 3 bpm per tick but keep within reasonable range
         const delta = Math.round((Math.random() - 0.5) * 6); // -3..3
         const next = Math.max(40, Math.min(140, prev + delta));
@@ -50,42 +84,30 @@ export default function GuardianStatusBar({ status = "safe", heartRate: heartRat
     return () => clearInterval(interval);
   }, [heartRateProp, base]);
 
-  // map status/ bpm to color + label
+  // map status/ bpm to color + label (adapts for light mode)
   const statusMap = {
     safe: {
-      color: "text-emerald-600",
-      ring: "ring-emerald-200/40",
+      color: isLight ? "text-emerald-700" : "text-emerald-500",
+      ring: isLight ? "ring-emerald-400/50 bg-emerald-50/50" : "ring-emerald-500/20",
       label: lang === "en" ? "Steady rhythm" : "Stetiger Rhythmus",
     },
     caution: {
-      color: "text-amber-600",
-      ring: "ring-amber-200/30",
+      color: isLight ? "text-amber-700" : "text-amber-500",
+      ring: isLight ? "ring-amber-400/50 bg-amber-50/50" : "ring-amber-500/20",
       label: lang === "en" ? "Caution" : "Vorsicht",
     },
     locked: {
-      color: "text-rose-600",
-      ring: "ring-rose-200/40",
+      color: isLight ? "text-rose-700" : "text-rose-500",
+      ring: isLight ? "ring-rose-400/50 bg-rose-50/50" : "ring-rose-500/20",
       label: lang === "en" ? "Locked / Alert" : "Alarm",
     },
   } as const;
 
   // if bpm is outside healthy band, raise caution visually (unless status explicitly set)
-  const derivedStatus: Status =
-    status !== undefined
-      ? status
-      : bpm < 50 || bpm > 110
-      ? "caution"
-      : "safe";
+  const derivedStatus: Status = status !== undefined ? status : bpm < 50 || bpm > 110 ? "caution" : "safe";
 
   const map = statusMap[derivedStatus];
-const [isLight, setIsLight] = useState(false);
-  useEffect(() => {
-    const check = () => setIsLight(document.documentElement.classList.contains('light'));
-    check();
-    const observer = new MutationObserver(check);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
+
   return (
     <div
       role="status"
