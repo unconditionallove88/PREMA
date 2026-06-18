@@ -27,7 +27,6 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
 import { RadiatingThirdEye } from '@/components/ui/radiating-third-eye';
 import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
-import HealthStatsCard from "@/components/dashboard/HealthStatsCard";
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
@@ -236,7 +235,6 @@ function DashboardContent() {
 
           {/* Status Pillar */}
           <div className="space-y-4 max-w-2xl mx-auto">
-            <HealthStatsCard />
             <GuardianStatusBar status={guardianStatus} heartRate={simHeartRate} lang={lang} />
             <PulseGuardianBanner lang={lang} variant="banner" onOpenGuide={() => setGuideOpen(true)} />
           </div>
