@@ -15,7 +15,7 @@ import { checkSafetyStatus } from '@/lib/guardian';
  */
 
 const DEVICES = [
-  { id: 'apple', name: 'Apple Watch', icon: Smartphone, color: 'text-white' },
+  { id: 'apple', name: 'Apple Watch', icon: Smartphone, color: 'text-emerald-700' },
   { id: 'oura', name: 'Oura Ring', icon: Watch, color: 'text-[hsl(var(--accent))]' },
   { id: 'whoop', name: 'Whoop Strap', icon: Bluetooth, color: 'text-[hsl(var(--accent))]' },
 ];
@@ -155,7 +155,7 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
     <div className="p-10 font-headline bg-card rounded-[3rem]">
       <div className="text-center mb-10">
         <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">{t.title}</h2>
-        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">{t.sub}</p>
+        <p className="text-[10px] text-emerald-700/40 font-bold uppercase tracking-widest">{t.sub}</p>
       </div>
 
       <div className="space-y-4 mb-10">
@@ -183,7 +183,7 @@ export function PulseSync({ onComplete }: { onComplete: () => void }) {
                   <device.icon className={cn("w-6 h-6", device.color)} />
                 </div>
                 <div className="text-left">
-                  <span className="block font-black uppercase text-sm tracking-tight text-white">{device.name}</span>
+                  <span className="block font-black uppercase text-sm tracking-tight text-emerald-700">{device.name}</span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
                     {isConnecting ? t.negotiating : isConnected ? t.active : t.clickConnect}
                   </span>
