@@ -119,7 +119,7 @@ function InnerHeartContent() {
         </button>
         <div>
           <h1 className="text-2xl font-black uppercase tracking-tighter text-white">{t.title}</h1>
-          <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">{t.sub}</p>
+          <p className="text-[10px] text-emerald-700 font-black uppercase tracking-[0.3em]">{t.sub}</p>
         </div>
       </header>
 
@@ -138,8 +138,8 @@ function InnerHeartContent() {
                 <PenLine size={24} className="text-purple-400" />
               </div>
               <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-white leading-none">{t.letters}</p>
-                <p className="text-[7px] font-bold text-white/30 uppercase tracking-widest mt-1">{t.lettersSub}</p>
+                <p className="text-[11px] font-black uppercase text-violet-600 leading-none">{t.letters}</p>
+                <p className="text-[7px] font-bold text-violet-400 uppercase tracking-widest mt-1">{t.lettersSub}</p>
               </div>
             </button>
 
@@ -151,8 +151,8 @@ function InnerHeartContent() {
                 <Wind size={24} className="text-emerald-400" />
               </div>
               <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-white leading-none">{t.breath}</p>
-                <p className="text-[7px] font-bold text-white/30 uppercase tracking-widest mt-1">{t.breathSub}</p>
+                <p className="text-[11px] font-black uppercase text-emerald-700 leading-none">{t.breath}</p>
+                <p className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest mt-1">{t.breathSub}</p>
               </div>
             </button>
 
@@ -164,8 +164,8 @@ function InnerHeartContent() {
                 <Eye size={24} className="text-blue-400" />
               </div>
               <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-white leading-none">{t.vision}</p>
-                <p className="text-[7px] font-bold text-white/30 uppercase tracking-widest mt-1">{t.visionSub}</p>
+                <p className="text-[11px] font-black uppercase text-sky-600 leading-none">{t.vision}</p>
+                <p className="text-[7px] font-bold text-sky-400 uppercase tracking-widest mt-1">{t.visionSub}</p>
               </div>
             </button>
           </div>
