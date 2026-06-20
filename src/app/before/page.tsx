@@ -47,11 +47,6 @@ const CONTENT = {
         why: "Deep Recovery",
         timing: "Circadian Rhythm: Entering rest before 23:00 optimizes your hormonal balance and strengthens your Pulse Baseline for the next day"
       },
-      essentials: {
-        title: "Mesh Connectivity",
-        why: "Sovereign Link",
-        desc: "A 100% phone charge is your lifeline to the Sovereign Mesh and Circle of Love Connection is your primary safety protocol",
-        sync: "Sync Requirement: Verifying your Pulse baseline ensures the Pulse Guardian can accurately detect physiological stress and protect your heart"
       }
     }
   },
@@ -264,6 +259,16 @@ export default function BeforePhase() {
                   </p>
                 )}
                 {selectedWisdom?.sync && (
+                {selectedWisdom?.items && (
+                  <div className="space-y-3 border-t border-border/5 pt-4">
+                    {selectedWisdom.items.map((item: any, i: number) => (
+                      <div key={i} className="space-y-1">
+                        <p className="text-[10px] font-black text-primary uppercase tracking-widest">{item.name} {item.dose && <span className="text-muted-foreground">({item.dose})</span>}</p>
+                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider">{item.why}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
                   <p className="text-[11px] font-black text-amber-400/80 leading-relaxed uppercase tracking-widest border-t border-border/5 pt-4">
                     {selectedWisdom.sync}
                   </p>
