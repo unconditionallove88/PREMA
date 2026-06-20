@@ -24,6 +24,7 @@ import { LoveLetter } from '@/components/dashboard/LoveLetter';
 import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import SidePanel from "@/components/ui/SidePanel";
 
 /**
  * @fileOverview Inner Intention Page.
@@ -123,6 +124,11 @@ function InnerHeartContent() {
         </div>
       </header>
 
+<SidePanel
+  onOpenLoveLetters={() => setLetterOpen(true)}
+  onOpenBreath={() => handlePortal(() => router.push("/self-care"))}
+  onOpenVision={() => handlePortal(() => setVisionOpen(true))}
+/>
       <ScrollArea className="flex-1">
         <div className="flex flex-col items-center gap-12 max-w-xl mx-auto pb-40">
           
