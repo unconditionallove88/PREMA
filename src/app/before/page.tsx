@@ -99,7 +99,6 @@ const CONTENT = {
           { name: "Gleitmittel", why: "Reduziert Reibung und erhöht Komfort beim Sex" }
         ]
       }
-      }
     }
   }
 };
