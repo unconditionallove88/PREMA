@@ -174,15 +174,16 @@ function InnerHeartContent() {
               </div>
             </button>
           </div>
-
+        </div>
       </ScrollArea>
 
       <Dialog open={syncOpen} onOpenChange={setSyncOpen}>
         <DialogContent className="bg-card border-border/10 max-md p-0 rounded-[3rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-[0_0_80px_rgba(0,0,0,0.9)]">
           <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
-          <div className="flex-1 overflow-y-auto"></div>
-        </DialogContent><PulseSync onComplete={() => setSyncOpen(false)} />
-      
+          <div className="flex-1 overflow-y-auto">
+            <PulseSync onComplete={() => setSyncOpen(false)} />
+          </div>
+        </DialogContent>
       </Dialog>
 
       <Dialog open={holdersOpen} onOpenChange={setHoldersOpen}>

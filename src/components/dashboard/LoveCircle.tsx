@@ -261,8 +261,8 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
                 {/* BPM Display */}
                 {showBPM && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
-                    <span className="text-2xl font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 10px rgba(220, 38, 38, 0.8)" }}>{heartRate}</span>
-                    <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">BPM</span>
+                    <span className="text-2xl font-black text-black leading-none font-extrabold tracking-tighter tabular-nums" style={{ textShadow: "0 0 10px rgba(220, 38, 38, 0.8)" }}>{heartRate}</span>
+                    <span className="text-[8px] font-black text-black/80 uppercase tracking-widest">BPM</span>
                   </div>
                 )}
                 <Heart 
