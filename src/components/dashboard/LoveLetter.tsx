@@ -130,18 +130,18 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
         </div>
         <div className="space-y-3">
           <div className="flex items-center justify-center gap-3">
-            <h3 className="text-3xl font-black uppercase tracking-tighter text-white">{t.successTitle}</h3>
+            <h3 className="text-3xl font-black uppercase tracking-tighter text-foreground">{t.successTitle}</h3>
             <button onClick={handleVoice} disabled={isSpeaking} className="p-2 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all disabled:opacity-30">
               {isSpeaking ? <Loader2 className="w-4 h-4 animate-spin text-primary" /> : <Volume2 className="w-4 h-4 text-primary" />}
             </button>
           </div>
-          <p className="text-white/60 text-sm font-bold leading-tight max-xs mx-auto uppercase tracking-widest italic">
+          <p className="text-foreground/60 text-sm font-bold leading-tight max-xs mx-auto uppercase tracking-widest italic">
             "{t.affirmation}"
           </p>
         </div>
         <button 
           onClick={onComplete} 
-          className="mt-4 text-[10px] font-black uppercase text-secondary tracking-[0.4em] hover:text-white transition-colors"
+          className="mt-4 text-[10px] font-black uppercase text-secondary tracking-[0.4em] hover:text-foreground transition-colors"
         >
           {t.return}
         </button>
@@ -157,22 +157,22 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
             <PenLine size={24} className="text-secondary" />
           </div>
           <div>
-            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">{t.title}</h2>
-            <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">{t.sub}</p>
+            <h2 className="text-2xl font-black uppercase tracking-tighter text-foreground">{t.title}</h2>
+            <p className="text-[10px] text-foreground/40 font-bold uppercase tracking-widest">{t.sub}</p>
           </div>
         </div>
         <button 
           onClick={startDictation}
           className={cn(
             "p-4 rounded-2xl transition-all",
-            isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/5 text-white/20 hover:text-secondary"
+            isListening ? "bg-secondary text-black animate-pulse shadow-lg" : "bg-card/5 text-foreground/20 hover:text-secondary"
           )}
         >
           {isListening ? <MicOff size={24} /> : <Mic size={24} />}
         </button>
       </div>
 
-      <p className="text-xs text-white/40 mb-6 leading-relaxed font-bold uppercase tracking-widest">
+      <p className="text-xs text-foreground/40 mb-6 leading-relaxed font-bold uppercase tracking-widest">
         {t.prompt}
       </p>
 
@@ -180,7 +180,7 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder={isListening ? t.listening : t.placeholder}
-        className="w-full flex-1 p-6 bg-card/5 border-2 border-border/10 rounded-[2rem] focus:border-secondary outline-none text-base text-white placeholder:text-white/10 resize-none transition-all mb-8 font-bold"
+        className="w-full flex-1 p-6 bg-card/5 border-2 border-border/10 rounded-[2rem] focus:border-secondary outline-none text-base text-foreground placeholder:text-foreground/10 resize-none transition-all mb-8 font-bold"
       />
 
       <div className="space-y-4">
@@ -190,13 +190,13 @@ export function LoveLetter({ onComplete }: { onComplete?: () => void }) {
           className={cn(
             "w-full h-20 rounded-full font-black text-xl uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-4",
             !message.trim() || isSending 
-              ? "bg-card/5 text-white/10 border-2 border-border/5 cursor-not-allowed"
-              : "bg-primary text-white neon-glow active:scale-95"
+              ? "bg-card/5 text-foreground/10 border-2 border-border/5 cursor-not-allowed"
+              : "bg-primary text-foreground neon-glow active:scale-95"
           )}
         >
           {isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <>{t.button} <Send size={24} /></>}
         </button>
-        <p className="text-center text-[8px] font-black text-white/20 uppercase tracking-[0.4em]">{t.footer}</p>
+        <p className="text-center text-[8px] font-black text-foreground/20 uppercase tracking-[0.4em]">{t.footer}</p>
       </div>
     </div>
   );
