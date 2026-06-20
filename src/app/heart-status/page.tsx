@@ -126,7 +126,7 @@ function InnerHeartContent() {
       <ScrollArea className="flex-1">
         <div className="flex flex-col items-center gap-12 max-w-xl mx-auto pb-40">
           
-          <div className="w-full flex justify-center mt-8 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} /></div>
+          <div className="w-full flex justify-center mt-20 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} /></div>
 
           {/* Emotional Portals Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4">
