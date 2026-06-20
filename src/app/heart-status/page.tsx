@@ -79,7 +79,7 @@ function InnerHeartContent() {
   const t = {
     en: {
       title: "The Heart",
-      sub: "Inside the Ring",
+      sub: "Inside",
       letters: "Love Letters",
       lettersSub: "Future Self",
       breath: "Breath of Love",
@@ -92,7 +92,7 @@ function InnerHeartContent() {
     },
     de: {
       title: "Das Herz ",
-      sub: "Im Aura-Ring ",
+      sub: "Inside",
       letters: "Liebesbriefe ",
       lettersSub: "Zukünftiges Ich",
       breath: "Atem der Liebe",
