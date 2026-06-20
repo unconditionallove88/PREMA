@@ -11,10 +11,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 /**
- * @fileOverview Phase: Before (Preparation Protocol).
- * Updated: Detailed wisdom dialogs for Hydration, Nutrition, Rest, and Essentials.
- */
-
 const CONTENT = {
   en: {
     title: "Preparation", subtitle: "Radiate from within", header: "Ready to shine?",
@@ -23,7 +19,7 @@ const CONTENT = {
     hydrationAdvice: (liters: number) => `Based on your essence, drink ${liters} liters of water today Add electrolytes to maintain mineral balance`,
     nutritionAdvice: "Eat a solid balanced meal 3 hours before you head out Avoid heavy processed foods",
     restAdvice: "Prioritize restful sleep and be in bed before 23:00 to ensure your body recovers and stores energy",
-    essentialsAdvice: "Charge your phone to 100% Check in with your circle and sync your Pulse baseline",
+    essentialsAdvice: "Your complete harm reduction toolkit for safe preparation",
     testingAdvice: "Test your substances anonymously at our contract labs for absolute peace of mind",
     button: "I am prepared",
     testingBtn: "Book Anonymous Test",
@@ -40,13 +36,28 @@ const CONTENT = {
       nutrition: {
         title: "Physical Intention",
         why: "Steady Fuel",
-        desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain",
+        desc: "Eat a balanced meal of complex carbohydrates and lean protein 3 to 4 hours before departure This provides a slow-burn energy source for your muscles and brain"
       },
       rest: {
         title: "Nervous System Calibration",
         why: "Deep Recovery",
         timing: "Circadian Rhythm: Entering rest before 23:00 optimizes your hormonal balance and strengthens your Pulse Baseline for the next day"
       },
+      essentials: {
+        title: "Harm Reduction Essentials",
+        why: "Protection Protocol",
+        desc: "Your safety toolkit for mindful preparation and responsible use",
+        items: [
+          { name: "Phone (100% Charged)", why: "Lifeline to Sovereign Mesh and Circle of Love - your primary safety protocol" },
+          { name: "Single-Use Straws", why: "Nasal tissue is delicate Single-use straws prevent cross-contamination and infections Never share" },
+          { name: "Zinc Supplement", dose: "15-30mg", why: "Supports immune function and neurotransmitter balance" },
+          { name: "Magnesium Supplement", dose: "200-400mg", why: "Reduces muscle tension supports heart rhythm and aids recovery" },
+          { name: "Electrolytes", dose: "As needed", why: "Maintains hydration and mineral balance prevents dehydration strain" },
+          { name: "Disinfecting Wipes", why: "Clean surfaces before use to reduce infection risk" },
+          { name: "Credit-Card Sized Plates (2x)", why: "NEVER use banknotes phone screens or credit cards - they carry bacteria viruses and heavy metals Use dedicated clean surfaces" },
+          { name: "Condoms", why: "Protection during intimacy" },
+          { name: "Lubricant", why: "Reduces friction and enhances comfort during sex" }
+        ]
       }
     }
   },
@@ -57,7 +68,7 @@ const CONTENT = {
     hydrationAdvice: (liters: number) => `Basierend auf deinem Körpergewicht trink  ${liters} Liter Wasser Füge Elektrolyte hinzu`,
     nutritionAdvice: "Iss 3 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit Vermeide schwere Lebensmittel",
     restAdvice: "Priorisiere erholsamen Schlaf und sei vor 23:00 Uhr im Bett damit dein Körper regenerieren kann",
-    essentialsAdvice: "Lade dein Handy auf 100% Melde dich bei deinem Circle und kalibriere deine Pulse-Basis",
+    essentialsAdvice: "Dein vollständiges Harm-Reduction-Toolkit für sichere Vorbereitung",
     testingAdvice: "Teste deine Substanzen anonym in unseren Vertragslaboren für vollkommene Sicherheit",
     button: "Ich bin bereit",
     testingBtn: "Anonymen Test buchen",
@@ -68,41 +79,38 @@ const CONTENT = {
       hydration: {
         title: "Der Fluss des Lebens",
         why: "Körper & Blut",
-        desc: "Du bestehst zu 60% aus Wasser Hydrierung ist der Treibstoff für jede zelluläre Reaktion in deinem Körper Wasser hält das Blut flüssig und lässt es frei zirkulieren damit Nährstoffe dein Herz ohne Anstrengung erreichen",
-        kidneys: "Nierenschutz: Deine Nieren verarbeiten jede Substanz Wasser ist ihr Schutzschild und hilft Giftstoffe auszuspülen und das mineralische Gleichgewicht zu halten"
+        desc: "Du bestehst zu 60% aus Wasser Hydrierung ist der Treibstoff für jede zelluläre Reaktion in deinem Körper",
+        kidneys: "Nierenschutz: Deine Nieren verarbeiten jede Substanz Wasser ist ihr Schutzschild"
       },
       nutrition: {
         title: "Physische Resonanz",
         why: "Stabiler Treibstoff",
-        desc: "Iss 3 bis 4 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit aus komplexen Kohlenhydraten und Proteinen Dies bietet eine langsame Energiequelle für Muskeln und Gehirn",
-        energy: "Warum es zählt: Eine stabile Ernährung verhindert Blutzuckerschwankungen und hält deine physische Resonanz bei intensiven Sinneseindrücken stabil"
+        desc: "Iss 3 bis 4 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit aus komplexen Kohlenhydraten und Proteinen"
       },
       rest: {
         title: "Kalibrierung des Nervensystems",
-        why: "Tiefe Erholung ",
-        desc: "Erholung ermöglicht es deinem Nervensystem sich zu kalibrieren und speichert wichtiges Glykogen für deine Reise Schlaf bereitet deinen Geist auf eine erweiterte Resonanz vor",
-        timing: "Biorhythmus: Ruhe vor 23:00 Uhr optimiert deinen Hormonhaushalt und stärkt deine Pulse-Basis für den nächsten Tag"
+        why: "Tiefe Erholung",
+        timing: "Biorhythmus: Ruhe vor 23:00 Uhr optimiert deinen Hormonhaushalt"
       },
       essentials: {
         title: "Harm Reduction Essentials",
         why: "Schutzprotokoll",
         desc: "Dein Sicherheits-Toolkit für bewusste Vorbereitung",
         items: [
-          { name: "Handy (100% geladen)", why: "Lebensader zum Sovereign Mesh und Circle of Love - dein primäres Sicherheitsprotokoll" },
-          { name: "Einweg-Röhrchen", why: "Nasengewebe ist empfindlich Einweg-Röhrchen verhindern Kreuzkontamination und Infektionen Niemals teilen" },
+          { name: "Handy (100% geladen)", why: "Lebensader zum Sovereign Mesh und Circle of Love" },
+          { name: "Einweg-Röhrchen", why: "Nasengewebe ist empfindlich Einweg-Röhrchen verhindern Infektionen" },
           { name: "Zink-Supplement", dose: "15-30mg", why: "Unterstützt Immunfunktion und Neurotransmitter-Balance" },
-          { name: "Magnesium-Supplement", dose: "200-400mg", why: "Reduziert Muskelverspannungen unterstützt Herzrhythmus und Nervensystem-Erholung" },
-          { name: "Elektrolyte", dose: "Nach Bedarf", why: "Erhält Hydration und Mineralbalance verhindert dehydrierungsbedingte Belastung" },
-          { name: "Desinfektionstücher", why: "Oberflächen vor Gebrauch reinigen um Infektionsrisiko zu reduzieren" },
-          { name: "Kreditkarten-große Platten (2x)", why: "NIEMALS Geldscheine Handy-Bildschirme oder Kreditkarten verwenden - sie tragen Bakterien Viren und Schwermetalle Dedizierte saubere Oberflächen verwenden" },
+          { name: "Magnesium-Supplement", dose: "200-400mg", why: "Reduziert Muskelverspannungen unterstützt Herzrhythmus" },
+          { name: "Elektrolyte", dose: "Nach Bedarf", why: "Erhält Hydration und Mineralbalance" },
+          { name: "Desinfektionstücher", why: "Oberflächen vor Gebrauch reinigen" },
+          { name: "Kreditkarten-große Platten (2x)", why: "NIEMALS Geldscheine oder Handy-Bildschirme verwenden" },
           { name: "Kondome", why: "Schutz bei Intimität" },
-          { name: "Gleitmittel", why: "Reduziert Reibung und erhöht Komfort beim Sex" }
+          { name: "Gleitmittel", why: "Reduziert Reibung beim Sex" }
         ]
       }
     }
   }
 };
-
 export default function BeforePhase() {
   const router = useRouter();
   const { user, isUserLoading } = useUser();
