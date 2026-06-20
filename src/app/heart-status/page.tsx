@@ -126,7 +126,7 @@ function InnerHeartContent() {
       <ScrollArea className="flex-1">
         <div className="flex flex-col items-center gap-12 max-w-xl mx-auto pb-40">
           
-          <LoveCircle lang={lang} variant="map" heartRate={currentBPM} />
+          <div className="w-full max-w-xl"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} /></div>
 
           {/* Emotional Portals Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4">
@@ -175,8 +175,8 @@ function InnerHeartContent() {
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
             
             <div className="flex flex-col items-center gap-1 mb-6 relative z-10">
-              <span className="block text-[9px] font-black uppercase text-primary tracking-[0.4em]">{t.bioPulse}</span>
-              <span className="text-[7px] font-bold text-white/20 uppercase tracking-widest">{t.bioPulseSub}</span>
+              <span className="block text-[9px] font-black uppercase text-emerald-700 dark:text-white tracking-[0.4em]">{t.bioPulse}</span>
+              <span className="text-[7px] font-bold text-emerald-600 dark:text-white/30 uppercase tracking-widest">{t.bioPulseSub}</span>
             </div>
 
             <div className="relative mb-6">
@@ -201,7 +201,7 @@ function InnerHeartContent() {
             </div>
 
             <div className="flex items-end gap-2 relative z-10">
-              <span className="text-5xl font-black text-white leading-none tracking-tighter tabular-nums">{currentBPM}</span>
+              <span className="text-5xl font-black text-emerald-700 dark:text-white leading-none tracking-tighter tabular-nums">{currentBPM}</span>
               <span className="text-[9px] font-black text-primary mb-1 uppercase tracking-widest leading-none">BPM</span>
             </div>
           </div>
