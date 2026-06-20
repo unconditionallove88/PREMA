@@ -104,10 +104,7 @@ function InnerHeartContent() {
     }
   }[lang];
 
-  const handlePortal = (action: () => void) => {
-    playHeartbeat();
-    action();
-  };
+  const handlePortal = (action) => action();
 
   return (
     <div className="flex flex-col min-h-screen bg-card p-6 pb-32 font-headline overflow-x-hidden relative">
@@ -177,7 +174,7 @@ function InnerHeartContent() {
           </div>
 
           {/* Biometric Intention Circle */}
-          <div className="w-64 h-64 md:w-80 md:h-80 bg-transparent border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
+          <div id="bio-pulse-section" className="w-64 h-64 md:w-80 md:h-80 bg-transparent border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none rounded-full" />
             
             <div className="flex flex-col items-center gap-1 mb-6 relative z-10">
