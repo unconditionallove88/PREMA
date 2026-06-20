@@ -132,7 +132,7 @@ function InnerHeartContent() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4">
             <button 
               onClick={() => handlePortal(() => setLetterOpen(true))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-purple-500/30 transition-all group"
+              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-purple-500/30 transition-all group relative z-20"
             >
               <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
                 <PenLine size={24} className="text-purple-400" />
@@ -145,7 +145,7 @@ function InnerHeartContent() {
 
             <button 
               onClick={() => handlePortal(() => router.push('/self-care'))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-emerald-500/30 transition-all group"
+              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-emerald-500/30 transition-all group relative z-20"
             >
               <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
                 <Wind size={24} className="text-emerald-400" />
@@ -158,7 +158,7 @@ function InnerHeartContent() {
 
             <button 
               onClick={() => handlePortal(() => setVisionOpen(true))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-blue-500/30 transition-all group"
+              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-blue-500/30 transition-all group relative z-20"
             >
               <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
                 <Eye size={24} className="text-blue-400" />
@@ -171,8 +171,8 @@ function InnerHeartContent() {
           </div>
 
           {/* Biometric Intention Circle */}
-          <div className="w-64 h-64 md:w-80 md:h-80 bg-card/[0.02] border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
+          <div className="w-64 h-64 md:w-80 md:h-80 bg-transparent border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none rounded-full" />
             
             <div className="flex flex-col items-center gap-1 mb-6 relative z-10">
               <span className="block text-[9px] font-black uppercase text-emerald-700 dark:text-white tracking-[0.4em]">{t.bioPulse}</span>
