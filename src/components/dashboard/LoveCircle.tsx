@@ -100,7 +100,7 @@ const MOCK_FRIENDS = [
   { id: 'f3', name: 'MARINA', hr: 140, state: 'distress', msg: "Needs a hydration break", dist: "82m" },
 ];
 
-export default function LoveCircle({ lang = "en", variant = "dashboard", heartRate = 75 }: { lang?: string, variant?: "dashboard" | "map", heartRate?: number }) {
+export default function LoveCircle({ lang = "en", variant = "dashboard", heartRate = 75, showBPM = false }: { lang?: string, variant?: "dashboard" | "map", heartRate?: number, showBPM?: boolean }) {
   const router = useRouter();
   const [activeArchetype, setActiveArchetype] = useState(7);
   const [learningArchetype, setLearningArchetype] = useState<any>(null);
@@ -252,16 +252,23 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
 
             <div className="flex flex-col items-center text-center gap-2 relative z-10">
               <div 
-                className="w-20 h-20 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10 mb-1 transition-all"
+                className="w-20 h-20 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10 mb-1 transition-all relative"
                 style={{ 
                   animation: `heart-beat-inner ${pulseDuration} ease-in-out infinite`
                 }}
               >
                 {/* User's Central Heart - Radiant RED */}
+                {/* BPM Display */}
+                {showBPM && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
+                    <span className="text-2xl font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 10px rgba(220, 38, 38, 0.8)" }}>{heartRate}</span>
+                    <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">BPM</span>
+                  </div>
+                )}
                 <Heart 
                   size={48} 
                   fill="#DC2626" 
-                  className="text-foreground/20 transition-all duration-700" 
+                  className={cn("text-foreground/20 transition-all duration-700", showBPM && "opacity-30")} 
                   style={{ 
                     filter: 'blur(4px) drop-shadow(0 0 15px #DC2626)',
                     opacity: 0.8

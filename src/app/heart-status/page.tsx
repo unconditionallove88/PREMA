@@ -45,6 +45,7 @@ function InnerHeartContent() {
   const [syncOpen, setSyncOpen] = useState(false);
   const [letterOpen, setLetterOpen] = useState(false);
   const [visionOpen, setVisionOpen] = useState(false);
+  const [showBPM, setShowBPM] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -124,12 +125,13 @@ function InnerHeartContent() {
 <SidePanel
   onOpenLoveLetters={() => setLetterOpen(true)}
   onOpenBreath={() => handlePortal(() => router.push("/self-care"))}
-  onOpenVision={() => handlePortal(() => setVisionOpen(true))}
+  onOpenBioPulse={() => { setShowBPM(true); setTimeout(() => setShowBPM(false), 5000); }}
+            onOpenVision={() => handlePortal(() => setVisionOpen(true))}
 />
       <ScrollArea className="flex-1">
         <div className="flex flex-col items-center gap-12 max-w-xl mx-auto pb-40">
           
-          <div className="w-full flex justify-center mt-20 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} /></div>
+          <div className="w-full flex justify-center mt-20 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} showBPM={showBPM} /></div>
 
           {/* Emotional Portals Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4 md:hidden">
@@ -173,44 +175,6 @@ function InnerHeartContent() {
             </button>
           </div>
 
-          {/* Biometric Intention Circle */}
-          <div id="bio-pulse-section" className="w-64 h-64 md:w-80 md:h-80 bg-transparent border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none rounded-full" />
-            
-            <div className="flex flex-col items-center gap-1 mb-6 relative z-10">
-              <span className="block text-[9px] font-black uppercase text-emerald-700 dark:text-white tracking-[0.4em]">{t.bioPulse}</span>
-              <span className="text-[7px] font-bold text-emerald-600 dark:text-white/30 uppercase tracking-widest">{t.bioPulseSub}</span>
-            </div>
-
-            <div className="relative mb-6">
-               <div 
-                 className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-150"
-                 style={{ animation: `aura-pulse-outer ${pulseDuration} ease-in-out infinite` }}
-               />
-               <div 
-                 className="relative w-24 h-24 bg-card/60 rounded-full border-2 border-primary/30 flex items-center justify-center shadow-2xl backdrop-blur-md cursor-pointer active:scale-95 transition-all"
-                 onClick={() => setSyncOpen(true)}
-               >
-                 <Heart 
-                   size={48} 
-                   fill="currentColor" 
-                   className="text-primary transition-all"
-                   style={{ 
-                     animation: `heart-beat-inner ${pulseDuration} ease-in-out infinite`,
-                     filter: 'blur(6px) drop-shadow(0 0 12px hsl(var(--primary)))'
-                   }} 
-                 />
-               </div>
-            </div>
-
-            <div className="flex items-end gap-2 relative z-10">
-              <span className="text-5xl font-black text-emerald-700 dark:text-white leading-none tracking-tighter tabular-nums">{currentBPM}</span>
-              <span className="text-[9px] font-black text-primary mb-1 uppercase tracking-widest leading-none">BPM</span>
-            </div>
-          </div>
-
-          <p className="text-[12px] font-black text-white uppercase tracking-[0.5em] text-center shining-white">{t.footer}</p>
-        </div>
       </ScrollArea>
 
       <Dialog open={syncOpen} onOpenChange={setSyncOpen}>

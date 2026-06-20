@@ -6,15 +6,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { cn } from "@/lib/utils";
 
 type Props = {
+  onOpenBioPulse: () => void;
   onOpenLoveLetters: () => void;
   onOpenBreath: () => void;
   onOpenVision: () => void;
 };
 
-export default function SidePanel({ onOpenLoveLetters, onOpenBreath, onOpenVision }: Props) {
+export default function SidePanel({ onOpenLoveLetters, onOpenBreath, onOpenVision, onOpenBioPulse }: Props) {
   const items = [
     { id: "letters", Icon: PenLine, label: "Love Letters", onClick: onOpenLoveLetters, color: "text-violet-500" },
-    { id: "pulse", Icon: Activity, label: "Bio Pulse", onClick: () => { const el = document.getElementById("bio-pulse-section"); if (el) el.scrollIntoView({ behavior: "smooth" }); }, color: "text-emerald-500" },
+    { id: "pulse", Icon: Activity, label: "Bio Pulse", onClick: onOpenBioPulse, color: "text-emerald-500" },
     { id: "breath",  Icon: Wind,    label: "Breath of Love", onClick: onOpenBreath, color: "text-emerald-500" },
     { id: "vision",  Icon: Eye,     label: "Vision of Love", onClick: onOpenVision, color: "text-sky-500" },
   ];
