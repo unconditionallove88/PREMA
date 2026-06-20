@@ -98,10 +98,7 @@ const CONTENT = {
           { name: "Kondome", why: "Schutz bei Intimität" },
           { name: "Gleitmittel", why: "Reduziert Reibung und erhöht Komfort beim Sex" }
         ]
-        title: "Mesh Verbindung ",
-        why: "Souveräner Link ",
-        desc: "Ein zu 100% geladenes Handy ist deine Lebensader zum Sovereign Mesh und zum Circle of Love Verbindung ist dein wichtigstes Sicherheitsprotokoll ",
-        sync: "Sync-Pflicht: Die Kalibrierung deiner Pulse-Basis stellt sicher dass der Pulse Guardian physischen Stress genau erkennen und dein Herz schützen kann"
+      }
       }
     }
   }
