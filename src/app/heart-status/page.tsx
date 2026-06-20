@@ -171,7 +171,7 @@ function InnerHeartContent() {
           </div>
 
           {/* Biometric Intention Circle */}
-          <div className="w-64 h-64 md:w-80 md:h-80 bg-card/[0.02] border border-border/10 rounded-full p-10 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl group mx-4">
+          <div className="w-64 h-64 md:w-80 md:h-80 bg-card/[0.02] border border-border/10 rounded-full p-10 relative overflow-visible flex flex-col items-center justify-center shadow-2xl group mx-4">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
             
             <div className="flex flex-col items-center gap-1 mb-6 relative z-10">
