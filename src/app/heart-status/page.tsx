@@ -135,7 +135,7 @@ function InnerHeartContent() {
           <div className="w-full flex justify-center mt-20 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} /></div>
 
           {/* Emotional Portals Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4 md:hidden">
             <button 
               onClick={() => handlePortal(() => setLetterOpen(true))}
               className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-purple-500/30 transition-all group relative z-20"
