@@ -83,7 +83,21 @@ const CONTENT = {
         desc: "Erholung ermöglicht es deinem Nervensystem sich zu kalibrieren und speichert wichtiges Glykogen für deine Reise Schlaf bereitet deinen Geist auf eine erweiterte Resonanz vor",
         timing: "Biorhythmus: Ruhe vor 23:00 Uhr optimiert deinen Hormonhaushalt und stärkt deine Pulse-Basis für den nächsten Tag"
       },
-      Wesentliches: {
+      essentials: {
+        title: "Harm Reduction Essentials",
+        why: "Schutzprotokoll",
+        desc: "Dein Sicherheits-Toolkit für bewusste Vorbereitung",
+        items: [
+          { name: "Handy (100% geladen)", why: "Lebensader zum Sovereign Mesh und Circle of Love - dein primäres Sicherheitsprotokoll" },
+          { name: "Einweg-Röhrchen", why: "Nasengewebe ist empfindlich Einweg-Röhrchen verhindern Kreuzkontamination und Infektionen Niemals teilen" },
+          { name: "Zink-Supplement", dose: "15-30mg", why: "Unterstützt Immunfunktion und Neurotransmitter-Balance" },
+          { name: "Magnesium-Supplement", dose: "200-400mg", why: "Reduziert Muskelverspannungen unterstützt Herzrhythmus und Nervensystem-Erholung" },
+          { name: "Elektrolyte", dose: "Nach Bedarf", why: "Erhält Hydration und Mineralbalance verhindert dehydrierungsbedingte Belastung" },
+          { name: "Desinfektionstücher", why: "Oberflächen vor Gebrauch reinigen um Infektionsrisiko zu reduzieren" },
+          { name: "Kreditkarten-große Platten (2x)", why: "NIEMALS Geldscheine Handy-Bildschirme oder Kreditkarten verwenden - sie tragen Bakterien Viren und Schwermetalle Dedizierte saubere Oberflächen verwenden" },
+          { name: "Kondome", why: "Schutz bei Intimität" },
+          { name: "Gleitmittel", why: "Reduziert Reibung und erhöht Komfort beim Sex" }
+        ]
         title: "Mesh Verbindung ",
         why: "Souveräner Link ",
         desc: "Ein zu 100% geladenes Handy ist deine Lebensader zum Sovereign Mesh und zum Circle of Love Verbindung ist dein wichtigstes Sicherheitsprotokoll ",
