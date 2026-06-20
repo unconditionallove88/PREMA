@@ -118,7 +118,7 @@ function InnerHeartContent() {
           <ArrowLeft size={20} />
         </button>
         <div>
-          <h1 className="text-2xl font-black uppercase tracking-tighter text-white">{t.title}</h1>
+          <h1 className="text-2xl font-black uppercase tracking-tighter text-emerald-700 dark:text-white">{t.title}</h1>
           <p className="text-[10px] text-emerald-700 font-black uppercase tracking-[0.3em]">{t.sub}</p>
         </div>
       </header>
