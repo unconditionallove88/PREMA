@@ -12,6 +12,7 @@ import SessionCheckInPage from "@/app/session-check-in/page";
 import WelcomeBackPage from "@/app/welcome-back/page";
 import HeartStatusPage from "@/app/heart-status/page";
 import HeartCheckPage from "@/app/heart-check/page";
+import SupporterHub from "@/app/supporter/page";
 import BeforePage from "@/app/before/page";
 import DuringPage from "@/app/during/page";
 import RecoveryPage from "@/app/recovery/page";
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/welcome-back" component={WelcomeBackPage} />
       <Route path="/heart-status" component={HeartStatusPage} />
       <Route path="/heart-check" component={HeartCheckPage} />
+      <Route path="/supporter" component={SupporterHub} />
       <Route path="/before" component={BeforePage} />
       <Route path="/during" component={DuringPage} />
       <Route path="/recovery" component={RecoveryPage} />

@@ -87,7 +87,8 @@ export default function SessionCheckIn() {
           <Step7EssentialsCheck 
             onBack={prevStep}
             onComplete={() => {
-              setLocation('/dashboard');
+              localStorage.setItem('prema_session_phase', 'before');
+              setLocation('/supporter');
             }} 
           />
         )}

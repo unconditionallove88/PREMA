@@ -28,6 +28,9 @@ export default function DuringPhase() {
       const substanceNames = logs.map((l: any) => l.name).join(', ');
       setActiveIntake(substanceNames);
     }
+
+    // Mark session as active (During phase)
+    localStorage.setItem('prema_session_phase', 'during');
   }, []);
 
   const userDocRef = useMemoFirebase(() => {
@@ -78,7 +81,7 @@ export default function DuringPhase() {
   return (
     <main className="h-screen bg-card flex flex-col overflow-hidden font-headline">
       <header className="px-6 py-8 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
-        <button onClick={() => setLocation("/dashboard")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
+        <button onClick={() => setLocation("/supporter")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
         <div>
           <h1 className="text-xl font-black uppercase tracking-tighter">
             {t.title}

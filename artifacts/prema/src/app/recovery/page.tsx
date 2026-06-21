@@ -111,6 +111,9 @@ export default function RecoveryView() {
     const savedLang = (localStorage.getItem('prema_lang') || 'en').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
 
+    // Mark session as After phase
+    localStorage.setItem('prema_session_phase', 'after');
+
     const logs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
     setSessionLogs(logs);
     
@@ -254,7 +257,7 @@ export default function RecoveryView() {
 
       <footer className="fixed bottom-0 left-0 right-0 py-8 bg-card/95 backdrop-blur-xl border-t border-border/5 flex flex-col items-center justify-center px-6 z-50 gap-4 pb-safe">
         {isFinished && (
-          <button onClick={() => setLocation('/dashboard')} className="w-full max-w-sm py-6 bg-card text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
+          <button onClick={() => { localStorage.removeItem('prema_session_phase'); setLocation('/supporter'); }} className="w-full max-w-sm py-6 bg-card text-black rounded-full font-black uppercase text-lg tracking-[0.1em] active:scale-95 transition-all shadow-lg">{t.returnBtn}</button>
         )}
         <p className="text-[10px] font-black text-white uppercase tracking-[0.5em] shining-white">Created in harmony</p>
       </footer>
