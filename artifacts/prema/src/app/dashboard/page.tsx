@@ -21,15 +21,14 @@ import {
   X,
   Brain,
   Bell,
-  Sparkles
+  Sparkles,
+  BookOpen
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
 import { RadiatingThirdEye } from '@/components/ui/radiating-third-eye';
-import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
-import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
@@ -134,6 +133,7 @@ function DashboardContent() {
   const [coCreationOpen, setCoCreationOpen] = useState(false);
   const [smartOpen, setSmartOpen] = useState(false);
   const [loveChatOpen, setLoveChatOpen] = useState(false);
+  const [rhythmOpen, setRhythmOpen] = useState(false);
   const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
 
   const [emergencyPresenceOpen, setEmergencyPresenceOpen] = useState(false);
@@ -231,12 +231,6 @@ function DashboardContent() {
             </div>
           )}
 
-          {/* Status Pillar */}
-          <div className="space-y-4 max-w-2xl mx-auto">
-            <GuardianStatusBar status={guardianStatus} heartRate={simHeartRate} lang={lang} />
-            <PulseGuardianBanner lang={lang} variant="banner" onOpenGuide={() => setGuideOpen(true)} />
-          </div>
-
           <div className="max-w-2xl mx-auto">
             <SmartAlerts userGoals={firestoreProfile?.goals || []} lang={lang} />
           </div>
@@ -264,22 +258,6 @@ function DashboardContent() {
             <p className="text-sm font-bold uppercase tracking-widest text-primary px-10 italic max-w-sm mx-auto opacity-80">"{affirmation}"</p>
           </div>
 
-          {/* Main Action Portals: Constellation Overhaul */}
-          <div className="flex flex-col items-center gap-16">
-            
-            {/* The Supporter Portal (Primary Interaction) */}
-            <div className="flex flex-col items-center gap-6">
-              <button 
-                onClick={() => { playHeartbeat(); setSupporterOpen(true); }}
-                className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-card border-4 border-primary/20 flex flex-col items-center justify-center group hover:bg-card/90 transition-all shadow-soft relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-40" />
-                <SupporterIcon size={80} className="text-emerald-500 mb-4 relative z-10 group-hover:scale-110 transition-transform duration-500" />
-                <span className="text-xl font-semibold uppercase tracking-widest text-foreground relative z-10">{t.supporterMain}</span>
-              </button>
-            </div>
-
-          </div>
 
           {/* Settings / Lab Calibration */}
           <div className="pt-20 border-t border-border max-w-2xl mx-auto">
@@ -307,14 +285,15 @@ function DashboardContent() {
         </div>
       </ScrollArea>
 
-      {/* Left Tool Panel — Access Guidance, PI, Supporter, You Pulse */}
+      {/* Left Tool Panel — Access Guidance, Guide, PI, Supporter, You Pulse */}
       <div className="fixed left-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-40">
         <TooltipProvider>
           {[
-            { label: 'Access Guidance', icon: <Sparkles size={19} />,        color: 'text-primary',      action: () => setLocation('/during') },
-            { label: 'PI',              icon: <Brain size={19} />,            color: 'text-violet-400',   action: () => { playHeartbeat(); setGuideOpen(true); } },
-            { label: 'Supporter',       icon: <SupporterIcon size={19} />,   color: 'text-emerald-500',  action: () => { playHeartbeat(); setSupporterOpen(true); } },
-            { label: 'You Pulse',       icon: <Bell size={19} />,             color: 'text-secondary',    action: () => setSmartOpen(true) },
+            { label: 'Access Guidance', icon: <Sparkles size={19} />,       color: 'text-primary',     action: () => setLocation('/during') },
+            { label: 'Guide',           icon: <BookOpen size={19} />,        color: 'text-primary',     action: () => { playHeartbeat(); setGuideOpen(true); } },
+            { label: 'PI',              icon: <Brain size={19} />,           color: 'text-violet-400',  action: () => { playHeartbeat(); setRhythmOpen(true); } },
+            { label: 'Supporter',       icon: <SupporterIcon size={19} />,  color: 'text-emerald-500', action: () => { playHeartbeat(); setSupporterOpen(true); } },
+            { label: 'You Pulse',       icon: <Bell size={19} />,            color: 'text-secondary',   action: () => setSmartOpen(true) },
           ].map((item) => (
             <Tooltip key={item.label}>
               <TooltipTrigger asChild>
@@ -367,7 +346,7 @@ function DashboardContent() {
         </TooltipProvider>
       </div>
 
-      <PulseGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
+      {guideOpen && <PulseGuide lang={lang} forceOpen onDismiss={() => setGuideOpen(false)} />}
 
       {/* Simplified, Scrollable Anchor Dialog */}
       <Dialog open={anchorOpen} onOpenChange={setAnchorOpen}>
@@ -447,6 +426,60 @@ function DashboardContent() {
       {emergencyPresenceOpen && (
         <HeartBreath lang={lang} onClose={() => setEmergencyPresenceOpen(false)} />
       )}
+
+      <Dialog open={rhythmOpen} onOpenChange={setRhythmOpen}>
+        <DialogContent className="bg-card border-border max-w-md p-0 rounded-[2.5rem] overflow-hidden shadow-soft">
+          <DialogTitle className="sr-only">Your Rhythm</DialogTitle>
+          <div className="p-10 flex flex-col items-center text-center gap-6 font-headline">
+            <div className="w-16 h-16 rounded-[1.5rem] bg-violet-500/10 border border-violet-400/20 flex items-center justify-center shadow-xl">
+              <Brain size={32} className="text-violet-400 animate-pulse" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-2xl font-black uppercase tracking-tighter text-white shining-white">
+                {lang === 'de' ? 'Your Rhythm' : 'Your Rhythm'}
+              </h2>
+              <p className="text-[9px] font-black text-violet-400 uppercase tracking-[0.5em]">
+                {lang === 'de' ? 'Integrierte Intelligenz' : 'Integrated Intelligence Engine'}
+              </p>
+            </div>
+            <div className="w-full space-y-5 text-left">
+              <div className="p-5 bg-card/5 rounded-[1.5rem] border border-border/10 space-y-2">
+                <p className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">
+                  {lang === 'de' ? 'Was es ist' : 'What it is'}
+                </p>
+                <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+                  {lang === 'de'
+                    ? 'Your Rhythm ist die zentrale Intelligenz von Prema — sie aggregiert Daten aus allen Tools um deine Session kohärent und sicher zu halten'
+                    : 'Your Rhythm is the central intelligence of Prema — it continuously aggregates data from all your tools to keep your session coherent and aligned'}
+                </p>
+              </div>
+              <div className="p-5 bg-card/5 rounded-[1.5rem] border border-border/10 space-y-2">
+                <p className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">
+                  {lang === 'de' ? 'Wie es funktioniert' : 'How it works'}
+                </p>
+                <p className="text-sm font-bold text-white/80 leading-relaxed uppercase tracking-widest">
+                  {lang === 'de'
+                    ? 'Es liest deine Herzfrequenz, Substanzlogs, Profil und Sitzungskontext um Schwellenwerte, Pflegeprotokolle und Tool-Antworten anzupassen'
+                    : 'It reads your heart rate, substance logs, profile, and session context to calibrate thresholds, care protocols, and tool responses in real time'}
+                </p>
+              </div>
+              <div className="p-5 bg-violet-500/10 rounded-[1.5rem] border border-violet-400/20 space-y-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles size={10} className="text-violet-400" />
+                  <p className="text-[9px] font-black text-violet-400 uppercase tracking-[0.3em]">
+                    {lang === 'de' ? 'Kern-Prinzip' : 'Core principle'}
+                  </p>
+                </div>
+                <p className="text-xs font-bold text-white/90 leading-relaxed uppercase tracking-widest italic">
+                  "{lang === 'de'
+                    ? 'Your Rhythm hält stets das vollständige Bild deiner Session — es ist die unsichtbare Präsenz die dich hält'
+                    : 'Your Rhythm holds the full picture of your session at all times — it is the invisible presence that holds you'}"
+                </p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
