@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "S0qUCR68gve8S_wnFhhb1"
+uri = "file://artifacts/prema-mobile/assets/images/icon.png"
+type = "image"
+title = "prema_icon"

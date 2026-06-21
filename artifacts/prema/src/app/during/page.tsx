@@ -1,133 +1,147 @@
-
-
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { useUser, useFirestore, useDoc, useMemoFirebase } from "@/firebase";
-import { doc } from "firebase/firestore";
-import { AiSafetyChat } from "@/components/chat/AiSafetyChat";
-import { ArrowLeft, Loader2, Heart, Sparkles, Wind } from "lucide-react";
+import { ArrowLeft, Heart, Shield, Sparkles, Wind, Eye, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { playHeartbeat } from "@/lib/intention";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
+const GUIDANCE = [
+  {
+    icon: <Shield size={18} />,
+    title: "Start slow",
+    body: "Begin with a small amount. Wait at least 90 minutes before considering more. Your body will tell you what it needs.",
+    color: "text-primary",
+    bg: "bg-primary/5 border-primary/15",
+  },
+  {
+    icon: <Wind size={18} />,
+    title: "Stay hydrated",
+    body: "Sip water steadily — about 500 ml per hour if dancing. Rest in cool spaces every 30–45 minutes.",
+    color: "text-sky-400",
+    bg: "bg-sky-400/5 border-sky-400/15",
+  },
+  {
+    icon: <Eye size={18} />,
+    title: "Stay aware",
+    body: "Check in with yourself every hour. Notice your body, your breath, your feelings. You are your own best guardian.",
+    color: "text-violet-400",
+    bg: "bg-violet-400/5 border-violet-400/15",
+  },
+  {
+    icon: <Heart size={18} />,
+    title: "Stay connected",
+    body: "Keep your safety network close. If something feels off — for you or someone else — reach out immediately.",
+    color: "text-rose-400",
+    bg: "bg-rose-400/5 border-rose-400/15",
+  },
+  {
+    icon: <Leaf size={18} />,
+    title: "Trust the flow",
+    body: "Surrender to the experience with care. Resistance amplifies intensity. Breathe, ground, return to intention.",
+    color: "text-emerald-400",
+    bg: "bg-emerald-400/5 border-emerald-400/15",
+  },
+];
 
 export default function DuringPhase() {
   const [, setLocation] = useLocation();
-  const { user, isUserLoading } = useUser();
-  const firestore = useFirestore();
   const [lang, setLang] = useState<'en' | 'de'>('en');
-  const [activeIntake, setActiveIntake] = useState<string>("");
   const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
-
-    const logs = JSON.parse(localStorage.getItem('prema_logs') || '[]');
-    if (logs.length > 0) {
-      const substanceNames = logs.map((l: any) => l.name).join(', ');
-      setActiveIntake(substanceNames);
-    }
-
-    // Mark session as active (During phase)
     localStorage.setItem('prema_session_phase', 'during');
+    setTimeout(() => setVisible(true), 120);
   }, []);
 
-  const userDocRef = useMemoFirebase(() => {
-    if (!firestore || !user?.uid) return null;
-    return doc(firestore, 'users', user.uid);
-  }, [firestore, user?.uid]);
-
-  const { data: profile, isLoading: isProfileLoading } = useDoc(userDocRef);
-
-  if (!mounted || isUserLoading || isProfileLoading) {
-    return (
-      <div className="min-h-screen bg-card flex flex-col items-center justify-center gap-8">
-        <div className="relative flex items-center justify-center">
-          <div className="absolute inset-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full" />
-          <Heart size={64} fill="hsl(var(--primary))" className="relative z-10 animate-pulse-heart text-primary" style={{ filter: 'blur(12px)' }} />
-        </div>
-        <Loader2 className="animate-spin text-primary/20" />
-      </div>
-    );
-  }
-
-  const t = {
-    en: {
-      title: "Safety Advisor",
-      phase: "Phase: During",
-      affirmation: "I love you",
-      ritualTitle: "Breath of Love",
-      ritualSub: "Honoring my state",
-      ritualBtn: "Open Ritual"
-    },
-    de: {
-      title: "Sicherheits-Berater",
-      phase: "Phase: Währenddessen",
-      affirmation: "Ich liebe dich",
-      ritualTitle: "Atem der Liebe",
-      ritualSub: "Meinen Zustand achtend",
-      ritualBtn: "Ritual öffnen"
-    }
-  }[lang] || {
-    title: "Safety Advisor",
-    phase: "Phase: During",
-    affirmation: "I love you",
-    ritualTitle: "Breath of Love",
-    ritualSub: "Honoring my state",
-    ritualBtn: "Open Ritual"
-  };
+  if (!mounted) return null;
 
   return (
-    <main className="h-screen bg-card flex flex-col overflow-hidden font-headline">
-      <header className="px-6 py-8 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
-        <button onClick={() => setLocation("/supporter")} className="p-3 bg-card/5 rounded-full border border-border/10 hover:border-primary transition-all"><ArrowLeft className="w-5 h-5 text-white/40" /></button>
+    <main className="h-screen bg-background text-foreground flex flex-col overflow-hidden font-headline">
+      {/* Header */}
+      <header className="px-5 py-4 border-b border-border/40 bg-card/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
+        <button
+          onClick={() => setLocation('/supporter')}
+          className="p-2 rounded-full border border-border bg-card hover:border-primary transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 text-muted-foreground" />
+        </button>
         <div>
-          <h1 className="text-xl font-black uppercase tracking-tighter">
-            {t.title}
-          </h1>
-          <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">
-            {t.phase}
+          <p className="text-[9px] font-medium uppercase tracking-[0.5em] text-primary/60">
+            {lang === 'de' ? 'Während der Session' : 'During your session'}
           </p>
+          <h1 className="text-sm font-semibold tracking-tight text-foreground">
+            {lang === 'de' ? 'Zugangs-Leitfaden' : 'Access Guidance'}
+          </h1>
         </div>
       </header>
 
-      {/* Radiant Affirmation Pillar */}
-      <div className="bg-primary/10 border-b border-primary/20 py-5 px-10 text-center animate-in fade-in duration-1000 shrink-0">
-        <p className="text-[13px] font-black uppercase tracking-[0.05em] text-primary leading-tight max-w-[340px] mx-auto italic">
-          "{t.affirmation}"
+      {/* Soft affirmation */}
+      <div className="py-2.5 px-6 bg-primary/5 border-b border-primary/10 text-center shrink-0">
+        <p className="text-[9px] font-medium uppercase tracking-[0.45em] text-primary/60">
+          {lang === 'de' ? '"Du bist gehalten"' : '"You are held"'}
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0">
-        <ScrollArea className="flex-1">
-          <div className="p-6 space-y-6 max-w-2xl mx-auto">
-            {/* Breath of Love Advice Banner */}
-            <div className="bg-primary/5 border-2 border-primary/20 rounded-[2rem] p-6 flex flex-col gap-4 animate-in slide-in-from-top-2 duration-700">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
-                  <Wind className="text-primary" size={24} />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg font-black uppercase tracking-tight">{t.ritualTitle}</h3>
-                  <p className="text-[9px] font-black uppercase tracking-widest text-primary/60">{t.ritualSub}</p>
-                </div>
-              </div>
-              <button 
-                onClick={() => { playHeartbeat(); setLocation('/self-care'); }}
-                className="w-full py-4 bg-primary text-white rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg active:scale-95 transition-all"
-              >
-                {t.ritualBtn}
-              </button>
-            </div>
+      {/* Radiant orb */}
+      <div className={cn(
+        'flex flex-col items-center pt-8 pb-4 shrink-0 transition-all duration-700',
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
+      )}>
+        <div className="relative flex items-center justify-center w-24 h-24">
+          <div className="absolute inset-0 rounded-full bg-primary/10 blur-2xl animate-pulse" />
+          <div className="absolute inset-2 rounded-full bg-primary/8 blur-xl" />
+          <div className="relative z-10 w-16 h-16 rounded-full bg-card border border-primary/20 flex items-center justify-center shadow-soft">
+            <Sparkles size={26} className="text-primary" />
+          </div>
+        </div>
+        <h2 className="mt-4 text-xl font-semibold tracking-tight text-foreground text-center">
+          {lang === 'de' ? 'Reise mit Bewusstsein' : 'Journey with awareness'}
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground/60 font-light text-center max-w-[220px]">
+          {lang === 'de'
+            ? 'Fünf Prinzipien für deinen Weg'
+            : 'Five principles to carry with you'}
+        </p>
+      </div>
 
-            {/* Chat section */}
-            <div className="h-[500px] border border-border/5 rounded-[2rem] overflow-hidden bg-card/40">
-              <AiSafetyChat userProfile={profile} currentIntake={activeIntake} />
+      {/* Guidance cards */}
+      <div className="flex-1 overflow-y-auto px-5 pb-32 space-y-3">
+        {GUIDANCE.map((g, i) => (
+          <div
+            key={i}
+            className={cn(
+              'rounded-2xl border px-4 py-3.5 flex items-start gap-3 transition-all duration-500',
+              g.bg,
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
+            )}
+            style={{ transitionDelay: `${140 + i * 80}ms` }}
+          >
+            <span className={cn('mt-0.5 shrink-0', g.color)}>{g.icon}</span>
+            <div>
+              <p className={cn('text-[11px] font-semibold tracking-wide uppercase mb-0.5', g.color)}>
+                {g.title}
+              </p>
+              <p className="text-xs text-foreground/60 font-light leading-relaxed">{g.body}</p>
             </div>
           </div>
-        </ScrollArea>
+        ))}
       </div>
+
+      {/* Enter Dashboard CTA */}
+      <footer className="fixed bottom-0 left-0 right-0 px-6 py-5 bg-card/95 backdrop-blur-xl border-t border-border z-40 pb-safe">
+        <button
+          onClick={() => {
+            playHeartbeat();
+            setLocation('/dashboard');
+          }}
+          className="w-full h-14 bg-primary text-primary-foreground rounded-2xl font-semibold text-sm tracking-wide transition-all active:scale-95 shadow-soft"
+        >
+          {lang === 'de' ? 'Den Kreis betreten' : 'Enter the Circle'}
+        </button>
+      </footer>
     </main>
   );
 }

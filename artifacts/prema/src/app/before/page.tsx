@@ -63,8 +63,8 @@ const CONTENT = {
       done: "Nutrition confirmed",
     },
     rest: {
-      title: "Nervous System Calibration",
-      sub: "Deep recovery protocol",
+      title: "Nervous System Support",
+      sub: "Nervous system support",
       advice: [
         "Prioritise restful sleep the night before",
         "Aim to be in bed before 23:00",
@@ -137,8 +137,8 @@ const CONTENT = {
       done: "Ernährung bestätigt",
     },
     rest: {
-      title: "Kalibrierung des Nervensystems",
-      sub: "Tiefes Erholungsprotokoll",
+      title: "Nervensystem-Unterstützung",
+      sub: "Nervensystem-Unterstützung",
       advice: [
         "Priorisiere erholsamen Schlaf in der Nacht zuvor",
         "Sei vor 23:00 Uhr im Bett",
@@ -552,6 +552,8 @@ export default function BeforePhase() {
   }, [activeSection]);
 
   const allComplete = SECTION_ORDER.every((s) => completed[s]);
+  // Show "I am prepared" as soon as user reaches the final Pulse Sync step
+  const showPreparedButton = allComplete || activeSection === 'sync';
 
   if (!mounted || isUserLoading || isProfileLoading) {
     return (
@@ -718,8 +720,8 @@ export default function BeforePhase() {
         </ScrollArea>
       </div>
 
-      {/* "I am prepared" — only after ALL 5 sections complete */}
-      {allComplete && (
+      {/* "I am prepared" — visible on Pulse Sync step or when all complete */}
+      {showPreparedButton && (
         <footer className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-card/95 backdrop-blur-xl border-t border-primary/20 z-40 pb-safe animate-in slide-in-from-bottom duration-500">
           <div className="flex items-center gap-3 mb-3 justify-center">
             <CheckCircle2 size={16} className="text-primary" />
@@ -730,9 +732,8 @@ export default function BeforePhase() {
           <button
             onClick={() => {
               playHeartbeat();
-              // Mark session as prepared, During becomes center in Supporter
               localStorage.setItem('prema_session_phase', 'during');
-              setLocation('/supporter');
+              setLocation('/during');
             }}
             className="w-full h-14 bg-primary text-primary-foreground rounded-2xl font-black uppercase text-sm tracking-widest active:scale-95 transition-all shadow-soft"
           >

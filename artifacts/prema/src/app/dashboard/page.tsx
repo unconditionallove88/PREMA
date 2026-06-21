@@ -20,6 +20,7 @@ import {
   Navigation,
   X
 } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
@@ -129,7 +130,6 @@ function DashboardContent() {
   const [coCreationOpen, setCoCreationOpen] = useState(false);
   const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
 
-  const [showLoveChatOptions, setShowLoveChatOptions] = useState(false);
   const [emergencyPresenceOpen, setEmergencyPresenceOpen] = useState(false);
   const [familyDistressActive, setFamilyDistressActive] = useState(false);
 
@@ -273,52 +273,6 @@ function DashboardContent() {
               </button>
             </div>
 
-            {/* Constellation Toolkit: Circular Portal Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 w-full max-w-sm sm:max-w-2xl px-4">
-              <Link href="/map" className="w-full aspect-square rounded-full bg-card border-4 border-border flex flex-col items-center justify-center gap-2 hover:border-primary transition-all group shadow-soft">
-                <RadiatingThirdEye size={32} color="#F5B38B" />
-                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Radar</span>
-              </Link>
-              <button onClick={() => setLabOpen(true)} className="w-full aspect-square rounded-full bg-card border-4 border-primary/30 flex flex-col items-center justify-center gap-2 hover:border-primary transition-all group shadow-soft">
-                <Microscope size={32} className="text-primary" />
-                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Lab</span>
-              </button>
-              <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-card border-4 border-[hsl(var(--primary))]/20 flex flex-col items-center justify-center gap-2 hover:border-[hsl(var(--primary))] transition-all group shadow-soft">
-                <Sprout size={32} className="text-primary" />
-                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Voice</span>
-              </button>
-            </div>
-
-            {/* Love Chat Portal (Social Constellation) */}
-            <div className="flex flex-col items-center gap-6 w-full">
-              {!showLoveChatOptions ? (
-                <button 
-                  onClick={() => { playHeartbeat(); setShowLoveChatOptions(true); }}
-                  className="w-44 h-44 rounded-full bg-primary/20 border-4 border-primary/40 flex flex-col items-center justify-center group hover:bg-primary/30 transition-all shadow-[0_0_50px_rgba(16,185,129,0.2)]"
-                >
-                  <MessageCircleHeart size={48} className="text-primary mb-2 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-black uppercase tracking-widest text-primary">{t.loveChat}</span>
-                </button>
-              ) : (
-                <div className="flex gap-8 animate-in zoom-in-95 duration-500">
-                  <button 
-                    onClick={() => setLocation('/heart-status?chat=holders')}
-                    className="w-36 h-36 rounded-full bg-card border-4 border-[hsl(var(--primary))] flex flex-col items-center justify-center group hover:bg-[hsl(var(--primary))]/10 transition-all shadow-soft"
-                  >
-                    <Users2 size={36} className="text-primary mb-2" />
-                    <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">{t.holders}</span>
-                  </button>
-                  <button 
-                    onClick={() => setLocation('/heart-status?chat=spectators')}
-                    className="w-36 h-36 rounded-full bg-card border-4 border-yellow-400 flex flex-col items-center justify-center group hover:bg-yellow-500/10 transition-all shadow-soft"
-                  >
-                    <Users2 size={36} className="text-yellow-500 mb-2" />
-                    <span className="text-[10px] font-semibold uppercase tracking-widest text-yellow-500">{t.spectators}</span>
-                  </button>
-                  <button onClick={() => setShowLoveChatOptions(false)} className="self-center p-4 bg-card rounded-full border border-border text-muted-foreground hover:text-foreground transition-colors"><ArrowLeft size={20} /></button>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Settings / Lab Calibration */}
@@ -346,6 +300,36 @@ function DashboardContent() {
           </div>
         </div>
       </ScrollArea>
+
+      {/* Right Tool Panel — bottom-to-top: You See, You Speak, You Take, You Create */}
+      <div className="fixed right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-40">
+        <TooltipProvider>
+          {[
+            { label: 'You Create', icon: <Sprout size={19} />, color: 'text-primary', action: () => { playHeartbeat(); setCoCreationOpen(true); } },
+            { label: 'You Take',   icon: <Microscope size={19} />, color: 'text-primary', action: () => setLabOpen(true) },
+            { label: 'You Speak',  icon: <MessageCircleHeart size={19} />, color: 'text-primary', action: () => setLocation('/heart-status') },
+            { label: 'You See',    icon: <RadiatingThirdEye size={19} color="currentColor" />, color: 'text-primary', action: () => setLocation('/map') },
+          ].map((item) => (
+            <Tooltip key={item.label}>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={item.action}
+                  aria-label={item.label}
+                  className={cn(
+                    'w-11 h-11 rounded-xl bg-card/80 border border-border/40 flex items-center justify-center shadow-soft transition-all hover:-translate-x-1 active:scale-95 backdrop-blur-sm',
+                    item.color,
+                  )}
+                >
+                  {item.icon}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="left">
+                <span className="text-[10px] font-semibold uppercase tracking-widest">{item.label}</span>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </TooltipProvider>
+      </div>
 
       <PulseGuide lang={lang} forceOpen={guideOpen} onDismiss={() => setGuideOpen(false)} />
 
