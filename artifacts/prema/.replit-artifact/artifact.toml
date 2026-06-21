@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Prema"
+version = "1.0.0"
+id = "artifacts/prema"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19793
+
+[services.development]
+run = "pnpm --filter @workspace/prema run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/prema", "run", "build" ]
+publicDir = "artifacts/prema/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19793"
+BASE_PATH = "/"

@@ -1,0 +1,65 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "guide-radar",
+      "description": "High-fidelity mesh radar screen",
+      "imageUrl": "https://picsum.photos/seed/radarview/800/600",
+      "imageHint": "digital radar"
+    },
+    {
+      "id": "guide-lab",
+      "description": "Substance laboratory entry screen",
+      "imageUrl": "https://picsum.photos/seed/labview/800/600",
+      "imageHint": "medical laboratory"
+    },
+    {
+      "id": "guide-sync",
+      "description": "Smartwatch pulse synchronization",
+      "imageUrl": "https://picsum.photos/seed/syncview/800/600",
+      "imageHint": "smartwatch pulse"
+    },
+    {
+      "id": "guide-letters",
+      "description": "Sealed love letter envelope",
+      "imageUrl": "https://picsum.photos/seed/letterview/800/600",
+      "imageHint": "sealed letter"
+    },
+    {
+      "id": "guide-supporter",
+      "description": "Sentient AI guardian presence",
+      "imageUrl": "https://picsum.photos/seed/supportview/800/600",
+      "imageHint": "guardian spirit"
+    },
+    {
+      "id": "guide-vision",
+      "description": "Abstract harmony and light grounding",
+      "imageUrl": "https://picsum.photos/seed/visionview/800/600",
+      "imageHint": "spiritual harmony"
+    },
+    {
+      "id": "love-mother",
+      "description": "Motherly love and care",
+      "imageUrl": "https://picsum.photos/seed/lovemother/800/1200",
+      "imageHint": "mother care"
+    },
+    {
+      "id": "love-brother",
+      "description": "Brotherly bond and fraternity",
+      "imageUrl": "https://picsum.photos/seed/lovebrother/800/1200",
+      "imageHint": "sibling bond"
+    },
+    {
+      "id": "love-unconditional",
+      "description": "Unconditional love heart",
+      "imageUrl": "https://picsum.photos/seed/loveheart/800/1200",
+      "imageHint": "unconditional heart"
+    },
+    {
+      "id": "love-humanity",
+      "description": "Humanity unity and respect",
+      "imageUrl": "https://picsum.photos/seed/humanityunity/800/1200",
+      "imageHint": "humanity unity"
+    }
+  ]
+}

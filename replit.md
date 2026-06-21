@@ -1,44 +1,61 @@
-# [Project name]
+# Prema
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A Firebase-backed harm reduction app for festival communities — helps users prepare safely, track their session, and access care resources.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/prema run dev` — run the Prema web app (Vite)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite (migrated from Next.js)
+- Routing: wouter (replaces next/navigation)
+- DB/Auth: Firebase (Firestore + Firebase Auth)
+- Styling: Tailwind v4 with custom CSS vars (`@theme inline` block)
+- Build: Vite
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/prema/src/app/` — all page components (one per route)
+- `artifacts/prema/src/components/` — shared UI components
+- `artifacts/prema/src/firebase/` — Firebase config and hooks
+- `artifacts/prema/src/ai/flows/` — AI flow stubs (browser-safe; real genkit flows run server-side only)
+- `artifacts/prema/src/index.css` — Tailwind v4 theme with all Prema CSS custom properties
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- **Next.js → Vite migration**: All `next/navigation`, `next/link`, `useRouter()` patterns replaced with wouter (`useLocation`, `Link`). `"use client"` directives removed.
+- **Genkit AI stubs**: `src/ai/` flows use Node.js-only genkit packages (server-side). These are replaced with browser-safe stubs that return placeholder data, preserving type signatures for components that import them.
+- **Tailwind v3 → v4**: Source used `@tailwind base/components/utilities` (v3). Rewritten to `@import "tailwindcss"` + `@theme inline {}` block (v4).
+- **Firebase hardcoded config**: Firebase API keys are embedded in `src/firebase/config.ts` — no env vars needed for development.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Landing page** — glowing orb entry with language picker (EN/DE)
+- **Auth** — Firebase email/password auth with light/dark theme toggle
+- **Onboarding** — multi-step profile setup
+- **Dashboard** — personalized harm reduction hub with affirmations
+- **Session check-in** — intention setting before a festival session
+- **Before / During / Recovery** — phase-specific guidance
+- **Heart Check / Heart Status** — vitals and wellness monitoring
+- **Safety Network** — emergency contacts
+- **Map** — venue map with care locations
+- **Lab / Laboratory Test** — anonymous substance testing booking
+- **Awareness / Support Console** — staff care hub
+- **Profile, Self-care** — personal settings and wellbeing tools
+
+## Gotchas
+
+- AI flows in `src/ai/` are browser-safe stubs. Do NOT import `genkit` or `@genkit-ai/*` packages into the frontend bundle — they pull in Node.js-only modules (`events`, `path`, `http`, etc.).
+- The `map/page.自由.tsx` file exists (Unicode filename from source) — it is ignored by the router.
+- Firebase auth guards redirect unauthenticated users to `/auth` on protected pages.
 
 ## User preferences
 
 _Populate as you build — explicit user instructions worth remembering across sessions._
-
-## Gotchas
-
-_Populate as you build — sharp edges, "always run X before Y" rules._
 
 ## Pointers
 

@@ -1,0 +1,28 @@
+{
+  "placeholderImages": [
+    {
+      "id": "love-mother",
+      "description": "Motherly love and care",
+      "imageUrl": "https://picsum.photos/seed/lovemother/800/1200",
+      "imageHint": "mother care"
+    },
+    {
+      "id": "love-brother",
+      "description": "Brotherly bond and fraternity",
+      "imageUrl": "https://picsum.photos/seed/lovebrother/800/1200",
+      "imageHint": "sibling bond"
+    },
+    {
+      "id": "love-unconditional",
+      "description": "Unconditional love heart",
+      "imageUrl": "https://picsum.photos/seed/loveheart/800/1200",
+      "imageHint": "unconditional heart"
+    },
+    {
+      "id": "love-humanity",
+      "description": "Humanity unity and respect",
+      "imageUrl": "https://picsum.photos/seed/humanityunity/800/1200",
+      "imageHint": "humanity unity"
+    }
+  ]
+}
