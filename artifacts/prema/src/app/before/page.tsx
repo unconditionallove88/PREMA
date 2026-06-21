@@ -246,11 +246,11 @@ function LabContent({
 }) {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="space-y-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{t.sub}</p>
-        <h3 className="text-2xl font-black uppercase tracking-tighter text-foreground">{t.title}</h3>
+      <div className="space-y-1.5">
+        <p className="text-[9px] font-medium uppercase tracking-[0.5em] text-primary/60">{t.sub}</p>
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">{t.title}</h3>
       </div>
-      <p className="text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
+      <p className="text-sm text-muted-foreground/80 leading-loose font-light">{t.desc}</p>
       {alreadyDone ? (
         <div className="flex items-center gap-3 p-4 bg-primary/10 border border-primary/30 rounded-2xl">
           <CheckCircle2 size={20} className="text-primary shrink-0" />
@@ -284,9 +284,9 @@ function EssentialsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone:
 
   return (
     <div className="space-y-4 animate-in fade-in duration-300">
-      <div className="space-y-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500">{t.sub}</p>
-        <h3 className="text-2xl font-black uppercase tracking-tighter text-foreground">{t.title}</h3>
+      <div className="space-y-1.5">
+        <p className="text-[9px] font-medium uppercase tracking-[0.5em] text-amber-500/70">{t.sub}</p>
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">{t.title}</h3>
       </div>
       <div className="space-y-2">
         {t.items.map((item: any) => {
@@ -307,10 +307,10 @@ function EssentialsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone:
                 {isChecked && <CheckCircle2 size={11} className="text-white" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-black text-foreground uppercase tracking-tight">
-                  {item.name} {item.dose && <span className="text-muted-foreground font-medium normal-case">({item.dose})</span>}
+                <p className="text-sm font-medium text-foreground/90 tracking-tight">
+                  {item.name} {item.dose && <span className="text-muted-foreground/70 font-light text-xs">· {item.dose}</span>}
                 </p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">{item.why}</p>
+                <p className="text-[10px] text-muted-foreground/60 font-light mt-0.5 leading-relaxed">{item.why}</p>
               </div>
             </div>
           );
@@ -355,15 +355,15 @@ function ListContent({
 }) {
   return (
     <div className="space-y-5 animate-in fade-in duration-300">
-      <div className="space-y-1">
-        <p className={cn('text-[10px] font-black uppercase tracking-[0.4em]', color)}>{t.sub}</p>
-        <h3 className="text-2xl font-black uppercase tracking-tighter text-foreground">{t.title}</h3>
+      <div className="space-y-1.5">
+        <p className={cn('text-[9px] font-medium uppercase tracking-[0.5em] opacity-60', color)}>{t.sub}</p>
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">{t.title}</h3>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         {t.advice.map((tip: string, i: number) => (
-          <div key={i} className="flex items-start gap-3 p-4 rounded-2xl bg-card border border-border">
-            <ChevronRight size={14} className={cn('shrink-0 mt-0.5', color)} />
-            <p className="text-sm text-foreground/80 leading-relaxed">{tip}</p>
+          <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-2xl bg-card/60 border border-border/50">
+            <div className={cn('w-1 h-1 rounded-full mt-2 shrink-0 opacity-50', color.replace('text-', 'bg-'))} />
+            <p className="text-sm text-foreground/70 leading-loose font-light">{tip}</p>
           </div>
         ))}
       </div>
@@ -399,9 +399,9 @@ function AlarmsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone: boo
 
   return (
     <div className="space-y-4 animate-in fade-in duration-300">
-      <div className="space-y-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400">{t.sub}</p>
-        <h3 className="text-2xl font-black uppercase tracking-tighter text-foreground">{t.title}</h3>
+      <div className="space-y-1.5">
+        <p className="text-[9px] font-medium uppercase tracking-[0.5em] text-cyan-400/60">{t.sub}</p>
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">{t.title}</h3>
       </div>
 
       {/* Intake Limit */}
@@ -521,6 +521,7 @@ export default function BeforePhase() {
     nutrition: false,
     rest: false,
     alarms: false,
+    sync: false,
   });
 
   const userDocRef = useMemoFirebase(() => {
@@ -617,17 +618,17 @@ export default function BeforePhase() {
                   onMouseEnter={() => setHoveredCircle(c.id)}
                   onMouseLeave={() => setHoveredCircle(null)}
                   className={cn(
-                    'relative z-10 w-11 h-11 rounded-full border-2 flex items-center justify-center transition-all duration-400',
+                    'relative z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500',
                     isActive
-                      ? cn('scale-110', c.borderActive, c.bgActive, c.activeColor)
+                      ? cn('scale-110 border border-current', c.bgActive, c.activeColor)
                       : isDone
-                        ? cn('border-primary/30 bg-primary/5 text-primary opacity-80')
-                        : cn('bg-card border-border text-muted-foreground hover:scale-105 opacity-60 hover:opacity-90'),
+                        ? 'text-primary/50 opacity-70 hover:opacity-100 hover:scale-105'
+                        : 'text-muted-foreground/30 hover:text-muted-foreground/60 hover:scale-105',
                   )}
-                  style={isActive ? { boxShadow: `0 0 20px ${c.glowColor}` } : {}}
+                  style={isActive ? { boxShadow: `0 0 16px ${c.glowColor}` } : {}}
                   aria-label={t.sections[c.id]}
                 >
-                  {isDone ? <CheckCircle2 size={16} className="text-primary" /> : c.icon}
+                  {isDone ? <CheckCircle2 size={14} className="text-primary/60" /> : <span className="scale-90">{c.icon}</span>}
                 </button>
 
                 {/* Hover tooltip */}
@@ -705,17 +706,7 @@ export default function BeforePhase() {
               />
             )}
             {activeSection === 'sync' && (
-              <div className="space-y-4">
-                <div className="text-center space-y-1 pb-2">
-                  <p className="text-[9px] font-black uppercase tracking-[0.5em] text-sky-400">
-                    {lang === 'de' ? 'Wearables verbinden' : 'Connect wearables'}
-                  </p>
-                  <h2 className="text-2xl font-black uppercase tracking-tighter text-foreground">
-                    {lang === 'de' ? 'Puls Sync' : 'Pulse Sync'}
-                  </h2>
-                </div>
-                <PulseSync onComplete={() => markComplete('sync')} />
-              </div>
+              <PulseSync onComplete={() => markComplete('sync')} />
             )}
           </div>
         </ScrollArea>
