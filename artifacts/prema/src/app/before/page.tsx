@@ -6,8 +6,9 @@ import {
   ArrowLeft, Apple, Moon, Loader2,
   CheckCircle2, ChevronRight,
   Shield, Microscope, ZapOff,
-  FlaskConical, Clock, GlassWater,
+  FlaskConical, Clock, GlassWater, Watch,
 } from "lucide-react";
+import { PulseSync } from '@/components/dashboard/PulseSync';
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { playHeartbeat } from '@/lib/intention';
@@ -22,6 +23,7 @@ const CONTENT = {
       nutrition: "Physical Intention",
       rest: "Nervous System",
       alarms: "Care Alarms",
+      sync: "Pulse Sync",
     },
     button: "I am prepared",
     testing: {
@@ -95,6 +97,7 @@ const CONTENT = {
       nutrition: "Physische Resonanz",
       rest: "Nervensystem",
       alarms: "Pflege-Alarme",
+      sync: "Puls-Sync",
     },
     button: "Ich bin bereit",
     testing: {
@@ -162,8 +165,8 @@ const CONTENT = {
   },
 };
 
-type Section = 'testing' | 'essentials' | 'nutrition' | 'rest' | 'alarms';
-const SECTION_ORDER: Section[] = ['testing', 'essentials', 'nutrition', 'rest', 'alarms'];
+type Section = 'testing' | 'essentials' | 'nutrition' | 'rest' | 'alarms' | 'sync';
+const SECTION_ORDER: Section[] = ['testing', 'essentials', 'nutrition', 'rest', 'alarms', 'sync'];
 
 const CIRCLES: {
   id: Section;
@@ -218,6 +221,15 @@ const CIRCLES: {
     borderActive: 'border-cyan-400',
     borderIdle: 'border-cyan-400/20',
     bgActive: 'bg-cyan-400/10',
+  },
+  {
+    id: 'sync',
+    icon: <Watch size={20} />,
+    activeColor: 'text-sky-400',
+    glowColor: 'rgba(56,189,248,0.35)',
+    borderActive: 'border-sky-400',
+    borderIdle: 'border-sky-400/20',
+    bgActive: 'bg-sky-400/10',
   },
 ];
 
@@ -689,8 +701,21 @@ export default function BeforePhase() {
               <AlarmsContent
                 t={t.alarms}
                 alreadyDone={completed.alarms}
-                onConfirm={() => markComplete('alarms')}
+                onConfirm={() => markComplete('alarms', 'sync')}
               />
+            )}
+            {activeSection === 'sync' && (
+              <div className="space-y-4">
+                <div className="text-center space-y-1 pb-2">
+                  <p className="text-[9px] font-black uppercase tracking-[0.5em] text-sky-400">
+                    {lang === 'de' ? 'Wearables verbinden' : 'Connect wearables'}
+                  </p>
+                  <h2 className="text-2xl font-black uppercase tracking-tighter text-foreground">
+                    {lang === 'de' ? 'Puls Sync' : 'Pulse Sync'}
+                  </h2>
+                </div>
+                <PulseSync onComplete={() => markComplete('sync')} />
+              </div>
             )}
           </div>
         </ScrollArea>

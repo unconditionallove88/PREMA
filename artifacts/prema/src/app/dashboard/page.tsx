@@ -7,7 +7,6 @@ import {
   User, 
   Loader2, 
   Microscope, 
-  Watch, 
   Sun, 
   Moon, 
   Settings2,
@@ -29,7 +28,6 @@ import PulseGuardianBanner from '@/components/dashboard/PulseGuardianBanner';
 import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
-import { PulseSync } from '@/components/dashboard/PulseSync';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { PulseGuide } from '@/components/dashboard/PulseGuide';
@@ -38,7 +36,6 @@ import { CoCreation } from '@/components/dashboard/CoCreation';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from '@/firebase';
 import { doc } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
 import { checkSafetyStatus } from '@/lib/guardian';
 import { playHeartbeat } from '@/lib/intention';
 import { cn } from '@/lib/utils';
@@ -128,7 +125,6 @@ function DashboardContent() {
 
   const [labOpen, setLabOpen] = useState(false);
   const [supporterOpen, setSupporterOpen] = useState(false);
-  const [syncOpen, setSyncOpen] = useState(false);
   const [anchorOpen, setAnchorOpen] = useState(false);
   const [coCreationOpen, setCoCreationOpen] = useState(false);
   const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
@@ -144,15 +140,12 @@ function DashboardContent() {
     setLang(currentLang);
     const pool = AFFIRMATIONS[currentLang.toUpperCase() as keyof typeof AFFIRMATIONS];
     setAffirmation(pool[Math.floor(Math.random() * pool.length)]);
-    const unsubscribe = onAuthStateChanged(auth, (user) => { if (!user) setLocation('/auth'); });
-
     // Simulate a nearby Collective Care distress call after 8 seconds
     const timer = setTimeout(() => {
       setFamilyDistressActive(true);
     }, 8000);
 
     return () => {
-      unsubscribe();
       clearTimeout(timer);
     };
   }, [auth]);
@@ -290,10 +283,6 @@ function DashboardContent() {
                 <Microscope size={32} className="text-primary" />
                 <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Lab</span>
               </button>
-              <button onClick={() => setSyncOpen(true)} className="w-full aspect-square rounded-full bg-card border-4 border-accent/30 flex flex-col items-center justify-center gap-2 hover:border-accent transition-all group shadow-soft">
-                <Watch size={32} className="text-accent" />
-                <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-accent">The Sync</span>
-              </button>
               <button onClick={() => { playHeartbeat(); setCoCreationOpen(true); }} className="w-full aspect-square rounded-full bg-card border-4 border-[hsl(var(--primary))]/20 flex flex-col items-center justify-center gap-2 hover:border-[hsl(var(--primary))] transition-all group shadow-soft">
                 <Sprout size={32} className="text-primary" />
                 <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground group-hover:text-primary">The Voice</span>
@@ -411,13 +400,6 @@ function DashboardContent() {
         <DialogContent className="bg-card border-border max-w-2xl p-0 rounded-[3.5rem] overflow-hidden flex flex-col h-[85dvh] max-h-[85dvh] top-[50%] -translate-y-[50%] shadow-soft">
           <DialogTitle className="sr-only">Supporter Portal</DialogTitle>
           <SupporterPortal userProfile={firestoreProfile} />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={syncOpen} onOpenChange={setSyncOpen}>
-        <DialogContent className="bg-card border-border max-md p-0 rounded-[3.5rem] overflow-hidden flex flex-col h-auto max-h-[85vh] shadow-soft">
-          <DialogTitle className="sr-only">Pulse Sync</DialogTitle>
-          <div className="flex-1 overflow-y-auto"><PulseSync onComplete={() => setSyncOpen(false)} /></div>
         </DialogContent>
       </Dialog>
 
