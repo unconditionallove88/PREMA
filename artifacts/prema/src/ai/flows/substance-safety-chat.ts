@@ -8,6 +8,12 @@ export type AiSafetyChatInput = {
 };
 export type AiSafetyChatOutput = { answer: string };
 
-export async function aiSafetyChat(_input: AiSafetyChatInput): Promise<AiSafetyChatOutput> {
-  return { answer: 'AI features are not available in this build.' };
+export async function aiSafetyChat(input: AiSafetyChatInput): Promise<AiSafetyChatOutput> {
+  const res = await fetch('/api/ai/safety-chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+  if (!res.ok) return { answer: 'Safety chat is temporarily unavailable.' };
+  return res.json();
 }

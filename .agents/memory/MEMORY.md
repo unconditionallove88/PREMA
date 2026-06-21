@@ -1,0 +1,1 @@
+- [API server AI wiring](api-server-ai-wiring.md) — use @google/genai directly (not genkit) to avoid opentelemetry peer-dep cascade; @google/* is already external in build.mjs so it loads at runtime from node_modules.

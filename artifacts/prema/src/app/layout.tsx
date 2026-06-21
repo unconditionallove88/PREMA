@@ -1,11 +1,5 @@
-import type {Metadata} from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
-
-export const metadata: Metadata = {
-  title: 'Prema',
-  description: 'A warm harm reduction space for festival communities.',
-};
 
 export default function RootLayout({
   children,

@@ -14,12 +14,20 @@ export type SubstanceInteractionRiskAssessmentOutput = {
 };
 
 export async function substanceInteractionRiskAssessment(
-  _input: SubstanceInteractionRiskAssessmentInput
+  input: SubstanceInteractionRiskAssessmentInput
 ): Promise<SubstanceInteractionRiskAssessmentOutput> {
-  return {
-    overallRiskLevel: 'Low',
-    summary: 'AI risk assessment is not available in this build.',
-    interactions: [],
-    recommendations: ['Consult a harm reduction professional for personalized advice.'],
-  };
+  const res = await fetch('/api/ai/substance-interaction', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+  if (!res.ok) {
+    return {
+      overallRiskLevel: 'Low',
+      summary: 'Risk assessment is temporarily unavailable.',
+      interactions: [],
+      recommendations: ['Consult a harm reduction professional for personalized advice.'],
+    };
+  }
+  return res.json();
 }

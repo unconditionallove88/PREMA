@@ -8,13 +8,21 @@ export type IdentifyPillOutput = {
   recommended_action: string;
 };
 
-export async function identifyPill(_input: IdentifyPillInput): Promise<IdentifyPillOutput> {
-  return {
-    visual_description: 'AI features are not available in this build.',
-    possible_match: 'Unknown',
-    confidence: 'LOW',
-    safety_information: 'Please use a drug checking service.',
-    warning: 'Never rely on visual identification alone.',
-    recommended_action: 'Use a reagent test kit or drug checking service.',
-  };
+export async function identifyPill(input: IdentifyPillInput): Promise<IdentifyPillOutput> {
+  const res = await fetch('/api/ai/identify-pill', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+  if (!res.ok) {
+    return {
+      visual_description: 'Pill identification is temporarily unavailable.',
+      possible_match: 'Unknown',
+      confidence: 'LOW',
+      safety_information: 'Please use a drug checking service.',
+      warning: 'Never rely on visual identification alone.',
+      recommended_action: 'Use a reagent test kit or drug checking service.',
+    };
+  }
+  return res.json();
 }
