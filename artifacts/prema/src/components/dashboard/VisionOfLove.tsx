@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Wind, Eye, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'wouter';
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview "Vision of Love" (Presence & Grounding) Tool.

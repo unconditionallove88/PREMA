@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Activity, Shield, AlertCircle } from "lucide-react";
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview Guardian Simulator.

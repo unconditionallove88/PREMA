@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview The Holders (Sacred Communication).

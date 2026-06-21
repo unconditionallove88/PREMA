@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { cn } from '@/lib/utils';
 import { ArrowRight, HeartHandshake } from 'lucide-react';
+import { playHeartbeat } from '@/lib/intention';
 
 
 const CONTENT = {

@@ -10,6 +10,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { StepIntentions } from '@/components/onboarding/StepIntentions';
 import { Step7EssentialsCheck } from '@/components/onboarding/Step7EssentialsCheck';
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview SupporterPortal Component.

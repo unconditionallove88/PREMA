@@ -8,6 +8,7 @@ import { ArrowLeft, Droplets, Apple, Moon, Battery, ShieldCheck, Heart, Loader2,
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { playHeartbeat } from '@/lib/intention';
 
 const CONTENT = {
   en: {

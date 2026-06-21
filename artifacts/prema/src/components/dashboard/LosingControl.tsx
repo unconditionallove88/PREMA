@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, X, Heart, Wind, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview "Losing Control" (Beauty of Life) Tool.

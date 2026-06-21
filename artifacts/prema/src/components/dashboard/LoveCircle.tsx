@@ -30,6 +30,7 @@ import {
   DialogTitle,
   DialogHeader,
 } from "@/components/ui/dialog";
+import { playHeartbeat } from '@/lib/intention';
 
 /**
  * @fileOverview Organic Circle of Love (Aura Ring Edition).

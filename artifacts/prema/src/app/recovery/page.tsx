@@ -32,6 +32,7 @@ import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { VisionOfLove } from '@/components/dashboard/VisionOfLove';
+import { playHeartbeat } from '@/lib/intention';
 
 
 const PRACTITIONERS = [
