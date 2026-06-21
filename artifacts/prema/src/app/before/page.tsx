@@ -241,10 +241,10 @@ export default function BeforePhase() {
       </ScrollArea>
 
       <Dialog open={!!selectedWisdom} onOpenChange={() => setSelectedWisdom(null)}>
-        <DialogContent className="bg-card border-border max-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-soft">
+        <DialogContent className="bg-card border-border max-w-md p-0 rounded-[3rem] overflow-hidden flex flex-col font-headline shadow-soft max-h-[90vh]">
           <DialogTitle className="sr-only">{t.wisdomTitle}</DialogTitle>
           
-          <div className="p-10 text-center space-y-8">
+          <div className="p-10 text-center space-y-8 overflow-y-auto flex-1">
             <div className="flex flex-col items-center gap-6">
               <div className={cn("w-20 h-20 rounded-[2rem] flex items-center justify-center border-2 border-border shadow-soft transition-all duration-700 bg-card")}>
                 {selectedWisdom?.icon && React.cloneElement(selectedWisdom.icon as React.ReactElement<{ size?: number }>, { size: 40 })}
