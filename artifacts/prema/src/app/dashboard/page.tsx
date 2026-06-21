@@ -20,7 +20,8 @@ import {
   Navigation,
   X,
   Brain,
-  Bell
+  Bell,
+  Sparkles
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SupporterIcon } from '@/components/ui/supporter-icon';
@@ -32,6 +33,7 @@ import GuardianStatusBar from '@/components/dashboard/GuardianStatusBar';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
+import { LoveCircleChat } from '@/components/chat/LoveCircleChat';
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { PulseGuide } from '@/components/dashboard/PulseGuide';
 import { SmartAlerts } from '@/components/dashboard/SmartAlerts';
@@ -131,6 +133,7 @@ function DashboardContent() {
   const [anchorOpen, setAnchorOpen] = useState(false);
   const [coCreationOpen, setCoCreationOpen] = useState(false);
   const [smartOpen, setSmartOpen] = useState(false);
+  const [loveChatOpen, setLoveChatOpen] = useState(false);
   const [selectedAnchor, setSelectedAnchor] = useState(LOCATIONS[0]);
 
   const [emergencyPresenceOpen, setEmergencyPresenceOpen] = useState(false);
@@ -304,17 +307,44 @@ function DashboardContent() {
         </div>
       </ScrollArea>
 
-      {/* Right Tool Panel — top-to-bottom: You Create, You Take, You Speak, You See, Supporter, PI, You Pulse */}
+      {/* Left Tool Panel — Access Guidance, PI, Supporter, You Pulse */}
+      <div className="fixed left-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-40">
+        <TooltipProvider>
+          {[
+            { label: 'Access Guidance', icon: <Sparkles size={19} />,        color: 'text-primary',      action: () => setLocation('/during') },
+            { label: 'PI',              icon: <Brain size={19} />,            color: 'text-violet-400',   action: () => { playHeartbeat(); setGuideOpen(true); } },
+            { label: 'Supporter',       icon: <SupporterIcon size={19} />,   color: 'text-emerald-500',  action: () => { playHeartbeat(); setSupporterOpen(true); } },
+            { label: 'You Pulse',       icon: <Bell size={19} />,             color: 'text-secondary',    action: () => setSmartOpen(true) },
+          ].map((item) => (
+            <Tooltip key={item.label}>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={item.action}
+                  aria-label={item.label}
+                  className={cn(
+                    'w-11 h-11 rounded-xl bg-card/80 border border-border/40 flex items-center justify-center shadow-soft transition-all hover:translate-x-1 active:scale-95 backdrop-blur-sm',
+                    item.color,
+                  )}
+                >
+                  {item.icon}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <span className="text-[10px] font-semibold uppercase tracking-widest">{item.label}</span>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </TooltipProvider>
+      </div>
+
+      {/* Right Tool Panel — You Create, You Take, You Speak, You See */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-40">
         <TooltipProvider>
           {[
-            { label: 'You Create',  icon: <Sprout size={19} />,                              color: 'text-primary', action: () => { playHeartbeat(); setCoCreationOpen(true); } },
-            { label: 'You Take',    icon: <Microscope size={19} />,                           color: 'text-primary', action: () => setLabOpen(true) },
-            { label: 'You Speak',   icon: <MessageCircleHeart size={19} />,                   color: 'text-primary', action: () => setLocation('/heart-status') },
-            { label: 'You See',     icon: <RadiatingThirdEye size={19} color="currentColor" />, color: 'text-primary', action: () => setLocation('/map') },
-            { label: 'Supporter',   icon: <SupporterIcon size={19} />,                        color: 'text-emerald-500', action: () => { playHeartbeat(); setSupporterOpen(true); } },
-            { label: 'PI',          icon: <Brain size={19} />,                                color: 'text-violet-400', action: () => { playHeartbeat(); setGuideOpen(true); } },
-            { label: 'You Pulse',   icon: <Bell size={19} />,                                 color: 'text-secondary', action: () => setSmartOpen(true) },
+            { label: 'You Create', icon: <Sprout size={19} />,                               color: 'text-primary', action: () => { playHeartbeat(); setCoCreationOpen(true); } },
+            { label: 'You Take',   icon: <Microscope size={19} />,                            color: 'text-primary', action: () => setLabOpen(true) },
+            { label: 'You Speak',  icon: <MessageCircleHeart size={19} />,                    color: 'text-primary', action: () => { playHeartbeat(); setLoveChatOpen(true); } },
+            { label: 'You See',    icon: <RadiatingThirdEye size={19} color="currentColor" />, color: 'text-primary', action: () => setLocation('/map') },
           ].map((item) => (
             <Tooltip key={item.label}>
               <TooltipTrigger asChild>
@@ -404,6 +434,13 @@ function DashboardContent() {
         <DialogContent className="bg-card border-border max-w-lg p-8 rounded-[2.5rem] shadow-soft">
           <DialogTitle className="sr-only">You Pulse</DialogTitle>
           <SmartAlerts userGoals={firestoreProfile?.goals || []} lang={lang} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={loveChatOpen} onOpenChange={setLoveChatOpen}>
+        <DialogContent className="bg-card border-border max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85vh] shadow-soft">
+          <DialogTitle className="sr-only">Love Chat</DialogTitle>
+          <LoveCircleChat />
         </DialogContent>
       </Dialog>
 

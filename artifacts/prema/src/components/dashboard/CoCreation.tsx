@@ -29,7 +29,7 @@ const i18n = {
     title: "Co-Creation",
     subtitle: "Your voice shapes this space",
     types: [
-      { key: "love", label: "Pure Love", prompt: "What do you love about this app?", placeholder: "Tell us what brings you joy warm or true to you in this app", icon: Heart, color: "text-red-400", bg: "bg-red-500/10" },
+      { key: "love", label: "Pure Love", prompt: "Create with Prema", placeholder: "Tell us what brings you joy warm or true to you in this app", icon: Heart, color: "text-red-400", bg: "bg-red-500/10" },
       { key: "dislike", label: "Dissonance", prompt: "What do you not like? And why?", placeholder: "Tell us what feels off missing or could be more human and why it matters", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "What would you add?", placeholder: "A feature a word a feeling you wish was here to help us grow", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Favorite Tool", prompt: "Which tool do you love the most?", placeholder: "Tell us honestly which tool resonates deepest with your needs", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
@@ -42,7 +42,7 @@ const i18n = {
     title: "Ko-Kreation",
     subtitle: "Deine Stimme gestaltet Raum",
     types: [
-      { key: "love", label: "Pure Liebe", prompt: "Was liebst du an dieser App?", placeholder: "Was fühlt sich richtig warm oder wahr an in dieser App", icon: Heart, color: "text-red-400", bg: "bg-red-500/10" },
+      { key: "love", label: "Pure Liebe", prompt: "Create with Prema", placeholder: "Was fühlt sich richtig warm oder wahr an in dieser App", icon: Heart, color: "text-red-400", bg: "bg-red-500/10" },
       { key: "dislike", label: "Dissonanz", prompt: "Was gefällt dir nicht? Und warum?", placeholder: "Was fühlt sich falsch an fehlt oder könnte menschlicher sein und warum", icon: ZapOff, color: "text-amber-400", bg: "bg-amber-500/10" },
       { key: "evolution", label: "Evolution", prompt: "Was würdest du hinzufügen?", placeholder: "Eine Funktion ein Wort ein Gefühl das du dir hier wünschst", icon: Sparkles, color: "text-blue-400", bg: "bg-blue-500/10" },
       { key: "favorite", label: "Lieblings-Tool", prompt: "Welches Tool liebst du am meisten?", placeholder: "Sag es uns ehrlich Welches Tool hilft dir am meisten", icon: ShieldCheck, color: "text-primary", bg: "bg-primary/10" },
@@ -111,7 +111,6 @@ export function CoCreation({ onComplete }: { onComplete?: () => void }) {
               <p className="text-muted-foreground text-[9px] font-bold uppercase tracking-widest mt-1">{t.subtitle}</p>
             </div>
           </div>
-          {onComplete && <button onClick={onComplete} className="p-3 bg-card/5 rounded-full border border-border/10 text-muted-foreground hover:text-white"><X size={20} /></button>}
         </div>
       </header>
 
