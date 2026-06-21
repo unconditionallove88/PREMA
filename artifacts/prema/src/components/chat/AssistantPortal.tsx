@@ -220,7 +220,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
         <Dialog open={gearOpen} onOpenChange={setGearOpen}>
           <DialogContent className="bg-card border-border/10 p-0 max-w-xl h-[80vh]">
             <DialogTitle className="sr-only">Essentials</DialogTitle>
-            <Step7GearCheck onComplete={() => setGearOpen(false)} />
+            <Step7EssentialsCheck onComplete={() => setGearOpen(false)} />
           </DialogContent>
         </Dialog>
 
