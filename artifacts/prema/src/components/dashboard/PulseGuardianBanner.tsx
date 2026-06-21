@@ -31,9 +31,9 @@ interface PulseGuardianBannerProps {
 
 const CONTENT = {
   en: {
-    title: "Pulse Guardian",
+    title: "Your Rhythm",
     sub: "Central Intelligence",
-    intro: "Pulse Guardian is your central intelligence I continuously aggregate data from all tools to ensure your journey stays resonant and aligned",
+    intro: "Your Rhythm is your central intelligence I continuously aggregate data from all tools to ensure your journey stays resonant and aligned",
     sections: [
       { title: "Pulse Sync Integration", desc: "Reads live vitals from your wearable to monitor physiological stress" },
       { title: "Profile Calibration", desc: "Adjusts thresholds based on your health conditions and medications" },
@@ -44,9 +44,9 @@ const CONTENT = {
     viewGuide: "View Guidance"
   },
   de: {
-    title: "Pulse Guardian",
+    title: "Your Rhythm",
     sub: "Zentrale Intelligenz",
-    intro: "Pulse Guardian ist die zentrale Intelligenz deines Raums Ich sammle kontinuierlich Daten aus allen Tools, um sicherzustellen, dass deine Reise resonant und stimmig bleibt",
+    intro: "Your Rhythm ist die zentrale Intelligenz deines Raums Ich sammle kontinuierlich Daten aus allen Tools, um sicherzustellen, dass deine Reise resonant und stimmig bleibt",
     sections: [
       { title: "Pulse Sync Integration", desc: "Liest Live-Vitalwerte von deinem Wearable, um physiologischen Stress zu überwachen" },
       { title: "Pulse Lab Bewusstsein", desc: "Kalibriert Resonanzlimits automatisch basierend auf deinen Substanz-Protokollen" },

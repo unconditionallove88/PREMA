@@ -128,47 +128,6 @@ function InnerHeartContent() {
           
           <div className="w-full flex justify-center mt-20 overflow-visible"><LoveCircle lang={lang} variant="map" heartRate={currentBPM} showBPM={showBPM} /></div>
 
-          {/* Emotional Portals Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-4 md:hidden">
-            <button 
-              onClick={() => handlePortal(() => setLetterOpen(true))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-purple-500/30 transition-all group relative z-20"
-            >
-              <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
-                <PenLine size={24} className="text-purple-400" />
-              </div>
-              <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-violet-600 leading-none">{t.letters}</p>
-                <p className="text-[7px] font-bold text-violet-400 uppercase tracking-widest mt-1">{t.lettersSub}</p>
-              </div>
-            </button>
-
-            <button 
-              onClick={() => handlePortal(() => setLocation('/self-care'))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-emerald-500/30 transition-all group relative z-20"
-            >
-              <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
-                <Wind size={24} className="text-emerald-400" />
-              </div>
-              <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-emerald-700 leading-none">{t.breath}</p>
-                <p className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest mt-1">{t.breathSub}</p>
-              </div>
-            </button>
-
-            <button 
-              onClick={() => handlePortal(() => setVisionOpen(true))}
-              className="p-6 rounded-[2.5rem] bg-card/[0.03] border border-border/10 flex flex-col items-center gap-3 hover:border-blue-500/30 transition-all group relative z-20"
-            >
-              <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
-                <Eye size={24} className="text-blue-400" />
-              </div>
-              <div className="text-center">
-                <p className="text-[11px] font-black uppercase text-sky-600 leading-none">{t.vision}</p>
-                <p className="text-[7px] font-bold text-sky-400 uppercase tracking-widest mt-1">{t.visionSub}</p>
-              </div>
-            </button>
-          </div>
         </div>
       </ScrollArea>
 

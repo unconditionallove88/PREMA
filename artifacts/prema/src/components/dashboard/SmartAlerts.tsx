@@ -18,7 +18,7 @@ export function SmartAlerts({ userGoals, lang = 'en' }: SmartAlertsProps) {
 
   const CONTENT = {
     en: {
-      protocols: "Smart Protocols",
+      protocols: "You Pulse",
       hydration: "Next Water",
       rest: "Next Break",
       focus: (goals: string) => `Calibrated to: ${goals}`,
@@ -29,7 +29,7 @@ export function SmartAlerts({ userGoals, lang = 'en' }: SmartAlertsProps) {
       footer: "Created in harmony"
     },
     de: {
-      protocols: "Smart Protokolle",
+      protocols: "You Pulse",
       hydration: "Nächstes Wasser",
       rest: "Nächste Pause",
       focus: (goals: string) => `Kalibriert auf: ${goals}`,

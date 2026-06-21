@@ -222,15 +222,6 @@ const CIRCLES: {
     borderIdle: 'border-cyan-400/20',
     bgActive: 'bg-cyan-400/10',
   },
-  {
-    id: 'sync',
-    icon: <Watch size={20} />,
-    activeColor: 'text-sky-400',
-    glowColor: 'rgba(56,189,248,0.35)',
-    borderActive: 'border-sky-400',
-    borderIdle: 'border-sky-400/20',
-    bgActive: 'bg-sky-400/10',
-  },
 ];
 
 function LabContent({

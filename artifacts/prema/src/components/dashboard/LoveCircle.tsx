@@ -193,7 +193,7 @@ export default function LoveCircle({ lang = "en", variant = "dashboard", heartRa
           })}
 
           {/* Unity Core (Mirror Reflection) - Background is Dark Green */}
-          <div className="relative w-48 h-48 md:w-56 md:h-56 bg-card rounded-full border-2 border-primary/20 flex items-center justify-center p-4 shadow-2xl z-10 overflow-hidden">
+          <div className="relative w-72 h-72 md:w-[21rem] md:h-[21rem] bg-card rounded-full border-2 border-primary/20 flex items-center justify-center p-4 shadow-2xl z-10 overflow-hidden">
             <div 
               className="absolute inset-0 bg-primary/10 rounded-full transition-all duration-1000"
               style={{ 
