@@ -540,10 +540,16 @@ export default function BeforePhase() {
   const markComplete = (section: Section, next?: Section) => {
     setCompleted((prev) => ({ ...prev, [section]: true }));
     if (next) {
-      // small delay so the user sees the confirmation briefly
       setTimeout(() => setActiveSection(next), 600);
     }
   };
+
+  // Pulse Sync is optional — auto-mark complete as soon as user reaches it
+  useEffect(() => {
+    if (activeSection === 'sync') {
+      setCompleted((prev) => ({ ...prev, sync: true }));
+    }
+  }, [activeSection]);
 
   const allComplete = SECTION_ORDER.every((s) => completed[s]);
 
