@@ -331,6 +331,29 @@ input::placeholder, textarea::placeholder {
 .border-white\/20 { border-color: hsl(var(--border) / 0.45) !important; }
 .border-black\/5 { border-color: hsl(var(--card) / 0.18) !important; }
 
+/* ── Light mode: remap text-white → readable foreground ────────────────── */
+/* Step 1: base mapping — all text-white becomes dark foreground */
+:root .text-white     { color: hsl(var(--foreground))       !important; }
+:root .text-white\/90,
+:root .text-white\/95 { color: hsl(var(--foreground))       !important; }
+:root .text-white\/60,
+:root .text-white\/70,
+:root .text-white\/80 { color: hsl(var(--muted-foreground)) !important; }
+:root .text-white\/40,
+:root .text-white\/50 { color: hsl(var(--muted-foreground)) !important; }
+:root .text-white\/20,
+:root .text-white\/10 { color: hsl(var(--border))           !important; }
+
+/* Step 2: restore white on any coloured solid background
+   These use :root:root for extra specificity to beat step 1 */
+:root:root .bg-primary,
+:root:root .bg-primary .text-white,
+:root:root .bg-primary.text-white    { color: #fff !important; }
+:root:root .bg-secondary .text-white,
+:root:root .bg-secondary.text-white  { color: #fff !important; }
+:root:root .bg-destructive .text-white,
+:root:root .bg-destructive.text-white{ color: #fff !important; }
+
 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.3); border-radius: 10px; }
