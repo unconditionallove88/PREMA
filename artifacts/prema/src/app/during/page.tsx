@@ -70,7 +70,7 @@ export default function DuringPhase() {
         </button>
         <div>
           <p className="text-[9px] font-medium uppercase tracking-[0.5em] text-primary/60">
-            {lang === 'de' ? 'Während der Session' : 'During your session'}
+            {lang === 'de' ? 'Action Phase' : 'Action Phase'}
           </p>
           <h1 className="text-sm font-semibold tracking-tight text-foreground">
             {lang === 'de' ? 'Zugangs-Leitfaden' : 'Access Guidance'}

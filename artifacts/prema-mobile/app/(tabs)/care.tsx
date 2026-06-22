@@ -2,12 +2,12 @@ import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
 import {
-  Alert,
   Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -15,257 +15,291 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
-const TIPS = [
+const SURVEY_QUESTIONS = [
   {
-    iconName: "phone" as const,
-    tint: "#10B981",
-    en: { title: "Emergency Contact", body: "Local emergency: 112 (EU) / 911 (US). Festival medical: check your festival map." },
-    de: { title: "Notfallkontakt", body: "Lokaler Notfall: 112 (EU). Festival-Sanitäter: Festivalplan prüfen." },
+    key: "q1",
+    en: "How did Prema support you during your experience?",
+    de: "Wie hat Prema dich während deiner Erfahrung unterstützt?",
   },
   {
-    iconName: "droplet" as const,
-    tint: "#38BDF8",
-    en: { title: "Overheating Signs", body: "Hot dry skin, confusion, no sweating — move to shade, sip water, call for help." },
-    de: { title: "Überhitzungszeichen", body: "Heiße trockene Haut, Verwirrung, kein Schwitzen — in den Schatten, Wasser trinken, Hilfe rufen." },
+    key: "q2",
+    en: "What tool did you find most helpful tonight?",
+    de: "Welches Tool war heute Nacht am hilfreichsten für dich?",
   },
   {
-    iconName: "alert-triangle" as const,
-    tint: "#F59E0B",
-    en: { title: "Difficult Experience", body: "Find a quiet space. Slow breathing. Ground with 5-4-3-2-1 senses. Ask for a buddy." },
-    de: { title: "Schwierige Erfahrung", body: "Einen ruhigen Ort finden. Langsam atmen. Geerdet mit 5-4-3-2-1 Sinnen. Einen Buddy bitten." },
+    key: "q3",
+    en: "What would you like to see next in Prema?",
+    de: "Was möchtest du als nächstes in Prema sehen?",
   },
   {
-    iconName: "users" as const,
-    tint: "#A78BFA",
-    en: { title: "Care Team", body: "Festival care workers are non-judgmental. Find their tent on the festival map." },
-    de: { title: "Fürsorge-Team", body: "Festival-Fürsorge-Mitarbeiter sind nicht wertend. Ihr Zelt auf dem Festivalplan finden." },
-  },
-  {
-    iconName: "moon" as const,
-    tint: "#8B5CF6",
-    en: { title: "Rest Protocol", body: "If exhausted — find shade, lie down, ask a friend to stay with you, drink water slowly." },
-    de: { title: "Ruheprotokoll", body: "Bei Erschöpfung — Schatten finden, hinlegen, Freund bitten zu bleiben, langsam Wasser trinken." },
+    key: "q4",
+    en: "One word to describe your night?",
+    de: "Ein Wort für deine Nacht?",
   },
 ];
 
-export default function CareScreen() {
+export default function AttentionScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { lang } = useSession();
-  const [sosPressed, setSosPressed] = useState(false);
+  const { lang, quickNotes, addQuickNote, journalEntries, addJournalEntry } = useSession();
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
   const botPad = Platform.OS === "web" ? 34 : insets.bottom;
 
-  const handleSOS = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-    setSosPressed(true);
-    Alert.alert(
-      lang === "de" ? "Hilfe anfordern?" : "Request Help?",
-      lang === "de"
-        ? "In einem echten Notfall ruf sofort 112. Soll diese App dein Netzwerk benachrichtigen?"
-        : "In a real emergency call 112 immediately. Should this app notify your care network?",
-      [
-        { text: lang === "de" ? "Abbrechen" : "Cancel", style: "cancel", onPress: () => setSosPressed(false) },
-        {
-          text: lang === "de" ? "Hilfe senden" : "Send Help",
-          style: "destructive",
-          onPress: () => setSosPressed(false),
-        },
-      ]
-    );
+  const [journalText, setJournalText] = useState("");
+  const [journalExpanded, setJournalExpanded] = useState(false);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [surveySubmitted, setSurveySubmitted] = useState(false);
+  const [featureVote, setFeatureVote] = useState<string | null>(null);
+
+  const saveJournalEntry = () => {
+    if (!journalText.trim()) return;
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    addJournalEntry(journalText.trim());
+    setJournalText("");
+    setJournalExpanded(false);
   };
+
+  const submitSurvey = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    setSurveySubmitted(true);
+  };
+
+  const allEntries = [
+    ...quickNotes.map((n) => ({ text: n.text, ts: n.ts, type: "quick" as const })),
+    ...journalEntries.map((e) => ({ text: e.text, ts: e.ts, type: "journal" as const })),
+  ].sort((a, b) => b.ts - a.ts);
+
+  const FEATURE_OPTIONS = [
+    { key: "heartrate", en: "Heart Rate Monitor", de: "Herzfrequenz-Monitor" },
+    { key: "map", en: "Venue Map", de: "Veranstaltungsort-Karte" },
+    { key: "lab", en: "Lab Testing Locator", de: "Labor-Test-Finder" },
+    { key: "chat", en: "Love Circle Chat", de: "Kreis-der-Liebe-Chat" },
+    { key: "integration", en: "Wearable Integration", de: "Wearable-Integration" },
+  ];
 
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={[
         styles.container,
-        { paddingTop: topPad + 24, paddingBottom: botPad + 40 },
+        { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
       ]}
       showsVerticalScrollIndicator={false}
     >
-      {/* Header */}
-      <Text style={[styles.screenLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "FÜRSORGE" : "CARE"}
+      {/* ── PHASE LABEL ── */}
+      <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
+        {lang === "de" ? "PHASE 3 · ATTENTION" : "PHASE 3 · ATTENTION"}
       </Text>
       <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-        {lang === "de" ? "Unterstützung & Ressourcen" : "Support & Resources"}
+        {lang === "de" ? "Liebesbriefe" : "Love Letters"}
+      </Text>
+      <Text style={[styles.screenSub, { color: colors.mutedForeground }]}>
+        {lang === "de"
+          ? "Halte fest, was du gespürt und gelernt hast"
+          : "Record what you felt and learned"}
       </Text>
 
-      {/* SOS Button */}
-      <Pressable
-        onPress={handleSOS}
-        style={({ pressed }) => [
-          styles.sosBtn,
-          {
-            backgroundColor: sosPressed ? "#EF4444" : "#EF444415",
-            borderColor: "#EF444440",
-            opacity: pressed ? 0.9 : 1,
-            transform: [{ scale: pressed ? 0.97 : 1 }],
-          },
-        ]}
-      >
-        <View style={[styles.sosIcon, { backgroundColor: "#EF444420" }]}>
-          <Feather name="alert-circle" size={28} color="#EF4444" />
+      {/* ── NEW ENTRY ── */}
+      {!journalExpanded ? (
+        <Pressable
+          onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setJournalExpanded(true); }}
+          style={[styles.newEntryBtn, { backgroundColor: colors.card, borderColor: colors.border }]}
+        >
+          <Feather name="edit-3" size={18} color={colors.mutedForeground} />
+          <Text style={[styles.newEntryPlaceholder, { color: colors.mutedForeground }]}>
+            {lang === "de" ? "Neue Reflexion schreiben..." : "Write a new reflection..."}
+          </Text>
+        </Pressable>
+      ) : (
+        <View style={[styles.editorCard, { backgroundColor: colors.card, borderColor: colors.primary + "40" }]}>
+          <TextInput
+            style={[styles.editorInput, { color: colors.foreground }]}
+            placeholder={lang === "de" ? "Was bewegte dich heute Nacht..." : "What moved you tonight..."}
+            placeholderTextColor={colors.mutedForeground}
+            multiline
+            autoFocus
+            value={journalText}
+            onChangeText={setJournalText}
+          />
+          <View style={styles.editorActions}>
+            <Pressable onPress={() => { setJournalExpanded(false); setJournalText(""); }} style={styles.editorCancel}>
+              <Text style={[styles.editorCancelText, { color: colors.mutedForeground }]}>
+                {lang === "de" ? "Abbrechen" : "Cancel"}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={saveJournalEntry}
+              style={[styles.editorSave, { backgroundColor: colors.primary, opacity: journalText.trim() ? 1 : 0.4 }]}
+            >
+              <Feather name="heart" size={14} color={colors.primaryForeground} />
+              <Text style={[styles.editorSaveText, { color: colors.primaryForeground }]}>
+                {lang === "de" ? "Speichern" : "Save"}
+              </Text>
+            </Pressable>
+          </View>
         </View>
-        <Text style={[styles.sosTitle, { color: sosPressed ? "#fff" : "#EF4444" }]}>
-          {lang === "de" ? "Hilfe anfordern" : "Request Help"}
-        </Text>
-        <Text style={[styles.sosSub, { color: sosPressed ? "#fff" : "#EF444499" }]}>
-          {lang === "de" ? "Notfall-Fürsorge aktivieren" : "Activate emergency care"}
-        </Text>
-      </Pressable>
+      )}
 
-      {/* Breath reminder */}
-      <View
-        style={[
-          styles.breathCard,
-          { backgroundColor: colors.primary + "10", borderColor: colors.primary + "25" },
-        ]}
-      >
-        <Feather name="wind" size={20} color={colors.primary} />
-        <Text style={[styles.breathText, { color: colors.primary }]}>
-          {lang === "de"
-            ? "Atme ein für 4 Zähler. Halte für 4. Atme aus für 6."
-            : "Breathe in for 4 counts. Hold for 4. Out for 6."}
-        </Text>
-      </View>
-
-      {/* Tips */}
-      <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "HARM REDUCTION WISSEN" : "HARM REDUCTION KNOWLEDGE"}
-      </Text>
-      <View style={styles.tips}>
-        {TIPS.map((tip, i) => {
-          const label = lang === "de" ? tip.de : tip.en;
-          return (
+      {/* ── ENTRIES LIST ── */}
+      {allEntries.length > 0 && (
+        <View style={styles.entriesList}>
+          {allEntries.map((entry, i) => (
             <View
               key={i}
               style={[
-                styles.tipCard,
-                { backgroundColor: tip.tint + "0D", borderColor: tip.tint + "25" },
+                styles.entryCard,
+                {
+                  backgroundColor: entry.type === "quick" ? colors.card : colors.primary + "08",
+                  borderColor: entry.type === "quick" ? colors.border : colors.primary + "25",
+                },
               ]}
             >
-              <View
-                style={[styles.tipIcon, { backgroundColor: tip.tint + "20" }]}
-              >
-                <Feather name={tip.iconName} size={16} color={tip.tint} />
-              </View>
-              <View style={styles.tipContent}>
-                <Text style={[styles.tipTitle, { color: tip.tint }]}>
-                  {label.title}
+              <View style={styles.entryHeader}>
+                <Feather
+                  name={entry.type === "quick" ? "zap" : "book-open"}
+                  size={12}
+                  color={entry.type === "quick" ? colors.mutedForeground : colors.primary}
+                />
+                <Text style={[styles.entryMeta, { color: colors.mutedForeground }]}>
+                  {entry.type === "quick"
+                    ? lang === "de" ? "Schnellnotiz" : "Quick note"
+                    : lang === "de" ? "Reflexion" : "Reflection"}{" "}
+                  · {new Date(entry.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </Text>
-                <Text style={[styles.tipBody, { color: colors.mutedForeground }]}>
-                  {label.body}
-                </Text>
               </View>
+              <Text style={[styles.entryText, { color: colors.foreground }]}>{entry.text}</Text>
             </View>
-          );
-        })}
+          ))}
+        </View>
+      )}
+
+      {/* ── CREATE / YOU SPEAK ── */}
+      <View style={styles.divider} />
+      <View style={[styles.createHeader, { backgroundColor: colors.primary + "08", borderColor: colors.primary + "20" }]}>
+        <Feather name="message-circle" size={18} color={colors.primary} />
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.createTitle, { color: colors.foreground }]}>
+            {lang === "de" ? "Du sprichst" : "You Speak"}
+          </Text>
+          <Text style={[styles.createSub, { color: colors.mutedForeground }]}>
+            {lang === "de"
+              ? "Deine Stimme hilft uns zu wachsen. Diese Daten unterstützen unsere Master-Thesis-Forschung über bewusstes Nachtleben."
+              : "Your voice helps us grow. This data supports our Master's Thesis research on conscious nightlife."}
+          </Text>
+        </View>
       </View>
+
+      {!surveySubmitted ? (
+        <>
+          <View style={styles.surveyList}>
+            {SURVEY_QUESTIONS.map((q) => (
+              <View key={q.key} style={styles.surveyItem}>
+                <Text style={[styles.surveyQuestion, { color: colors.foreground }]}>
+                  {lang === "de" ? q.de : q.en}
+                </Text>
+                <TextInput
+                  style={[styles.surveyInput, { backgroundColor: colors.card, borderColor: colors.border, color: colors.foreground }]}
+                  placeholder={lang === "de" ? "Deine Antwort..." : "Your answer..."}
+                  placeholderTextColor={colors.mutedForeground}
+                  value={answers[q.key] || ""}
+                  onChangeText={(t) => setAnswers((prev) => ({ ...prev, [q.key]: t }))}
+                  multiline
+                />
+              </View>
+            ))}
+          </View>
+
+          <Text style={[styles.voteLabel, { color: colors.mutedForeground }]}>
+            {lang === "de" ? "WAS MÖCHTEST DU ALS NÄCHSTES SEHEN?" : "WHAT DO YOU WANT TO SEE NEXT?"}
+          </Text>
+          <View style={styles.voteGrid}>
+            {FEATURE_OPTIONS.map((opt) => {
+              const active = featureVote === opt.key;
+              return (
+                <Pressable
+                  key={opt.key}
+                  onPress={() => { Haptics.selectionAsync(); setFeatureVote(active ? null : opt.key); }}
+                  style={[
+                    styles.voteBtn,
+                    {
+                      backgroundColor: active ? colors.primary : colors.card,
+                      borderColor: active ? colors.primary : colors.border,
+                    },
+                  ]}
+                >
+                  <Text style={[styles.voteBtnText, { color: active ? colors.primaryForeground : colors.foreground }]}>
+                    {lang === "de" ? opt.de : opt.en}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Pressable
+            onPress={submitSurvey}
+            style={({ pressed }) => [
+              styles.submitBtn,
+              { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1 },
+            ]}
+          >
+            <Feather name="send" size={16} color={colors.primaryForeground} />
+            <Text style={[styles.submitBtnText, { color: colors.primaryForeground }]}>
+              {lang === "de" ? "Feedback senden" : "Send Feedback"}
+            </Text>
+          </Pressable>
+        </>
+      ) : (
+        <View style={[styles.thankYouCard, { backgroundColor: colors.primary + "10", borderColor: colors.primary + "25" }]}>
+          <Feather name="check-circle" size={32} color={colors.primary} />
+          <Text style={[styles.thankYouTitle, { color: colors.foreground }]}>
+            {lang === "de" ? "Danke schön" : "Thank you"}
+          </Text>
+          <Text style={[styles.thankYouBody, { color: colors.mutedForeground }]}>
+            {lang === "de"
+              ? "Deine Stimme hilft uns, Prema für alle zu verbessern."
+              : "Your voice helps us make Prema better for everyone."}
+          </Text>
+        </View>
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-  },
-  screenLabel: {
-    fontSize: 10,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    marginBottom: 6,
-  },
-  screenTitle: {
-    fontSize: 24,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: -0.5,
-    marginBottom: 24,
-  },
-  sosBtn: {
-    alignItems: "center",
-    paddingVertical: 24,
-    paddingHorizontal: 20,
-    borderRadius: 24,
-    borderWidth: 1,
-    marginBottom: 20,
-    gap: 8,
-  },
-  sosIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 4,
-  },
-  sosTitle: {
-    fontSize: 18,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 0.5,
-  },
-  sosSub: {
-    fontSize: 12,
-    fontFamily: "Inter_400Regular",
-    letterSpacing: 0.5,
-  },
-  breathCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
-    padding: 18,
-    borderRadius: 18,
-    borderWidth: 1,
-    marginBottom: 28,
-  },
-  breathText: {
-    flex: 1,
-    fontSize: 14,
-    fontFamily: "Inter_500Medium",
-    lineHeight: 22,
-    fontStyle: "italic",
-  },
-  sectionLabel: {
-    fontSize: 10,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    marginBottom: 14,
-  },
-  tips: {
-    gap: 10,
-  },
-  tipCard: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 14,
-    padding: 16,
-    borderRadius: 18,
-    borderWidth: 1,
-  },
-  tipIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 1,
-  },
-  tipContent: {
-    flex: 1,
-    gap: 4,
-  },
-  tipTitle: {
-    fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.3,
-  },
-  tipBody: {
-    fontSize: 12,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 18,
-  },
+  container: { paddingHorizontal: 20 },
+  sectionLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 3, textTransform: "uppercase", marginBottom: 4 },
+  screenTitle: { fontSize: 24, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginBottom: 4 },
+  screenSub: { fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 18, marginBottom: 20 },
+  divider: { height: 1, backgroundColor: "transparent", marginVertical: 28 },
+  newEntryBtn: { flexDirection: "row", alignItems: "center", gap: 12, padding: 18, borderRadius: 18, borderWidth: 1, marginBottom: 16 },
+  newEntryPlaceholder: { fontSize: 14, fontFamily: "Inter_400Regular" },
+  editorCard: { borderRadius: 20, borderWidth: 1.5, padding: 16, gap: 12, marginBottom: 16 },
+  editorInput: { fontSize: 15, fontFamily: "Inter_400Regular", minHeight: 120, lineHeight: 24, textAlignVertical: "top" },
+  editorActions: { flexDirection: "row", gap: 10, justifyContent: "flex-end" },
+  editorCancel: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12 },
+  editorCancelText: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
+  editorSave: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 12 },
+  editorSaveText: { fontSize: 13, fontFamily: "Inter_700Bold" },
+  entriesList: { gap: 10, marginBottom: 4 },
+  entryCard: { padding: 16, borderRadius: 18, borderWidth: 1, gap: 8 },
+  entryHeader: { flexDirection: "row", alignItems: "center", gap: 6 },
+  entryMeta: { fontSize: 11, fontFamily: "Inter_400Regular", letterSpacing: 0.3 },
+  entryText: { fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 21 },
+  createHeader: { flexDirection: "row", alignItems: "flex-start", gap: 14, padding: 18, borderRadius: 20, borderWidth: 1, marginBottom: 24 },
+  createTitle: { fontSize: 18, fontFamily: "Inter_700Bold", marginBottom: 4 },
+  createSub: { fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 18 },
+  surveyList: { gap: 16, marginBottom: 24 },
+  surveyItem: { gap: 8 },
+  surveyQuestion: { fontSize: 14, fontFamily: "Inter_600SemiBold", lineHeight: 20 },
+  surveyInput: { borderRadius: 14, borderWidth: 1, padding: 14, fontSize: 14, fontFamily: "Inter_400Regular", minHeight: 70, textAlignVertical: "top" },
+  voteLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 12 },
+  voteGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 24 },
+  voteBtn: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: 16, borderWidth: 1.5 },
+  voteBtnText: { fontSize: 12, fontFamily: "Inter_600SemiBold" },
+  submitBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 10, height: 54, borderRadius: 16 },
+  submitBtnText: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 0.5 },
+  thankYouCard: { alignItems: "center", padding: 32, borderRadius: 24, borderWidth: 1, gap: 12 },
+  thankYouTitle: { fontSize: 22, fontFamily: "Inter_700Bold" },
+  thankYouBody: { fontSize: 14, fontFamily: "Inter_400Regular", textAlign: "center", lineHeight: 22 },
 });

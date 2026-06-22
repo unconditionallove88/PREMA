@@ -17,6 +17,18 @@ export type PrepStep =
   | "alarms"
   | "sync";
 
+export interface CareAlarms {
+  intakeLimit: number;
+  departureHour: number;
+  breathingBreak: number;
+  hydrationSync: number;
+}
+
+export interface NoteEntry {
+  text: string;
+  ts: number;
+}
+
 export interface SessionContextValue {
   phase: Phase;
   setPhase: (p: Phase) => void;
@@ -28,7 +40,22 @@ export interface SessionContextValue {
   resetSession: () => void;
   hasOnboarded: boolean | null;
   userName: string;
+  intention: string | null;
+  setIntention: (i: string | null) => void;
+  careAlarms: CareAlarms;
+  setCareAlarms: React.Dispatch<React.SetStateAction<CareAlarms>>;
+  quickNotes: NoteEntry[];
+  addQuickNote: (text: string) => void;
+  journalEntries: NoteEntry[];
+  addJournalEntry: (text: string) => void;
 }
+
+const DEFAULT_CARE_ALARMS: CareAlarms = {
+  intakeLimit: 5,
+  departureHour: 3,
+  breathingBreak: 60,
+  hydrationSync: 30,
+};
 
 const defaultCompleted: Record<PrepStep, boolean> = {
   testing: false,
@@ -48,27 +75,35 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     useState<Record<PrepStep, boolean>>(defaultCompleted);
   const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
   const [userName, setUserName] = useState("");
+  const [intention, setIntentionState] = useState<string | null>(null);
+  const [careAlarms, setCareAlarms] = useState<CareAlarms>(DEFAULT_CARE_ALARMS);
+  const [quickNotes, setQuickNotes] = useState<NoteEntry[]>([]);
+  const [journalEntries, setJournalEntries] = useState<NoteEntry[]>([]);
 
   useEffect(() => {
     (async () => {
-      const [ph, ln, comp, onboarded, uname] = await Promise.all([
-        AsyncStorage.getItem("prema_phase"),
-        AsyncStorage.getItem("prema_lang"),
-        AsyncStorage.getItem("prema_completed"),
-        AsyncStorage.getItem("prema_onboarded"),
-        AsyncStorage.getItem("prema_user_name"),
-      ]);
-      if (ph === "before" || ph === "during" || ph === "recovery") {
+      const [ph, ln, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw] =
+        await Promise.all([
+          AsyncStorage.getItem("prema_phase"),
+          AsyncStorage.getItem("prema_lang"),
+          AsyncStorage.getItem("prema_completed"),
+          AsyncStorage.getItem("prema_onboarded"),
+          AsyncStorage.getItem("prema_user_name"),
+          AsyncStorage.getItem("prema_intention"),
+          AsyncStorage.getItem("prema_care_alarms"),
+          AsyncStorage.getItem("prema_quick_notes"),
+          AsyncStorage.getItem("prema_journal"),
+        ]);
+      if (ph === "before" || ph === "during" || ph === "recovery")
         setPhaseState(ph);
-      }
       if (ln === "en" || ln === "de") setLangState(ln);
-      if (comp) {
-        try {
-          setCompleted(JSON.parse(comp));
-        } catch {}
-      }
+      if (comp) { try { setCompleted(JSON.parse(comp)); } catch {} }
       setHasOnboarded(onboarded === "true");
       setUserName(uname || "");
+      if (intKey) setIntentionState(intKey);
+      if (alarmsRaw) { try { setCareAlarms({ ...DEFAULT_CARE_ALARMS, ...JSON.parse(alarmsRaw) }); } catch {} }
+      if (notesRaw) { try { setQuickNotes(JSON.parse(notesRaw)); } catch {} }
+      if (journalRaw) { try { setJournalEntries(JSON.parse(journalRaw)); } catch {} }
     })();
   }, []);
 
@@ -93,10 +128,36 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const resetSession = useCallback(() => {
     setPhaseState("before");
     setCompleted(defaultCompleted);
+    setQuickNotes([]);
     AsyncStorage.multiSet([
       ["prema_phase", "before"],
       ["prema_completed", JSON.stringify(defaultCompleted)],
+      ["prema_quick_notes", "[]"],
     ]);
+  }, []);
+
+  const setIntention = useCallback((i: string | null) => {
+    setIntentionState(i);
+    if (i) AsyncStorage.setItem("prema_intention", i);
+    else AsyncStorage.removeItem("prema_intention");
+  }, []);
+
+  const addQuickNote = useCallback((text: string) => {
+    const entry: NoteEntry = { text, ts: Date.now() };
+    setQuickNotes((prev) => {
+      const next = [entry, ...prev];
+      AsyncStorage.setItem("prema_quick_notes", JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
+  const addJournalEntry = useCallback((text: string) => {
+    const entry: NoteEntry = { text, ts: Date.now() };
+    setJournalEntries((prev) => {
+      const next = [entry, ...prev];
+      AsyncStorage.setItem("prema_journal", JSON.stringify(next));
+      return next;
+    });
   }, []);
 
   const allComplete = Object.values(completed).every(Boolean);
@@ -114,6 +175,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         resetSession,
         hasOnboarded,
         userName,
+        intention,
+        setIntention,
+        careAlarms,
+        setCareAlarms,
+        quickNotes,
+        addQuickNote,
+        journalEntries,
+        addJournalEntry,
       }}
     >
       {children}

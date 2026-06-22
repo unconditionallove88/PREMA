@@ -26,13 +26,13 @@ const PHASE_META: Record<Phase, {
 }> = {
   before: {
     icon: <HandHeart size={22} />,
-    label: { en: 'BEFORE', de: 'VORHER' },
-    sub: { en: 'Preparation', de: 'Vorbereitung' },
+    label: { en: 'INTENTION', de: 'INTENTION' },
+    sub: { en: 'Prepare your mind & body', de: 'Geist & Körper vorbereiten' },
     poem: {
       en: 'Informed preparation.\nHonest intention.',
       de: 'Informierte Vorbereitung.\nEhrliche Absicht.',
     },
-    cta: { en: 'Enter Preparation', de: 'Vorbereitung beginnen' },
+    cta: { en: 'Enter Intention', de: 'Intention beginnen' },
     color: 'text-primary',
     glowColor: 'rgba(27,77,62,0.28)',
     borderActive: 'border-primary',
@@ -44,13 +44,13 @@ const PHASE_META: Record<Phase, {
   },
   during: {
     icon: <Sparkles size={22} />,
-    label: { en: 'DURING', de: 'WÄHREND' },
-    sub: { en: 'Your Session', de: 'Deine Session' },
+    label: { en: 'ACTION', de: 'ACTION' },
+    sub: { en: 'Stay present & connected', de: 'Präsent & verbunden bleiben' },
     poem: {
       en: 'Stay present.\nKnow your limits. Reach out.',
       de: 'Präsent bleiben.\nGrenzen kennen. Verbindung suchen.',
     },
-    cta: { en: 'Enter Session', de: 'Session betreten' },
+    cta: { en: 'Enter Action', de: 'Action betreten' },
     color: 'text-primary',
     glowColor: 'rgba(27,77,62,0.28)',
     borderActive: 'border-primary',
@@ -62,13 +62,13 @@ const PHASE_META: Record<Phase, {
   },
   after: {
     icon: <Moon size={22} />,
-    label: { en: 'AFTER', de: 'DANACH' },
-    sub: { en: 'Recovery', de: 'Erholung' },
+    label: { en: 'ATTENTION', de: 'ATTENTION' },
+    sub: { en: 'Recover & restore', de: 'Erholen & regenerieren' },
     poem: {
       en: 'Rest and restore.\nCompassion for yourself.',
       de: 'Ruhe und Erholung.\nMitgefühl für dich selbst.',
     },
-    cta: { en: 'Enter Recovery', de: 'Erholung starten' },
+    cta: { en: 'Enter Attention', de: 'Attention beginnen' },
     color: 'text-primary',
     glowColor: 'rgba(27,77,62,0.28)',
     borderActive: 'border-primary',

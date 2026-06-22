@@ -16,9 +16,9 @@ import { Phase, useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
 const PHASE_CONFIG: { id: Phase; en: string; de: string; color: string; icon: React.ComponentProps<typeof Feather>["name"] }[] = [
-  { id: "before", en: "Preparation", de: "Vorbereitung", color: "#F59E0B", icon: "star" },
-  { id: "during", en: "During", de: "Während", color: "#10B981", icon: "zap" },
-  { id: "recovery", en: "Recovery", de: "Erholung", color: "#8B5CF6", icon: "moon" },
+  { id: "before", en: "Intention", de: "Intention", color: "#F59E0B", icon: "target" },
+  { id: "during", en: "Action", de: "Action", color: "#10B981", icon: "zap" },
+  { id: "recovery", en: "Attention", de: "Attention", color: "#8B5CF6", icon: "moon" },
 ];
 
 export default function ProfileScreen() {

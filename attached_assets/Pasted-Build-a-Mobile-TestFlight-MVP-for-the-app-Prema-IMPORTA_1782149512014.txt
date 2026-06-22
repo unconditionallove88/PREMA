@@ -1,0 +1,85 @@
+Build a Mobile TestFlight MVP for the app "Prema". 
+
+IMPORTANT CONCEPTUAL CHANGE: The app structure is now defined by three psychological phases rather than time-based ones. This "Triad of Prema" (Intention, Action, Attention) applies to both this mobile MVP and the full web version of the project.
+
+PHILOSOPHY:
+- Prema is a companion for nightlife, festivals, and clubs.
+- Focus: Self-love, Presence, Honesty, Respect, and Responsibility.
+- No "fear-based" language. Replace the concept of "Safety" with "Care" and "Presence".
+- Tone: Warm, human, grounded, and supportive. Like a caring friend.
+- Visuals: Use existing Prema web design, color palette, and elegant UI styles.
+
+---
+
+### PHASE 1: INTENTION (Preparation of Mind and Space)
+
+**Prema (Setting the Vibe)**
+- Before heading out, the user selects an intention (e.g., Be Here Now, Self-Acceptance, Honesty, Respect, Gratitude).
+- This intention acts as a subconscious anchor for the experience.
+
+**Essentials Kit**
+A checklist of items to bring for self-care:
+- Phone (100% Charged) — Your lifeline to your Circle of Love
+- Single-Use Straws — Prevents cross-contamination, never share
+- Zinc Supplement (15–30 mg) — Supports immune & neurotransmitter balance
+- Magnesium Supplement (200–400 mg) — Reduces muscle tension, supports heart rhythm
+- Electrolytes — Maintains hydration and mineral balance
+- Disinfecting Wipes — Clean surfaces before use
+- Credit-Card Plates (x2) — Use dedicated clean surfaces, never banknotes
+- Condoms & Lubricant — Protection and comfort during intimacy
+
+**Care Alarms (Settings)**
+User configures notifications for the night:
+- INTAKE LIMIT (Logged Units)
+- TARGET DEPARTURE TIME
+- BREATHING BREAKS (Rest Intervals)
+- HYDRATION SYNC (Water Reminder Frequency)
+
+---
+
+### PHASE 2: ACTION (Living the Experience)
+
+**Grounding Tool (The Pulse)**
+- A pulsing aura visualization in the screen center. 
+- Side icons trigger:
+  1. Love Breath (Breathing techniques)
+  2. Love Vision (Interactive grounding visualizations)
+  3. Love Letters (Quick voice/text notes during the action)
+
+**Friends Pulse (Circle of Love)**
+- A simplified view of the user’s selected circle of friends.
+- Minimalist check-in: "I am present" / "I am here".
+- Avoid the word "safe". Focus on "Pulse" and "Connection".
+
+**The Set (Laboratory)**
+- A functional tool to log units/substances taken.
+- A redosing interval timer based on the "Care Alarms" frequency.
+- A factual, quick-reference guide for dangerous combinations (Something to Remember).
+
+**Lock Screen Care Notifications**
+- Active push notifications during the festival:
+- "Time to hydrate. Honor your body."
+- "Breathing break. Take a moment for Love Breath."
+- "Rest interval. Find a place to sit, enjoy a banana or chocolate."
+
+---
+
+### PHASE 3: ATTENTION (Integration and Reflection)
+
+**Love Letters (The Journal)**
+- A space for reflection after the event. 
+- Record voice memos or notes about what was felt and learned.
+
+**Create / You Speak (Master Thesis Research)**
+- A survey and feedback portal.
+- Includes specific questions for the user to help with building the Master's Thesis.
+- Space for feature requests and user "votes" on what they want to see next in Prema.
+- Intro text: "Your voice helps us grow. This data supports our Master's Thesis research on conscious nightlife."
+
+---
+
+### UI/UX & TECHNICAL REQUIREMENTS
+- Deploy as a mobile-responsive web app or React Native prototype.
+- Ensure transitions between Intention, Action, and Attention are smooth and meaningful.
+- Disclaimer on first load: Warm and supportive tone. State clearly that the app does not promote drug use but supports those who have already made their choices to stay connected and care for themselves.
+- The aura in Phase 2 (Action) should be the visual "heartbeat" of the app.

@@ -33,9 +33,9 @@ const i18n = {
     wisdomTitle: "Grace Wisdom",
     closeBtn: "I understand",
     phases: [
-      { title: "Before", desc: "Prepare your body & mind" },
-      { title: "During", desc: "Stay safe & connected" },
-      { title: "After", desc: "Recover & restore" }
+      { title: "Intention", desc: "Prepare your body & mind" },
+      { title: "Action", desc: "Stay present & connected" },
+      { title: "Attention", desc: "Recover & restore" }
     ],
     details: {
       hydration: {
@@ -67,9 +67,9 @@ const i18n = {
     wisdomTitle: "Gnaden Weisheit",
     closeBtn: "Ich verstehe",
     phases: [
-      { title: "Vorher", desc: "Körper & Geist vorbereiten" },
-      { title: "Währenddessen", desc: "Sicher & verbunden bleiben" },
-      { title: "Danach", desc: "Erholen & regenerieren" }
+      { title: "Intention", desc: "Körper & Geist vorbereiten" },
+      { title: "Action", desc: "Präsent & verbunden bleiben" },
+      { title: "Attention", desc: "Erholen & regenerieren" }
     ],
     details: {
       hydration: {
@@ -132,7 +132,7 @@ export function AssistantPortal({ userProfile }: AssistantPortalProps) {
           <button onClick={() => setActivePhase('root')} className="text-white/40 text-[10px] font-black uppercase tracking-widest">Back</button>
           <div className="flex items-center gap-2">
             <SupporterIcon className="text-emerald-500" size={16} />
-            <span className="text-xs font-black uppercase tracking-tighter">Before Phase</span>
+            <span className="text-xs font-black uppercase tracking-tighter">Intention Phase</span>
           </div>
         </header>
 

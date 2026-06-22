@@ -18,15 +18,15 @@ function NativeTabLayout() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="prepare">
         <Icon sf={{ default: "sparkles", selected: "sparkles.fill" }} />
-        <Label>Prepare</Label>
+        <Label>Intention</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="session">
         <Icon sf={{ default: "bolt", selected: "bolt.fill" }} />
-        <Label>Session</Label>
+        <Label>Action</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="care">
-        <Icon sf={{ default: "heart", selected: "heart.fill" }} />
-        <Label>Care</Label>
+        <Icon sf={{ default: "moon.stars", selected: "moon.stars.fill" }} />
+        <Label>Attention</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
         <Icon sf={{ default: "person", selected: "person.fill" }} />
@@ -91,19 +91,19 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="prepare"
         options={{
-          title: "Prepare",
+          title: "Intention",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="sparkles" tintColor={color} size={22} />
             ) : (
-              <Feather name="star" size={20} color={color} />
+              <Feather name="target" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
         name="session"
         options={{
-          title: "Session",
+          title: "Action",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="bolt" tintColor={color} size={22} />
@@ -115,12 +115,12 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="care"
         options={{
-          title: "Care",
+          title: "Attention",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="heart" tintColor={color} size={22} />
+              <SymbolView name="moon.stars" tintColor={color} size={22} />
             ) : (
-              <Feather name="heart" size={20} color={color} />
+              <Feather name="moon" size={20} color={color} />
             ),
         }}
       />
