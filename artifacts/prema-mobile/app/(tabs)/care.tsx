@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -79,14 +80,16 @@ export default function AttentionScreen() {
   ];
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={[
-        styles.container,
-        { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
-      ]}
-      showsVerticalScrollIndicator={false}
-    >
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <GradientBackground />
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={[
+          styles.container,
+          { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
       {/* ── PHASE LABEL ── */}
       <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
         {lang === "de" ? "PHASE 3 · ATTENTION" : "PHASE 3 · ATTENTION"}
@@ -263,6 +266,7 @@ export default function AttentionScreen() {
         </View>
       )}
     </ScrollView>
+    </View>
   );
 }
 

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -61,14 +62,16 @@ export default function IntentionScreen() {
   };
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={[
-        styles.container,
-        { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
-      ]}
-      showsVerticalScrollIndicator={false}
-    >
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <GradientBackground />
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={[
+          styles.container,
+          { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
       {/* ── PREMA — SET YOUR INTENTION ── */}
       <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
         {lang === "de" ? "PHASE 1 · INTENTION" : "PHASE 1 · INTENTION"}
@@ -188,10 +191,10 @@ export default function IntentionScreen() {
         })}
       </View>
 
-      {/* ── CARE ALARMS ── */}
+      {/* ── NURTURE ALARMS ── */}
       <View style={styles.divider} />
       <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "FÜRSORGE-ALARME" : "CARE ALARMS"}
+        {lang === "de" ? "FÜRSORGE-ALARME" : "NURTURE ALARMS"}
       </Text>
       <Text style={[styles.screenTitle, { color: colors.foreground }]}>
         {lang === "de" ? "Deine Einstellungen" : "Your Settings"}
@@ -199,7 +202,7 @@ export default function IntentionScreen() {
       <Text style={[styles.screenSub, { color: colors.mutedForeground, marginBottom: 20 }]}>
         {lang === "de"
           ? "Konfiguriere Benachrichtigungen für die Nacht"
-          : "Configure notifications for the night"}
+          : "Configure care notifications for the night"}
       </Text>
 
       <View style={styles.alarmsList}>
@@ -272,6 +275,7 @@ export default function IntentionScreen() {
         })}
       </View>
     </ScrollView>
+    </View>
   );
 }
 

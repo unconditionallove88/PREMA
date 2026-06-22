@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -199,6 +200,7 @@ export default function ActionScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <GradientBackground />
       <BreathModal visible={breathOpen} onClose={() => setBreathOpen(false)} lang={lang} colors={colors} />
       <QuickNoteModal visible={noteOpen} onClose={() => setNoteOpen(false)} onSave={addQuickNote} lang={lang} colors={colors} />
 

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -85,14 +86,16 @@ export default function HomeScreen() {
   const botPad = Platform.OS === "web" ? 34 : 0;
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={[
-        styles.container,
-        { paddingTop: topPad + 24, paddingBottom: botPad + 100 },
-      ]}
-      showsVerticalScrollIndicator={false}
-    >
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <GradientBackground />
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={[
+          styles.container,
+          { paddingTop: topPad + 24, paddingBottom: botPad + 100 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
       {/* Header */}
       <View style={styles.header}>
         <View>
@@ -172,6 +175,7 @@ export default function HomeScreen() {
         </Text>
       </View>
     </ScrollView>
+    </View>
   );
 }
 
