@@ -56,12 +56,12 @@ const STEPS = [
     content: {
       en: {
         description: "Dedicated rooms for private connection and collective care within the circle of humanity",
-        functions: "Use 'The Holders' for the inner circle or 'The Spectators' for public community support and care",
+        functions: "Use 'Private' for your inner circle or 'Open' for community support and collective care",
         intelligence: "Your Rhythm: Monitors chats for distress signals to maintain the frequency of unconditional love"
       },
       de: {
         description: "Eigene Räume für private Verbindung und kollektive Fürsorge im Kreis der Menschheit",
-        functions: "Nutze 'Die Holder' für den inneren Kreis oder 'Die Spectator' für gemeinschaftliche Unterstützung",
+        functions: "Nutze 'Privat' für den inneren Kreis oder 'Offen' für gemeinschaftliche Unterstützung",
         intelligence: "Your Rhythm: Überwacht Chats auf Notrufe um die Frequenz der Liebe zu wahren"
       }
     },

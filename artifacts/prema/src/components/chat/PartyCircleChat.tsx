@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { Send, Loader2, Flag, Users2, Shield, Wind, CircleDot, Mic, MicOff } from 'lucide-react';
+import { Send, Loader2, Flag, Users2, CircleDot, Mic, MicOff } from 'lucide-react';
 import { useFirestore, useUser, useCollection, useMemoFirebase, addDocumentNonBlocking } from '@/firebase';
 import { collection, query, orderBy, limit, serverTimestamp } from 'firebase/firestore';
 import { cn } from '@/lib/utils';
@@ -10,59 +10,54 @@ import { moderateMessage } from '@/ai/flows/moderate-message';
 import { GuardianLogo } from '@/components/ui/guardian-logo';
 
 /**
- * @fileOverview The Spectators (Collective Care).
- * Simplified and harmonized for empathy and ease of communication.
+ * @fileOverview Open Circle — collective care and community kindness.
  */
 
 const CONTENT = {
   en: {
-    guardianNote: "Pulse Guardian Monitoring",
-    title: "The Spectators",
-    sub: "Collective Care Circle",
-    rulesHeader: "A shared space grounded in kindness Guarded with love",
+    guardianNote: "Pulse Guardian present",
+    title: "Open",
+    sub: "Community care circle",
+    rulesHeader: "A shared space rooted in kindness and presence",
     rules: [
-      "Unconditional Kindness for all",
+      "Unconditional kindness for all",
       "No promotion of substances",
       "Respect each other's anonymity",
       "Speak only from presence",
       "Unity is the focus"
     ],
     enterBtn: "Enter the circle",
-    placeholder: "Share kindness now...",
-    footer: "Grounded in Presence",
-    shiningFooter: "Created in harmony",
-    blockedTitle: "Circle Rest",
-    blockedDesc: "The Pulse Guardian has paused this connection to restore harmony within the circle 🌿",
-    blockedAffirmation: "Rest and stillness",
+    placeholder: "Share kindness...",
+    footer: "Grounded in presence",
+    blockedTitle: "Circle rest",
+    blockedDesc: "The Pulse Guardian has gently paused this connection to restore harmony within the circle",
     violationTitle: "Pulse Guardian: Note",
     violationDesc: "The session is resting",
     errorTitle: "Connection error",
-    errorDesc: "Truth not sent",
+    errorDesc: "Message not sent",
     listening: "Listening..."
   },
   de: {
-    guardianNote: "Pulse Guardian Bewachung",
-    title: "Die Spectator",
+    guardianNote: "Pulse Guardian präsent",
+    title: "Offen",
     sub: "Kreis der Fürsorge",
-    rulesHeader: "Ein gemeinsamer Raum der Freundlichkeit Bewacht mit Liebe",
+    rulesHeader: "Ein geteilter Raum der Freundlichkeit und Präsenz",
     rules: [
       "Bedingungslose Freundlichkeit für alle",
       "Keine Bewerbung von Substanzen",
-      "Respektiere die Anonymität ",
+      "Respektiere die Anonymität",
       "Spreche nur aus Präsenz",
       "Einheit ist der Fokus"
     ],
     enterBtn: "Dem Kreis beitreten",
-    placeholder: "Freundlichkeit jetzt teilen...",
+    placeholder: "Freundlichkeit teilen...",
     footer: "Geerdet in Präsenz",
-    shiningFooter: "In Harmonie erschaffen  hier",
-    blockedTitle: "Circle Pause",
-    blockedDesc: "Der Pulse Guardian hat diese Verbindung pausiert um die Harmonie wiederherzustellen 🌿",
-    blockedAffirmation: "Ruhe und Stille jetzt",
+    blockedTitle: "Kreis-Pause",
+    blockedDesc: "Der Pulse Guardian hat diese Verbindung sanft pausiert, um die Harmonie wiederherzustellen",
     violationTitle: "Pulse Guardian: Hinweis",
     violationDesc: "Die Sitzung ruht",
     errorTitle: "Verbindungsfehler",
-    errorDesc: "Wahrheit nicht gesendet",
+    errorDesc: "Nachricht nicht gesendet",
     listening: "Höre zu..."
   }
 };
@@ -92,29 +87,21 @@ export function PartyCircleChat() {
   useEffect(() => {
     const savedLang = (localStorage.getItem('prema_lang') || 'EN').toLowerCase() as any;
     if (['en', 'de'].includes(savedLang)) setLang(savedLang);
-    const agreed = localStorage.getItem('prema_spectator_agreed');
-    const blocked = localStorage.getItem('prema_spectator_blocked');
-    if (agreed === 'true') setHasAgreedToRules(true);
-    if (blocked === 'true') setIsBlocked(true);
+    if (localStorage.getItem('prema_spectator_agreed') === 'true') setHasAgreedToRules(true);
+    if (localStorage.getItem('prema_spectator_blocked') === 'true') setIsBlocked(true);
   }, []);
 
   const t = CONTENT[lang] || CONTENT.en;
 
   const chatQuery = useMemoFirebase(() => {
     if (!firestore) return null;
-    return query(
-      collection(firestore, 'partyCircle'),
-      orderBy('createdAt', 'asc'),
-      limit(50)
-    );
+    return query(collection(firestore, 'partyCircle'), orderBy('createdAt', 'asc'), limit(50));
   }, [firestore]);
 
   const { data: messages, isLoading } = useCollection(chatQuery);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages]);
 
   const logViolation = async (content: string, reason: string, type: 'AI_FLAGGED' | 'USER_REPORT') => {
@@ -142,7 +129,7 @@ export function PartyCircleChat() {
       addDocumentNonBlocking(collection(firestore, 'partyCircle'), {
         senderId: user.uid, senderAlias: natureName, text: moderation.filteredText || text, createdAt: serverTimestamp(),
       });
-    } catch (error) {
+    } catch {
       toast({ variant: "destructive", title: t.errorTitle, description: t.errorDesc });
     } finally {
       setIsSending(false);
@@ -172,16 +159,16 @@ export function PartyCircleChat() {
   const handleEnterChat = () => {
     setIsEntering(true);
     localStorage.setItem('prema_spectator_agreed', 'true');
-    setTimeout(() => { setHasAgreedToRules(true); setIsEntering(false); }, 800);
+    setTimeout(() => { setHasAgreedToRules(true); setIsEntering(false); }, 600);
   };
 
   if (isBlocked) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-10 text-center space-y-10 bg-card font-headline overflow-hidden">
-        <GuardianLogo size={80} className="animate-pulse" />
-        <div className="space-y-4">
-          <h2 className="text-3xl font-black uppercase tracking-tighter text-white">{t.blockedTitle}</h2>
-          <p className="text-white/40 text-base font-bold leading-relaxed uppercase tracking-widest">{t.blockedDesc}</p>
+      <div className="flex flex-col items-center justify-center h-full px-10 text-center space-y-8 bg-card font-headline">
+        <GuardianLogo size={48} className="animate-pulse opacity-60" />
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold text-foreground tracking-tight">{t.blockedTitle}</h2>
+          <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-xs mx-auto">{t.blockedDesc}</p>
         </div>
       </div>
     );
@@ -189,33 +176,36 @@ export function PartyCircleChat() {
 
   if (!hasAgreedToRules) {
     return (
-      <div className="flex flex-col h-full bg-card font-headline overflow-hidden">
+      <div className="flex flex-col h-full bg-card font-headline overflow-hidden relative">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[60%] bg-primary/8 blur-[100px] rounded-full pointer-events-none" />
+
         <ScrollArea className="flex-1">
-          <div className="p-10 flex flex-col items-center justify-center text-center space-y-12 min-h-[70vh]">
-            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center border-2 border-primary/30 shadow-2xl">
-              <Users2 size={48} className="text-primary" />
+          <div className="px-8 py-14 flex flex-col items-center justify-center text-center space-y-8 min-h-[70vh] relative z-10">
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center shadow-lg">
+              <Users2 size={28} className="text-primary" />
             </div>
-            <div className="space-y-3">
-              <h2 className="text-4xl font-black uppercase tracking-tighter text-white">{t.title}</h2>
-              <p className="text-base font-bold text-white/40 uppercase tracking-widest leading-relaxed italic">{t.rulesHeader}</p>
+            <div className="space-y-2">
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground">{t.title}</h2>
+              <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-primary/60">{t.sub}</p>
+              <p className="text-sm text-muted-foreground/80 leading-relaxed font-light max-w-xs mx-auto">{t.rulesHeader}</p>
             </div>
-            <div className="w-full space-y-4 text-left max-w-sm">
+
+            <div className="w-full space-y-1 text-left max-w-xs">
               {t.rules.map((rule, idx) => (
-                <div key={idx} className="p-5 bg-card/[0.02] rounded-[1.5rem] border border-border/10 flex items-center gap-5">
-                  <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(27,77,62,0.8)]" />
-                  <span className="text-sm font-bold uppercase text-white/80 leading-tight">{rule}</span>
+                <div key={idx} className="flex items-center gap-3 px-4 py-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary opacity-50 shrink-0" />
+                  <span className="text-sm font-light text-foreground/80 leading-snug">{rule}</span>
                 </div>
               ))}
             </div>
-            <div className="pt-4 w-full pb-10">
-              <button 
-                onClick={handleEnterChat}
-                disabled={isEntering}
-                className="w-full bg-primary text-white h-24 rounded-full font-black uppercase tracking-[0.2em] shadow-[0_0_50px_rgba(245,169,133,0.25)] active:scale-95 transition-all flex items-center justify-center px-10 border-2 border-primary/20"
-              >
-                {isEntering ? <Loader2 className="animate-spin w-8 h-8" /> : <span className="text-xl">{t.enterBtn}</span>}
-              </button>
-            </div>
+
+            <button
+              onClick={handleEnterChat}
+              disabled={isEntering}
+              className="w-full max-w-xs h-12 bg-primary text-primary-foreground rounded-full font-semibold text-sm tracking-wide active:scale-95 transition-all flex items-center justify-center"
+            >
+              {isEntering ? <Loader2 className="animate-spin w-4 h-4" /> : t.enterBtn}
+            </button>
           </div>
         </ScrollArea>
       </div>
@@ -223,55 +213,100 @@ export function PartyCircleChat() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-card font-body overflow-hidden">
-      <div className="bg-primary/10 border-b border-primary/30 px-8 py-4 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-4">
-          <GuardianLogo size={24} />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{t.guardianNote}</span>
+    <div className="flex flex-col h-full bg-card font-body overflow-hidden relative">
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-primary/8 to-transparent pointer-events-none" />
+
+      {/* Guardian bar */}
+      <div className="bg-primary/8 px-5 py-2 flex items-center justify-between shrink-0 relative z-10">
+        <div className="flex items-center gap-2.5">
+          <GuardianLogo size={16} />
+          <span className="text-[9px] font-medium uppercase tracking-[0.3em] text-primary/70">{t.guardianNote}</span>
         </div>
-        <CircleDot size={16} className="text-primary animate-pulse" />
+        <CircleDot size={12} className="text-primary animate-pulse" />
       </div>
 
-      <div className="px-8 py-10 border-b border-border/5 bg-card/80 backdrop-blur-xl flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/30">
-            <Users2 size={32} className="text-primary" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-black uppercase tracking-tight text-white leading-none">{t.title}</h2>
-            <p className="text-[10px] text-primary font-black uppercase tracking-[0.4em] mt-1.5">{t.sub}</p>
-          </div>
+      {/* Header */}
+      <div className="px-5 py-3 flex items-center gap-3 shrink-0 relative z-10">
+        <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center">
+          <Users2 size={16} className="text-primary" />
+        </div>
+        <div>
+          <h2 className="text-sm font-semibold text-foreground tracking-tight">{t.title}</h2>
+          <p className="text-[9px] text-primary/70 font-medium uppercase tracking-[0.3em]">{t.sub}</p>
         </div>
       </div>
 
-      <ScrollArea className="flex-1 px-8 py-8 touch-pan-y" ref={scrollRef}>
-        <div className="space-y-8 max-w-2xl mx-auto pb-10">
-          {isLoading && <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-primary animate-spin" /></div>}
+      {/* Messages */}
+      <ScrollArea className="flex-1 px-5 py-3 touch-pan-y" ref={scrollRef}>
+        <div className="space-y-4 max-w-2xl mx-auto pb-6">
+          {isLoading && (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-5 h-5 text-primary/40 animate-spin" />
+            </div>
+          )}
           {messages?.map((msg) => {
             const isMe = msg.senderId === user?.uid;
             return (
-              <div key={msg.id} className={cn("flex flex-col gap-3 animate-in slide-in-from-bottom-4 duration-700", isMe ? "items-end" : "items-start")}>
-                <div className="flex items-center gap-4 px-4">
-                  <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em]">{isMe ? 'YOU' : msg.senderAlias.toUpperCase()}</span>
-                  {!isMe && <button onClick={() => logViolation(msg.text, `Reported by Heart from ${msg.senderAlias}`, 'USER_REPORT')} className="text-white/10 hover:text-red-500 transition-colors"><Flag size={14} /></button>}
+              <div key={msg.id} className={cn("flex flex-col gap-1 animate-in slide-in-from-bottom-2 duration-500", isMe ? "items-end" : "items-start")}>
+                <div className="flex items-center gap-2 px-3">
+                  <span className="text-[9px] font-medium text-muted-foreground/50 uppercase tracking-widest">
+                    {isMe ? (lang === 'de' ? 'Du' : 'You') : msg.senderAlias}
+                  </span>
+                  {!isMe && (
+                    <button
+                      onClick={() => logViolation(msg.text, `Reported by ${msg.senderAlias}`, 'USER_REPORT')}
+                      className="text-muted-foreground/20 hover:text-red-400 transition-colors"
+                    >
+                      <Flag size={11} />
+                    </button>
+                  )}
                 </div>
-                <div className={cn("p-7 rounded-[3rem] text-base font-bold leading-relaxed max-w-[85%] shadow-xl border transition-all duration-500", isMe ? "bg-primary text-white border-primary/40 rounded-tr-none" : "bg-card/[0.03] text-white/80 border-border/5 rounded-tl-none")}>{msg.text}</div>
+                <div className={cn(
+                  "px-4 py-2.5 rounded-2xl text-sm font-light leading-relaxed max-w-[80%]",
+                  isMe
+                    ? "bg-primary text-primary-foreground rounded-tr-sm"
+                    : "bg-card/80 text-foreground/90 border border-border/20 rounded-tl-sm"
+                )}>
+                  {msg.text}
+                </div>
               </div>
             );
           })}
         </div>
       </ScrollArea>
 
-      <div className="px-8 py-12 bg-card border-t border-border/5 shrink-0 pb-safe">
-        <div className="relative flex items-center max-w-2xl mx-auto gap-5">
+      {/* Input */}
+      <div className="px-5 py-4 shrink-0 pb-safe relative z-10">
+        <div className="flex items-center gap-2 max-w-2xl mx-auto">
           <div className="relative flex-1">
-            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} placeholder={isListening ? t.listening : t.placeholder} disabled={isSending} className="w-full bg-card/[0.03] border-2 border-border/10 rounded-full py-7 px-10 pr-20 text-lg font-bold focus:border-primary transition-all outline-none disabled:opacity-50 text-white shadow-inner" />
-            <button onClick={startDictation} className={cn("absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-2xl transition-all duration-500", isListening ? "bg-primary text-white animate-pulse" : "text-white/20 hover:text-primary")}>{isListening ? <MicOff size={28} /> : <Mic size={28} />}</button>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              placeholder={isListening ? t.listening : t.placeholder}
+              disabled={isSending}
+              className="w-full bg-background/60 border border-border/30 rounded-full py-3 px-5 pr-12 text-sm font-light focus:border-primary transition-all outline-none disabled:opacity-50 text-foreground"
+            />
+            <button
+              onClick={startDictation}
+              className={cn(
+                "absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full transition-all duration-300",
+                isListening ? "bg-primary text-primary-foreground animate-pulse" : "text-muted-foreground/40 hover:text-primary"
+              )}
+            >
+              {isListening ? <MicOff size={15} /> : <Mic size={15} />}
+            </button>
           </div>
-          <button onClick={handleSend} disabled={!input.trim() || isSending} className="p-7 bg-primary text-white rounded-full disabled:opacity-20 transition-all hover:scale-105 active:scale-95 shadow-2xl border-2 border-primary/30">{isSending ? <Loader2 className="w-8 h-8 animate-spin" /> : <Send className="w-8 h-8" />}</button>
+          <button
+            onClick={handleSend}
+            disabled={!input.trim() || isSending}
+            className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center disabled:opacity-30 transition-all hover:scale-105 active:scale-95 shrink-0"
+          >
+            {isSending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+          </button>
         </div>
-        <p className="text-center text-[11px] font-black text-white uppercase tracking-[0.6em] mt-8 shining-white">
-          {t.shiningFooter}
+        <p className="text-center text-[9px] font-medium uppercase tracking-[0.4em] text-muted-foreground/30 mt-3">
+          {t.footer}
         </p>
       </div>
     </div>

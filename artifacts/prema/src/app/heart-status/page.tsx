@@ -142,14 +142,14 @@ function InnerHeartContent() {
 
       <Dialog open={holdersOpen} onOpenChange={setHoldersOpen}>
         <DialogContent className="bg-card border-border/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85vh] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
-          <DialogTitle className="sr-only">The Holders</DialogTitle>
+          <DialogTitle className="sr-only">Private Circle</DialogTitle>
           <LoveCircleChat />
         </DialogContent>
       </Dialog>
 
       <Dialog open={witnessesOpen} onOpenChange={setWitnessesOpen}>
         <DialogContent className="bg-card border-border/10 max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85vh] shadow-[0_0_100px_rgba(0,0,0,0.9)]">
-          <DialogTitle className="sr-only">The Spectators</DialogTitle>
+          <DialogTitle className="sr-only">Open Circle</DialogTitle>
           <PartyCircleChat />
         </DialogContent>
       </Dialog>

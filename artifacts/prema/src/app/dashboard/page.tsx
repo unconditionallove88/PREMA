@@ -28,11 +28,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { SupporterIcon } from '@/components/ui/supporter-icon';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Step6SubstanceLab as SovereignLab } from '@/components/onboarding/Step6SubstanceLab';
+import { LoveChatHub } from '@/components/chat/LoveChatHub';
 import { RadiatingThirdEye } from '@/components/ui/radiating-third-eye';
 import GuardianSimulator from '@/components/dashboard/GuardianSimulator';
 import HeartStatusAura from '@/components/dashboard/HeartStatusAura';
 import { AssistantPortal as SupporterPortal } from '@/components/chat/AssistantPortal';
-import { LoveCircleChat } from '@/components/chat/LoveCircleChat';
 import { HeartBreath } from '@/components/dashboard/HeartBreath';
 import { PulseGuide } from '@/components/dashboard/PulseGuide';
 import { SmartAlerts } from '@/components/dashboard/SmartAlerts';
@@ -74,8 +74,8 @@ const CONTENT = {
   en: { 
     mesh: "Mesh Active",
     loveChat: "Love Chat",
-    holders: "The Holders",
-    spectators: "The Spectators",
+    holders: "Private",
+    spectators: "Open",
     supporterMain: "Supporter",
     presence: "Presence",
     anchor: "Prema Anchor",
@@ -89,8 +89,8 @@ const CONTENT = {
   de: { 
     mesh: "Mesh aktiv",
     loveChat: "Wort der Liebe",
-    holders: "Die Holder",
-    spectators: "Die Spectator",
+    holders: "Privat",
+    spectators: "Offen",
     supporterMain: "Unterstützer",
     presence: "Präsenz",
     anchor: "Prema Anker",
@@ -419,7 +419,7 @@ function DashboardContent() {
       <Dialog open={loveChatOpen} onOpenChange={setLoveChatOpen}>
         <DialogContent className="bg-card border-border max-w-2xl p-0 rounded-[3rem] overflow-hidden flex flex-col h-[85vh] shadow-soft">
           <DialogTitle className="sr-only">Love Chat</DialogTitle>
-          <LoveCircleChat />
+          <LoveChatHub />
         </DialogContent>
       </Dialog>
 
