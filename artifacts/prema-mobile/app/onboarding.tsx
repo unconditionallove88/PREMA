@@ -22,8 +22,8 @@ import { useColors } from "@/hooks/useColors";
 const CONTENT = {
   en: {
     step1: {
-      tagline: "Harm Reduction",
-      subtitle: "A harm reduction companion for festival communities",
+      tagline: "with love",
+      subtitle: "A circle of care for festival communities",
       cta: "Start your journey",
       touch: "Touch to begin",
     },
@@ -38,8 +38,8 @@ const CONTENT = {
         },
         {
           key: "harm",
-          title: "Harm Reduction — not medical advice",
-          body: "Prema provides harm reduction information only. It is not a substitute for medical advice, diagnosis, or treatment. If you are in danger, call emergency services immediately.",
+          title: "Care — not medical advice",
+          body: "Prema offers care and support information only. It is not a substitute for medical advice, diagnosis, or treatment. If you are in danger, call emergency services immediately.",
         },
         {
           key: "gdpr",
@@ -64,8 +64,8 @@ const CONTENT = {
   },
   de: {
     step1: {
-      tagline: "Harm Reduction",
-      subtitle: "Ein Harm-Reduction-Begleiter für Festival-Communities",
+      tagline: "mit liebe",
+      subtitle: "Ein Kreis der Fürsorge für Festival-Communities",
       cta: "Starte deine Reise",
       touch: "Zum Beginnen berühren",
     },
@@ -80,8 +80,8 @@ const CONTENT = {
         },
         {
           key: "harm",
-          title: "Harm Reduction — kein medizinischer Rat",
-          body: "Prema stellt ausschließlich Harm-Reduction-Informationen bereit. Es ersetzt keinen medizinischen Rat. Bei Gefahr rufe sofort den Notarzt.",
+          title: "Fürsorge — kein medizinischer Rat",
+          body: "Prema bietet ausschließlich Informationen zur Selbstfürsorge. Es ersetzt keinen medizinischen Rat. Bei Gefahr rufe sofort den Notarzt.",
         },
         {
           key: "gdpr",

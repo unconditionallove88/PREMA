@@ -287,8 +287,8 @@ function EssentialsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone:
               key={item.name}
               onClick={() => { playHeartbeat(); toggle(item.name); }}
               className={cn(
-                'flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all duration-200',
-                isChecked ? 'bg-amber-400/10 border-amber-400/40' : 'bg-card border-border hover:border-amber-400/30',
+                'flex items-start gap-3 p-4 rounded-2xl cursor-pointer transition-all duration-200',
+                isChecked ? 'bg-amber-400/10' : 'hover:bg-primary/5',
               )}
             >
               <div className={cn(
@@ -350,11 +350,11 @@ function ListContent({
         <p className={cn('text-[9px] font-medium uppercase tracking-[0.5em] opacity-60', color)}>{t.sub}</p>
         <h3 className="text-xl font-semibold tracking-tight text-foreground">{t.title}</h3>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         {t.advice.map((tip: string, i: number) => (
-          <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-2xl bg-card/60 border border-border/50">
-            <div className={cn('w-1 h-1 rounded-full mt-2 shrink-0 opacity-50', color.replace('text-', 'bg-'))} />
-            <p className="text-sm text-foreground/70 leading-loose font-light">{tip}</p>
+          <div key={i} className="flex items-start gap-4 px-4 py-3.5">
+            <div className={cn('w-1.5 h-1.5 rounded-full mt-2 shrink-0 opacity-40', color.replace('text-', 'bg-'))} />
+            <p className="text-sm text-foreground/70 leading-relaxed font-light">{tip}</p>
           </div>
         ))}
       </div>
@@ -396,7 +396,7 @@ function AlarmsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone: boo
       </div>
 
       {/* Intake Limit */}
-      <div className="p-5 bg-card border border-border rounded-2xl flex items-center justify-between gap-3">
+      <div className="p-5 rounded-2xl flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-amber-500/10 rounded-xl"><ZapOff size={18} className="text-amber-500" /></div>
           <div>
@@ -427,7 +427,7 @@ function AlarmsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone: boo
       </div>
 
       {/* Departure Time */}
-      <div className="p-5 bg-card border border-border rounded-2xl flex items-center justify-between gap-3">
+      <div className="p-5 rounded-2xl flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-400/10 rounded-xl"><Clock size={18} className="text-blue-400" /></div>
           <div>
@@ -444,7 +444,7 @@ function AlarmsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone: boo
       </div>
 
       {/* Rest Intervals */}
-      <div className="p-5 bg-card border border-border rounded-2xl flex items-center justify-between gap-3">
+      <div className="p-5 rounded-2xl flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-purple-400/10 rounded-xl"><Moon size={18} className="text-purple-400" /></div>
           <div>
@@ -463,7 +463,7 @@ function AlarmsContent({ t, alreadyDone, onConfirm }: { t: any; alreadyDone: boo
       </div>
 
       {/* Hydration */}
-      <div className="p-5 bg-card border border-border rounded-2xl flex items-center justify-between gap-3">
+      <div className="p-5 rounded-2xl flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-cyan-400/10 rounded-xl"><GlassWater size={18} className="text-cyan-400" /></div>
           <div>
@@ -560,7 +560,7 @@ export default function BeforePhase() {
   return (
     <main className="h-screen bg-background text-foreground font-headline flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="px-6 py-4 border-b border-border bg-card/90 backdrop-blur-xl flex items-center gap-4 shrink-0">
+      <header className="px-6 py-4 bg-background/80 backdrop-blur-xl flex items-center gap-4 shrink-0">
         <button
           onClick={() => setLocation('/supporter')}
           className="p-2 rounded-full border border-border bg-card hover:border-primary transition-colors shrink-0"
@@ -590,7 +590,7 @@ export default function BeforePhase() {
       <div className="flex flex-1 overflow-hidden">
 
         {/* Left panel: 5 animated circles */}
-        <aside className="flex flex-col items-center gap-5 py-8 px-2 border-r border-border bg-card/30 shrink-0 w-[64px]">
+        <aside className="flex flex-col items-center gap-5 py-8 px-2 bg-transparent shrink-0 w-[64px]">
           {CIRCLES.map((c) => {
             const isActive = activeSection === c.id;
             const isDone = completed[c.id];
@@ -650,8 +650,7 @@ export default function BeforePhase() {
             );
           })}
 
-          {/* Connector line */}
-          <div className="flex-1 w-px bg-border/30 mx-auto" />
+          <div className="flex-1" />
         </aside>
 
         {/* Main content */}
