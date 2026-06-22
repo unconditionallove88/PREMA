@@ -123,7 +123,7 @@ const PHASE_LABELS = {
 export default function HomeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { phase, affirmation, lang } = useSession();
+  const { phase, affirmation, lang, userName } = useSession();
   const phaseInfo = PHASE_LABELS[phase];
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
@@ -143,7 +143,9 @@ export default function HomeScreen() {
         <View>
           <Text style={[styles.appTitle, { color: colors.primary }]}>PREMA</Text>
           <Text style={[styles.appSub, { color: colors.mutedForeground }]}>
-            {lang === "de" ? "Dein Begleiter" : "Your companion"}
+            {userName
+              ? lang === "de" ? `Willkommen, ${userName}` : `Welcome, ${userName}`
+              : lang === "de" ? "Dein Begleiter" : "Your companion"}
           </Text>
         </View>
         <Pressable

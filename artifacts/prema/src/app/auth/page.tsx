@@ -201,7 +201,7 @@ function AuthContent() {
         </form>
 
         <div className="mt-8 space-y-4">
-          <button onClick={() => setLocation("/auth?mode=signin")} className="w-full text-[9px] font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-[0.4em] flex items-center justify-center gap-2">{isSignUp ? t.alreadyAccount : t.newHere}</button>
+          <button onClick={() => setLocation(isSignUp ? "/auth?mode=signin" : "/auth?mode=signup")} className="w-full text-[9px] font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-[0.4em] flex items-center justify-center gap-2">{isSignUp ? t.alreadyAccount : t.newHere}</button>
           
           <div className="pt-6 border-t border-border">
             <button 

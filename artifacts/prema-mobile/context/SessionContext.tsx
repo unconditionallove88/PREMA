@@ -27,6 +27,8 @@ export interface SessionContextValue {
   allComplete: boolean;
   resetSession: () => void;
   affirmation: string;
+  hasOnboarded: boolean | null;
+  userName: string;
 }
 
 const AFFIRMATIONS = [
@@ -59,13 +61,17 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [affirmation] = useState(
     AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)]
   );
+  const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     (async () => {
-      const [ph, ln, comp] = await Promise.all([
+      const [ph, ln, comp, onboarded, uname] = await Promise.all([
         AsyncStorage.getItem("prema_phase"),
         AsyncStorage.getItem("prema_lang"),
         AsyncStorage.getItem("prema_completed"),
+        AsyncStorage.getItem("prema_onboarded"),
+        AsyncStorage.getItem("prema_user_name"),
       ]);
       if (ph === "before" || ph === "during" || ph === "recovery") {
         setPhaseState(ph);
@@ -76,6 +82,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           setCompleted(JSON.parse(comp));
         } catch {}
       }
+      setHasOnboarded(onboarded === "true");
+      setUserName(uname || "");
     })();
   }, []);
 
@@ -120,6 +128,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         allComplete,
         resetSession,
         affirmation,
+        hasOnboarded,
+        userName,
       }}
     >
       {children}
