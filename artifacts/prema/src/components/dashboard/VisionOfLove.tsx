@@ -61,7 +61,7 @@ de: {
 
 export function VisionOfLove({ onClose, isEmergency = false }: VisionOfLoveProps) {
   const [, setLocation] = useLocation();
-  const [mode, setMode] = useState<'intro' | 'beauty'>(isEmergency ? 'beauty' : 'intro');
+  const [mode, setMode] = useState<'intro' | 'beauty'>('beauty');
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
