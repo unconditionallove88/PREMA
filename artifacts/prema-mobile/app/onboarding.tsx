@@ -253,7 +253,7 @@ export default function OnboardingScreen() {
                   },
                 ]}
               >
-                <Feather name="heart" size={52} color={colors.primary} />
+                <Feather name="heart" size={16} color={colors.primary + "80"} />
               </View>
             </View>
 

@@ -17,11 +17,7 @@ const CONTENT = {
   en: {
     title: "Private",
     sub: "Your inner circle",
-    desc: "A tender space for those who hold your heart from afar — speak with truth and tenderness",
-    items: [
-      { title: "Sacred bond", sub: "Shared only with your inner circle", icon: Lock },
-      { title: "Mutual holding", sub: "Unity through shared presence", icon: HeartHandshake }
-    ],
+    desc: "A private space for your closest circle — speak freely and with love",
     button: "Enter the circle",
     createTitle: "Name the bond",
     inviteTitle: "Invite by email",
@@ -35,11 +31,7 @@ const CONTENT = {
   de: {
     title: "Privat",
     sub: "Dein innerer Kreis",
-    desc: "Ein zarter Raum für die, die dein Herz aus der Ferne halten — sprich mit Wahrheit und Zartheit",
-    items: [
-      { title: "Heiliges Band", sub: "Nur mit deinem inneren Kreis", icon: Lock },
-      { title: "Gegenseitiges Halten", sub: "Einheit durch geteilte Präsenz", icon: HeartHandshake }
-    ],
+    desc: "Ein privater Raum für deinen engsten Kreis — sprich frei und mit Liebe",
     button: "Den Kreis betreten",
     createTitle: "Benenne das Band",
     inviteTitle: "Per E-Mail einladen",
@@ -176,18 +168,6 @@ export function LoveCircleChat() {
               <p className="text-sm text-muted-foreground/80 leading-relaxed font-light max-w-xs mx-auto">
                 {t.desc}
               </p>
-            </div>
-
-            <div className="space-y-2 w-full max-w-xs">
-              {t.items.map((item, i) => (
-                <div key={i} className="flex items-center gap-4 px-5 py-4 rounded-2xl">
-                  <item.icon size={18} className="text-primary shrink-0 opacity-70" />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-foreground/90">{item.title}</p>
-                    <p className="text-[10px] text-muted-foreground/60 font-light">{item.sub}</p>
-                  </div>
-                </div>
-              ))}
             </div>
 
             <div className="flex items-center gap-3 w-full max-w-xs">
