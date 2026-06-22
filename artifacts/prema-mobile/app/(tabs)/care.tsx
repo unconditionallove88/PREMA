@@ -1,309 +1,374 @@
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { AlarmOverlay } from "@/components/AlarmOverlay";
 import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
-const SURVEY_QUESTIONS = [
+const TIPS = [
   {
-    key: "q1",
-    en: "How did Prema support you during your experience?",
-    de: "Wie hat Prema dich während deiner Erfahrung unterstützt?",
+    en: { title: "Prioritise restful sleep", body: "The night before sets the foundation for your whole experience." },
+    de: { title: "Erholsamen Schlaf priorisieren", body: "Die Nacht zuvor legt das Fundament für deine Erfahrung." },
   },
   {
-    key: "q2",
-    en: "What tool did you find most helpful tonight?",
-    de: "Welches Tool war heute Nacht am hilfreichsten für dich?",
+    en: { title: "A 20-minute nap helps", body: "If short on sleep, a brief nap restores clarity and calm." },
+    de: { title: "Ein 20-Minuten-Nickerchen hilft", body: "Bei wenig Schlaf stellt ein kurzes Nickerchen Klarheit wieder her." },
   },
   {
-    key: "q3",
-    en: "What would you like to see next in Prema?",
-    de: "Was möchtest du als nächstes in Prema sehen?",
+    en: { title: "Find stillness", body: "Even 5 minutes of quiet stillness helps your nervous system regulate." },
+    de: { title: "Stille finden", body: "Schon 5 Minuten ruhige Stille helfen deinem Nervensystem." },
   },
   {
-    key: "q4",
-    en: "One word to describe your night?",
-    de: "Ein Wort für deine Nacht?",
+    en: { title: "Body scan", body: "Close your eyes. Notice tension. Breathe into the tight spots." },
+    de: { title: "Körperscan", body: "Schließe die Augen. Bemerke Spannungen. Atme in die engen Stellen." },
   },
 ];
 
-export default function AttentionScreen() {
+const NAP_DURATION = 20 * 60;
+
+const CONTENT = {
+  en: {
+    label: "REST",
+    title: "Rest",
+    sub: "Stillness is not lost time — it is preparation",
+    napTitle: "20-min nap timer",
+    napStart: "Start nap timer",
+    napPause: "Pause",
+    napResume: "Resume",
+    napReset: "Reset",
+    napDone: "Rest complete",
+    tipsTitle: "Rest guidance",
+  },
+  de: {
+    label: "RUHE",
+    title: "Ruhe",
+    sub: "Stille ist keine verlorene Zeit — sie ist Vorbereitung",
+    napTitle: "20-Min Nickerchen-Timer",
+    napStart: "Timer starten",
+    napPause: "Pause",
+    napResume: "Fortfahren",
+    napReset: "Zurücksetzen",
+    napDone: "Ruhe abgeschlossen",
+    tipsTitle: "Ruhe-Guidance",
+  },
+};
+
+function formatTime(secs: number) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+export default function RestScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { lang, quickNotes, addQuickNote, journalEntries, addJournalEntry } = useSession();
+  const { lang, careAlarms } = useSession();
+  const t = CONTENT[lang];
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
   const botPad = Platform.OS === "web" ? 34 : insets.bottom;
 
-  const [journalText, setJournalText] = useState("");
-  const [journalExpanded, setJournalExpanded] = useState(false);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [surveySubmitted, setSurveySubmitted] = useState(false);
-  const [featureVote, setFeatureVote] = useState<string | null>(null);
+  const [napRunning, setNapRunning] = useState(false);
+  const [napSecs, setNapSecs] = useState(NAP_DURATION);
+  const [napDone, setNapDone] = useState(false);
+  const [alarmVisible, setAlarmVisible] = useState(false);
+  const alarmFired = useRef(false);
+  const lastRestTs = useRef<number>(Date.now());
+  const napInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const saveJournalEntry = () => {
-    if (!journalText.trim()) return;
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    addJournalEntry(journalText.trim());
-    setJournalText("");
-    setJournalExpanded(false);
+  const startNap = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    setNapRunning(true);
+    setNapDone(false);
+    napInterval.current = setInterval(() => {
+      setNapSecs((s) => {
+        if (s <= 1) {
+          clearInterval(napInterval.current!);
+          setNapRunning(false);
+          setNapDone(true);
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
   };
 
-  const submitSurvey = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    setSurveySubmitted(true);
+  const pauseNap = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setNapRunning(false);
+    if (napInterval.current) clearInterval(napInterval.current);
   };
 
-  const allEntries = [
-    ...quickNotes.map((n) => ({ text: n.text, ts: n.ts, type: "quick" as const })),
-    ...journalEntries.map((e) => ({ text: e.text, ts: e.ts, type: "journal" as const })),
-  ].sort((a, b) => b.ts - a.ts);
+  const resetNap = () => {
+    Haptics.selectionAsync();
+    setNapRunning(false);
+    setNapDone(false);
+    setNapSecs(NAP_DURATION);
+    if (napInterval.current) clearInterval(napInterval.current);
+  };
 
-  const FEATURE_OPTIONS = [
-    { key: "heartrate", en: "Heart Rate Monitor", de: "Herzfrequenz-Monitor" },
-    { key: "map", en: "Venue Map", de: "Veranstaltungsort-Karte" },
-    { key: "lab", en: "Lab Testing Locator", de: "Labor-Test-Finder" },
-    { key: "chat", en: "Love Circle Chat", de: "Kreis-der-Liebe-Chat" },
-    { key: "integration", en: "Wearable Integration", de: "Wearable-Integration" },
-  ];
+  useEffect(() => {
+    return () => { if (napInterval.current) clearInterval(napInterval.current); };
+  }, []);
+
+  // Rest alarm interval check
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - lastRestTs.current) / 60000);
+      if (elapsed >= careAlarms.breathingBreak && !alarmFired.current) {
+        alarmFired.current = true;
+        setAlarmVisible(true);
+      }
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [careAlarms.breathingBreak]);
+
+  const napPct = 1 - napSecs / NAP_DURATION;
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <GradientBackground />
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={[
-          styles.container,
-          { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
-        ]}
+        contentContainerStyle={{ paddingTop: topPad + 24, paddingBottom: botPad + 110, paddingHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
       >
-      {/* ── PHASE LABEL ── */}
-      <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "PHASE 3 · ATTENTION" : "PHASE 3 · ATTENTION"}
-      </Text>
-      <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-        {lang === "de" ? "Liebesbriefe" : "Love Letters"}
-      </Text>
-      <Text style={[styles.screenSub, { color: colors.mutedForeground }]}>
-        {lang === "de"
-          ? "Halte fest, was du gespürt und gelernt hast"
-          : "Record what you felt and learned"}
-      </Text>
+        <Text style={[styles.label, { color: colors.mutedForeground }]}>{t.label}</Text>
+        <Text style={[styles.title, { color: colors.foreground }]}>{t.title}</Text>
+        <Text style={[styles.sub, { color: colors.mutedForeground }]}>{t.sub}</Text>
 
-      {/* ── NEW ENTRY ── */}
-      {!journalExpanded ? (
-        <Pressable
-          onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setJournalExpanded(true); }}
-          style={[styles.newEntryBtn, { backgroundColor: colors.card, borderColor: colors.border }]}
-        >
-          <Feather name="edit-3" size={18} color={colors.mutedForeground} />
-          <Text style={[styles.newEntryPlaceholder, { color: colors.mutedForeground }]}>
-            {lang === "de" ? "Neue Reflexion schreiben..." : "Write a new reflection..."}
-          </Text>
-        </Pressable>
-      ) : (
-        <View style={[styles.editorCard, { backgroundColor: colors.card, borderColor: colors.primary + "40" }]}>
-          <TextInput
-            style={[styles.editorInput, { color: colors.foreground }]}
-            placeholder={lang === "de" ? "Was bewegte dich heute Nacht..." : "What moved you tonight..."}
-            placeholderTextColor={colors.mutedForeground}
-            multiline
-            autoFocus
-            value={journalText}
-            onChangeText={setJournalText}
-          />
-          <View style={styles.editorActions}>
-            <Pressable onPress={() => { setJournalExpanded(false); setJournalText(""); }} style={styles.editorCancel}>
-              <Text style={[styles.editorCancelText, { color: colors.mutedForeground }]}>
-                {lang === "de" ? "Abbrechen" : "Cancel"}
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={saveJournalEntry}
-              style={[styles.editorSave, { backgroundColor: colors.primary, opacity: journalText.trim() ? 1 : 0.4 }]}
-            >
-              <Feather name="heart" size={14} color={colors.primaryForeground} />
-              <Text style={[styles.editorSaveText, { color: colors.primaryForeground }]}>
-                {lang === "de" ? "Speichern" : "Save"}
-              </Text>
-            </Pressable>
-          </View>
-        </View>
-      )}
+        {/* Nap timer */}
+        <View style={[styles.napCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <Text style={[styles.napTitle, { color: colors.foreground }]}>{t.napTitle}</Text>
 
-      {/* ── ENTRIES LIST ── */}
-      {allEntries.length > 0 && (
-        <View style={styles.entriesList}>
-          {allEntries.map((entry, i) => (
-            <View
-              key={i}
-              style={[
-                styles.entryCard,
-                {
-                  backgroundColor: entry.type === "quick" ? colors.card : colors.primary + "08",
-                  borderColor: entry.type === "quick" ? colors.border : colors.primary + "25",
-                },
-              ]}
-            >
-              <View style={styles.entryHeader}>
-                <Feather
-                  name={entry.type === "quick" ? "zap" : "book-open"}
-                  size={12}
-                  color={entry.type === "quick" ? colors.mutedForeground : colors.primary}
-                />
-                <Text style={[styles.entryMeta, { color: colors.mutedForeground }]}>
-                  {entry.type === "quick"
-                    ? lang === "de" ? "Schnellnotiz" : "Quick note"
-                    : lang === "de" ? "Reflexion" : "Reflection"}{" "}
-                  · {new Date(entry.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          <View style={styles.timerWrap}>
+            <View style={[styles.timerRing, { borderColor: colors.border }]}>
+              <View
+                style={[
+                  styles.timerFill,
+                  { borderColor: "#A78BFA", width: `${napPct * 100}%` as any },
+                ]}
+              />
+              <View style={styles.timerCenter}>
+                <Text style={[styles.timerText, { color: napDone ? "#A78BFA" : colors.foreground }]}>
+                  {napDone ? t.napDone : formatTime(napSecs)}
                 </Text>
               </View>
-              <Text style={[styles.entryText, { color: colors.foreground }]}>{entry.text}</Text>
             </View>
-          ))}
-        </View>
-      )}
+          </View>
 
-      {/* ── CREATE / YOU SPEAK ── */}
-      <View style={styles.divider} />
-      <View style={[styles.createHeader, { backgroundColor: colors.primary + "08", borderColor: colors.primary + "20" }]}>
-        <Feather name="message-circle" size={18} color={colors.primary} />
-        <View style={{ flex: 1 }}>
-          <Text style={[styles.createTitle, { color: colors.foreground }]}>
-            {lang === "de" ? "Du sprichst" : "You Speak"}
-          </Text>
-          <Text style={[styles.createSub, { color: colors.mutedForeground }]}>
-            {lang === "de"
-              ? "Deine Stimme hilft uns zu wachsen. Diese Daten unterstützen unsere Master-Thesis-Forschung über bewusstes Nachtleben."
-              : "Your voice helps us grow. This data supports our Master's Thesis research on conscious nightlife."}
-          </Text>
+          <View style={styles.napBtns}>
+            {!napRunning && !napDone && (
+              <Pressable
+                onPress={startNap}
+                style={({ pressed }) => [
+                  styles.napBtn,
+                  { backgroundColor: "#A78BFA", opacity: pressed ? 0.85 : 1 },
+                ]}
+              >
+                <Feather name="moon" size={16} color="#fff" />
+                <Text style={styles.napBtnText}>{napSecs === NAP_DURATION ? t.napStart : t.napResume}</Text>
+              </Pressable>
+            )}
+            {napRunning && (
+              <Pressable
+                onPress={pauseNap}
+                style={({ pressed }) => [
+                  styles.napBtn,
+                  { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1.5, opacity: pressed ? 0.85 : 1 },
+                ]}
+              >
+                <Feather name="pause" size={16} color={colors.foreground} />
+                <Text style={[styles.napBtnText, { color: colors.foreground }]}>{t.napPause}</Text>
+              </Pressable>
+            )}
+            {(napDone || napSecs < NAP_DURATION) && (
+              <Pressable onPress={resetNap} style={styles.resetBtn}>
+                <Feather name="refresh-cw" size={13} color={colors.mutedForeground} />
+                <Text style={[styles.resetBtnText, { color: colors.mutedForeground }]}>{t.napReset}</Text>
+              </Pressable>
+            )}
+          </View>
         </View>
-      </View>
 
-      {!surveySubmitted ? (
-        <>
-          <View style={styles.surveyList}>
-            {SURVEY_QUESTIONS.map((q) => (
-              <View key={q.key} style={styles.surveyItem}>
-                <Text style={[styles.surveyQuestion, { color: colors.foreground }]}>
-                  {lang === "de" ? q.de : q.en}
-                </Text>
-                <TextInput
-                  style={[styles.surveyInput, { backgroundColor: colors.card, borderColor: colors.border, color: colors.foreground }]}
-                  placeholder={lang === "de" ? "Deine Antwort..." : "Your answer..."}
-                  placeholderTextColor={colors.mutedForeground}
-                  value={answers[q.key] || ""}
-                  onChangeText={(t) => setAnswers((prev) => ({ ...prev, [q.key]: t }))}
-                  multiline
-                />
+        {/* Tips */}
+        <Text style={[styles.tipsTitle, { color: colors.foreground }]}>{t.tipsTitle}</Text>
+        <View style={styles.tipsList}>
+          {TIPS.map((tip, i) => {
+            const c = lang === "de" ? tip.de : tip.en;
+            return (
+              <View key={i} style={[styles.tipCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <View style={[styles.tipDot, { backgroundColor: "#A78BFA" }]} />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.tipTitle, { color: colors.foreground }]}>{c.title}</Text>
+                  <Text style={[styles.tipBody, { color: colors.mutedForeground }]}>{c.body}</Text>
+                </View>
               </View>
-            ))}
-          </View>
-
-          <Text style={[styles.voteLabel, { color: colors.mutedForeground }]}>
-            {lang === "de" ? "WAS MÖCHTEST DU ALS NÄCHSTES SEHEN?" : "WHAT DO YOU WANT TO SEE NEXT?"}
-          </Text>
-          <View style={styles.voteGrid}>
-            {FEATURE_OPTIONS.map((opt) => {
-              const active = featureVote === opt.key;
-              return (
-                <Pressable
-                  key={opt.key}
-                  onPress={() => { Haptics.selectionAsync(); setFeatureVote(active ? null : opt.key); }}
-                  style={[
-                    styles.voteBtn,
-                    {
-                      backgroundColor: active ? colors.primary : colors.card,
-                      borderColor: active ? colors.primary : colors.border,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.voteBtnText, { color: active ? colors.primaryForeground : colors.foreground }]}>
-                    {lang === "de" ? opt.de : opt.en}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Pressable
-            onPress={submitSurvey}
-            style={({ pressed }) => [
-              styles.submitBtn,
-              { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1 },
-            ]}
-          >
-            <Feather name="send" size={16} color={colors.primaryForeground} />
-            <Text style={[styles.submitBtnText, { color: colors.primaryForeground }]}>
-              {lang === "de" ? "Feedback senden" : "Send Feedback"}
-            </Text>
-          </Pressable>
-        </>
-      ) : (
-        <View style={[styles.thankYouCard, { backgroundColor: colors.primary + "10", borderColor: colors.primary + "25" }]}>
-          <Feather name="check-circle" size={32} color={colors.primary} />
-          <Text style={[styles.thankYouTitle, { color: colors.foreground }]}>
-            {lang === "de" ? "Danke schön" : "Thank you"}
-          </Text>
-          <Text style={[styles.thankYouBody, { color: colors.mutedForeground }]}>
-            {lang === "de"
-              ? "Deine Stimme hilft uns, Prema für alle zu verbessern."
-              : "Your voice helps us make Prema better for everyone."}
-          </Text>
+            );
+          })}
         </View>
-      )}
-    </ScrollView>
+      </ScrollView>
+
+      <AlarmOverlay
+        visible={alarmVisible}
+        type="rest"
+        lang={lang}
+        onDone={() => {
+          setAlarmVisible(false);
+          alarmFired.current = false;
+          lastRestTs.current = Date.now();
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 20 },
-  sectionLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 3, textTransform: "uppercase", marginBottom: 4 },
-  screenTitle: { fontSize: 24, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginBottom: 4 },
-  screenSub: { fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 18, marginBottom: 20 },
-  divider: { height: 1, backgroundColor: "transparent", marginVertical: 28 },
-  newEntryBtn: { flexDirection: "row", alignItems: "center", gap: 12, padding: 18, borderRadius: 18, borderWidth: 1, marginBottom: 16 },
-  newEntryPlaceholder: { fontSize: 14, fontFamily: "Inter_400Regular" },
-  editorCard: { borderRadius: 20, borderWidth: 1.5, padding: 16, gap: 12, marginBottom: 16 },
-  editorInput: { fontSize: 15, fontFamily: "Inter_400Regular", minHeight: 120, lineHeight: 24, textAlignVertical: "top" },
-  editorActions: { flexDirection: "row", gap: 10, justifyContent: "flex-end" },
-  editorCancel: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12 },
-  editorCancelText: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
-  editorSave: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 12 },
-  editorSaveText: { fontSize: 13, fontFamily: "Inter_700Bold" },
-  entriesList: { gap: 10, marginBottom: 4 },
-  entryCard: { padding: 16, borderRadius: 18, borderWidth: 1, gap: 8 },
-  entryHeader: { flexDirection: "row", alignItems: "center", gap: 6 },
-  entryMeta: { fontSize: 11, fontFamily: "Inter_400Regular", letterSpacing: 0.3 },
-  entryText: { fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 21 },
-  createHeader: { flexDirection: "row", alignItems: "flex-start", gap: 14, padding: 18, borderRadius: 20, borderWidth: 1, marginBottom: 24 },
-  createTitle: { fontSize: 18, fontFamily: "Inter_700Bold", marginBottom: 4 },
-  createSub: { fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 18 },
-  surveyList: { gap: 16, marginBottom: 24 },
-  surveyItem: { gap: 8 },
-  surveyQuestion: { fontSize: 14, fontFamily: "Inter_600SemiBold", lineHeight: 20 },
-  surveyInput: { borderRadius: 14, borderWidth: 1, padding: 14, fontSize: 14, fontFamily: "Inter_400Regular", minHeight: 70, textAlignVertical: "top" },
-  voteLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 12 },
-  voteGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 24 },
-  voteBtn: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: 16, borderWidth: 1.5 },
-  voteBtnText: { fontSize: 12, fontFamily: "Inter_600SemiBold" },
-  submitBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 10, height: 54, borderRadius: 16 },
-  submitBtnText: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 0.5 },
-  thankYouCard: { alignItems: "center", padding: 32, borderRadius: 24, borderWidth: 1, gap: 12 },
-  thankYouTitle: { fontSize: 22, fontFamily: "Inter_700Bold" },
-  thankYouBody: { fontSize: 14, fontFamily: "Inter_400Regular", textAlign: "center", lineHeight: 22 },
+  label: {
+    fontSize: 10,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: 3,
+    textTransform: "uppercase",
+    marginBottom: 4,
+  },
+  title: {
+    fontSize: 32,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: -0.5,
+    marginBottom: 6,
+  },
+  sub: {
+    fontSize: 12,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 18,
+    marginBottom: 28,
+  },
+  napCard: {
+    borderRadius: 24,
+    borderWidth: 1,
+    padding: 24,
+    alignItems: "center",
+    marginBottom: 28,
+    gap: 20,
+  },
+  napTitle: {
+    fontSize: 13,
+    fontFamily: "Inter_600SemiBold",
+    letterSpacing: 0.3,
+  },
+  timerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  timerRing: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderWidth: 3,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+  },
+  timerFill: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    height: "100%",
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    backgroundColor: "#A78BFA20",
+  },
+  timerCenter: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  timerText: {
+    fontSize: 26,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: -0.5,
+    textAlign: "center",
+    paddingHorizontal: 8,
+  },
+  napBtns: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
+  napBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 24,
+    height: 48,
+    borderRadius: 24,
+  },
+  napBtnText: {
+    fontSize: 12,
+    fontFamily: "Inter_700Bold",
+    color: "#fff",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+  resetBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  resetBtnText: {
+    fontSize: 11,
+    fontFamily: "Inter_500Medium",
+    letterSpacing: 0.5,
+  },
+  tipsTitle: {
+    fontSize: 13,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: 0.3,
+    marginBottom: 12,
+  },
+  tipsList: {
+    gap: 10,
+  },
+  tipCard: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 14,
+    borderRadius: 18,
+    borderWidth: 1,
+    padding: 16,
+  },
+  tipDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginTop: 5,
+    flexShrink: 0,
+  },
+  tipTitle: {
+    fontSize: 12,
+    fontFamily: "Inter_600SemiBold",
+    marginBottom: 4,
+    letterSpacing: 0.2,
+  },
+  tipBody: {
+    fontSize: 11,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 17,
+  },
 });

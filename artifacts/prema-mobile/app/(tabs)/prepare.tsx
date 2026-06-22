@@ -1,7 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  Animated,
   Platform,
   Pressable,
   ScrollView,
@@ -11,301 +12,344 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { AlarmOverlay } from "@/components/AlarmOverlay";
 import { GradientBackground } from "@/components/GradientBackground";
 import { useSession } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
-const INTENTIONS = [
-  { key: "present", en: "Be Here Now", de: "Im Hier Sein" },
-  { key: "acceptance", en: "Self-Acceptance", de: "Selbst-Akzeptanz" },
-  { key: "honesty", en: "Honesty", de: "Ehrlichkeit" },
-  { key: "respect", en: "Respect", de: "Respekt" },
-  { key: "gratitude", en: "Gratitude", de: "Dankbarkeit" },
-];
+const CONTENT = {
+  en: {
+    label: "HYDRATION",
+    title: "Water",
+    sub: "Stay steadily fuelled throughout your experience",
+    glassesToday: "glasses today",
+    logBtn: "I drank a glass",
+    lastDrink: "Last drink",
+    nextReminder: "Next reminder",
+    minutesAgo: "m ago",
+    justNow: "just now",
+    minutesLeft: "m",
+    tips: [
+      "Sip water steadily — not all at once",
+      "Aim for one glass every 30–45 min",
+      "Watch for signs of thirst — act early",
+    ],
+    goal: "daily goal",
+  },
+  de: {
+    label: "HYDRATION",
+    title: "Wasser",
+    sub: "Bleib gleichmäßig hydriert während deiner Erfahrung",
+    glassesToday: "Gläser heute",
+    logBtn: "Ich habe ein Glas getrunken",
+    lastDrink: "Letzter Schluck",
+    nextReminder: "Nächste Erinnerung",
+    minutesAgo: "min her",
+    justNow: "gerade eben",
+    minutesLeft: "min",
+    tips: [
+      "Trinke gleichmäßig — nicht alles auf einmal",
+      "Ziel: ein Glas alle 30–45 Minuten",
+      "Achte früh auf Durstgefühl",
+    ],
+    goal: "Tagesziel",
+  },
+};
 
-const ESSENTIALS = [
-  { key: "phone", icon: "smartphone" as const, tint: "#10B981", en: { title: "Phone (100% Charged)", body: "Your lifeline to your Circle of Love" }, de: { title: "Handy (100% geladen)", body: "Deine Verbindung zu deinem Kreis der Liebe" } },
-  { key: "straws", icon: "minus" as const, tint: "#3B82F6", en: { title: "Single-Use Straws", body: "Prevents cross-contamination — never share" }, de: { title: "Einweg-Trinkhalme", body: "Verhindert Kreuzkontamination — niemals teilen" } },
-  { key: "zinc", icon: "activity" as const, tint: "#F59E0B", en: { title: "Zinc (15–30 mg)", body: "Supports immune & neurotransmitter balance" }, de: { title: "Zink (15–30 mg)", body: "Unterstützt Immunsystem & Neurotransmitter-Balance" } },
-  { key: "magnesium", icon: "heart" as const, tint: "#EC4899", en: { title: "Magnesium (200–400 mg)", body: "Reduces muscle tension, supports heart rhythm" }, de: { title: "Magnesium (200–400 mg)", body: "Reduziert Muskelspannung, unterstützt Herzrhythmus" } },
-  { key: "electrolytes", icon: "droplet" as const, tint: "#38BDF8", en: { title: "Electrolytes", body: "Maintains hydration and mineral balance" }, de: { title: "Elektrolyte", body: "Hält Hydratation und Mineralstoffbalance aufrecht" } },
-  { key: "wipes", icon: "wind" as const, tint: "#A78BFA", en: { title: "Disinfecting Wipes", body: "Clean surfaces before use" }, de: { title: "Desinfektionstücher", body: "Oberflächen vor Gebrauch reinigen" } },
-  { key: "plates", icon: "credit-card" as const, tint: "#34D399", en: { title: "Credit-Card Plates (×2)", body: "Use dedicated clean surfaces, never banknotes" }, de: { title: "Kreditkarten-Platten (×2)", body: "Saubere Oberflächen verwenden, niemals Geldscheine" } },
-  { key: "condoms", icon: "shield" as const, tint: "#F472B6", en: { title: "Condoms & Lubricant", body: "Protection and comfort during intimacy" }, de: { title: "Kondome & Gleitmittel", body: "Schutz und Komfort bei Intimität" } },
-];
+const GOAL = 8;
 
-type AlarmKey = "intakeLimit" | "departureHour" | "breathingBreak" | "hydrationSync";
-
-export default function IntentionScreen() {
+export default function WaterScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { lang, intention, setIntention, careAlarms, setCareAlarms } = useSession();
+  const { lang, careAlarms } = useSession();
+  const t = CONTENT[lang];
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
   const botPad = Platform.OS === "web" ? 34 : insets.bottom;
 
-  const [essentialsDone, setEssentialsDone] = useState<Record<string, boolean>>({});
+  const [glassCount, setGlassCount] = useState(0);
+  const [lastDrinkTs, setLastDrinkTs] = useState<number | null>(null);
+  const [minutesSince, setMinutesSince] = useState(0);
+  const [minutesUntil, setMinutesUntil] = useState(careAlarms.hydrationSync);
+  const [alarmVisible, setAlarmVisible] = useState(false);
+  const alarmFired = useRef(false);
 
-  const toggleEssential = (key: string) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setEssentialsDone((prev) => ({ ...prev, [key]: !prev[key] }));
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (lastDrinkTs) {
+        const elapsed = Math.floor((Date.now() - lastDrinkTs) / 60000);
+        setMinutesSince(elapsed);
+        const remaining = careAlarms.hydrationSync - elapsed;
+        setMinutesUntil(Math.max(0, remaining));
+        if (elapsed >= careAlarms.hydrationSync && !alarmFired.current) {
+          alarmFired.current = true;
+          setAlarmVisible(true);
+        }
+      }
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [lastDrinkTs, careAlarms.hydrationSync]);
+
+  const logGlass = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    setGlassCount((p) => p + 1);
+    setLastDrinkTs(Date.now());
+    setMinutesSince(0);
+    setMinutesUntil(careAlarms.hydrationSync);
+    alarmFired.current = false;
+
+    Animated.sequence([
+      Animated.timing(scaleAnim, { toValue: 0.92, duration: 100, useNativeDriver: true }),
+      Animated.spring(scaleAnim, { toValue: 1, friction: 4, useNativeDriver: true }),
+    ]).start();
   };
 
-  const doneCount = Object.values(essentialsDone).filter(Boolean).length;
-
-  const adjustAlarm = (key: AlarmKey, delta: number, min: number, max: number) => {
-    Haptics.selectionAsync();
-    setCareAlarms((prev) => ({
-      ...prev,
-      [key]: Math.max(min, Math.min(max, (prev[key] as number) + delta)),
-    }));
-  };
+  const progressPct = Math.min(1, glassCount / GOAL);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <GradientBackground />
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={[
-          styles.container,
-          { paddingTop: topPad + 24, paddingBottom: botPad + 110 },
-        ]}
+        contentContainerStyle={{ paddingTop: topPad + 24, paddingBottom: botPad + 110, paddingHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
       >
-      {/* ── PREMA — SET YOUR INTENTION ── */}
-      <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "PHASE 1 · INTENTION" : "PHASE 1 · INTENTION"}
-      </Text>
-      <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-        {lang === "de" ? "Prema" : "Prema"}
-      </Text>
-      <Text style={[styles.screenSub, { color: colors.mutedForeground }]}>
-        {lang === "de"
-          ? "Setze einen bewussten Anker für diese Nacht"
-          : "Set a conscious anchor for tonight"}
-      </Text>
+        <Text style={[styles.label, { color: colors.mutedForeground }]}>{t.label}</Text>
+        <Text style={[styles.title, { color: colors.foreground }]}>{t.title}</Text>
+        <Text style={[styles.sub, { color: colors.mutedForeground }]}>{t.sub}</Text>
 
-      <View style={styles.intentionGrid}>
-        {INTENTIONS.map((item) => {
-          const active = intention === item.key;
-          return (
+        {/* Big glass button */}
+        <View style={styles.centreSection}>
+          <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
             <Pressable
-              key={item.key}
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                setIntention(active ? null : item.key);
-              }}
-              style={({ pressed }) => [
-                styles.intentionBtn,
-                {
-                  backgroundColor: active ? colors.primary : colors.card,
-                  borderColor: active ? colors.primary : colors.border,
-                  opacity: pressed ? 0.85 : 1,
-                },
-              ]}
+              onPress={logGlass}
+              style={[styles.glassBtn, { backgroundColor: colors.card, borderColor: "#38BDF850" }]}
             >
-              {active && (
-                <Feather name="check" size={12} color={colors.primaryForeground} />
-              )}
-              <Text
-                style={[
-                  styles.intentionText,
-                  { color: active ? colors.primaryForeground : colors.foreground },
-                ]}
-              >
-                {lang === "de" ? item.de : item.en}
-              </Text>
+              <View style={[styles.glassGlow, { backgroundColor: "#38BDF815" }]} />
+              <Feather name="droplet" size={52} color="#38BDF8" />
             </Pressable>
-          );
-        })}
-      </View>
+          </Animated.View>
 
-      {intention && (
-        <View style={[styles.intentionConfirm, { backgroundColor: colors.primary + "12", borderColor: colors.primary + "30" }]}>
-          <Feather name="anchor" size={14} color={colors.primary} />
-          <Text style={[styles.intentionConfirmText, { color: colors.primary }]}>
-            {lang === "de" ? "Deine Absicht" : "Your intention"}{" "}
-            <Text style={{ fontFamily: "Inter_700Bold" }}>
-              {INTENTIONS.find((i) => i.key === intention)?.[lang === "de" ? "de" : "en"]}
-            </Text>{" "}
-            {lang === "de" ? "ist gesetzt." : "is set."}
+          <Text style={[styles.glassCount, { color: colors.foreground }]}>
+            {glassCount}
           </Text>
-        </View>
-      )}
-
-      {/* ── ESSENTIALS KIT ── */}
-      <View style={styles.divider} />
-      <View style={styles.sectionHeader}>
-        <View>
-          <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-            {lang === "de" ? "ESSENTIALS KIT" : "ESSENTIALS KIT"}
+          <Text style={[styles.glassLabel, { color: colors.mutedForeground }]}>
+            {t.glassesToday}
           </Text>
-          <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-            {lang === "de" ? "Dein Pack" : "Your Pack"}
-          </Text>
-        </View>
-        <View style={[styles.progressPill, { backgroundColor: colors.primary + "15", borderColor: colors.primary + "30" }]}>
-          <Text style={[styles.progressText, { color: colors.primary }]}>
-            {doneCount}/{ESSENTIALS.length}
-          </Text>
-        </View>
-      </View>
 
-      <View style={styles.essentialsList}>
-        {ESSENTIALS.map((item) => {
-          const done = essentialsDone[item.key];
-          const label = lang === "de" ? item.de : item.en;
-          return (
-            <Pressable
-              key={item.key}
-              onPress={() => toggleEssential(item.key)}
-              style={({ pressed }) => [
-                styles.essentialCard,
-                {
-                  backgroundColor: done ? item.tint + "10" : colors.card,
-                  borderColor: done ? item.tint + "40" : colors.border,
-                  opacity: pressed ? 0.85 : 1,
-                },
-              ]}
-            >
-              <View style={[styles.essentialIcon, { backgroundColor: item.tint + "20" }]}>
-                <Feather
-                  name={done ? "check" : item.icon}
-                  size={16}
-                  color={done ? item.tint : colors.mutedForeground}
-                />
-              </View>
-              <View style={styles.essentialContent}>
-                <Text style={[styles.essentialTitle, { color: done ? item.tint : colors.foreground }]}>
-                  {label.title}
-                </Text>
-                <Text style={[styles.essentialBody, { color: colors.mutedForeground }]}>
-                  {label.body}
-                </Text>
-              </View>
-              <View style={[styles.checkbox, { backgroundColor: done ? item.tint : "transparent", borderColor: done ? item.tint : colors.border }]}>
-                {done && <Feather name="check" size={11} color="#fff" />}
-              </View>
-            </Pressable>
-          );
-        })}
-      </View>
-
-      {/* ── NURTURE ALARMS ── */}
-      <View style={styles.divider} />
-      <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "FÜRSORGE-ALARME" : "NURTURE ALARMS"}
-      </Text>
-      <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-        {lang === "de" ? "Deine Einstellungen" : "Your Settings"}
-      </Text>
-      <Text style={[styles.screenSub, { color: colors.mutedForeground, marginBottom: 20 }]}>
-        {lang === "de"
-          ? "Konfiguriere Benachrichtigungen für die Nacht"
-          : "Configure care notifications for the night"}
-      </Text>
-
-      <View style={styles.alarmsList}>
-        {[
-          {
-            key: "intakeLimit" as AlarmKey,
-            icon: "layers" as const,
-            tint: "#F59E0B",
-            en: { label: "INTAKE LIMIT", unit: "units", min: 1, max: 20, step: 1 },
-            de: { label: "EINNAHME-LIMIT", unit: "Einheiten", min: 1, max: 20, step: 1 },
-          },
-          {
-            key: "departureHour" as AlarmKey,
-            icon: "clock" as const,
-            tint: "#10B981",
-            en: { label: "TARGET DEPARTURE", unit: ":00", min: 0, max: 23, step: 1 },
-            de: { label: "ZIEL-ABFAHRTSZEIT", unit: ":00", min: 0, max: 23, step: 1 },
-          },
-          {
-            key: "breathingBreak" as AlarmKey,
-            icon: "wind" as const,
-            tint: "#38BDF8",
-            en: { label: "BREATHING BREAKS", unit: "min", min: 15, max: 120, step: 15 },
-            de: { label: "ATEMÜBUNGEN", unit: "min", min: 15, max: 120, step: 15 },
-          },
-          {
-            key: "hydrationSync" as AlarmKey,
-            icon: "droplet" as const,
-            tint: "#A78BFA",
-            en: { label: "HYDRATION SYNC", unit: "min", min: 15, max: 90, step: 15 },
-            de: { label: "HYDRATIONS-SYNC", unit: "min", min: 15, max: 90, step: 15 },
-          },
-        ].map((alarm) => {
-          const lbl = lang === "de" ? alarm.de : alarm.en;
-          const val = careAlarms[alarm.key] as number;
-          return (
+          {/* Progress bar */}
+          <View style={[styles.progressBar, { backgroundColor: colors.border }]}>
             <View
-              key={alarm.key}
-              style={[styles.alarmCard, { backgroundColor: colors.card, borderColor: colors.border }]}
-            >
-              <View style={[styles.alarmIcon, { backgroundColor: alarm.tint + "18" }]}>
-                <Feather name={alarm.icon} size={16} color={alarm.tint} />
-              </View>
-              <View style={styles.alarmContent}>
-                <Text style={[styles.alarmLabel, { color: colors.mutedForeground }]}>
-                  {lbl.label}
-                </Text>
-                <Text style={[styles.alarmValue, { color: colors.foreground }]}>
-                  {alarm.key === "departureHour"
-                    ? `${String(val).padStart(2, "0")}:00`
-                    : `${val} ${lbl.unit}`}
-                </Text>
-              </View>
-              <View style={styles.alarmControls}>
-                <Pressable
-                  onPress={() => adjustAlarm(alarm.key, -lbl.step, lbl.min, lbl.max)}
-                  style={[styles.alarmBtn, { backgroundColor: alarm.tint + "15", borderColor: alarm.tint + "30" }]}
-                >
-                  <Feather name="minus" size={14} color={alarm.tint} />
-                </Pressable>
-                <Pressable
-                  onPress={() => adjustAlarm(alarm.key, lbl.step, lbl.min, lbl.max)}
-                  style={[styles.alarmBtn, { backgroundColor: alarm.tint + "15", borderColor: alarm.tint + "30" }]}
-                >
-                  <Feather name="plus" size={14} color={alarm.tint} />
-                </Pressable>
-              </View>
+              style={[
+                styles.progressFill,
+                { width: `${progressPct * 100}%` as any, backgroundColor: "#38BDF8" },
+              ]}
+            />
+          </View>
+          <Text style={[styles.goalText, { color: colors.mutedForeground }]}>
+            {glassCount} / {GOAL} {t.goal}
+          </Text>
+        </View>
+
+        {/* Log button */}
+        <Pressable
+          onPress={logGlass}
+          style={({ pressed }) => [
+            styles.logBtn,
+            { backgroundColor: "#38BDF8", opacity: pressed ? 0.85 : 1 },
+          ]}
+        >
+          <Feather name="droplet" size={18} color="#fff" />
+          <Text style={styles.logBtnText}>{t.logBtn}</Text>
+        </Pressable>
+
+        {/* Stats */}
+        <View style={styles.statsRow}>
+          <View style={[styles.statCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <Feather name="clock" size={14} color={colors.mutedForeground} />
+            <Text style={[styles.statLabel, { color: colors.mutedForeground }]}>{t.lastDrink}</Text>
+            <Text style={[styles.statValue, { color: colors.foreground }]}>
+              {lastDrinkTs
+                ? minutesSince === 0
+                  ? t.justNow
+                  : `${minutesSince}${t.minutesAgo}`
+                : "—"}
+            </Text>
+          </View>
+          <View style={[styles.statCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <Feather name="bell" size={14} color={colors.mutedForeground} />
+            <Text style={[styles.statLabel, { color: colors.mutedForeground }]}>{t.nextReminder}</Text>
+            <Text style={[styles.statValue, { color: colors.foreground }]}>
+              {lastDrinkTs ? `${minutesUntil}${t.minutesLeft}` : `${careAlarms.hydrationSync}${t.minutesLeft}`}
+            </Text>
+          </View>
+        </View>
+
+        {/* Tips */}
+        <View style={[styles.tipsCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          {t.tips.map((tip, i) => (
+            <View key={i} style={styles.tipRow}>
+              <View style={[styles.tipDot, { backgroundColor: "#38BDF8" }]} />
+              <Text style={[styles.tipText, { color: colors.mutedForeground }]}>{tip}</Text>
             </View>
-          );
-        })}
-      </View>
-    </ScrollView>
+          ))}
+        </View>
+      </ScrollView>
+
+      <AlarmOverlay
+        visible={alarmVisible}
+        type="water"
+        lang={lang}
+        onDone={() => {
+          setAlarmVisible(false);
+          alarmFired.current = false;
+          setLastDrinkTs(Date.now());
+          setMinutesSince(0);
+          setMinutesUntil(careAlarms.hydrationSync);
+          setGlassCount((p) => p + 1);
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 20 },
-  sectionLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 3, textTransform: "uppercase", marginBottom: 4 },
-  screenTitle: { fontSize: 24, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginBottom: 4 },
-  screenSub: { fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 18, marginBottom: 20 },
-  intentionGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 16 },
-  intentionBtn: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 16, paddingVertical: 10, borderRadius: 20, borderWidth: 1.5 },
-  intentionText: { fontSize: 13, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3 },
-  intentionConfirm: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14, borderRadius: 16, borderWidth: 1, marginBottom: 4 },
-  intentionConfirmText: { fontSize: 13, fontFamily: "Inter_400Regular", flex: 1, lineHeight: 19 },
-  divider: { height: 1, backgroundColor: "transparent", marginVertical: 28 },
-  sectionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 },
-  progressPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12, borderWidth: 1 },
-  progressText: { fontSize: 12, fontFamily: "Inter_700Bold" },
-  essentialsList: { gap: 10, marginBottom: 4 },
-  essentialCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: 14, borderRadius: 18, borderWidth: 1 },
-  essentialIcon: { width: 38, height: 38, borderRadius: 11, alignItems: "center", justifyContent: "center" },
-  essentialContent: { flex: 1, gap: 2 },
-  essentialTitle: { fontSize: 13, fontFamily: "Inter_600SemiBold", letterSpacing: 0.2 },
-  essentialBody: { fontSize: 11, fontFamily: "Inter_400Regular", lineHeight: 16 },
-  checkbox: { width: 22, height: 22, borderRadius: 7, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
-  alarmsList: { gap: 10 },
-  alarmCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: 14, borderRadius: 18, borderWidth: 1 },
-  alarmIcon: { width: 38, height: 38, borderRadius: 11, alignItems: "center", justifyContent: "center" },
-  alarmContent: { flex: 1, gap: 3 },
-  alarmLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 2, textTransform: "uppercase" },
-  alarmValue: { fontSize: 20, fontFamily: "Inter_700Bold", letterSpacing: -0.5 },
-  alarmControls: { flexDirection: "row", gap: 8 },
-  alarmBtn: { width: 34, height: 34, borderRadius: 10, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  label: {
+    fontSize: 10,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: 3,
+    textTransform: "uppercase",
+    marginBottom: 4,
+  },
+  title: {
+    fontSize: 32,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: -0.5,
+    marginBottom: 6,
+  },
+  sub: {
+    fontSize: 12,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 18,
+    marginBottom: 32,
+  },
+  centreSection: {
+    alignItems: "center",
+    marginBottom: 28,
+  },
+  glassBtn: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    shadowColor: "#38BDF8",
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 6,
+  },
+  glassGlow: {
+    position: "absolute",
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+  },
+  glassCount: {
+    fontSize: 64,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: -2,
+    marginTop: 20,
+    lineHeight: 72,
+  },
+  glassLabel: {
+    fontSize: 12,
+    fontFamily: "Inter_400Regular",
+    letterSpacing: 1,
+    marginBottom: 16,
+  },
+  progressBar: {
+    width: "70%",
+    height: 6,
+    borderRadius: 3,
+    overflow: "hidden",
+    marginBottom: 8,
+  },
+  progressFill: {
+    height: "100%",
+    borderRadius: 3,
+  },
+  goalText: {
+    fontSize: 10,
+    fontFamily: "Inter_500Medium",
+    letterSpacing: 1,
+  },
+  logBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    height: 58,
+    borderRadius: 29,
+    marginBottom: 20,
+  },
+  logBtnText: {
+    fontSize: 13,
+    fontFamily: "Inter_700Bold",
+    color: "#fff",
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+  },
+  statsRow: {
+    flexDirection: "row",
+    gap: 12,
+    marginBottom: 20,
+  },
+  statCard: {
+    flex: 1,
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 14,
+    alignItems: "center",
+    gap: 4,
+  },
+  statLabel: {
+    fontSize: 9,
+    fontFamily: "Inter_500Medium",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+  statValue: {
+    fontSize: 16,
+    fontFamily: "Inter_700Bold",
+    letterSpacing: -0.3,
+  },
+  tipsCard: {
+    borderRadius: 18,
+    borderWidth: 1,
+    padding: 16,
+    gap: 12,
+  },
+  tipRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+  tipDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    marginTop: 6,
+    flexShrink: 0,
+  },
+  tipText: {
+    flex: 1,
+    fontSize: 12,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 19,
+  },
 });

@@ -1,5 +1,1 @@
-- [API server AI wiring](api-server-ai-wiring.md) — use @google/genai directly (not genkit) to avoid opentelemetry peer-dep cascade; @google/* is already external in build.mjs so it loads at runtime from node_modules.
-- [Before page "I am prepared" fix](before-prepared-btn.md) — show on `activeSection === 'sync'` not just `allComplete`; sync auto-marks via useEffect which runs after render, so button must not wait for it
-- [Prema session flow](session-flow.md) — canonical path: Care Before → "I am prepared" → /during (access guidance) → "Enter the Circle" → /dashboard
-- [Dashboard right panel tools](dashboard-right-panel.md) — 4 tools (You See/Speak/Take/Create) as fixed right icon strip; Tooltip from @/components/ui/tooltip; center grid removed
-- [Prema Mobile Expo app](prema-mobile-app.md) — artifacts/prema-mobile/, 5 tabs, SessionContext with AsyncStorage, dark emerald #10B981 theme, no backend
+- [Mobile AlarmOverlay vibration](alarm-overlay.md) — Vibration API needs Platform.OS !== "web" guard; expo-haptics is the only installed vibration package.

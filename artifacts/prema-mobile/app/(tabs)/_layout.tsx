@@ -17,20 +17,20 @@ function NativeTabLayout() {
         <Label>Home</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="prepare">
-        <Icon sf={{ default: "sparkles", selected: "sparkles.fill" }} />
-        <Label>Intention</Label>
+        <Icon sf={{ default: "drop", selected: "drop.fill" }} />
+        <Label>Water</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="session">
-        <Icon sf={{ default: "bolt", selected: "bolt.fill" }} />
-        <Label>Action</Label>
+        <Icon sf={{ default: "wind", selected: "wind" }} />
+        <Label>Breathe</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="care">
-        <Icon sf={{ default: "moon.stars", selected: "moon.stars.fill" }} />
-        <Label>Attention</Label>
+        <Icon sf={{ default: "moon", selected: "moon.fill" }} />
+        <Label>Rest</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: "person", selected: "person.fill" }} />
-        <Label>Profile</Label>
+        <Icon sf={{ default: "location.north.fill", selected: "location.north.fill" }} />
+        <Label>Depart</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -91,34 +91,34 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="prepare"
         options={{
-          title: "Intention",
+          title: "Water",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="sparkles" tintColor={color} size={22} />
+              <SymbolView name="drop" tintColor={color} size={22} />
             ) : (
-              <Feather name="target" size={20} color={color} />
+              <Feather name="droplet" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
         name="session"
         options={{
-          title: "Action",
+          title: "Breathe",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="bolt" tintColor={color} size={22} />
+              <SymbolView name="wind" tintColor={color} size={22} />
             ) : (
-              <Feather name="zap" size={20} color={color} />
+              <Feather name="wind" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
         name="care"
         options={{
-          title: "Attention",
+          title: "Rest",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="moon.stars" tintColor={color} size={22} />
+              <SymbolView name="moon" tintColor={color} size={22} />
             ) : (
               <Feather name="moon" size={20} color={color} />
             ),
@@ -127,12 +127,12 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "Depart",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="person" tintColor={color} size={22} />
+              <SymbolView name="location.north.fill" tintColor={color} size={22} />
             ) : (
-              <Feather name="user" size={20} color={color} />
+              <Feather name="navigation" size={20} color={color} />
             ),
         }}
       />

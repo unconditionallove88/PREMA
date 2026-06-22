@@ -64,7 +64,7 @@ const CONTENT = {
     },
     rest: {
       title: "Nervous System Support",
-      sub: "Nervous system support",
+      sub: "Rest as preparation",
       advice: [
         "Prioritise restful sleep the night before",
         "Aim to be in bed before 23:00",
@@ -138,7 +138,7 @@ const CONTENT = {
     },
     rest: {
       title: "Nervensystem-Unterstützung",
-      sub: "Nervensystem-Unterstützung",
+      sub: "Ruhe als Vorbereitung",
       advice: [
         "Priorisiere erholsamen Schlaf in der Nacht zuvor",
         "Sei vor 23:00 Uhr im Bett",
