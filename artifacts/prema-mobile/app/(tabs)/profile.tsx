@@ -55,7 +55,7 @@ export default function ProfileScreen() {
           {lang === "de" ? "Mein Kreis" : "My Circle"}
         </Text>
         <Text style={[styles.avatarSub, { color: colors.mutedForeground }]}>
-          {lang === "de" ? "Gehalten. Verbunden. Sicher." : "Held. Connected. Safe."}
+          {lang === "de" ? "Präsent. Bewusst. Verantwortlich." : "Present. Aware. Responsible."}
         </Text>
       </View>
 

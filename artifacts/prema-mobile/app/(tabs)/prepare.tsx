@@ -43,12 +43,12 @@ const STEPS: {
     tint: "#10B981",
     en: {
       title: "Essentials",
-      body: "Pack water, snacks, phone charger, layers, and your safety card.",
+      body: "Pack water, snacks, phone charger, layers, and your harm reduction information.",
       done: "Packed",
     },
     de: {
       title: "Wesentliches",
-      body: "Packe Wasser, Snacks, Ladekabel, Schichten und deine Sicherheitskarte.",
+      body: "Packe Wasser, Snacks, Ladekabel, Schichten und deine Harm-Reduction-Informationen.",
       done: "Gepackt",
     },
   },
@@ -103,12 +103,12 @@ const STEPS: {
     tint: "#10B981",
     en: {
       title: "Pulse Sync",
-      body: "Share your preparation with your care network. You are not alone.",
+      body: "Share your preparation with your trusted contacts. Take responsibility together.",
       done: "Synced",
     },
     de: {
       title: "Puls-Sync",
-      body: "Teile deine Vorbereitung mit deinem Fürsorge-Netzwerk. Du bist nicht allein.",
+      body: "Teile deine Vorbereitung mit deinen vertrauenswürdigen Kontakten. Gemeinsam Verantwortung übernehmen.",
       done: "Synchronisiert",
     },
   },

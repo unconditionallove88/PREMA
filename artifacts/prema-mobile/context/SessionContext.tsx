@@ -26,21 +26,9 @@ export interface SessionContextValue {
   toggleStep: (step: PrepStep) => void;
   allComplete: boolean;
   resetSession: () => void;
-  affirmation: string;
   hasOnboarded: boolean | null;
   userName: string;
 }
-
-const AFFIRMATIONS = [
-  "You are held",
-  "Your body is wise",
-  "You came here to feel",
-  "Love is your compass",
-  "You are not alone",
-  "Return to your breath",
-  "You are enough",
-  "Trust the unfolding",
-];
 
 const defaultCompleted: Record<PrepStep, boolean> = {
   testing: false,
@@ -58,9 +46,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<"en" | "de">("en");
   const [completed, setCompleted] =
     useState<Record<PrepStep, boolean>>(defaultCompleted);
-  const [affirmation] = useState(
-    AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)]
-  );
   const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
   const [userName, setUserName] = useState("");
 
@@ -127,7 +112,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         toggleStep,
         allComplete,
         resetSession,
-        affirmation,
         hasOnboarded,
         userName,
       }}

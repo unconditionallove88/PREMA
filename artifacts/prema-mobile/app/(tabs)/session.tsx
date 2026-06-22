@@ -58,11 +58,11 @@ const GUIDANCE = [
     tint: "#F472B6",
     en: {
       title: "Stay connected",
-      body: "Keep your safety network close. If something feels off, reach out immediately.",
+      body: "Stay connected with your trusted contacts. If something feels off, reach out immediately.",
     },
     de: {
       title: "Verbunden bleiben",
-      body: "Halte dein Sicherheitsnetz nah. Wenn sich etwas komisch anfühlt, wende dich sofort an jemanden.",
+      body: "Bleibe mit deinen vertrauenswürdigen Kontakten verbunden. Wenn sich etwas komisch anfühlt, wende dich sofort an jemanden.",
     },
   },
   {
@@ -70,11 +70,11 @@ const GUIDANCE = [
     tint: "#34D399",
     en: {
       title: "Trust the flow",
-      body: "Surrender to the experience with care. Breathe, ground, return to intention.",
+      body: "Breathe, ground yourself, and return to your intention. Presence is your anchor.",
     },
     de: {
       title: "Dem Fluss vertrauen",
-      body: "Lass dich mit Fürsorge auf die Erfahrung ein. Atme, erden, zurück zur Absicht.",
+      body: "Atme, erden dich und kehre zu deiner Absicht zurück. Präsenz ist dein Anker.",
     },
   },
 ];
@@ -135,12 +135,6 @@ export default function SessionScreen() {
         <Text style={[styles.screenTitle, { color: colors.foreground }]}>
           {lang === "de" ? "Zugangs-Leitfaden" : "Access Guidance"}
         </Text>
-
-        <View style={styles.affirmationRow}>
-          <Text style={[styles.affirmation, { color: colors.primary }]}>
-            "{lang === "de" ? "Du bist gehalten" : "You are held"}"
-          </Text>
-        </View>
 
         {/* Orb */}
         <View style={styles.orbSection}>

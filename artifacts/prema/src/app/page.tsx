@@ -24,13 +24,13 @@ export default function Home() {
 
   const content = {
     en: {
-      slogan: "You are loved",
+      slogan: "Harm Reduction",
       getStarted: "Enter",
       touchToBegin: "Touch to begin",
       footer: "Created in harmony"
     },
     de: {
-      slogan: "Du bist geliebt",
+      slogan: "Harm Reduction",
       getStarted: "Enter",
       touchToBegin: "Zum Beginnen berühren",
       footer: "Mit Anmut geschaffen"

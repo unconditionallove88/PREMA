@@ -123,7 +123,7 @@ const PHASE_LABELS = {
 export default function HomeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { phase, affirmation, lang, userName } = useSession();
+  const { phase, lang, userName } = useSession();
   const phaseInfo = PHASE_LABELS[phase];
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
@@ -160,11 +160,6 @@ export default function HomeScreen() {
       <View style={styles.orbSection}>
         <HeartOrb />
       </View>
-
-      {/* Affirmation */}
-      <Text style={[styles.affirmation, { color: colors.foreground }]}>
-        "{affirmation}"
-      </Text>
 
       {/* Phase Badge */}
       <Pressable
@@ -219,8 +214,8 @@ export default function HomeScreen() {
         </Text>
         <Text style={[styles.guidanceBody, { color: colors.mutedForeground }]}>
           {lang === "de"
-            ? "Dein Körper ist weise. Höre auf ihn, gehe langsam vor und vertraue deinem Weg."
-            : "Your body is wise. Listen to it, go slow, and trust your path."}
+            ? "Klein beginnen, langsam steigern. Hydratisiert bleiben, präsent bleiben, Grenzen kennen."
+            : "Start low, go slow. Stay hydrated, stay present, and know your limits."}
         </Text>
       </View>
     </ScrollView>

@@ -90,7 +90,7 @@ export default function CareScreen() {
         {lang === "de" ? "FÜRSORGE" : "CARE"}
       </Text>
       <Text style={[styles.screenTitle, { color: colors.foreground }]}>
-        {lang === "de" ? "Du bist nicht allein" : "You are not alone"}
+        {lang === "de" ? "Unterstützung & Ressourcen" : "Support & Resources"}
       </Text>
 
       {/* SOS Button */}
@@ -134,7 +134,7 @@ export default function CareScreen() {
 
       {/* Tips */}
       <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-        {lang === "de" ? "FÜRSORGE-WISSEN" : "CARE KNOWLEDGE"}
+        {lang === "de" ? "HARM REDUCTION WISSEN" : "HARM REDUCTION KNOWLEDGE"}
       </Text>
       <View style={styles.tips}>
         {TIPS.map((tip, i) => {

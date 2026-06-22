@@ -26,11 +26,11 @@ const PHASE_META: Record<Phase, {
 }> = {
   before: {
     icon: <HandHeart size={22} />,
-    label: { en: 'CARE BEFORE', de: 'FÜRSORGE VORHER' },
+    label: { en: 'BEFORE', de: 'VORHER' },
     sub: { en: 'Preparation', de: 'Vorbereitung' },
     poem: {
-      en: 'You arrive fully prepared.\nEvery intention rooted in love.',
-      de: 'Du kommst vorbereitet.\nJede Absicht in Liebe verwurzelt.',
+      en: 'Informed preparation.\nHonest intention.',
+      de: 'Informierte Vorbereitung.\nEhrliche Absicht.',
     },
     cta: { en: 'Enter Preparation', de: 'Vorbereitung beginnen' },
     color: 'text-primary',
@@ -47,8 +47,8 @@ const PHASE_META: Record<Phase, {
     label: { en: 'DURING', de: 'WÄHREND' },
     sub: { en: 'Your Session', de: 'Deine Session' },
     poem: {
-      en: 'You are held.\nThe journey honours your truth.',
-      de: 'Du bist gehalten.\nDie Reise ehrt deine Wahrheit.',
+      en: 'Stay present.\nKnow your limits. Reach out.',
+      de: 'Präsent bleiben.\nGrenzen kennen. Verbindung suchen.',
     },
     cta: { en: 'Enter Session', de: 'Session betreten' },
     color: 'text-primary',
@@ -65,8 +65,8 @@ const PHASE_META: Record<Phase, {
     label: { en: 'AFTER', de: 'DANACH' },
     sub: { en: 'Recovery', de: 'Erholung' },
     poem: {
-      en: 'Rest now, beloved.\nYou have journeyed with courage.',
-      de: 'Ruh dich aus, Geliebte.\nDu hast mit Mut gereist.',
+      en: 'Rest and restore.\nCompassion for yourself.',
+      de: 'Ruhe und Erholung.\nMitgefühl für dich selbst.',
     },
     cta: { en: 'Enter Recovery', de: 'Erholung starten' },
     color: 'text-primary',
@@ -240,12 +240,6 @@ export default function SupporterHub() {
         </Link>
       </header>
 
-      {/* Affirmation strip */}
-      <div className="py-2 px-6 bg-primary/5 border-b border-primary/10 text-center shrink-0">
-        <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/70">
-          {lang === 'de' ? '"Du bist geliebt"' : '"You are loved"'}
-        </p>
-      </div>
 
       {/* Main layout */}
       <div className="flex flex-1 overflow-hidden">

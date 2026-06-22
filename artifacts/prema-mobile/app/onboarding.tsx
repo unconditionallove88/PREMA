@@ -22,7 +22,7 @@ import { useColors } from "@/hooks/useColors";
 const CONTENT = {
   en: {
     step1: {
-      tagline: "You are loved",
+      tagline: "Harm Reduction",
       subtitle: "A harm reduction companion for festival communities",
       cta: "Start your journey",
       touch: "Touch to begin",
@@ -64,7 +64,7 @@ const CONTENT = {
   },
   de: {
     step1: {
-      tagline: "Du bist geliebt",
+      tagline: "Harm Reduction",
       subtitle: "Ein Harm-Reduction-Begleiter für Festival-Communities",
       cta: "Starte deine Reise",
       touch: "Zum Beginnen berühren",
