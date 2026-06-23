@@ -1,230 +1,419 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Animated, Easing, Platform, StyleSheet, View } from "react-native";
-import { Text } from "@/components/Text";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useMemo, useRef } from "react";
+import {
+  Animated,
+  Easing,
+  Platform,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Svg, { Circle, Defs, RadialGradient, Stop } from "react-native-svg";
 
-import { GradientBackground } from "@/components/GradientBackground";
-import { useSession, useThemePreference } from "@/context/SessionContext";
-import { useColors } from "@/hooks/useColors";
+import { Text } from "@/components/Text";
+import { useSession } from "@/context/SessionContext";
+
+/**
+ * Breath of Love — a premium guided coherent-breathing experience.
+ *
+ * A full-screen, minimal meditation: three healing colour environments
+ * (soft blue → pale green → soft rose pink) cross-fade continuously behind a
+ * luminous pink-blue breathing orb. The orb expands on a 5s inhale and
+ * contracts on a 5s exhale (6 breaths / minute), surrounded by a gentle
+ * heart-coherence field. All motion is transform/opacity based (native
+ * driver) for 60fps.
+ */
+
+const HOLD = 16000; // each colour stays ~16s
+const TRANS = 5000; // crossfade ~5s
+const INHALE = 5000;
+const EXHALE = 5000;
+
+// Soft, luminous healing gradients (light pastels — never neon).
+const BLUE = ["#d7e8ff", "#a9c8f2", "#c4dbf7"] as const;
+const GREEN = ["#d6efdb", "#aed5b8", "#dcefe0"] as const;
+const PINK = ["#ffdcea", "#f7bcd6", "#ffe4ef"] as const;
+
+const TEXT_PRIMARY = "#473C5C";
+const TEXT_SOFT = "rgba(71, 60, 92, 0.72)";
+const TEXT_FAINT = "rgba(71, 60, 92, 0.55)";
+
+type ParticleCfg = {
+  left: number;
+  top: number;
+  size: number;
+  drift: number;
+  duration: number;
+  delay: number;
+};
+
+function Particle({ cfg }: { cfg: ParticleCfg }) {
+  const t = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(cfg.delay),
+        Animated.timing(t, {
+          toValue: 1,
+          duration: cfg.duration,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(t, {
+          toValue: 0,
+          duration: cfg.duration,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [t, cfg.delay, cfg.duration]);
+
+  const translateY = t.interpolate({ inputRange: [0, 1], outputRange: [cfg.drift, -cfg.drift] });
+  const opacity = t.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.12, 0.5, 0.18] });
+
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={{
+        position: "absolute",
+        left: cfg.left,
+        top: cfg.top,
+        width: cfg.size,
+        height: cfg.size,
+        borderRadius: cfg.size / 2,
+        backgroundColor: "#FFFFFF",
+        shadowColor: "#FFFFFF",
+        shadowOpacity: 0.8,
+        shadowRadius: cfg.size,
+        shadowOffset: { width: 0, height: 0 },
+        opacity,
+        transform: [{ translateY }],
+      }}
+    />
+  );
+}
 
 const CONTENT = {
   en: {
-    title: "Love Breath",
-    sub: "Breathe in love · breathe out tension",
-    inhale: "Breathe In Love",
-    exhale: "Breathe Out Tension",
-    affirmations: [
-      "Love heals",
-      "Forgiveness frees",
-      "Joy rises",
-      "Acceptance unites",
-      "Presence holds me",
+    title: "breath of love",
+    coherent: "coherent (resonant) breathing",
+    inhale: "inhale",
+    exhale: "exhale",
+    inhaleSub: "breathe in love",
+    exhaleSub: "release and soften",
+    guide: [
+      "synchronize your heart, mind, and breath",
+      "breathe gently through your nose",
+      "inhale for 5 seconds · exhale for 5 seconds",
+      "maintain a smooth, effortless rhythm",
     ],
   },
   de: {
-    title: "Atem der Liebe",
-    sub: "Atme Liebe ein · atme Anspannung aus",
-    inhale: "Atme Liebe ein",
-    exhale: "Atme Anspannung aus",
-    affirmations: [
-      "Liebe heilt",
-      "Vergebung befreit",
-      "Freude steigt",
-      "Akzeptanz verbindet",
-      "Präsenz hält mich",
+    title: "atem der liebe",
+    coherent: "kohärente (resonante) atmung",
+    inhale: "einatmen",
+    exhale: "ausatmen",
+    inhaleSub: "atme liebe ein",
+    exhaleSub: "loslassen und weich werden",
+    guide: [
+      "synchronisiere herz, geist und atem",
+      "atme sanft durch die nase",
+      "5 sekunden einatmen · 5 sekunden ausatmen",
+      "halte einen sanften, mühelosen rhythmus",
     ],
   },
 };
 
-export default function LoveBreathScreen() {
-  const colors = useColors();
+export default function BreathOfLoveScreen() {
   const insets = useSafeAreaInsets();
   const { lang } = useSession();
-  const vibe = useThemePreference();
-  const accent = vibe === "dark" ? "#3DB879" : "#EC4899";
-
   const t = CONTENT[lang] || CONTENT.en;
+  const { width, height } = useWindowDimensions();
 
-  const topPad = Platform.OS === "web" ? 67 : insets.top;
-  const tabPad = Platform.OS === "web" ? 84 : insets.bottom + 64;
+  const topPad = Platform.OS === "web" ? 24 : insets.top;
+  const tabPad = Platform.OS === "web" ? 96 : insets.bottom + 72;
 
+  const ORB = Math.min(width * 0.46, 196);
+  const GLOW = ORB * 2.3;
+  const ringInner = ORB * 1.5;
+  const ringOuter = ORB * 2.0;
+
+  // Background crossfade values (blue is the always-on base layer).
+  const green = useRef(new Animated.Value(0)).current;
+  const pink = useRef(new Animated.Value(0)).current;
+
+  // Breathing + phase-text values.
   const breath = useRef(new Animated.Value(0)).current;
-  const inhaleOpacity = useRef(new Animated.Value(0)).current;
+  const inhaleOpacity = useRef(new Animated.Value(1)).current;
   const exhaleOpacity = useRef(new Animated.Value(0)).current;
 
-  const [affirmIndex, setAffirmIndex] = useState(0);
-
   useEffect(() => {
+    const ease = Easing.inOut(Easing.quad);
+
+    const greenLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(HOLD), // blue showing
+        Animated.timing(green, { toValue: 1, duration: TRANS, easing: ease, useNativeDriver: true }),
+        Animated.delay(HOLD), // green showing
+        Animated.delay(TRANS), // pink fades in over green
+        Animated.delay(HOLD), // pink showing
+        Animated.timing(green, { toValue: 0, duration: TRANS, easing: ease, useNativeDriver: true }),
+      ]),
+    );
+    const pinkLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(HOLD),
+        Animated.delay(TRANS),
+        Animated.delay(HOLD),
+        Animated.timing(pink, { toValue: 1, duration: TRANS, easing: ease, useNativeDriver: true }),
+        Animated.delay(HOLD),
+        Animated.timing(pink, { toValue: 0, duration: TRANS, easing: ease, useNativeDriver: true }),
+      ]),
+    );
+
     const breathLoop = Animated.loop(
       Animated.sequence([
-        Animated.timing(breath, { toValue: 1, duration: 4000, easing: Easing.inOut(Easing.quad), useNativeDriver: true }),
-        Animated.timing(breath, { toValue: 0, duration: 4000, easing: Easing.inOut(Easing.quad), useNativeDriver: true }),
-      ])
+        Animated.timing(breath, {
+          toValue: 1,
+          duration: INHALE,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(breath, {
+          toValue: 0,
+          duration: EXHALE,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ]),
     );
-    const inhaleLoop = Animated.loop(
+    const inhaleTextLoop = Animated.loop(
       Animated.sequence([
         Animated.timing(inhaleOpacity, { toValue: 1, duration: 700, useNativeDriver: true }),
-        Animated.delay(2600),
-        Animated.timing(inhaleOpacity, { toValue: 0, duration: 700, useNativeDriver: true }),
-        Animated.delay(4000),
-      ])
+        Animated.delay(INHALE - 1300),
+        Animated.timing(inhaleOpacity, { toValue: 0, duration: 600, useNativeDriver: true }),
+        Animated.delay(EXHALE),
+      ]),
     );
-    const exhaleLoop = Animated.loop(
+    const exhaleTextLoop = Animated.loop(
       Animated.sequence([
-        Animated.delay(4000),
+        Animated.delay(INHALE),
         Animated.timing(exhaleOpacity, { toValue: 1, duration: 700, useNativeDriver: true }),
-        Animated.delay(2600),
-        Animated.timing(exhaleOpacity, { toValue: 0, duration: 700, useNativeDriver: true }),
-      ])
+        Animated.delay(EXHALE - 1300),
+        Animated.timing(exhaleOpacity, { toValue: 0, duration: 600, useNativeDriver: true }),
+      ]),
     );
 
+    greenLoop.start();
+    pinkLoop.start();
     breathLoop.start();
-    inhaleLoop.start();
-    exhaleLoop.start();
-
-    const affirmTimer = setInterval(() => {
-      setAffirmIndex((i) => (i + 1) % t.affirmations.length);
-    }, 8000);
-
+    inhaleTextLoop.start();
+    exhaleTextLoop.start();
     return () => {
+      greenLoop.stop();
+      pinkLoop.stop();
       breathLoop.stop();
-      inhaleLoop.stop();
-      exhaleLoop.stop();
-      clearInterval(affirmTimer);
+      inhaleTextLoop.stop();
+      exhaleTextLoop.stop();
     };
-  }, [breath, inhaleOpacity, exhaleOpacity, t.affirmations.length]);
+  }, [green, pink, breath, inhaleOpacity, exhaleOpacity]);
 
-  const scaleOuter = breath.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1.25] });
-  const scaleMid = breath.interpolate({ inputRange: [0, 1], outputRange: [0.8, 1.15] });
-  const scaleCore = breath.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.1] });
-  const glowOpacity = breath.interpolate({ inputRange: [0, 1], outputRange: [0.2, 0.5] });
+  const orbScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.82, 1.12] });
+  const glowOpacity = breath.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0.85] });
+  const ringInnerScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.78, 1.18] });
+  const ringOuterScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1.32] });
+  const ringInnerOpacity = breath.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.12, 0.4, 0.12] });
+  const ringOuterOpacity = breath.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.05, 0.24, 0.05] });
+
+  const particles = useMemo<ParticleCfg[]>(() => {
+    return Array.from({ length: 10 }, () => ({
+      left: Math.random() * width,
+      top: Math.random() * height,
+      size: 2 + Math.random() * 4,
+      drift: 8 + Math.random() * 14,
+      duration: 2600 + Math.random() * 2600,
+      delay: Math.random() * 2400,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <GradientBackground />
+    <View style={styles.root}>
+      {/* Healing colour environments (blue base, green + pink crossfade above) */}
+      <LinearGradient colors={BLUE} style={StyleSheet.absoluteFill} />
+      <Animated.View style={[StyleSheet.absoluteFill, { opacity: green }]}>
+        <LinearGradient colors={GREEN} style={StyleSheet.absoluteFill} />
+      </Animated.View>
+      <Animated.View style={[StyleSheet.absoluteFill, { opacity: pink }]}>
+        <LinearGradient colors={PINK} style={StyleSheet.absoluteFill} />
+      </Animated.View>
 
-      <View style={[styles.header, { paddingTop: topPad + 8 }]}>
-        <Text style={[styles.headerTitle, { color: colors.foreground }]}>{t.title}</Text>
-        <Text style={[styles.headerSub, { color: colors.mutedForeground }]}>{t.sub}</Text>
-      </View>
+      {/* Subtle floating light particles */}
+      {particles.map((cfg, i) => (
+        <Particle key={i} cfg={cfg} />
+      ))}
 
-      <View style={[styles.center, { paddingBottom: tabPad }]}>
-        <View style={styles.orbWrap}>
-          <Animated.View
-            style={[
-              styles.ring,
-              styles.ringOuter,
-              { backgroundColor: accent + "12", transform: [{ scale: scaleOuter }], opacity: glowOpacity },
-            ]}
-          />
-          <Animated.View
-            style={[
-              styles.ring,
-              styles.ringMid,
-              { backgroundColor: accent + "20", transform: [{ scale: scaleMid }] },
-            ]}
-          />
-          <Animated.View
-            style={[
-              styles.ring,
-              styles.ringCore,
-              {
-                backgroundColor: colors.card,
-                borderColor: accent + "55",
-                shadowColor: accent,
-                transform: [{ scale: scaleCore }],
-              },
-            ]}
-          >
-            <View style={[styles.coreDot, { backgroundColor: accent }]} />
-          </Animated.View>
+      <View style={[styles.content, { paddingTop: topPad + 12, paddingBottom: tabPad }]}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>{t.title}</Text>
+          <Text style={styles.coherent}>{t.coherent}</Text>
         </View>
 
-        <View style={styles.textStage}>
-          <Animated.Text style={[styles.breathText, { color: colors.foreground, opacity: inhaleOpacity }]}>
-            {t.inhale}
-          </Animated.Text>
-          <Animated.Text
-            style={[styles.breathText, styles.breathTextAbs, { color: accent, opacity: exhaleOpacity }]}
-          >
-            {t.exhale}
-          </Animated.Text>
+        {/* Breathing orb + heart-coherence field */}
+        <View style={styles.stage}>
+          <View style={{ width: GLOW, height: GLOW, alignItems: "center", justifyContent: "center" }}>
+            {/* outer ambient bloom */}
+            <Animated.View style={[styles.center, { opacity: glowOpacity }]}>
+              <Svg width={GLOW} height={GLOW}>
+                <Defs>
+                  <RadialGradient id="bloom" cx="50%" cy="50%" r="50%">
+                    <Stop offset="0%" stopColor="#FFC6E0" stopOpacity="0.5" />
+                    <Stop offset="45%" stopColor="#B9C4F5" stopOpacity="0.22" />
+                    <Stop offset="100%" stopColor="#B9C4F5" stopOpacity="0" />
+                  </RadialGradient>
+                </Defs>
+                <Circle cx={GLOW / 2} cy={GLOW / 2} r={GLOW / 2} fill="url(#bloom)" />
+              </Svg>
+            </Animated.View>
+
+            {/* heart-coherence rings */}
+            <Animated.View
+              style={[
+                styles.center,
+                styles.ring,
+                {
+                  width: ringOuter,
+                  height: ringOuter,
+                  borderRadius: ringOuter / 2,
+                  opacity: ringOuterOpacity,
+                  transform: [{ scale: ringOuterScale }],
+                },
+              ]}
+            />
+            <Animated.View
+              style={[
+                styles.center,
+                styles.ring,
+                {
+                  width: ringInner,
+                  height: ringInner,
+                  borderRadius: ringInner / 2,
+                  opacity: ringInnerOpacity,
+                  transform: [{ scale: ringInnerScale }],
+                },
+              ]}
+            />
+
+            {/* luminous breathing orb */}
+            <Animated.View style={[styles.center, { transform: [{ scale: orbScale }] }]}>
+              <Svg width={ORB} height={ORB}>
+                <Defs>
+                  <RadialGradient id="orb" cx="50%" cy="38%" r="65%">
+                    <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.98" />
+                    <Stop offset="28%" stopColor="#FFD2E6" stopOpacity="0.96" />
+                    <Stop offset="64%" stopColor="#E0A6E8" />
+                    <Stop offset="100%" stopColor="#8FB6F0" />
+                  </RadialGradient>
+                </Defs>
+                <Circle cx={ORB / 2} cy={ORB / 2} r={ORB / 2} fill="url(#orb)" />
+              </Svg>
+            </Animated.View>
+          </View>
         </View>
 
-        <Text style={[styles.affirmation, { color: colors.mutedForeground }]}>
-          {t.affirmations[affirmIndex]}
-        </Text>
+        {/* Breathing phase cue */}
+        <View style={styles.phase}>
+          <View style={styles.phaseStage}>
+            <Animated.Text style={[styles.phaseWord, { opacity: inhaleOpacity }]}>
+              {t.inhale}
+            </Animated.Text>
+            <Animated.Text style={[styles.phaseWord, styles.phaseAbs, { opacity: exhaleOpacity }]}>
+              {t.exhale}
+            </Animated.Text>
+          </View>
+          <View style={styles.phaseSubStage}>
+            <Animated.Text style={[styles.phaseSub, { opacity: inhaleOpacity }]}>
+              {t.inhaleSub}
+            </Animated.Text>
+            <Animated.Text style={[styles.phaseSub, styles.phaseAbs, { opacity: exhaleOpacity }]}>
+              {t.exhaleSub}
+            </Animated.Text>
+          </View>
+        </View>
+
+        {/* Guidance text */}
+        <View style={styles.guide}>
+          {t.guide.map((line, i) => (
+            <Text key={i} style={styles.guideLine}>
+              {line}
+            </Text>
+          ))}
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: "center",
-    paddingHorizontal: 24,
-    paddingBottom: 8,
-    gap: 6,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontFamily: "Nunito_700Bold",
-    letterSpacing: 0.5,
-  },
-  headerSub: {
-    fontSize: 11,
-    fontFamily: "Nunito_500Medium",
-    letterSpacing: 0.5,
-    textAlign: "center",
-  },
-  center: {
+  root: { flex: 1, backgroundColor: "#c4dbf7" },
+  content: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    gap: 48,
+    justifyContent: "space-between",
+    paddingHorizontal: 28,
   },
-  orbWrap: {
-    width: 260,
-    height: 260,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ring: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ringOuter: { width: 260, height: 260, borderRadius: 130 },
-  ringMid: { width: 180, height: 180, borderRadius: 90 },
-  ringCore: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 2,
-    shadowOpacity: 0.35,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 0 },
-    elevation: 8,
-  },
-  coreDot: { width: 56, height: 56, borderRadius: 28, opacity: 0.85 },
-  textStage: {
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  breathText: {
-    fontSize: 26,
+  header: { alignItems: "center", gap: 6 },
+  title: {
     fontFamily: "Nunito_700Bold",
-    letterSpacing: 0.5,
-    textAlign: "center",
+    fontSize: 22,
+    letterSpacing: 1,
+    color: TEXT_PRIMARY,
+  },
+  coherent: {
+    fontFamily: "Nunito_500Medium",
+    fontSize: 12,
+    letterSpacing: 1.5,
+    color: TEXT_SOFT,
+  },
+  stage: { flex: 1, alignItems: "center", justifyContent: "center" },
+  center: { position: "absolute", alignItems: "center", justifyContent: "center" },
+  ring: {
+    borderWidth: 1.5,
+    borderColor: "#FFFFFF",
+  },
+  phase: { alignItems: "center", gap: 6 },
+  phaseStage: { height: 42, alignItems: "center", justifyContent: "center" },
+  phaseSubStage: { height: 22, alignItems: "center", justifyContent: "center" },
+  phaseWord: {
+    fontFamily: "Nunito_700Bold",
+    fontSize: 30,
+    letterSpacing: 4,
+    color: TEXT_PRIMARY,
+    textTransform: "lowercase",
+    textShadowColor: "rgba(255,255,255,0.6)",
+    textShadowRadius: 10,
+    textShadowOffset: { width: 0, height: 1 },
+  },
+  phaseAbs: { position: "absolute" },
+  phaseSub: {
+    fontFamily: "Nunito_500Medium",
+    fontSize: 14,
+    letterSpacing: 1,
+    color: TEXT_SOFT,
     textTransform: "lowercase",
   },
-  breathTextAbs: { position: "absolute" },
-  affirmation: {
-    fontSize: 13,
+  guide: { alignItems: "center", gap: 7 },
+  guideLine: {
     fontFamily: "Nunito_500Medium",
-    letterSpacing: 2,
-    textTransform: "uppercase",
+    fontSize: 12.5,
+    letterSpacing: 0.6,
+    lineHeight: 18,
     textAlign: "center",
+    color: TEXT_FAINT,
   },
 });
