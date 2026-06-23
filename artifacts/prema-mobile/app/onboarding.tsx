@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { Animated, Easing, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -334,6 +334,7 @@ export default function OnboardingScreen() {
   const LANDING_CIRCLE = Math.min(screenW * 0.66, 270);
   const titleSize = LANDING_CIRCLE * 0.17;
   const titleSpacing = LANDING_CIRCLE * 0.025;
+  const WELCOME_CIRCLE = Math.min(screenW * 0.62, 260);
   const { setLang, setTheme, setIntention, setCareAlarms, completeOnboarding } = useSession();
 
   const [step, setStep] = useState(1);
@@ -358,6 +359,7 @@ export default function OnboardingScreen() {
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const slideAnim = useRef(new Animated.Value(0)).current;
+  const welcomeGlow = useRef(new Animated.Value(0)).current;
 
   const t = CONTENT[uiLang];
 
@@ -391,6 +393,26 @@ export default function OnboardingScreen() {
       return () => clearTimeout(id);
     }
   }, [step]);
+
+  // Welcome: gently pulse the name inside the circle (Neptunian ignition glow).
+  useEffect(() => {
+    if (step !== 3) return;
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(welcomeGlow, { toValue: 1, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(welcomeGlow, { toValue: 0, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [step, welcomeGlow]);
+
+  const handleBack = () => {
+    if (step <= 1) return;
+    let target = step - 1;
+    if (target === 3) target = 2; // skip the auto-advancing welcome on the way back
+    transition(target);
+  };
 
   const handleLang = (l: "en" | "de") => {
     setUiLang(l);
@@ -441,6 +463,8 @@ export default function OnboardingScreen() {
   };
 
   const showProgress = step !== 1 && step !== 3;
+  const nameScale = welcomeGlow.interpolate({ inputRange: [0, 1], outputRange: [0.97, 1.05] });
+  const nameGlow = welcomeGlow.interpolate({ inputRange: [0, 1], outputRange: [0.8, 1] });
 
   return (
     <KeyboardAvoidingView
@@ -458,6 +482,16 @@ export default function OnboardingScreen() {
             },
           ]}
         >
+          <Pressable
+            onPress={handleBack}
+            hitSlop={12}
+            style={({ pressed }) => [
+              styles.backBtn,
+              { backgroundColor: colors.muted, opacity: pressed ? 0.7 : 1 },
+            ]}
+          >
+            <Feather name="arrow-left" size={18} color={colors.foreground} />
+          </Pressable>
           <View style={styles.progressInner}>
             {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((s) => (
               <View
@@ -620,13 +654,31 @@ export default function OnboardingScreen() {
         {step === 3 && (
           <View style={[styles.landing, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
             <View style={styles.landingCenter}>
-              <CircleOfLove size={230} />
+              <View style={[styles.circleStack, { width: WELCOME_CIRCLE, height: WELCOME_CIRCLE }]}>
+                <CircleOfLove size={WELCOME_CIRCLE} />
+                {!!name.trim() && (
+                  <Animated.View
+                    style={[styles.titleOverlay, { opacity: nameGlow, transform: [{ scale: nameScale }] }]}
+                    pointerEvents="none"
+                  >
+                    <Text
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      style={[
+                        styles.welcomeNameInside,
+                        {
+                          color: colors.primary,
+                          fontSize: WELCOME_CIRCLE * 0.17,
+                          textShadowColor: colors.primary + "80",
+                        },
+                      ]}
+                    >
+                      {name.trim()}
+                    </Text>
+                  </Animated.View>
+                )}
+              </View>
               <Text style={[styles.welcomeTitle, { color: colors.foreground }]}>{t.welcome.title}</Text>
-              {!!name.trim() && (
-                <Text style={[styles.welcomeName, { color: colors.primary }]}>
-                  {name.trim().toUpperCase()}
-                </Text>
-              )}
               <Text style={[styles.landingHint, { color: colors.mutedForeground }]}>{t.welcome.sub}</Text>
             </View>
           </View>
@@ -1144,6 +1196,15 @@ const styles = StyleSheet.create({
   },
   welcomeTitle: { fontSize: 30, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
   welcomeName: { fontSize: 14, fontFamily: "Nunito_700Bold", letterSpacing: 4, marginTop: 8 },
+  welcomeNameInside: {
+    fontFamily: "Nunito_700Bold",
+    textAlign: "center",
+    letterSpacing: 2,
+    paddingHorizontal: 24,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 16,
+  },
+  backBtn: { width: 32, height: 32, borderRadius: 16, alignItems: "center", justifyContent: "center" },
   bottomConsole: {
     flexDirection: "row",
     alignItems: "flex-start",

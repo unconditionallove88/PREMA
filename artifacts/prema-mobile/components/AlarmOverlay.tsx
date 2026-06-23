@@ -8,7 +8,7 @@ import { AnatomicalHeart } from "@/components/AnatomicalHeart";
 import { WaterGlass } from "@/components/WaterGlass";
 import { useColors } from "@/hooks/useColors";
 
-export type AlarmType = "water" | "breathe" | "rest" | "depart";
+export type AlarmType = "water" | "breathe" | "rest" | "depart" | "limit";
 
 interface Props {
   visible: boolean;
@@ -81,6 +81,20 @@ const CONTENT: Record<AlarmType, AlarmEntry> = {
       title: "Zeit nach Hause zu gehen",
       body: "Deine Abfahrtzeit ist da. Bleibt zusammen und kommt sicher nach Hause.",
       btn: "Ich gehe jetzt nach Hause",
+    },
+  },
+  limit: {
+    icon: "alert-octagon",
+    color: "#F59E0B",
+    en: {
+      title: "Intake limit reached",
+      body: "You've reached the intake amount you set for yourself. Pause here, drink some water, and check in with your body before anything more.",
+      btn: "I'll pause here",
+    },
+    de: {
+      title: "Einnahme-Limit erreicht",
+      body: "Du hast die Menge erreicht, die du dir vorgenommen hast. Pausiere, trink etwas Wasser und spüre in deinen Körper, bevor du weitermachst.",
+      btn: "Ich pausiere",
     },
   },
 };

@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef, useState } from "react";
-import { Modal, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Animated, Modal, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -16,6 +16,7 @@ const SUBSTANCES = [
   "3-MMC",
   "Cannabis",
   "Ketamine",
+  "GHB",
   "LSD",
   "Cocaine",
   "Psilocybin",
@@ -36,6 +37,19 @@ const CONTENT = {
     emptyHistory: "Your intake timeline will appear here.",
     clear: "Clear log",
     ago: "ago",
+    warningDismiss: "Got it",
+    warnings: {
+      depressant: {
+        risk: "Dangerous",
+        title: "GHB + alcohol",
+        body: "Two depressants together slow your breathing and can cause blackout or overdose. Don't take any more — stay close to someone you trust.",
+      },
+      stimulant: {
+        risk: "Caution",
+        title: "Stimulant + alcohol",
+        body: "Alcohol hides how high you are and deepens dehydration. Sip water, slow down, and avoid redosing.",
+      },
+    },
     mixingBtn: "Mixing Wisdom",
     mixingSub: "Tap anytime — combining changes the risk",
     mixingTitle: "Mixing Wisdom",
@@ -95,6 +109,19 @@ const CONTENT = {
     emptyHistory: "Dein Verlauf erscheint hier.",
     clear: "Verlauf löschen",
     ago: "her",
+    warningDismiss: "Verstanden",
+    warnings: {
+      depressant: {
+        risk: "Gefährlich",
+        title: "GHB + Alkohol",
+        body: "Zwei Dämpfer zusammen verlangsamen die Atmung und können Blackout oder Überdosis verursachen. Nimm nichts mehr — bleib bei jemandem, dem du vertraust.",
+      },
+      stimulant: {
+        risk: "Vorsicht",
+        title: "Stimulans + Alkohol",
+        body: "Alkohol überdeckt, wie high du bist, und verstärkt die Dehydrierung. Trink Wasser, mach langsamer und dosiere nicht nach.",
+      },
+    },
     mixingBtn: "Misch-Wissen",
     mixingSub: "Jederzeit antippen — Mischen ändert das Risiko",
     mixingTitle: "Misch-Wissen",
@@ -144,8 +171,11 @@ const CONTENT = {
 };
 
 const STORAGE_KEY = "prema_intake_log";
+const STIMULANTS = ["MDMA", "Cocaine", "Speed", "3-MMC"];
+const RECENT_WINDOW_MS = 6 * 60 * 60 * 1000;
 
 type Intake = { id: string; substance: string; amount?: string; ts: number };
+type Warn = { risk: string; title: string; body: string };
 
 const RISK_COLOR: Record<string, string> = {
   "High risk": "#EF4444",
@@ -155,6 +185,59 @@ const RISK_COLOR: Record<string, string> = {
   Gefährlich: "#EF4444",
   Vorsicht: "#F59E0B",
 };
+
+function WarningBanner({
+  warning,
+  color,
+  dismissLabel,
+  onDismiss,
+  colors,
+}: {
+  warning: Warn;
+  color: string;
+  dismissLabel: string;
+  onDismiss: () => void;
+  colors: ReturnType<typeof useColors>;
+}) {
+  const glow = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(glow, { toValue: 1, duration: 1100, useNativeDriver: true }),
+        Animated.timing(glow, { toValue: 0, duration: 1100, useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [glow]);
+  const glowOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: [0.25, 0.7] });
+
+  return (
+    <View style={styles.warnWrap}>
+      <Animated.View
+        pointerEvents="none"
+        style={[styles.warnGlow, { backgroundColor: color + "33", opacity: glowOpacity }]}
+      />
+      <View style={[styles.warnCard, { backgroundColor: colors.card, borderColor: color }]}>
+        <View style={[styles.warnIcon, { backgroundColor: color + "26" }]}>
+          <Feather name="alert-triangle" size={20} color={color} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <View style={styles.warnTop}>
+            <Text style={[styles.warnTitle, { color: colors.foreground }]}>{warning.title}</Text>
+            <View style={[styles.riskTag, { backgroundColor: color + "22" }]}>
+              <Text style={[styles.riskText, { color }]}>{warning.risk}</Text>
+            </View>
+          </View>
+          <Text style={[styles.warnBody, { color: colors.mutedForeground }]}>{warning.body}</Text>
+          <Pressable onPress={onDismiss} hitSlop={8} style={{ alignSelf: "flex-start", marginTop: 10 }}>
+            <Text style={[styles.warnDismiss, { color }]}>{dismissLabel}</Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+}
 
 export default function LaboratoryScreen() {
   const colors = useColors();
@@ -173,7 +256,18 @@ export default function LaboratoryScreen() {
   const [amount, setAmount] = useState("");
   const [now, setNow] = useState(Date.now());
   const [mixingOpen, setMixingOpen] = useState(false);
+  const [warning, setWarning] = useState<Warn | null>(null);
   const tick = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const detectWarning = (entries: Intake[]): Warn | null => {
+    const ts = Date.now();
+    const subs = new Set(
+      entries.filter((e) => ts - e.ts <= RECENT_WINDOW_MS).map((e) => e.substance),
+    );
+    if (subs.has("GHB") && subs.has("Alcohol")) return t.warnings.depressant;
+    if (subs.has("Alcohol") && STIMULANTS.some((s) => subs.has(s))) return t.warnings.stimulant;
+    return null;
+  };
 
   useEffect(() => {
     (async () => {
@@ -207,7 +301,13 @@ export default function LaboratoryScreen() {
       amount: amount.trim() || undefined,
       ts: Date.now(),
     };
-    persist([entry, ...log]);
+    const next = [entry, ...log];
+    persist(next);
+    const w = detectWarning(next);
+    if (w) {
+      setWarning(w);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    }
     setSelected(null);
     setAmount("");
   };
@@ -270,6 +370,17 @@ export default function LaboratoryScreen() {
             <Text style={[styles.timerNone, { color: colors.mutedForeground }]}>{t.none}</Text>
           )}
         </View>
+
+        {/* Cross-substance warning — surfaces when a risky combo is logged */}
+        {warning && (
+          <WarningBanner
+            warning={warning}
+            color={RISK_COLOR[warning.risk] || "#EF4444"}
+            dismissLabel={t.warningDismiss}
+            onDismiss={() => setWarning(null)}
+            colors={colors}
+          />
+        )}
 
         {/* Mixing Wisdom — always accessible, highlighted */}
         <Pressable
@@ -469,6 +580,14 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 24,
   },
+  warnWrap: { marginBottom: 16, position: "relative" },
+  warnGlow: { position: "absolute", top: -6, left: -6, right: -6, bottom: -6, borderRadius: 26 },
+  warnCard: { flexDirection: "row", gap: 14, borderRadius: 20, borderWidth: 2, padding: 16 },
+  warnIcon: { width: 44, height: 44, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  warnTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 6 },
+  warnTitle: { fontSize: 15, fontFamily: "Nunito_700Bold", flex: 1 },
+  warnBody: { fontSize: 13, fontFamily: "Nunito_500Medium", lineHeight: 20 },
+  warnDismiss: { fontSize: 12, fontFamily: "Nunito_700Bold", letterSpacing: 0.5, textTransform: "uppercase" },
   mixingIcon: { width: 44, height: 44, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   mixingTitle: { fontSize: 15, fontFamily: "Nunito_700Bold" },
   mixingSub: { fontSize: 11, fontFamily: "Nunito_500Medium", marginTop: 2 },

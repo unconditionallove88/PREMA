@@ -1,0 +1,31 @@
+PREMA FULL POLISH: UI REFINEMENT, SAFETY LOGIC, AND CO-CREATION TAB
+
+Please implement the following functional and design updates to the mobile app:
+
+1. WELCOME SCREEN UI (IMG_2247 Refinement)
+- Adjust the "Welcome to Prema" screen:
+  - The ONLY text inside the radiant Circle must be the user's name (e.g., "love"). Position it elegantly in the center.
+  - Move the phrases "welcome to prema" and "we are preparing your circle..." to be UNDER the Circle.
+  - Maintain the high-end, thin typography and organic spacing.
+- ONBOARDING NAVIGATION: Add a subtle, organic "Back" button or arrow in the top left corner during the onboarding flow (before the welcome screen) so users can return to previous steps. Ensure it fits the minimal aesthetic.
+
+2. LAB & INTAKE SAFETY LOGIC (Pharmacology/Safety)
+- INTAKE LIMIT: Fix the "Intake Limit" feature. It must be active and synchronized with the Lab data (similar to how Rest and Hydration are currently working).
+- GHB INTEGRATION: Add "GHB" as a selectable substance in the Lab.
+- CROSS-SUBSTANCE WARNINGS: Implement a safety warning system.
+  - IF a user logs "GHB" and then attempts to log "Beer" (or any alcohol), display a clear, serious warning about the dangerous consequences of mixing central nervous system depressants.
+  - Apply similar warning logic for other dangerous combinations (e.g., Stimulants + Alcohol).
+
+3. NEW TAB: THE "CREATE" (CO-CREATE) TAB
+- Add a new tab to the Bottom Tab Bar called "create".
+- This is a simplified mobile version of the web "Create" tool. Inside this tab, provide three clear sections:
+  1. CO-CREATE: A space where users can submit/share ideas for new app features or visions for Prema.
+  2. FEEDBACK: A simple form or field for users to comment on existing features.
+  3. SURVEY: A placeholder section titled "Community Survey." Keep it inactive for now, but structured so I can easily add a Typeform link later.
+
+4. TECHNICAL REQUIREMENTS
+- Ensure all transitions between onboarding steps and the new "Create" tab are silky smooth (use framer-motion or standard Expo transitions).
+- Warnings in the Lab should be visually distinct (e.g., soft amber or red glow) but stay within the "State of Art" design language.
+- The user name inside the circle should use the same "Neptunian Ignition" pulsing effect we established.
+
+Final Goal: A perfectly balanced app that is beautiful to look at (UI), safe to use (Lab logic), and inclusive of the user's voice (Co-create).

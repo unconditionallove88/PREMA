@@ -6,10 +6,11 @@ import {
   Nunito_700Bold,
   useFonts,
 } from "@expo-google-fonts/nunito";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -26,9 +27,12 @@ const queryClient = new QueryClient();
  * Fires the Nurture reminders (hydration glass / anatomical heart) on the saved
  * intervals while the user is onboarded and the app is running.
  */
+const INTAKE_LOG_KEY = "prema_intake_log";
+
 function AlarmManager() {
   const { careAlarms, lang, hasOnboarded } = useSession();
   const [active, setActive] = useState<AlarmType | null>(null);
+  const lastLimitAlert = useRef<{ dateKey: string; count: number }>({ dateKey: "", count: 0 });
 
   useEffect(() => {
     if (!hasOnboarded) return;
@@ -36,11 +40,46 @@ function AlarmManager() {
     const restMs = Math.max(1, careAlarms.breathingBreak) * 60 * 1000;
     const waterId = setInterval(() => setActive((prev) => prev ?? "water"), waterMs);
     const restId = setInterval(() => setActive((prev) => prev ?? "rest"), restMs);
+
+    // Intake limit — synced to the lab's intake log. When today's logged
+    // intakes reach the limit the user set, raise the limit alarm (once per
+    // new entry that keeps them at/over the limit).
+    const checkIntakeLimit = async () => {
+      try {
+        const raw = await AsyncStorage.getItem(INTAKE_LOG_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return;
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+        const dateKey = start.toDateString();
+        const todayCount = parsed.filter(
+          (e) => e && typeof e.ts === "number" && e.ts >= start.getTime(),
+        ).length;
+
+        // Reset the alert watermark on a new day, or when the log shrinks
+        // (cleared/edited) so a fresh limit crossing can alert again.
+        const prevAlert = lastLimitAlert.current;
+        if (prevAlert.dateKey !== dateKey || todayCount < prevAlert.count) {
+          lastLimitAlert.current = { dateKey, count: 0 };
+        }
+
+        const limit = Math.max(1, careAlarms.intakeLimit);
+        if (todayCount >= limit && todayCount > lastLimitAlert.current.count) {
+          lastLimitAlert.current = { dateKey, count: todayCount };
+          setActive((prev) => prev ?? "limit");
+        }
+      } catch {}
+    };
+    checkIntakeLimit();
+    const limitId = setInterval(checkIntakeLimit, 8000);
+
     return () => {
       clearInterval(waterId);
       clearInterval(restId);
+      clearInterval(limitId);
     };
-  }, [hasOnboarded, careAlarms.hydrationSync, careAlarms.breathingBreak]);
+  }, [hasOnboarded, careAlarms.hydrationSync, careAlarms.breathingBreak, careAlarms.intakeLimit]);
 
   return (
     <AlarmOverlay

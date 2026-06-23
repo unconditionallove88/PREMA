@@ -60,6 +60,10 @@ function NativeTabLayout() {
         <Icon src={<VectorIcon family={MaterialCommunityIcons} name="microscope" />} />
         <Label>lab</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="create">
+        <Icon sf={{ default: "square.and.pencil", selected: "square.and.pencil" }} />
+        <Label>create</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
         <Icon sf={{ default: "heart", selected: "heart.fill" }} />
         <Label>you</Label>
@@ -163,6 +167,18 @@ function ClassicTabLayout() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="microscope" size={22} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          title: "create",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="square.and.pencil" tintColor={color} size={22} />
+            ) : (
+              <Feather name="edit-3" size={20} color={color} />
+            ),
         }}
       />
       <Tabs.Screen
