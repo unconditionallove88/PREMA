@@ -3,17 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Linking,
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, Linking, Modal, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -715,27 +706,27 @@ const styles = StyleSheet.create({
   backBtn: { flexDirection: "row", alignItems: "center", gap: 8 },
   backText: {
     fontSize: 10,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
   headerRow: { flexDirection: "row", alignItems: "flex-end", gap: 12 },
   title: {
     fontSize: 34,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: -1,
     textTransform: "uppercase",
   },
   subtitle: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 2.5,
     textTransform: "uppercase",
     marginTop: 4,
   },
   timer: {
     fontSize: 13,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1,
   },
   container: { paddingHorizontal: 20, paddingTop: 24, gap: 24 },
@@ -756,20 +747,20 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 15,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   sectionSub: {
     fontSize: 9,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
     marginTop: 3,
   },
   warning: {
     fontSize: 12,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     lineHeight: 19,
     fontStyle: "italic",
   },
@@ -781,7 +772,7 @@ const styles = StyleSheet.create({
   },
   purgeBtnText: {
     fontSize: 11,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
@@ -802,7 +793,7 @@ const styles = StyleSheet.create({
   },
   finishedTitle: {
     fontSize: 20,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textTransform: "uppercase",
     letterSpacing: -0.5,
     textAlign: "center",
@@ -810,7 +801,7 @@ const styles = StyleSheet.create({
   },
   finishedSub: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 3,
     textTransform: "uppercase",
   },
@@ -831,7 +822,7 @@ const styles = StyleSheet.create({
   },
   emergencyText: {
     fontSize: 12,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1,
     textTransform: "uppercase",
     flex: 1,
@@ -843,7 +834,7 @@ const styles = StyleSheet.create({
   },
   callBtnText: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
@@ -855,7 +846,7 @@ const styles = StyleSheet.create({
   },
   timelineTitle: {
     fontSize: 18,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textTransform: "uppercase",
     letterSpacing: -0.3,
   },
@@ -885,20 +876,20 @@ const styles = StyleSheet.create({
   },
   timelineTime: {
     fontSize: 9,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
   timelineLabel: {
     fontSize: 17,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textTransform: "uppercase",
     letterSpacing: -0.3,
     marginTop: 2,
   },
   timelineDesc: {
     fontSize: 13,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     lineHeight: 20,
     paddingLeft: 12,
     borderLeftWidth: 2,
@@ -910,13 +901,13 @@ const styles = StyleSheet.create({
   },
   returnBtnText: {
     fontSize: 16,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1,
     textTransform: "uppercase",
   },
   footer: {
     fontSize: 9,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 4,
     textTransform: "uppercase",
     textAlign: "center",
@@ -943,13 +934,13 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 17,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textTransform: "uppercase",
     letterSpacing: -0.3,
   },
   modalSub: {
     fontSize: 11,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     marginTop: 2,
   },
   pointRow: { flexDirection: "row", alignItems: "flex-start", gap: 12 },
@@ -963,7 +954,7 @@ const styles = StyleSheet.create({
   },
   pointText: {
     fontSize: 13,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     lineHeight: 20,
     flex: 1,
   },
@@ -977,11 +968,11 @@ const styles = StyleSheet.create({
   },
   practitionerName: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
   },
   practitionerSpec: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     marginTop: 2,
   },
   practitionerMeta: {
@@ -992,7 +983,7 @@ const styles = StyleSheet.create({
   },
   practitionerAddr: {
     fontSize: 11,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
   },
   urgentBadge: {
     paddingHorizontal: 10,
@@ -1002,7 +993,7 @@ const styles = StyleSheet.create({
   },
   urgentText: {
     fontSize: 8,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1,
     textTransform: "uppercase",
   },

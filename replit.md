@@ -55,7 +55,8 @@ A Firebase-backed harm reduction app for festival communities — helps users pr
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- **Font**: Nunito everywhere, both web and mobile apps.
+- **Casing**: ALL UI text is lowercase everywhere — no uppercase wording anywhere. (Typed input in TextInput/inputs is left untouched.)
 
 ## Pointers
 

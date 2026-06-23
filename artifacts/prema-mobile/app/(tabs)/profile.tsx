@@ -3,16 +3,8 @@ import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Modal, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -542,7 +534,7 @@ const styles = StyleSheet.create({
   },
   toastText: {
     fontSize: 11,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 0.5,
   },
   header: {
@@ -551,10 +543,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 16,
   },
-  appTitle: { fontSize: 26, fontFamily: "Inter_700Bold", letterSpacing: 4 },
+  appTitle: { fontSize: 26, fontFamily: "Nunito_700Bold", letterSpacing: 4 },
   appSub: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
@@ -569,7 +561,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
@@ -584,13 +576,13 @@ const styles = StyleSheet.create({
   },
   displayName: {
     fontSize: 28,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: -0.5,
     textAlign: "center",
   },
   greeting: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 3,
     textTransform: "uppercase",
   },
@@ -604,13 +596,13 @@ const styles = StyleSheet.create({
   cardHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
   cardTitle: {
     fontSize: 11,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 2,
     textTransform: "uppercase",
   },
   fieldLabel: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
     marginLeft: 2,
@@ -621,10 +613,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 18,
     fontSize: 18,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
   },
   nameInput: {
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 0.5,
   },
   row: { flexDirection: "row", gap: 14 },
@@ -643,10 +635,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  rowTitle: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
+  rowTitle: { fontSize: 13, fontFamily: "Nunito_600SemiBold" },
   rowSub: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     marginTop: 2,
   },
   toggle: {
@@ -669,10 +661,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
   },
-  langText: { fontSize: 14, fontFamily: "Inter_600SemiBold" },
+  langText: { fontSize: 14, fontFamily: "Nunito_600SemiBold" },
   journey: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     lineHeight: 19,
     textAlign: "center",
   },
@@ -687,13 +679,13 @@ const styles = StyleSheet.create({
   },
   promiseText: {
     fontSize: 11,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },
   footer: {
     fontSize: 10,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 3,
     textTransform: "uppercase",
     textAlign: "center",
@@ -728,7 +720,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 22,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: -0.5,
     flex: 1,
   },
@@ -742,13 +734,13 @@ const styles = StyleSheet.create({
   },
   policyHeading: {
     fontSize: 11,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 2,
     textTransform: "uppercase",
   },
   policyBody: {
     fontSize: 13,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     lineHeight: 21,
   },
 });

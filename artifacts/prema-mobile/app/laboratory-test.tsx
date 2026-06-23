@@ -3,15 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -251,30 +244,30 @@ export default function LaboratoryTestScreen() {
 const styles = StyleSheet.create({
   headerBar: { paddingHorizontal: 20, paddingBottom: 8 },
   backBtn: { flexDirection: "row", alignItems: "center", gap: 6, alignSelf: "flex-start" },
-  backText: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 2 },
+  backText: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 2 },
   container: { paddingHorizontal: 20, paddingTop: 8 },
   titleSection: { alignItems: "center", marginTop: 12, marginBottom: 24 },
   iconBadge: { width: 64, height: 64, borderRadius: 20, borderWidth: 1, alignItems: "center", justifyContent: "center", marginBottom: 16 },
-  header: { fontSize: 22, fontFamily: "Inter_700Bold", textAlign: "center", letterSpacing: -0.5, marginBottom: 6 },
-  sub: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 3, textAlign: "center" },
+  header: { fontSize: 22, fontFamily: "Nunito_700Bold", textAlign: "center", letterSpacing: -0.5, marginBottom: 6 },
+  sub: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 3, textAlign: "center" },
   infoCard: { borderRadius: 24, borderWidth: 1, padding: 22, marginBottom: 24, gap: 18 },
-  desc: { fontSize: 13, fontFamily: "Inter_500Medium", fontStyle: "italic", lineHeight: 21 },
+  desc: { fontSize: 13, fontFamily: "Nunito_500Medium", fontStyle: "italic", lineHeight: 21 },
   stepsList: { gap: 12 },
   stepRow: { flexDirection: "row", alignItems: "center", gap: 14 },
   stepNum: { width: 24, height: 24, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  stepNumText: { fontSize: 11, fontFamily: "Inter_700Bold" },
-  stepText: { flex: 1, fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
+  stepNumText: { fontSize: 11, fontFamily: "Nunito_700Bold" },
+  stepText: { flex: 1, fontSize: 11, fontFamily: "Nunito_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
   bookingSection: { gap: 18 },
-  labsTitle: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 3, marginBottom: 2 },
+  labsTitle: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 3, marginBottom: 2 },
   labsList: { gap: 12 },
   labCard: { flexDirection: "row", alignItems: "center", gap: 12, padding: 20, borderRadius: 18, borderWidth: 2 },
-  labName: { fontSize: 14, fontFamily: "Inter_700Bold", textTransform: "uppercase" },
-  labAddress: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 1.5, marginTop: 4 },
+  labName: { fontSize: 14, fontFamily: "Nunito_700Bold", textTransform: "uppercase" },
+  labAddress: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 1.5, marginTop: 4 },
   primaryBtn: { height: 64, borderRadius: 999, borderWidth: 1, alignItems: "center", justifyContent: "center", marginTop: 6 },
-  primaryBtnText: { fontSize: 16, fontFamily: "Inter_700Bold", letterSpacing: 2, textTransform: "uppercase" },
+  primaryBtnText: { fontSize: 16, fontFamily: "Nunito_700Bold", letterSpacing: 2, textTransform: "uppercase" },
   resultSection: { gap: 24 },
   codeCard: { borderRadius: 28, borderWidth: 2, padding: 28, alignItems: "center", gap: 14 },
-  anonLabel: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 4, textAlign: "center" },
-  code: { fontSize: 34, fontFamily: "Inter_700Bold", letterSpacing: -1, textAlign: "center" },
-  footer: { fontSize: 8, fontFamily: "Inter_700Bold", letterSpacing: 4, textAlign: "center", marginTop: 32 },
+  anonLabel: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 4, textAlign: "center" },
+  code: { fontSize: 34, fontFamily: "Nunito_700Bold", letterSpacing: -1, textAlign: "center" },
+  footer: { fontSize: 8, fontFamily: "Nunito_700Bold", letterSpacing: 4, textAlign: "center", marginTop: 32 },
 });

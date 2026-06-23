@@ -14,23 +14,23 @@ function NativeTabLayout() {
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Icon sf={{ default: "circle", selected: "circle.fill" }} />
-        <Label>Circle</Label>
+        <Label>circle</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="breath">
         <Icon sf={{ default: "wind", selected: "wind" }} />
-        <Label>Breath</Label>
+        <Label>breath</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="letters">
         <Icon sf={{ default: "envelope", selected: "envelope.fill" }} />
-        <Label>Letters</Label>
+        <Label>letters</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="lab">
         <Icon sf={{ default: "cross.case", selected: "cross.case.fill" }} />
-        <Label>Lab</Label>
+        <Label>lab</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
         <Icon sf={{ default: "heart", selected: "heart.fill" }} />
-        <Label>You</Label>
+        <Label>you</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -70,7 +70,7 @@ function ClassicTabLayout() {
             />
           ) : null,
         tabBarLabelStyle: {
-          fontFamily: "Inter_600SemiBold",
+          fontFamily: "Nunito_600SemiBold",
           fontSize: 10,
           letterSpacing: 0.5,
         },
@@ -79,7 +79,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Circle",
+          title: "circle",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="circle.fill" tintColor={color} size={22} />
@@ -91,7 +91,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="breath"
         options={{
-          title: "Breath",
+          title: "breath",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="wind" tintColor={color} size={22} />
@@ -103,7 +103,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="letters"
         options={{
-          title: "Letters",
+          title: "letters",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="envelope.fill" tintColor={color} size={22} />
@@ -115,7 +115,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="lab"
         options={{
-          title: "Lab",
+          title: "lab",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="cross.case.fill" tintColor={color} size={22} />
@@ -127,7 +127,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "You",
+          title: "you",
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="heart.fill" tintColor={color} size={22} />

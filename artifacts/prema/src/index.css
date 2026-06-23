@@ -90,7 +90,7 @@
   --chart-4: 10 72% 52%;
   --chart-5: 220 40% 10%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'Nunito', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
 }
@@ -166,6 +166,22 @@
     background-attachment: fixed;
     line-height: 1.6;
     font-feature-settings: "cv11" 1;
+  }
+
+  /* Force all UI copy to lowercase everywhere (user preference). */
+  html {
+    text-transform: lowercase;
+  }
+  .uppercase,
+  .capitalize {
+    text-transform: lowercase !important;
+  }
+  /* Never transform what the user types/enters. */
+  input,
+  textarea,
+  select,
+  [contenteditable="true"] {
+    text-transform: none;
   }
 
   body::before {

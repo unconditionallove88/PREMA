@@ -3,14 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -607,8 +601,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   backBtn: { width: 38, height: 38, borderRadius: 19, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  headerTitle: { fontSize: 18, fontFamily: "Inter_700Bold", letterSpacing: -0.3 },
-  headerSub: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 3, textTransform: "uppercase" },
+  headerTitle: { fontSize: 18, fontFamily: "Nunito_700Bold", letterSpacing: -0.3 },
+  headerSub: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 3, textTransform: "uppercase" },
   dots: { flexDirection: "row", alignItems: "center", gap: 5 },
   dot: { width: 6, height: 6, borderRadius: 3 },
   selectorRow: {
@@ -621,11 +615,11 @@ const styles = StyleSheet.create({
   selectorItem: { alignItems: "center" },
   selectorCircle: { width: 40, height: 40, borderRadius: 20, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   scroll: { paddingHorizontal: 20, paddingTop: 18 },
-  affirmation: { fontSize: 9, fontFamily: "Inter_700Bold", letterSpacing: 4, textTransform: "uppercase", textAlign: "center", marginBottom: 18 },
+  affirmation: { fontSize: 9, fontFamily: "Nunito_700Bold", letterSpacing: 4, textTransform: "uppercase", textAlign: "center", marginBottom: 18 },
   sectionBody: { gap: 16 },
-  sectionSub: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 4, textTransform: "uppercase" },
-  sectionTitle: { fontSize: 20, fontFamily: "Inter_600SemiBold", letterSpacing: -0.3 },
-  desc: { fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 23 },
+  sectionSub: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 4, textTransform: "uppercase" },
+  sectionTitle: { fontSize: 20, fontFamily: "Nunito_600SemiBold", letterSpacing: -0.3 },
+  desc: { fontSize: 14, fontFamily: "Nunito_400Regular", lineHeight: 23 },
   primaryBtn: {
     flexDirection: "row",
     alignItems: "center",
@@ -634,26 +628,26 @@ const styles = StyleSheet.create({
     height: 54,
     borderRadius: 18,
   },
-  primaryBtnText: { fontSize: 11, fontFamily: "Inter_700Bold", letterSpacing: 1.5, textTransform: "uppercase" },
+  primaryBtnText: { fontSize: 11, fontFamily: "Nunito_700Bold", letterSpacing: 1.5, textTransform: "uppercase" },
   outlineBtn: { height: 48, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  outlineBtnText: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 1, textTransform: "uppercase" },
+  outlineBtnText: { fontSize: 10, fontFamily: "Nunito_600SemiBold", letterSpacing: 1, textTransform: "uppercase" },
   essItem: { flexDirection: "row", alignItems: "flex-start", gap: 12, padding: 14, borderRadius: 16, borderWidth: 1 },
   checkbox: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, alignItems: "center", justifyContent: "center", marginTop: 1 },
-  essName: { fontSize: 14, fontFamily: "Inter_500Medium" },
-  essDose: { fontSize: 12, fontFamily: "Inter_400Regular" },
-  essWhy: { fontSize: 11, fontFamily: "Inter_400Regular", marginTop: 3, lineHeight: 16 },
+  essName: { fontSize: 14, fontFamily: "Nunito_500Medium" },
+  essDose: { fontSize: 12, fontFamily: "Nunito_400Regular" },
+  essWhy: { fontSize: 11, fontFamily: "Nunito_400Regular", marginTop: 3, lineHeight: 16 },
   confirmBtn: { height: 50, borderRadius: 18, alignItems: "center", justifyContent: "center" },
-  confirmBtnText: { fontSize: 11, fontFamily: "Inter_700Bold", letterSpacing: 1.5, textTransform: "uppercase" },
+  confirmBtnText: { fontSize: 11, fontFamily: "Nunito_700Bold", letterSpacing: 1.5, textTransform: "uppercase" },
   adviceRow: { flexDirection: "row", alignItems: "flex-start", gap: 14, paddingVertical: 10, paddingHorizontal: 4 },
   adviceBullet: { width: 6, height: 6, borderRadius: 3, marginTop: 7, opacity: 0.6 },
-  adviceText: { flex: 1, fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 22 },
+  adviceText: { flex: 1, fontSize: 14, fontFamily: "Nunito_400Regular", lineHeight: 22 },
   alarmRow: { flexDirection: "row", alignItems: "center", gap: 14, padding: 16, borderRadius: 18, borderWidth: 1 },
   alarmIcon: { width: 38, height: 38, borderRadius: 12, alignItems: "center", justifyContent: "center" },
-  alarmLabel: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
-  alarmSub: { fontSize: 10, fontFamily: "Inter_400Regular", marginTop: 2 },
-  alarmValue: { fontSize: 14, fontFamily: "Inter_700Bold" },
+  alarmLabel: { fontSize: 13, fontFamily: "Nunito_600SemiBold" },
+  alarmSub: { fontSize: 10, fontFamily: "Nunito_400Regular", marginTop: 2 },
+  alarmValue: { fontSize: 14, fontFamily: "Nunito_700Bold" },
   doneBanner: { flexDirection: "row", alignItems: "center", gap: 12, padding: 16, borderRadius: 18, borderWidth: 1 },
-  doneBannerText: { fontSize: 13, fontFamily: "Inter_700Bold", letterSpacing: 0.5, textTransform: "uppercase" },
+  doneBannerText: { fontSize: 13, fontFamily: "Nunito_700Bold", letterSpacing: 0.5, textTransform: "uppercase" },
   footer: {
     position: "absolute",
     bottom: 0,
@@ -664,5 +658,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   footerStatus: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 12 },
-  footerStatusText: { fontSize: 9, fontFamily: "Inter_700Bold", letterSpacing: 3, textTransform: "uppercase" },
+  footerStatusText: { fontSize: 9, fontFamily: "Nunito_700Bold", letterSpacing: 3, textTransform: "uppercase" },
 });

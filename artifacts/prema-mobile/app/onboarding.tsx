@@ -3,17 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnatomicalHeart } from "@/components/AnatomicalHeart";
@@ -1094,22 +1085,22 @@ const styles = StyleSheet.create({
   },
   progressInner: { flex: 1, flexDirection: "row", gap: 4, height: 4, borderRadius: 2, overflow: "hidden" },
   progressDot: { height: 4, borderRadius: 2 },
-  progressLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
+  progressLabel: { fontSize: 10, fontFamily: "Nunito_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
 
   /* Landing + welcome */
   landing: { flex: 1, justifyContent: "center", alignItems: "center" },
   landingCenter: { alignItems: "center", paddingHorizontal: 100 },
-  appTitle: { fontSize: 46, fontFamily: "Inter_700Bold", letterSpacing: 10, marginTop: 28 },
+  appTitle: { fontSize: 46, fontFamily: "Nunito_700Bold", letterSpacing: 10, marginTop: 28 },
   landingHint: {
     fontSize: 12,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     letterSpacing: 1,
     textAlign: "center",
     marginTop: 12,
     lineHeight: 18,
   },
-  welcomeTitle: { fontSize: 30, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
-  welcomeName: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 4, marginTop: 8 },
+  welcomeTitle: { fontSize: 30, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
+  welcomeName: { fontSize: 14, fontFamily: "Nunito_700Bold", letterSpacing: 4, marginTop: 8 },
   bottomConsole: {
     position: "absolute",
     left: 0,
@@ -1125,14 +1116,14 @@ const styles = StyleSheet.create({
   },
   sideTouch: { flex: 1, alignItems: "center", gap: 4, paddingVertical: 2 },
   sideIcon: { height: 22, alignItems: "center", justifyContent: "center" },
-  sideLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3, textAlign: "center" },
-  langGlyph: { fontSize: 16, fontFamily: "Inter_700Bold", letterSpacing: 1 },
+  sideLabel: { fontSize: 10, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.3, textAlign: "center" },
+  langGlyph: { fontSize: 16, fontFamily: "Nunito_700Bold", letterSpacing: 1 },
 
   /* Generic step */
   stepContainer: { paddingHorizontal: 24, paddingTop: 40, alignItems: "center", minHeight: "100%" },
   iconBadge: { width: 70, height: 70, borderRadius: 22, alignItems: "center", justifyContent: "center", marginBottom: 20 },
-  stepTitle: { fontSize: 26, fontFamily: "Inter_700Bold", letterSpacing: -0.5, textAlign: "center", marginBottom: 8 },
-  stepSub: { fontSize: 12, fontFamily: "Inter_400Regular", textAlign: "center", letterSpacing: 0.3, marginBottom: 28, lineHeight: 18, paddingHorizontal: 8 },
+  stepTitle: { fontSize: 26, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, textAlign: "center", marginBottom: 8 },
+  stepSub: { fontSize: 12, fontFamily: "Nunito_400Regular", textAlign: "center", letterSpacing: 0.3, marginBottom: 28, lineHeight: 18, paddingHorizontal: 8 },
 
   /* Inputs */
   input: {
@@ -1142,41 +1133,41 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     paddingHorizontal: 18,
     fontSize: 16,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
   },
   bioRow: { flexDirection: "row", gap: 12, width: "100%", marginTop: 14 },
-  fieldLabel: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 },
+  fieldLabel: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 },
 
   /* Intentions */
   intentionRow: { flexDirection: "column", gap: 12, width: "100%" },
   intentionCard: { width: "100%", borderRadius: 18, borderWidth: 1.5, paddingVertical: 18, paddingHorizontal: 18, alignItems: "center", gap: 6, justifyContent: "center" },
   intentionRadio: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
-  intentionCardTitle: { fontSize: 13, fontFamily: "Inter_700Bold", textAlign: "center", letterSpacing: -0.2 },
-  intentionCardAffirm: { fontSize: 11, fontFamily: "Inter_400Regular", textAlign: "center", lineHeight: 16, fontStyle: "italic" },
+  intentionCardTitle: { fontSize: 13, fontFamily: "Nunito_700Bold", textAlign: "center", letterSpacing: -0.2 },
+  intentionCardAffirm: { fontSize: 11, fontFamily: "Nunito_400Regular", textAlign: "center", lineHeight: 16, fontStyle: "italic" },
 
   /* Check lists */
   checkList: { width: "100%", gap: 10 },
   checkRow: { flexDirection: "row", alignItems: "flex-start", gap: 14, padding: 16, borderRadius: 16, borderWidth: 1.5 },
   checkBox: { width: 24, height: 24, borderRadius: 8, borderWidth: 1.5, alignItems: "center", justifyContent: "center", marginTop: 1, flexShrink: 0 },
-  checkTitle: { fontSize: 13, fontFamily: "Inter_600SemiBold", letterSpacing: 0.2, lineHeight: 19 },
-  checkDetail: { fontSize: 11, fontFamily: "Inter_400Regular", lineHeight: 17, marginTop: 4 },
+  checkTitle: { fontSize: 13, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.2, lineHeight: 19 },
+  checkDetail: { fontSize: 11, fontFamily: "Nunito_400Regular", lineHeight: 17, marginTop: 4 },
 
   /* Nurture */
   nurtureCards: { width: "100%", gap: 12 },
   nurtureCard: { borderRadius: 20, borderWidth: 1, padding: 16 },
   nurtureHeader: { flexDirection: "row", alignItems: "flex-start", gap: 12, marginBottom: 14 },
-  nurtureTitle: { fontSize: 14, fontFamily: "Inter_600SemiBold", letterSpacing: 0.2 },
-  nurtureSub: { fontSize: 11, fontFamily: "Inter_400Regular", marginTop: 3, lineHeight: 16 },
+  nurtureTitle: { fontSize: 14, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.2 },
+  nurtureSub: { fontSize: 11, fontFamily: "Nunito_400Regular", marginTop: 3, lineHeight: 16 },
   intakeGlyph: { width: 34, height: 34, borderRadius: 12, alignItems: "center", justifyContent: "center" },
   stepper: { flexDirection: "row", alignItems: "center", gap: 16, justifyContent: "center" },
   stepperBtn: { width: 44, height: 44, borderRadius: 22, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  stepperValue: { fontSize: 22, fontFamily: "Inter_700Bold", letterSpacing: -0.5, minWidth: 60, textAlign: "center" },
+  stepperValue: { fontSize: 22, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, minWidth: 60, textAlign: "center" },
   unitRow: { flexDirection: "row", gap: 8, paddingRight: 4 },
   unitPill: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, borderWidth: 1 },
-  unitPillText: { fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 0.4, textTransform: "lowercase" },
+  unitPillText: { fontSize: 11, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.4, textTransform: "lowercase" },
   intervalRow: { flexDirection: "row", gap: 8, flexWrap: "wrap" },
   intervalPill: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: 20, borderWidth: 1 },
-  intervalText: { fontSize: 12, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3 },
+  intervalText: { fontSize: 12, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.3 },
 
   /* Buttons */
   primaryBtn: {
@@ -1188,5 +1179,5 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingHorizontal: 24,
   },
-  primaryBtnText: { fontFamily: "Inter_700Bold", letterSpacing: 1.2, textTransform: "uppercase", textAlign: "center" },
+  primaryBtnText: { fontFamily: "Nunito_700Bold", letterSpacing: 1.2, textTransform: "uppercase", textAlign: "center" },
 });

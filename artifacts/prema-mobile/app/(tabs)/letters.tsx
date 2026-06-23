@@ -2,16 +2,8 @@ import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -213,14 +205,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 6,
   },
-  title: { fontSize: 22, fontFamily: "Inter_700Bold", letterSpacing: -0.5 },
-  sub: { fontSize: 12, fontFamily: "Inter_500Medium", letterSpacing: 0.3 },
+  title: { fontSize: 22, fontFamily: "Nunito_700Bold", letterSpacing: -0.5 },
+  sub: { fontSize: 12, fontFamily: "Nunito_500Medium", letterSpacing: 0.3 },
   composer: { borderRadius: 24, borderWidth: 1, padding: 20, gap: 16, marginBottom: 28 },
-  prompt: { fontSize: 13, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3 },
+  prompt: { fontSize: 13, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.3 },
   input: {
     minHeight: 140,
     fontSize: 15,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     lineHeight: 23,
   },
   sealBtn: {
@@ -231,7 +223,7 @@ const styles = StyleSheet.create({
     height: 54,
     borderRadius: 999,
   },
-  sealBtnText: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 1, textTransform: "uppercase" },
+  sealBtnText: { fontSize: 14, fontFamily: "Nunito_700Bold", letterSpacing: 1, textTransform: "uppercase" },
   sealedCard: {
     borderRadius: 24,
     borderWidth: 2,
@@ -240,8 +232,8 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 28,
   },
-  sealedTitle: { fontSize: 18, fontFamily: "Inter_700Bold", textAlign: "center" },
-  sealedSub: { fontSize: 13, fontFamily: "Inter_500Medium", textAlign: "center" },
+  sealedTitle: { fontSize: 18, fontFamily: "Nunito_700Bold", textAlign: "center" },
+  sealedSub: { fontSize: 13, fontFamily: "Nunito_500Medium", textAlign: "center" },
   ghostBtn: {
     flexDirection: "row",
     alignItems: "center",
@@ -252,11 +244,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     marginTop: 8,
   },
-  ghostBtnText: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
-  pastTitle: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 2, marginBottom: 12 },
-  empty: { fontSize: 13, fontFamily: "Inter_500Medium", fontStyle: "italic" },
+  ghostBtnText: { fontSize: 13, fontFamily: "Nunito_600SemiBold" },
+  pastTitle: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 2, marginBottom: 12 },
+  empty: { fontSize: 13, fontFamily: "Nunito_500Medium", fontStyle: "italic" },
   lettersList: { gap: 12 },
   letterCard: { borderRadius: 18, borderWidth: 1, padding: 18, gap: 8 },
-  letterDate: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 1, textTransform: "uppercase" },
-  letterText: { fontSize: 14, fontFamily: "Inter_500Medium", lineHeight: 22 },
+  letterDate: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 1, textTransform: "uppercase" },
+  letterText: { fontSize: 14, fontFamily: "Nunito_500Medium", lineHeight: 22 },
 });

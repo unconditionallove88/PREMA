@@ -2,14 +2,8 @@ import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import {
-  Animated,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -223,7 +217,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 16,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
     letterSpacing: 0.5,
   },
   center: {
@@ -263,9 +257,10 @@ const styles = StyleSheet.create({
   },
   breathText: {
     fontSize: 26,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 0.5,
     textAlign: "center",
+    textTransform: "lowercase",
   },
   breathTextAbs: {
     position: "absolute",
@@ -287,7 +282,7 @@ const styles = StyleSheet.create({
   },
   nextBtnText: {
     fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Nunito_600SemiBold",
     letterSpacing: 0.5,
   },
   homeBtn: {
@@ -296,7 +291,7 @@ const styles = StyleSheet.create({
   },
   homeBtnText: {
     fontSize: 12,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     letterSpacing: 1.5,
     textTransform: "uppercase",
   },

@@ -1,0 +1,113 @@
+MOBILE DASHBOARD – AURA RING / CIRCLE OF LOVE REDESIGN
+
+Create a premium, mystical, feminine "Circle of Love" aura visualization for the mobile dashboard.
+
+DESIGN GOAL
+The Circle of Love must feel alive, sacred, energetic, breathing, and emotionally magnetic. It should be the visual centerpiece of the dashboard and immediately communicate warmth, connection, frequency, love, and personal energy.
+
+MOBILE REQUIREMENTS
+- Optimized for iPhone and Android screens.
+- Circle must occupy approximately 65-75% of screen width.
+- Always perfectly centered horizontally.
+- Maintain perfect circular proportions on all screen sizes.
+- No clipping, distortion, or overflow.
+
+VISUAL STRUCTURE
+
+CENTER
+- Soft glowing core.
+- Radial pink-to-magenta gradient.
+- Subtle white highlight in the center.
+- Organic energetic appearance, not a flat graphic.
+
+MAIN RING
+- Thick circular energy ring.
+- Multi-layer translucent gradients.
+- Colors:
+  - Rose pink
+  - Soft magenta
+  - Lavender
+  - Gold accents
+- Ring should feel made of living light.
+
+GLOW EFFECTS
+- Multiple glow layers.
+- Outer bloom effect.
+- Soft ambient light spreading beyond the circle.
+- Glow intensity increases slightly during animation.
+
+PARTICLES
+- Tiny floating light particles around the ring.
+- Slow random movement.
+- Occasional sparkles.
+- Particle colors:
+  - White
+  - Soft pink
+  - Gold
+
+ANIMATION
+
+BREATHING EFFECT
+- Entire circle slowly expands and contracts.
+- Duration: 5-7 seconds.
+- Very smooth easing.
+- Should feel like a living heartbeat.
+
+ENERGY FLOW
+- Light subtly travels around the ring.
+- Never spin rapidly.
+- Movement should feel sacred and calm.
+
+SHIMMER
+- Occasional light sweep crossing the ring.
+- Similar to premium luxury UI effects.
+- Very subtle.
+
+DEPTH
+- Use layered shadows and glow.
+- Create a 3D energetic appearance.
+- Avoid flat design.
+
+STATUS DISPLAY
+
+Inside the ring:
+- Aura score
+- Frequency percentage
+- Connection status
+
+Typography:
+- Elegant
+- High contrast
+- White text
+- Premium appearance
+
+EMOTIONAL FEELING
+
+The Circle of Love should feel like:
+- Divine feminine energy
+- Sacred connection
+- Aura field visualization
+- Spiritual technology
+- Premium wellness app
+- Luxury meditation platform
+
+AVOID
+- Hard neon colors
+- Sharp edges
+- Fast spinning animations
+- Flat SVG appearance
+- Gaming-style effects
+- Cheap glow effects
+
+INSPIRATION
+Think:
+- Living aura field
+- Sacred geometry energy
+- Apple-quality animation
+- Luxury wellness experience
+- High-end spiritual technology
+
+Performance:
+- Maintain 60fps on mobile.
+- Use CSS transforms and GPU-accelerated animations.
+- Minimize expensive rendering operations.

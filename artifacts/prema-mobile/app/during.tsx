@@ -2,15 +2,8 @@ import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import {
-  Animated,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -232,10 +225,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   backBtn: { width: 38, height: 38, borderRadius: 19, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  headerPhase: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 4, textTransform: "uppercase" },
-  headerTitle: { fontSize: 15, fontFamily: "Inter_600SemiBold", letterSpacing: -0.2 },
+  headerPhase: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 4, textTransform: "uppercase" },
+  headerTitle: { fontSize: 15, fontFamily: "Nunito_600SemiBold", letterSpacing: -0.2 },
   affirmBanner: { paddingVertical: 10, paddingHorizontal: 24, borderBottomWidth: 1, alignItems: "center" },
-  affirmText: { fontSize: 9, fontFamily: "Inter_500Medium", letterSpacing: 3.5, textTransform: "uppercase" },
+  affirmText: { fontSize: 9, fontFamily: "Nunito_500Medium", letterSpacing: 3.5, textTransform: "uppercase" },
   scroll: { paddingHorizontal: 20, paddingTop: 8 },
   orbSection: { alignItems: "center", paddingTop: 28, paddingBottom: 24, gap: 6 },
   orbContainer: { width: 96, height: 96, alignItems: "center", justifyContent: "center", marginBottom: 10 },
@@ -248,11 +241,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  orbHeading: { fontSize: 20, fontFamily: "Inter_600SemiBold", letterSpacing: -0.3, textAlign: "center" },
-  orbSub: { fontSize: 12, fontFamily: "Inter_400Regular", textAlign: "center", maxWidth: 240 },
+  orbHeading: { fontSize: 20, fontFamily: "Nunito_600SemiBold", letterSpacing: -0.3, textAlign: "center" },
+  orbSub: { fontSize: 12, fontFamily: "Nunito_400Regular", textAlign: "center", maxWidth: 240 },
   card: { flexDirection: "row", alignItems: "flex-start", gap: 12, borderRadius: 18, borderWidth: 1, paddingHorizontal: 16, paddingVertical: 14 },
-  cardTitle: { fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 1, textTransform: "uppercase", marginBottom: 4 },
-  cardBody: { fontSize: 13, fontFamily: "Inter_400Regular", lineHeight: 20 },
+  cardTitle: { fontSize: 11, fontFamily: "Nunito_600SemiBold", letterSpacing: 1, textTransform: "uppercase", marginBottom: 4 },
+  cardBody: { fontSize: 13, fontFamily: "Nunito_400Regular", lineHeight: 20 },
   footer: {
     position: "absolute",
     bottom: 0,
@@ -263,5 +256,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   cta: { height: 56, borderRadius: 18, alignItems: "center", justifyContent: "center" },
-  ctaText: { fontSize: 14, fontFamily: "Inter_600SemiBold", letterSpacing: 0.5 },
+  ctaText: { fontSize: 14, fontFamily: "Nunito_600SemiBold", letterSpacing: 0.5 },
 });

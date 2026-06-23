@@ -1,12 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Easing,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Easing, Platform, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -174,12 +168,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 0.5,
   },
   headerSub: {
     fontSize: 11,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     letterSpacing: 0.5,
     textAlign: "center",
   },
@@ -220,14 +214,15 @@ const styles = StyleSheet.create({
   },
   breathText: {
     fontSize: 26,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     letterSpacing: 0.5,
     textAlign: "center",
+    textTransform: "lowercase",
   },
   breathTextAbs: { position: "absolute" },
   affirmation: {
     fontSize: 13,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Nunito_500Medium",
     letterSpacing: 2,
     textTransform: "uppercase",
     textAlign: "center",

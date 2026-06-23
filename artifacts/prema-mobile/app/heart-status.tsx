@@ -3,17 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Animated,
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Animated, Modal, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
@@ -894,8 +885,8 @@ export default function HeartStatusScreen() {
 const styles = StyleSheet.create({
   header: { flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 20, paddingBottom: 12 },
   backBtn: { width: 44, height: 44, borderRadius: 14, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  title: { fontSize: 24, fontFamily: "Inter_700Bold", letterSpacing: -0.5 },
-  subtitle: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 4 },
+  title: { fontSize: 24, fontFamily: "Nunito_700Bold", letterSpacing: -0.5 },
+  subtitle: { fontSize: 10, fontFamily: "Nunito_700Bold", letterSpacing: 4 },
   container: { paddingHorizontal: 20, paddingTop: 8 },
 
   visualWrap: { alignItems: "center", marginVertical: 16 },
@@ -904,22 +895,22 @@ const styles = StyleSheet.create({
   core: { width: 208, height: 208, borderRadius: 104, borderWidth: 2, alignItems: "center", justifyContent: "center" },
   friendNode: { position: "absolute", borderRadius: 20, borderWidth: 2, alignItems: "center", justifyContent: "center" },
   centerHeart: { width: 96, height: 96, borderRadius: 48, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  bpmNum: { fontSize: 30, fontFamily: "Inter_700Bold", letterSpacing: -1 },
-  bpmLabel: { fontSize: 9, fontFamily: "Inter_700Bold", letterSpacing: 2 },
-  archLabel: { position: "absolute", bottom: 26, fontSize: 9, fontFamily: "Inter_700Bold", letterSpacing: 3 },
+  bpmNum: { fontSize: 30, fontFamily: "Nunito_700Bold", letterSpacing: -1 },
+  bpmLabel: { fontSize: 9, fontFamily: "Nunito_700Bold", letterSpacing: 2 },
+  archLabel: { position: "absolute", bottom: 26, fontSize: 9, fontFamily: "Nunito_700Bold", letterSpacing: 3 },
 
   toolGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginTop: 8 },
   toolCard: { width: "47%", flexGrow: 1, alignItems: "center", paddingVertical: 18, borderRadius: 18, borderWidth: 1, gap: 6 },
   toolIcon: { width: 44, height: 44, borderRadius: 14, alignItems: "center", justifyContent: "center" },
-  toolLabel: { fontSize: 12, fontFamily: "Inter_600SemiBold", textAlign: "center" },
-  toolSub: { fontSize: 9, fontFamily: "Inter_400Regular", letterSpacing: 1, textTransform: "uppercase" },
+  toolLabel: { fontSize: 12, fontFamily: "Nunito_600SemiBold", textAlign: "center" },
+  toolSub: { fontSize: 9, fontFamily: "Nunito_400Regular", letterSpacing: 1, textTransform: "uppercase" },
 
-  sectionLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 3, textAlign: "center", marginTop: 28, marginBottom: 12 },
+  sectionLabel: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 3, textAlign: "center", marginTop: 28, marginBottom: 12 },
   circleRow: { flexDirection: "row", gap: 12 },
   circleCard: { flex: 1, alignItems: "center", paddingVertical: 18, borderRadius: 18, borderWidth: 1, gap: 6 },
   circleIcon: { width: 40, height: 40, borderRadius: 13, alignItems: "center", justifyContent: "center" },
-  circleTitle: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
-  circleSub: { fontSize: 9, fontFamily: "Inter_400Regular", letterSpacing: 0.8, textTransform: "uppercase" },
+  circleTitle: { fontSize: 13, fontFamily: "Nunito_600SemiBold" },
+  circleSub: { fontSize: 9, fontFamily: "Nunito_400Regular", letterSpacing: 0.8, textTransform: "uppercase" },
 
   // Modals
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.6)", justifyContent: "center", paddingHorizontal: 16 },
@@ -928,38 +919,38 @@ const styles = StyleSheet.create({
   modalHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
   modalHeaderLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
   modalIconBadge: { width: 44, height: 44, borderRadius: 14, alignItems: "center", justifyContent: "center" },
-  modalTitle: { fontSize: 18, fontFamily: "Inter_700Bold" },
-  modalSub: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 2, textTransform: "uppercase" },
+  modalTitle: { fontSize: 18, fontFamily: "Nunito_700Bold" },
+  modalSub: { fontSize: 10, fontFamily: "Nunito_600SemiBold", letterSpacing: 2, textTransform: "uppercase" },
   closeBtn: { width: 36, height: 36, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  promptText: { fontSize: 13, fontFamily: "Inter_400Regular", lineHeight: 20, marginBottom: 16 },
-  letterInput: { minHeight: 140, borderRadius: 20, borderWidth: 1, padding: 16, fontSize: 15, fontFamily: "Inter_400Regular", textAlignVertical: "top", marginBottom: 18 },
+  promptText: { fontSize: 13, fontFamily: "Nunito_400Regular", lineHeight: 20, marginBottom: 16 },
+  letterInput: { minHeight: 140, borderRadius: 20, borderWidth: 1, padding: 16, fontSize: 15, fontFamily: "Nunito_400Regular", textAlignVertical: "top", marginBottom: 18 },
   primaryBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 10, height: 56, borderRadius: 28 },
-  primaryBtnText: { fontSize: 15, fontFamily: "Inter_700Bold", letterSpacing: 0.5 },
-  modalFooter: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginTop: 14 },
+  primaryBtnText: { fontSize: 15, fontFamily: "Nunito_700Bold", letterSpacing: 0.5 },
+  modalFooter: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginTop: 14 },
 
   sealedWrap: { alignItems: "center", paddingVertical: 24, gap: 18 },
   sealedIcon: { width: 96, height: 96, borderRadius: 48, borderWidth: 2, alignItems: "center", justifyContent: "center" },
-  sealedTitle: { fontSize: 24, fontFamily: "Inter_700Bold" },
-  sealedAffirm: { fontSize: 14, fontFamily: "Inter_500Medium", fontStyle: "italic", textAlign: "center", marginBottom: 6 },
+  sealedTitle: { fontSize: 24, fontFamily: "Nunito_700Bold" },
+  sealedAffirm: { fontSize: 14, fontFamily: "Nunito_500Medium", fontStyle: "italic", textAlign: "center", marginBottom: 6 },
 
   // Chat
   guardianBar: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 12, borderRadius: 12, marginBottom: 12 },
-  guardianText: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 2, textTransform: "uppercase" },
+  guardianText: { fontSize: 9, fontFamily: "Nunito_600SemiBold", letterSpacing: 2, textTransform: "uppercase" },
   gateWrap: { flex: 1, justifyContent: "center", gap: 18, paddingHorizontal: 6 },
-  gateDesc: { fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 21, textAlign: "center" },
+  gateDesc: { fontSize: 14, fontFamily: "Nunito_400Regular", lineHeight: 21, textAlign: "center" },
   rulesList: { gap: 6 },
   ruleRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 4 },
   ruleDot: { width: 6, height: 6, borderRadius: 3 },
-  ruleText: { fontSize: 14, fontFamily: "Inter_400Regular" },
+  ruleText: { fontSize: 14, fontFamily: "Nunito_400Regular" },
   chatScroll: { paddingVertical: 8, gap: 14, flexGrow: 1 },
   chatEmpty: { flex: 1, alignItems: "center", justifyContent: "center", gap: 10, paddingVertical: 60 },
-  chatEmptyText: { fontSize: 13, fontFamily: "Inter_400Regular" },
+  chatEmptyText: { fontSize: 13, fontFamily: "Nunito_400Regular" },
   msgWrap: { gap: 4 },
-  msgSender: { fontSize: 9, fontFamily: "Inter_500Medium", letterSpacing: 1.5, textTransform: "uppercase", paddingHorizontal: 10 },
+  msgSender: { fontSize: 9, fontFamily: "Nunito_500Medium", letterSpacing: 1.5, textTransform: "uppercase", paddingHorizontal: 10 },
   msgBubble: { maxWidth: "82%", paddingHorizontal: 14, paddingVertical: 10, borderRadius: 18 },
-  msgText: { fontSize: 14, fontFamily: "Inter_400Regular", lineHeight: 20 },
+  msgText: { fontSize: 14, fontFamily: "Nunito_400Regular", lineHeight: 20 },
   chatInputRow: { flexDirection: "row", alignItems: "center", gap: 10, marginTop: 10 },
-  chatInput: { flex: 1, height: 48, borderRadius: 24, borderWidth: 1, paddingHorizontal: 18, fontSize: 14, fontFamily: "Inter_400Regular" },
+  chatInput: { flex: 1, height: 48, borderRadius: 24, borderWidth: 1, paddingHorizontal: 18, fontSize: 14, fontFamily: "Nunito_400Regular" },
   sendBtn: { width: 48, height: 48, borderRadius: 24, alignItems: "center", justifyContent: "center" },
 
   // Vision
@@ -967,13 +958,13 @@ const styles = StyleSheet.create({
   visionHeader: { flexDirection: "row", justifyContent: "flex-end" },
   visionClose: { width: 44, height: 44, borderRadius: 22, backgroundColor: "rgba(255,255,255,0.15)", alignItems: "center", justifyContent: "center" },
   visionBody: { flex: 1, alignItems: "center", justifyContent: "center" },
-  visionText: { fontSize: 40, fontFamily: "Inter_700Bold", color: "#FFFFFF", textAlign: "center", letterSpacing: -1, lineHeight: 46 },
+  visionText: { fontSize: 40, fontFamily: "Nunito_700Bold", color: "#FFFFFF", textAlign: "center", letterSpacing: -1, lineHeight: 46, textTransform: "lowercase" },
   visionFooter: { alignItems: "center", gap: 16 },
   visionDots: { flexDirection: "row", gap: 6, marginBottom: 8 },
   visionDot: { height: 6, borderRadius: 3, backgroundColor: "#FFFFFF" },
   visionNextBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", height: 52, borderRadius: 26, backgroundColor: "#FFFFFF" },
-  visionNextText: { fontSize: 12, fontFamily: "Inter_700Bold", color: "#2D7750", letterSpacing: 2, textTransform: "uppercase" },
+  visionNextText: { fontSize: 12, fontFamily: "Nunito_700Bold", color: "#2D7750", letterSpacing: 2, textTransform: "uppercase" },
   visionHomeBtn: { width: "100%", height: 48, borderRadius: 24, borderWidth: 1, borderColor: "rgba(255,255,255,0.4)", alignItems: "center", justifyContent: "center", backgroundColor: "rgba(255,255,255,0.1)" },
-  visionHomeText: { fontSize: 12, fontFamily: "Inter_700Bold", color: "#FFFFFF", letterSpacing: 2, textTransform: "uppercase" },
-  visionFooterText: { fontSize: 9, fontFamily: "Inter_600SemiBold", color: "rgba(255,255,255,0.7)", letterSpacing: 3, textTransform: "uppercase", marginTop: 6 },
+  visionHomeText: { fontSize: 12, fontFamily: "Nunito_700Bold", color: "#FFFFFF", letterSpacing: 2, textTransform: "uppercase" },
+  visionFooterText: { fontSize: 9, fontFamily: "Nunito_600SemiBold", color: "rgba(255,255,255,0.7)", letterSpacing: 3, textTransform: "uppercase", marginTop: 6 },
 });

@@ -1,16 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef } from "react";
-import {
-  Animated,
-  Modal,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  Vibration,
-  View,
-} from "react-native";
+import { Animated, Modal, Platform, Pressable, StyleSheet, Vibration, View } from "react-native";
+import { Text } from "@/components/Text";
 
 import { AnatomicalHeart } from "@/components/AnatomicalHeart";
 import { WaterGlass } from "@/components/WaterGlass";
@@ -208,13 +200,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     textAlign: "center",
     letterSpacing: -0.3,
   },
   body: {
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Nunito_400Regular",
     textAlign: "center",
     lineHeight: 22,
     paddingHorizontal: 8,
@@ -231,7 +223,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 13,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Nunito_700Bold",
     color: "#fff",
     letterSpacing: 1.5,
     textTransform: "uppercase",
