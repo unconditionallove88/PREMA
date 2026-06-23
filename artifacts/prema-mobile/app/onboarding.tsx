@@ -29,6 +29,8 @@ const CONTENT = {
     landing: {
       hint: "Choose your light and your language",
       entering: "Entering the circle…",
+      bright: "Bright",
+      dark: "Dark",
     },
     bio: {
       title: "Tell us about you",
@@ -143,6 +145,8 @@ const CONTENT = {
     landing: {
       hint: "Wähle dein Licht und deine Sprache",
       entering: "Du betrittst den Kreis…",
+      bright: "Hell",
+      dark: "Dunkel",
     },
     bio: {
       title: "Erzähl uns von dir",
@@ -319,16 +323,7 @@ function TouchIcon({
   };
   return (
     <Pressable onPress={press} style={styles.sideTouch}>
-      <Animated.View
-        style={[
-          styles.sideIcon,
-          {
-            transform: [{ scale }],
-            borderColor: selected ? colors.primary : colors.border,
-            backgroundColor: selected ? colors.primary + "22" : colors.card,
-          },
-        ]}
-      >
+      <Animated.View style={[styles.sideIcon, { transform: [{ scale }] }]}>
         {children}
       </Animated.View>
       {!!label && (
@@ -500,28 +495,25 @@ export default function OnboardingScreen() {
               </Text>
             </View>
 
-            {/* Bottom console — styled like the dashboard menu */}
+            {/* Bottom console — bottom tab bar, like the dashboard menu */}
             <View
               style={[
                 styles.bottomConsole,
-                { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 16 },
+                { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 12 },
               ]}
             >
-              <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors}>
-                <Feather name="sun" size={22} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
+              <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors} label={t.landing.bright}>
+                <Feather name="sun" size={24} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
               </TouchIcon>
-              <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors}>
+              <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors} label={t.landing.dark}>
                 <FullMoon size={24} color="#8B5CF6" />
               </TouchIcon>
-
-              <View style={[styles.consoleDivider, { backgroundColor: colors.border }]} />
-
-              <TouchIcon selected={langPicked && uiLang === "en"} onPress={() => handleLang("en")} colors={colors}>
+              <TouchIcon selected={langPicked && uiLang === "en"} onPress={() => handleLang("en")} colors={colors} label="English">
                 <Text style={[styles.langGlyph, { color: langPicked && uiLang === "en" ? colors.primary : colors.foreground }]}>
                   EN
                 </Text>
               </TouchIcon>
-              <TouchIcon selected={langPicked && uiLang === "de"} onPress={() => handleLang("de")} colors={colors}>
+              <TouchIcon selected={langPicked && uiLang === "de"} onPress={() => handleLang("de")} colors={colors} label="Deutsch">
                 <Text style={[styles.langGlyph, { color: langPicked && uiLang === "de" ? colors.primary : colors.foreground }]}>
                   DE
                 </Text>
@@ -1124,26 +1116,17 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 16,
-    paddingTop: 16,
-    paddingHorizontal: 18,
+    alignItems: "flex-start",
+    justifyContent: "space-around",
+    paddingTop: 12,
+    paddingHorizontal: 8,
     borderTopWidth: 1,
     zIndex: 5,
   },
-  consoleDivider: { width: 1, height: 28, marginHorizontal: 6, opacity: 0.6 },
-  sideTouch: { alignItems: "center", gap: 6 },
-  sideIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 16,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  sideLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 0.5, textAlign: "center" },
-  langGlyph: { fontSize: 18, fontFamily: "Inter_700Bold", letterSpacing: 1 },
+  sideTouch: { flex: 1, alignItems: "center", gap: 5, paddingVertical: 2 },
+  sideIcon: { height: 28, alignItems: "center", justifyContent: "center" },
+  sideLabel: { fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3, textAlign: "center" },
+  langGlyph: { fontSize: 19, fontFamily: "Inter_700Bold", letterSpacing: 1 },
 
   /* Generic step */
   stepContainer: { paddingHorizontal: 24, paddingTop: 40, alignItems: "center", minHeight: "100%" },
