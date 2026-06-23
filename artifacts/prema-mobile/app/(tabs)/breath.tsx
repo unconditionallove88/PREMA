@@ -5,6 +5,7 @@ import {
   Animated,
   Easing,
   Platform,
+  Pressable,
   StyleSheet,
   View,
   useWindowDimensions,
@@ -153,10 +154,13 @@ export default function BreathOfLoveScreen() {
   const inhaleOpacity = useRef(new Animated.Value(1)).current;
   const exhaleOpacity = useRef(new Animated.Value(0)).current;
 
-  // UI-dissolution stages (reset each time the screen gains focus).
-  const dissolveSub = useRef(new Animated.Value(1)).current; // subtext + guidance
-  const dissolvePhase = useRef(new Animated.Value(1)).current; // inhale / exhale labels
-  const tabBar = useTabBarVisibility();
+  // UI-dissolution opacities — each element group fades independently so the
+  // meditative descent and the staged touch-return can address them in
+  // different groupings (see the focus effect below).
+  const oTitle = useRef(new Animated.Value(1)).current; // title
+  const oCoherent = useRef(new Animated.Value(1)).current; // coherent subtitle
+  const oCues = useRef(new Animated.Value(1)).current; // inhale / exhale labels
+  const oInstr = useRef(new Animated.Value(1)).current; // guidance + phase subtext
 
   useEffect(() => {
     const ease = Easing.inOut(Easing.quad);
@@ -229,45 +233,107 @@ export default function BreathOfLoveScreen() {
     };
   }, [green, pink, breath, inhaleOpacity, exhaleOpacity]);
 
-  // Progressive immersion: slide the tab bar away on focus, then dissolve the
-  // instructional text (at 12s) and the inhale/exhale labels (at 24s), leaving
-  // only the title, the sphere, and the infinite colour cycle. Resets on
-  // re-focus so every visit begins again at stage 1.
+  // ── UI dissolution + multi-layered "awakening" ────────────────────────────
+  // The screen descends through a meditative dissolution into "Total Being"
+  // (only the sphere + infinite colour field). A gentle touch wakes the UI back
+  // in stages: tap 1 → title + inhale/exhale · tap 2 → subtitle + guidance ·
+  // tap 3 → the bottom tab bar. After 30s of stillness the dissolution begins
+  // again. `levelRef` tracks how many stages are currently revealed (0–3).
+  const tabBar = useTabBarVisibility();
+  const levelRef = useRef(3);
+  const descentTimers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const fade = useCallback(
+    (v: Animated.Value, to: number, duration: number, onDone?: Animated.EndCallback) => {
+      v.stopAnimation();
+      Animated.timing(v, {
+        toValue: to,
+        duration,
+        easing: Easing.inOut(Easing.quad),
+        useNativeDriver: true,
+      }).start(onDone);
+    },
+    [],
+  );
+
+  const clearDescent = useCallback(() => {
+    descentTimers.current.forEach(clearTimeout);
+    descentTimers.current = [];
+  }, []);
+
+  const clearIdle = useCallback(() => {
+    if (idleTimer.current) {
+      clearTimeout(idleTimer.current);
+      idleTimer.current = null;
+    }
+  }, []);
+
+  // Meditative fade-out: instructions (12s), inhale/exhale (24s), then title +
+  // subtitle (36s, 6s fade) → "Total Being". The tab bar slides away at once.
+  // `levelRef` steps down only when each group has *finished* fading, so a tap
+  // landing mid-descent always wakes the stage that matches what is on screen
+  // (rather than what a fixed timestamp predicted).
+  const descend = useCallback(() => {
+    clearDescent();
+    tabBar?.hide();
+    levelRef.current = Math.min(levelRef.current, 2);
+    descentTimers.current.push(
+      setTimeout(() => {
+        fade(oInstr, 0, 4000, ({ finished }) => {
+          if (finished) levelRef.current = Math.min(levelRef.current, 1);
+        });
+      }, 12000),
+      setTimeout(() => {
+        fade(oCues, 0, 5000, ({ finished }) => {
+          if (finished) levelRef.current = 0;
+        });
+      }, 24000),
+      setTimeout(() => {
+        fade(oTitle, 0, 6000);
+        fade(oCoherent, 0, 6000);
+      }, 36000),
+    );
+  }, [clearDescent, tabBar, fade, oInstr, oCues, oTitle, oCoherent]);
+
+  // A touch wakes the interface back, one gentle (3s) layer at a time, and
+  // restarts the 30s stillness timer that eventually dissolves it again.
+  const reveal = useCallback(() => {
+    clearDescent();
+    clearIdle();
+    const next = Math.min(levelRef.current + 1, 3);
+    levelRef.current = next;
+    fade(oTitle, 1, 3000); // stage 1: title …
+    fade(oCues, 1, 3000); // … + inhale / exhale
+    if (next >= 2) {
+      fade(oCoherent, 1, 3000); // stage 2: subtitle …
+      fade(oInstr, 1, 3000); // … + guidance
+    }
+    if (next >= 3) tabBar?.show(); // stage 3: navigation returns
+    idleTimer.current = setTimeout(descend, 30000);
+  }, [clearDescent, clearIdle, fade, oTitle, oCues, oCoherent, oInstr, tabBar, descend]);
+
+  // Begin every visit from the full setup, then descend. Resets on re-focus.
   useFocusEffect(
     useCallback(() => {
-      dissolveSub.stopAnimation();
-      dissolvePhase.stopAnimation();
-      dissolveSub.setValue(1);
-      dissolvePhase.setValue(1);
-      tabBar?.hide();
-
-      const toSub = setTimeout(() => {
-        Animated.timing(dissolveSub, {
-          toValue: 0,
-          duration: 4000,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }).start();
-      }, 12000);
-      const toPhase = setTimeout(() => {
-        Animated.timing(dissolvePhase, {
-          toValue: 0,
-          duration: 5000,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }).start();
-      }, 24000);
-
+      [oTitle, oCoherent, oCues, oInstr].forEach((v) => {
+        v.stopAnimation();
+        v.setValue(1);
+      });
+      levelRef.current = 3;
+      clearIdle();
+      descend();
       return () => {
-        clearTimeout(toSub);
-        clearTimeout(toPhase);
+        clearDescent();
+        clearIdle();
         tabBar?.show();
-        dissolveSub.stopAnimation();
-        dissolvePhase.stopAnimation();
-        dissolveSub.setValue(1);
-        dissolvePhase.setValue(1);
+        [oTitle, oCoherent, oCues, oInstr].forEach((v) => {
+          v.stopAnimation();
+          v.setValue(1);
+        });
+        levelRef.current = 3;
       };
-    }, [tabBar, dissolveSub, dissolvePhase]),
+    }, [descend, clearDescent, clearIdle, tabBar, oTitle, oCoherent, oCues, oInstr]),
   );
 
   const orbScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.82, 1.12] });
@@ -290,7 +356,7 @@ export default function BreathOfLoveScreen() {
   }, [width, height]);
 
   return (
-    <View style={styles.root}>
+    <Pressable style={styles.root} onPressIn={reveal}>
       {/* Healing colour environments (blue base, green + pink crossfade above) */}
       <LinearGradient colors={BLUE} style={StyleSheet.absoluteFill} />
       <Animated.View style={[StyleSheet.absoluteFill, { opacity: green }]}>
@@ -306,10 +372,12 @@ export default function BreathOfLoveScreen() {
       ))}
 
       <View style={[styles.content, { paddingTop: topPad + 12, paddingBottom: tabPad }]}>
-        {/* Header — only the title survives into the pure-consciousness state */}
+        {/* Header — title + subtitle are the last to dissolve and the first to wake */}
         <View style={styles.header}>
-          <Text style={styles.title}>{t.title}</Text>
-          <Animated.View style={{ opacity: dissolveSub }}>
+          <Animated.View style={{ opacity: oTitle }}>
+            <Text style={styles.title}>{t.title}</Text>
+          </Animated.View>
+          <Animated.View style={{ opacity: oCoherent }}>
             <Text style={styles.coherent}>{t.coherent}</Text>
           </Animated.View>
         </View>
@@ -378,7 +446,7 @@ export default function BreathOfLoveScreen() {
 
         {/* Breathing phase cue */}
         <View style={styles.phase}>
-          <Animated.View style={[styles.phaseStage, { opacity: dissolvePhase }]}>
+          <Animated.View style={[styles.phaseStage, { opacity: oCues }]}>
             <Animated.Text style={[styles.phaseWord, { opacity: inhaleOpacity }]}>
               {t.inhale}
             </Animated.Text>
@@ -386,7 +454,7 @@ export default function BreathOfLoveScreen() {
               {t.exhale}
             </Animated.Text>
           </Animated.View>
-          <Animated.View style={[styles.phaseSubStage, { opacity: dissolveSub }]}>
+          <Animated.View style={[styles.phaseSubStage, { opacity: oInstr }]}>
             <Animated.Text style={[styles.phaseSub, { opacity: inhaleOpacity }]}>
               {t.inhaleSub}
             </Animated.Text>
@@ -397,7 +465,7 @@ export default function BreathOfLoveScreen() {
         </View>
 
         {/* Guidance text */}
-        <Animated.View style={[styles.guide, { opacity: dissolveSub }]}>
+        <Animated.View style={[styles.guide, { opacity: oInstr }]}>
           {t.guide.map((line, i) => (
             <Text key={i} style={styles.guideLine}>
               {line}
@@ -405,7 +473,7 @@ export default function BreathOfLoveScreen() {
           ))}
         </Animated.View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
