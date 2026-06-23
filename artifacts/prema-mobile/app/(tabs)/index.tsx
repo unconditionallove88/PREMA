@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useNavigation } from "expo-router";
 import React, { useCallback, useEffect, useRef } from "react";
 import {
   Animated,
@@ -12,7 +12,9 @@ import {
 import Svg, { Circle, Defs, RadialGradient, Stop } from "react-native-svg";
 
 import { CircleOfLove } from "@/components/CircleOfLove";
+import { YouPanel } from "@/components/YouPanel";
 import { useTabBarVisibility } from "@/context/TabBarVisibility";
+import { useYouPanel } from "@/context/YouPanel";
 import { useThemePreference } from "@/context/SessionContext";
 
 /**
@@ -39,7 +41,19 @@ const VOID = {
 
 export default function CircleOfLoveScreen() {
   const tabBar = useTabBarVisibility();
+  const you = useYouPanel();
+  const navigation = useNavigation();
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Re-tapping the already-focused "circle" tab opens the "you" panel. Wiring
+  // this on the screen's own navigation covers both the classic Tabs layout and
+  // the native (liquid-glass) tabs — wherever the navigator emits "tabPress".
+  useEffect(() => {
+    const unsub = navigation.addListener("tabPress" as never, () => {
+      if (navigation.isFocused()) you?.openYou();
+    });
+    return unsub;
+  }, [navigation, you]);
 
   const { width, height } = useWindowDimensions();
   const vibe = useThemePreference();
@@ -129,6 +143,17 @@ export default function CircleOfLoveScreen() {
       </Animated.View>
 
       <CircleOfLove />
+
+      {/* Tapping the Circle of Love opens the "you" panel */}
+      <Pressable
+        style={styles.circleTap}
+        onPress={() => {
+          reveal();
+          you?.openYou();
+        }}
+      />
+
+      <YouPanel open={!!you?.open} onClose={() => you?.closeYou()} />
     </Pressable>
   );
 }
@@ -136,4 +161,13 @@ export default function CircleOfLoveScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1 },
   glowWrap: { ...StyleSheet.absoluteFillObject, alignItems: "center", justifyContent: "center" },
+  circleTap: {
+    position: "absolute",
+    alignSelf: "center",
+    top: "50%",
+    marginTop: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+  },
 });

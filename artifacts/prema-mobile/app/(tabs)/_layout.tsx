@@ -9,6 +9,7 @@ import React from "react";
 import { Animated, Platform, StyleSheet, View } from "react-native";
 
 import { TabBarVisibilityProvider, useTabBarVisibility } from "@/context/TabBarVisibility";
+import { YouPanelProvider } from "@/context/YouPanel";
 import { useThemePreference } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -63,10 +64,6 @@ function NativeTabLayout() {
       <NativeTabs.Trigger name="create">
         <Icon sf={{ default: "square.and.pencil", selected: "square.and.pencil" }} />
         <Label>create</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: "heart", selected: "heart.fill" }} />
-        <Label>you</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -181,26 +178,15 @@ function ClassicTabLayout() {
             ),
         }}
       />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "you",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="heart.fill" tintColor={color} size={22} />
-            ) : (
-              <Feather name="heart" size={20} color={color} />
-            ),
-        }}
-      />
     </Tabs>
     </TabBarVisibilityProvider>
   );
 }
 
 export default function TabLayout() {
-  if (isLiquidGlassAvailable()) {
-    return <NativeTabLayout />;
-  }
-  return <ClassicTabLayout />;
+  return (
+    <YouPanelProvider>
+      {isLiquidGlassAvailable() ? <NativeTabLayout /> : <ClassicTabLayout />}
+    </YouPanelProvider>
+  );
 }

@@ -19,13 +19,22 @@ faithful port of the core member screens.
 bilingual EN/DE copy. Staff consoles (awareness, support-console) are out of scope.
 
 **Mobile nav diverged on purpose (2026-06):** the user explicitly restructured the
-mobile tab bar to exactly 5 tabs — Circle of Love (home, full-screen heartbeat) ·
-Love Breath · Love Letters · Laboratory · You (heart icon). The old
-Home/Phases/Map/Network/Profile model and the map/network/phases tabs were removed at
-the user's request, so for navigation the mobile app is NO LONGER a mirror of web —
-treat the 5-tab layout as canonical for mobile. Orphaned stack screens (heart-status,
-laboratory-test, self-care, recovery, before, during) remain registered but are
-unreachable from the new tabs.
+mobile tab bar to exactly 5 tabs — circle (home, full-screen heartbeat) · breath ·
+letters · lab · create. The old Home/Phases/Map/Network/Profile model and the
+map/network/phases tabs were removed at the user's request, so for navigation the
+mobile app is NO LONGER a mirror of web — treat the 5-tab layout as canonical for
+mobile. Orphaned stack screens (heart-status, laboratory-test, self-care, recovery,
+before, during) remain registered but are unreachable from the new tabs.
+
+**"you" (profile) is no longer a tab — it lives inside the circle tab (2026-06):**
+the profile route (`app/(tabs)/profile.tsx`) was deleted and its content moved into a
+slide-up panel (`components/YouPanel.tsx`, driven by `context/YouPanel.tsx`'s
+`YouPanelProvider`/`useYouPanel`). It opens two ways: (a) tapping the Circle of Love on
+the dashboard, (b) re-tapping the already-focused "circle" tab. Re-tap is wired via a
+`navigation.addListener("tabPress")` inside `app/(tabs)/index.tsx` (NOT in `_layout.tsx`),
+so it works for both the classic Tabs layout and the native liquid-glass tabs — the
+native `NativeTabs.Trigger` exposes no re-tap/press event API, so this screen-level
+listener is the only cross-layout hook. Close the panel via swipe-down or × top-right.
 
 # Previewing onboarding-gated screens
 

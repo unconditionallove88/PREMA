@@ -1,0 +1,47 @@
+PREMA NAVIGATION RESTRUCTURE & LAB KEYBOARD FIX
+
+Please implement the following structural and UX changes based on the current mobile screenshots:
+
+1. NAVIGATION RESTRUCTURE: REMOVE "MORE" TAB
+
+Current state (IMG_2249):
+- Tab bar has: circle / breath / letters / lab / More
+- "More" tab hides: "create" and "you" sections
+
+New structure:
+- REMOVE the "More" tab entirely.
+- REPLACE it with a "create" tab directly in the tab bar.
+- Final tab bar order: circle / breath / letters / lab / create
+
+2. "YOU" SECTION MOVES INSIDE "CIRCLE" TAB
+
+- The "you" section (user profile and personal data) must be integrated inside the "circle" tab.
+- TWO ways for the user to access "you":
+  - WAY 1: Tap the "circle" tab in the tab bar (if already on circle screen, it opens "you").
+  - WAY 2: Tap directly on the Circle of Love on the dashboard screen.
+- When "you" opens, it should slide up smoothly from the bottom as a full-screen panel or modal, keeping the Circle of Love visible at the top as a small glowing header.
+- The "circle" tab name in the tab bar must NOT change.
+
+3. CIRCLE TAB NAVIGATION LOGIC
+
+- First tap on "circle" tab → shows the Circle of Love dashboard (current behavior).
+- Second tap on "circle" tab (when already on circle screen) → opens "you" panel.
+- Tap on the Circle of Love itself → also opens "you" panel.
+- Inside "you" panel: add a subtle close/back gesture (swipe down or a thin "×" in top right corner).
+
+4. LAB KEYBOARD FIX (IMG_2251, IMG_2252)
+
+Current problem:
+- When the user taps the text input field in "log an intake," the keyboard slides up and covers the input field entirely. The user cannot see what they are typing.
+
+Fix required:
+- Implement KeyboardAvoidingView (React Native) wrapping the entire Lab screen.
+- When the keyboard appears, the scroll view must automatically scroll up so the active input field is always visible above the keyboard.
+- Use behavior="padding" on iOS and behavior="height" on Android.
+- Ensure the "log intake" button also remains visible above the keyboard when typing.
+- Test with both English and Russian keyboard layouts (as shown in IMG_2252).
+
+5. DESIGN CONSISTENCY
+- The new "create" tab must use the same icon style as the existing tabs (thin line icons, lowercase label).
+- The "you" panel transition must feel organic and premium — no hard cuts or jarring animations.
+- All changes must respect both Light Mode and Dark Mode aesthetics.

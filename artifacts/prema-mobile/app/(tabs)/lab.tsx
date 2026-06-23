@@ -7,6 +7,7 @@ import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GradientBackground } from "@/components/GradientBackground";
+import { KeyboardAwareScrollViewCompat } from "@/components/KeyboardAwareScrollViewCompat";
 import { useSession, useThemePreference } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -340,11 +341,12 @@ export default function LaboratoryScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <GradientBackground />
-      <ScrollView
+      <KeyboardAwareScrollViewCompat
         style={{ flex: 1 }}
         contentContainerStyle={[styles.container, { paddingTop: topPad + 8, paddingBottom: tabPad + 24 }]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        bottomOffset={24}
       >
         <View style={styles.headerSection}>
           <Text style={[styles.title, { color: colors.foreground }]}>{t.title}</Text>
@@ -496,7 +498,7 @@ export default function LaboratoryScreen() {
             ))}
           </View>
         )}
-      </ScrollView>
+      </KeyboardAwareScrollViewCompat>
 
       {/* Mixing Wisdom modal */}
       <Modal
