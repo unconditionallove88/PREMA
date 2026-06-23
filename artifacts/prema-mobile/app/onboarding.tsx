@@ -18,7 +18,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnatomicalHeart } from "@/components/AnatomicalHeart";
 import { CircleOfLove } from "@/components/CircleOfLove";
-import { Rose } from "@/components/Rose";
 import { WaterGlass } from "@/components/WaterGlass";
 import { useSession, type Vibe } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
@@ -266,7 +265,36 @@ function waterLiters(weightKg: number | null, heightCm: number | null): number |
   return Math.round(ml / 100) / 10;
 }
 
-/** A side-panel icon that springs / bounces when touched. */
+/** A full moon disc (violet) for the dark vibe. */
+function FullMoon({ size, color }: { size: number; color: string }) {
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: color,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: color,
+        shadowOpacity: 0.6,
+        shadowRadius: 6,
+        shadowOffset: { width: 0, height: 0 },
+      }}
+    >
+      <View
+        style={{
+          width: size * 0.5,
+          height: size * 0.5,
+          borderRadius: (size * 0.5) / 2,
+          backgroundColor: "rgba(255,255,255,0.22)",
+        }}
+      />
+    </View>
+  );
+}
+
+/** A console icon that springs / bounces when touched. */
 function TouchIcon({
   selected,
   onPress,
@@ -472,13 +500,18 @@ export default function OnboardingScreen() {
               </Text>
             </View>
 
-            {/* Bottom console — vibe + language, icons only */}
-            <View style={[styles.bottomConsole, { backgroundColor: colors.card, borderColor: colors.border }]}>
-              <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors}>
-                <Rose size={32} color="#E0556A" />
-              </TouchIcon>
+            {/* Bottom console — styled like the dashboard menu */}
+            <View
+              style={[
+                styles.bottomConsole,
+                { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 16 },
+              ]}
+            >
               <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors}>
-                <Rose size={32} color="#FBF7F0" outline="rgba(120,90,70,0.45)" />
+                <Feather name="sun" size={22} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
+              </TouchIcon>
+              <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors}>
+                <FullMoon size={24} color="#8B5CF6" />
               </TouchIcon>
 
               <View style={[styles.consoleDivider, { backgroundColor: colors.border }]} />
@@ -504,10 +537,7 @@ export default function OnboardingScreen() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
-              <Feather name="user" size={28} color={colors.primary} />
-            </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.bio.title}</Text>
+            <Text style={[styles.stepTitle, { color: colors.foreground, marginTop: 12 }]}>{t.bio.title}</Text>
             <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.bio.sub}</Text>
 
             <TextInput
@@ -1090,26 +1120,25 @@ const styles = StyleSheet.create({
   welcomeName: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 4, marginTop: 8 },
   bottomConsole: {
     position: "absolute",
-    left: 20,
-    right: 20,
-    bottom: 28,
+    left: 0,
+    right: 0,
+    bottom: 0,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 18,
-    paddingVertical: 14,
+    gap: 16,
+    paddingTop: 16,
     paddingHorizontal: 18,
-    borderRadius: 26,
-    borderWidth: 1,
+    borderTopWidth: 1,
     zIndex: 5,
   },
-  consoleDivider: { width: 1, height: 36, marginHorizontal: 4, opacity: 0.7 },
+  consoleDivider: { width: 1, height: 28, marginHorizontal: 6, opacity: 0.6 },
   sideTouch: { alignItems: "center", gap: 6 },
   sideIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderWidth: 1.5,
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
