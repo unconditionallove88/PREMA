@@ -41,7 +41,7 @@ const CONTENT = {
     },
     welcome: {
       title: "Welcome to Prema",
-      sub: "We are preparing your circle of love…",
+      sub: "We are preparing your circle…",
     },
     intention: {
       title: "Set your intention",
@@ -111,9 +111,9 @@ const CONTENT = {
       title: "Nurture",
       sub: "Gentle reminders, never alarms",
       hydrationTitle: "Hydration sync",
-      hydrationSub: "A glass of water gently appears on your screen — even when locked, while Prema is running.",
+      hydrationSub: "",
       restTitle: "Rest intervals",
-      restSub: "An anatomical heart appears to remind you to pause and rest.",
+      restSub: "",
       intakeTitle: "Intake intention",
       intakeSub: "A conscious intention — not a hard limit.",
       every: (n: number) => `every ${n} min`,
@@ -155,7 +155,7 @@ const CONTENT = {
     },
     welcome: {
       title: "Willkommen bei Prema",
-      sub: "Wir bereiten deinen Kreis der Liebe vor…",
+      sub: "Wir bereiten deinen Kreis vor…",
     },
     intention: {
       title: "Setze deine Intention",
@@ -225,9 +225,9 @@ const CONTENT = {
       title: "Nurture",
       sub: "Sanfte Erinnerungen, keine Alarme",
       hydrationTitle: "Hydrations-Sync",
-      hydrationSub: "Ein Glas Wasser erscheint sanft auf deinem Bildschirm — auch im Sperrzustand, solange Prema läuft.",
+      hydrationSub: "",
       restTitle: "Ruhe-Intervalle",
-      restSub: "Ein anatomisches Herz erinnert dich daran, innezuhalten und zu ruhen.",
+      restSub: "",
       intakeTitle: "Einnahme-Intention",
       intakeSub: "Eine bewusste Absicht — kein striktes Limit.",
       every: (n: number) => `alle ${n} Min.`,
@@ -276,7 +276,7 @@ function TouchIcon({
 }: {
   selected: boolean;
   onPress: () => void;
-  label: string;
+  label?: string;
   colors: ReturnType<typeof useColors>;
   children: React.ReactNode;
 }) {
@@ -303,9 +303,11 @@ function TouchIcon({
       >
         {children}
       </Animated.View>
-      <Text style={[styles.sideLabel, { color: selected ? colors.primary : colors.mutedForeground }]}>
-        {label}
-      </Text>
+      {!!label && (
+        <Text style={[styles.sideLabel, { color: selected ? colors.primary : colors.mutedForeground }]}>
+          {label}
+        </Text>
+      )}
     </Pressable>
   );
 }
@@ -461,50 +463,6 @@ export default function OnboardingScreen() {
         {/* ── STEP 1: LANDING ─────────────────────────── */}
         {step === 1 && (
           <View style={[styles.landing, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
-            {/* Left panel — vibe roses */}
-            <View style={styles.leftPanel}>
-              <TouchIcon
-                selected={vibe === "dark"}
-                onPress={() => handleVibe("dark")}
-                label="Red rose"
-                colors={colors}
-              >
-                <Rose size={34} color="#E0556A" />
-              </TouchIcon>
-              <TouchIcon
-                selected={vibe === "bright"}
-                onPress={() => handleVibe("bright")}
-                label="White rose"
-                colors={colors}
-              >
-                <Rose size={34} color="#FBF7F0" outline="rgba(120,90,70,0.45)" />
-              </TouchIcon>
-            </View>
-
-            {/* Right panel — language */}
-            <View style={styles.rightPanel}>
-              <TouchIcon
-                selected={langPicked && uiLang === "en"}
-                onPress={() => handleLang("en")}
-                label="English"
-                colors={colors}
-              >
-                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "en" ? colors.primary : colors.foreground }]}>
-                  EN
-                </Text>
-              </TouchIcon>
-              <TouchIcon
-                selected={langPicked && uiLang === "de"}
-                onPress={() => handleLang("de")}
-                label="Deutsch"
-                colors={colors}
-              >
-                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "de" ? colors.primary : colors.foreground }]}>
-                  DE
-                </Text>
-              </TouchIcon>
-            </View>
-
             {/* Center — the Circle of Love */}
             <View style={styles.landingCenter}>
               <CircleOfLove size={240} />
@@ -512,6 +470,29 @@ export default function OnboardingScreen() {
               <Text style={[styles.landingHint, { color: colors.mutedForeground }]}>
                 {vibe && langPicked ? t.landing.entering : t.landing.hint}
               </Text>
+            </View>
+
+            {/* Bottom console — vibe + language, icons only */}
+            <View style={[styles.bottomConsole, { backgroundColor: colors.card, borderColor: colors.border }]}>
+              <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors}>
+                <Rose size={32} color="#E0556A" />
+              </TouchIcon>
+              <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors}>
+                <Rose size={32} color="#FBF7F0" outline="rgba(120,90,70,0.45)" />
+              </TouchIcon>
+
+              <View style={[styles.consoleDivider, { backgroundColor: colors.border }]} />
+
+              <TouchIcon selected={langPicked && uiLang === "en"} onPress={() => handleLang("en")} colors={colors}>
+                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "en" ? colors.primary : colors.foreground }]}>
+                  EN
+                </Text>
+              </TouchIcon>
+              <TouchIcon selected={langPicked && uiLang === "de"} onPress={() => handleLang("de")} colors={colors}>
+                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "de" ? colors.primary : colors.foreground }]}>
+                  DE
+                </Text>
+              </TouchIcon>
             </View>
           </View>
         )}
@@ -806,7 +787,9 @@ export default function OnboardingScreen() {
                   <WaterGlass size={34} color="#38BDF8" />
                   <View style={{ flex: 1 }}>
                     <Text style={[styles.nurtureTitle, { color: colors.foreground }]}>{t.nurture.hydrationTitle}</Text>
-                    <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.hydrationSub}</Text>
+                    {!!t.nurture.hydrationSub && (
+                      <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.hydrationSub}</Text>
+                    )}
                   </View>
                 </View>
                 <IntervalPills
@@ -824,7 +807,9 @@ export default function OnboardingScreen() {
                   <AnatomicalHeart size={34} color="#E0556A" />
                   <View style={{ flex: 1 }}>
                     <Text style={[styles.nurtureTitle, { color: colors.foreground }]}>{t.nurture.restTitle}</Text>
-                    <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.restSub}</Text>
+                    {!!t.nurture.restSub && (
+                      <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.restSub}</Text>
+                    )}
                   </View>
                 </View>
                 <IntervalPills
@@ -1103,9 +1088,23 @@ const styles = StyleSheet.create({
   },
   welcomeTitle: { fontSize: 30, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
   welcomeName: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 4, marginTop: 8 },
-  leftPanel: { position: "absolute", left: 16, top: 0, bottom: 0, justifyContent: "center", gap: 22, zIndex: 5 },
-  rightPanel: { position: "absolute", right: 16, top: 0, bottom: 0, justifyContent: "center", gap: 22, zIndex: 5 },
-  sideTouch: { alignItems: "center", gap: 6, width: 72 },
+  bottomConsole: {
+    position: "absolute",
+    left: 20,
+    right: 20,
+    bottom: 28,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 18,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    borderRadius: 26,
+    borderWidth: 1,
+    zIndex: 5,
+  },
+  consoleDivider: { width: 1, height: 36, marginHorizontal: 4, opacity: 0.7 },
+  sideTouch: { alignItems: "center", gap: 6 },
   sideIcon: {
     width: 60,
     height: 60,
@@ -1137,8 +1136,8 @@ const styles = StyleSheet.create({
   fieldLabel: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 },
 
   /* Intentions */
-  intentionRow: { flexDirection: "row", gap: 10, width: "100%" },
-  intentionCard: { flex: 1, borderRadius: 18, borderWidth: 1.5, padding: 14, alignItems: "center", gap: 8, minHeight: 150, justifyContent: "center" },
+  intentionRow: { flexDirection: "column", gap: 12, width: "100%" },
+  intentionCard: { width: "100%", borderRadius: 18, borderWidth: 1.5, paddingVertical: 18, paddingHorizontal: 18, alignItems: "center", gap: 6, justifyContent: "center" },
   intentionRadio: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
   intentionCardTitle: { fontSize: 13, fontFamily: "Inter_700Bold", textAlign: "center", letterSpacing: -0.2 },
   intentionCardAffirm: { fontSize: 11, fontFamily: "Inter_400Regular", textAlign: "center", lineHeight: 16, fontStyle: "italic" },
