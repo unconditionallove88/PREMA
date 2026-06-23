@@ -16,9 +16,16 @@ faithful port of the core member screens.
 
 **How to apply:** When building/fixing a mobile screen, read the matching
 `artifacts/prema/src/app/<route>/page.tsx` first and reproduce its sections, flow, and
-bilingual EN/DE copy. Mobile member nav = Home/Phases/Map/Network/Profile tabs +
-stack detail screens (heart-status, laboratory-test, self-care, recovery, before,
-during). Staff consoles (awareness, support-console) are out of scope.
+bilingual EN/DE copy. Staff consoles (awareness, support-console) are out of scope.
+
+**Mobile nav diverged on purpose (2026-06):** the user explicitly restructured the
+mobile tab bar to exactly 5 tabs — Circle of Love (home, full-screen heartbeat) ·
+Love Breath · Love Letters · Laboratory · You (heart icon). The old
+Home/Phases/Map/Network/Profile model and the map/network/phases tabs were removed at
+the user's request, so for navigation the mobile app is NO LONGER a mirror of web —
+treat the 5-tab layout as canonical for mobile. Orphaned stack screens (heart-status,
+laboratory-test, self-care, recovery, before, during) remain registered but are
+unreachable from the new tabs.
 
 # Previewing onboarding-gated screens
 

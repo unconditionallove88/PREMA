@@ -219,7 +219,7 @@ export default function ProfileScreen() {
               { backgroundColor: colors.card, borderColor: colors.border },
             ]}
           >
-            <Feather name="user" size={44} color={colors.mutedForeground} />
+            <Feather name="heart" size={44} color={colors.primary} />
           </View>
           <Text style={[styles.displayName, { color: colors.foreground }]}>
             {displayName}
@@ -325,18 +325,10 @@ export default function ProfileScreen() {
             </Text>
           </View>
 
-          <Pressable
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              router.push("/(tabs)/network");
-            }}
-            style={({ pressed }) => [
+          <View
+            style={[
               styles.rowItem,
-              {
-                backgroundColor: colors.background,
-                borderColor: colors.border,
-                opacity: pressed ? 0.85 : 1,
-              },
+              { backgroundColor: colors.background, borderColor: colors.border },
             ]}
           >
             <View
@@ -352,8 +344,7 @@ export default function ProfileScreen() {
                 {t.resonant}
               </Text>
             </View>
-            <Feather name="chevron-right" size={18} color={colors.mutedForeground} />
-          </Pressable>
+          </View>
 
           <View
             style={[

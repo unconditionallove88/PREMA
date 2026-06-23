@@ -832,7 +832,7 @@ export default function HeartStatusScreen() {
             showBPM={showBPM}
             activeArchetype={activeArchetype}
             onSelectArchetype={setActiveArchetype}
-            onFriendPress={() => router.push("/(tabs)/map")}
+            onFriendPress={() => router.push("/(tabs)")}
           />
         </View>
 

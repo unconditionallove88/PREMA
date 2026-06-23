@@ -503,10 +503,10 @@ export default function OnboardingScreen() {
               ]}
             >
               <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors} label={t.landing.bright}>
-                <Feather name="sun" size={24} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
+                <Feather name="sun" size={20} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
               </TouchIcon>
               <TouchIcon selected={vibe === "dark"} onPress={() => handleVibe("dark")} colors={colors} label={t.landing.dark}>
-                <FullMoon size={24} color="#8B5CF6" />
+                <FullMoon size={20} color="#8B5CF6" />
               </TouchIcon>
               <TouchIcon selected={langPicked && uiLang === "en"} onPress={() => handleLang("en")} colors={colors} label="English">
                 <Text style={[styles.langGlyph, { color: langPicked && uiLang === "en" ? colors.primary : colors.foreground }]}>
@@ -1123,10 +1123,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     zIndex: 5,
   },
-  sideTouch: { flex: 1, alignItems: "center", gap: 5, paddingVertical: 2 },
-  sideIcon: { height: 28, alignItems: "center", justifyContent: "center" },
-  sideLabel: { fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3, textAlign: "center" },
-  langGlyph: { fontSize: 19, fontFamily: "Inter_700Bold", letterSpacing: 1 },
+  sideTouch: { flex: 1, alignItems: "center", gap: 4, paddingVertical: 2 },
+  sideIcon: { height: 22, alignItems: "center", justifyContent: "center" },
+  sideLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3, textAlign: "center" },
+  langGlyph: { fontSize: 16, fontFamily: "Inter_700Bold", letterSpacing: 1 },
 
   /* Generic step */
   stepContainer: { paddingHorizontal: 24, paddingTop: 40, alignItems: "center", minHeight: "100%" },
