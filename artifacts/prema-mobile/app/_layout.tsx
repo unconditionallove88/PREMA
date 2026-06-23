@@ -34,6 +34,12 @@ function RootLayoutNav() {
     <Stack screenOptions={{ headerShown: false, animation: "fade" }}>
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="heart-status" options={{ animation: "slide_from_bottom" }} />
+      <Stack.Screen name="laboratory-test" options={{ animation: "slide_from_right" }} />
+      <Stack.Screen name="self-care" options={{ animation: "slide_from_bottom" }} />
+      <Stack.Screen name="recovery" options={{ animation: "slide_from_right" }} />
+      <Stack.Screen name="before" options={{ animation: "slide_from_right" }} />
+      <Stack.Screen name="during" options={{ animation: "slide_from_right" }} />
     </Stack>
   );
 }

@@ -1,1 +1,2 @@
 - [Mobile AlarmOverlay vibration](alarm-overlay.md) — Vibration API needs Platform.OS !== "web" guard; expo-haptics is the only installed vibration package.
+- [Mobile ↔ web parity](mobile-web-parity.md) — prema-mobile faithfully mirrors the prema web app (web is canonical); how to preview onboarding-gated tab/stack screens.

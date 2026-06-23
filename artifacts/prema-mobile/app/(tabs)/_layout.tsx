@@ -16,21 +16,21 @@ function NativeTabLayout() {
         <Icon sf={{ default: "house", selected: "house.fill" }} />
         <Label>Home</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="prepare">
-        <Icon sf={{ default: "drop", selected: "drop.fill" }} />
-        <Label>Water</Label>
+      <NativeTabs.Trigger name="phases">
+        <Icon sf={{ default: "circle.grid.2x2", selected: "circle.grid.2x2.fill" }} />
+        <Label>Phases</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="session">
-        <Icon sf={{ default: "wind", selected: "wind" }} />
-        <Label>Breathe</Label>
+      <NativeTabs.Trigger name="map">
+        <Icon sf={{ default: "dot.radiowaves.left.and.right", selected: "dot.radiowaves.left.and.right" }} />
+        <Label>Radar</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="care">
-        <Icon sf={{ default: "moon", selected: "moon.fill" }} />
-        <Label>Rest</Label>
+      <NativeTabs.Trigger name="network">
+        <Icon sf={{ default: "heart.circle", selected: "heart.circle.fill" }} />
+        <Label>Circle</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: "location.north.fill", selected: "location.north.fill" }} />
-        <Label>Depart</Label>
+        <Icon sf={{ default: "person", selected: "person.fill" }} />
+        <Label>You</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -89,50 +89,50 @@ function ClassicTabLayout() {
         }}
       />
       <Tabs.Screen
-        name="prepare"
+        name="phases"
         options={{
-          title: "Water",
+          title: "Phases",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="drop" tintColor={color} size={22} />
+              <SymbolView name="circle.grid.2x2" tintColor={color} size={22} />
             ) : (
-              <Feather name="droplet" size={20} color={color} />
+              <Feather name="compass" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
-        name="session"
+        name="map"
         options={{
-          title: "Breathe",
+          title: "Radar",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="wind" tintColor={color} size={22} />
+              <SymbolView name="dot.radiowaves.left.and.right" tintColor={color} size={22} />
             ) : (
-              <Feather name="wind" size={20} color={color} />
+              <Feather name="radio" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
-        name="care"
+        name="network"
         options={{
-          title: "Rest",
+          title: "Circle",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="moon" tintColor={color} size={22} />
+              <SymbolView name="heart.circle" tintColor={color} size={22} />
             ) : (
-              <Feather name="moon" size={20} color={color} />
+              <Feather name="heart" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Depart",
+          title: "You",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="location.north.fill" tintColor={color} size={22} />
+              <SymbolView name="person" tintColor={color} size={22} />
             ) : (
-              <Feather name="navigation" size={20} color={color} />
+              <Feather name="user" size={20} color={color} />
             ),
         }}
       />
