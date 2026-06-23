@@ -32,3 +32,14 @@ non-resolvable transitive dep breaks the Metro bundle.
   opacity still animate. A cubic ease-in-out barely moves in the first ~1s, so
   early screenshots can look like nothing happened — verify with a temporarily
   shortened duration, not a single early capture.
+
+**Per-screen immersion policies share one context safely:** different screens drive
+the *same* `translate` value with different rules (breath = hide permanently on
+focus; circle = hide after 3s, reveal on touch via a full-screen `Pressable`
+`onPressIn` + re-hide after 5s idle). Each screen owns its own `setTimeout` refs,
+clears them and calls `show()` in its `useFocusEffect` cleanup, so leaving one
+screen never leaves the bar stuck hidden for the next. Because the context's
+hide/show both `stopAnimation()` first, brief competing show/hide calls during a
+tab transition settle deterministically on the focused screen's intent.
+- To fade on-screen copy in lockstep with the bar, derive its opacity from
+  `tabBar.translate` (`interpolate [0,1]→[1,0]`) instead of a separate value.

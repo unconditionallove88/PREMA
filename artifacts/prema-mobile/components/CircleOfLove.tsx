@@ -25,17 +25,23 @@ import Svg, {
  * the same in both vibe modes — this is the emotional centrepiece.
  */
 
+// A deep, mystical blend of rose quartz pink, radiant gold and soft violet —
+// the sacred palette of the Circle of Love.
 const PALETTE = {
-  rose: "#FFB3C9",
-  magenta: "#ED5BA0",
-  lavender: "#C9A7F0",
-  gold: "#F6D58A",
+  rose: "#F7C8DA", // rose quartz
+  magenta: "#E89BC4", // soft rose-violet (no harsh magenta)
+  lavender: "#C9A7F0", // soft violet
+  gold: "#F6D58A", // radiant gold
   coreHighlight: "#FFFFFF",
-  coreMid: "#FFC6DD",
-  coreDeep: "#C32E84",
+  coreMid: "#FBD6E6", // pale rose
+  coreGold: "#F4D79A", // warm gold mid
+  coreDeep: "#B27FDD", // soft violet depth
 };
 
-const PARTICLE_COLORS = ["#FFFFFF", "#FFC6DD", "#F6D58A", "#FFB3C9"];
+const PARTICLE_COLORS = ["#FFFFFF", "#FBD6E6", "#F6D58A", "#C9A7F0"];
+
+// Warm gold-white used for the spirit shimmer sweeping across the radius.
+const SHIMMER = "#FFF1CF";
 
 type ParticleConfig = {
   angle: number;
@@ -142,13 +148,13 @@ export function CircleOfLove() {
       Animated.sequence([
         Animated.timing(breath, {
           toValue: 1,
-          duration: 3200,
+          duration: 3000,
           easing: Easing.inOut(Easing.quad),
           useNativeDriver: true,
         }),
         Animated.timing(breath, {
           toValue: 0,
-          duration: 3200,
+          duration: 3000,
           easing: Easing.inOut(Easing.quad),
           useNativeDriver: true,
         }),
@@ -200,7 +206,7 @@ export function CircleOfLove() {
     };
   }, [breath, spin, shimmerSpin, shimmerGlow]);
 
-  const coreScale = breath.interpolate({ inputRange: [0, 1], outputRange: [1, 1.06] });
+  const coreScale = breath.interpolate({ inputRange: [0, 1], outputRange: [1, 1.05] });
   const ringScale = breath.interpolate({ inputRange: [0, 1], outputRange: [1, 1.035] });
   const bloomScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.96, 1.1] });
   const bloomOpacity = breath.interpolate({ inputRange: [0, 1], outputRange: [0.55, 0.9] });
@@ -244,9 +250,9 @@ export function CircleOfLove() {
           <Svg width={BLOOM} height={BLOOM}>
             <Defs>
               <RadialGradient id="bloom" cx="50%" cy="50%" r="50%">
-                <Stop offset="0%" stopColor={PALETTE.magenta} stopOpacity="0.55" />
-                <Stop offset="42%" stopColor={PALETTE.rose} stopOpacity="0.22" />
-                <Stop offset="72%" stopColor={PALETTE.lavender} stopOpacity="0.08" />
+                <Stop offset="0%" stopColor={PALETTE.rose} stopOpacity="0.5" />
+                <Stop offset="34%" stopColor={PALETTE.gold} stopOpacity="0.2" />
+                <Stop offset="62%" stopColor={PALETTE.lavender} stopOpacity="0.12" />
                 <Stop offset="100%" stopColor={PALETTE.lavender} stopOpacity="0" />
               </RadialGradient>
             </Defs>
@@ -316,7 +322,7 @@ export function CircleOfLove() {
               cx={RING / 2}
               cy={RING / 2}
               r={ringR}
-              stroke="#FFFFFF"
+              stroke={SHIMMER}
               strokeWidth={ringStroke * 0.9}
               strokeLinecap="round"
               strokeDasharray={`${circumference * 0.1}, ${circumference}`}
@@ -331,8 +337,8 @@ export function CircleOfLove() {
             <Defs>
               <RadialGradient id="core" cx="50%" cy="40%" r="65%">
                 <Stop offset="0%" stopColor={PALETTE.coreHighlight} stopOpacity="0.98" />
-                <Stop offset="30%" stopColor={PALETTE.coreMid} stopOpacity="0.96" />
-                <Stop offset="66%" stopColor={PALETTE.magenta} />
+                <Stop offset="26%" stopColor={PALETTE.coreMid} stopOpacity="0.96" />
+                <Stop offset="58%" stopColor={PALETTE.coreGold} stopOpacity="0.92" />
                 <Stop offset="100%" stopColor={PALETTE.coreDeep} />
               </RadialGradient>
             </Defs>
