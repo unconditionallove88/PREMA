@@ -1,0 +1,38 @@
+IMMERSE: THE BREATH OF LOVE – PURE CONSCIOUSNESS STATE
+
+Refine the "Breath of Love" screen into a high-end, immersive art experience. The goal is a progressive "UI dissolution" that leads the user from instruction into deep meditation.
+
+1. INITIAL ENTRY & NAVIGATION HIDING
+- As soon as the Breath of Love screen is active, the Bottom Tab Bar must slowly slide down and disappear (duration: 3 seconds).
+- The transition should be silky smooth, leaving the user in a full-screen, edge-to-edge sacred space.
+
+2. STAGE 1: THE GUIDED FOCUS (0 - 12 Seconds)
+- Display the setup exactly as it is now: Title "breath of love", the pulsating Sphere, the primary "inhale/exhale" text, and the detailed instructional paragraph.
+- The instructional text should be extremely legible but softened.
+
+3. STAGE 2: DISSOLVING THE MIND (at 12 Seconds)
+- After 12 seconds, the detailed instructional paragraph (everything below "exhale") must slowly fade away (opacity: 0, duration: 4 seconds).
+- The user is left with only:
+  - The Title: "breath of love"
+  - The Pulsating Core Sphere
+  - The rhythmic text: "inhale" / "exhale"
+
+4. STAGE 3: PURE CONSCIOUSNESS STATE (at 24 Seconds)
+- After another 12 seconds, the "inhale" and "exhale" labels must slowly fade away (duration: 5 seconds).
+- The user has now "internalized" the 5-second rhythm.
+- FINAL PERMANENT VIEW:
+  - Only the Title "breath of love" remains at the top (softly glowing).
+  - Only the Core Pulsating Sphere/Circle remains in the center.
+  - The background continues its soft, infinite cycle between healing Blue, Green, and Pink.
+
+5. VISUAL REFINEMENT & ARTISTRY
+- SPHERE DYNAMICS: Ensure the sphere’s expansion (inhale) and contraction (exhale) are mathematically perfect (5s up, 5s down) with "ease-in-out" smoothing.
+- THE SACRED RADIAL: The sphere should not just change size; it should feel like it is radiating light into the room. Use multiple CSS box-shadow and filter: blur layers to create a "bloom" that enters and retreats.
+- TYPOGRAPHY: All remaining text (Title) should be in a thin, elegant, high-end sans-serif, with letter-spacing slightly increased for a "breathable" feel.
+
+6. REPLIT / CODE INSTRUCTIONS
+- Use Framer Motion or CSS Transitions for all fading and sliding.
+- Use a simple `useEffect` timer or `setTimeout` chain to manage the 12-second stages.
+- Ensure that if the user leaves the screen and comes back, the cycle resets to Stage 1.
+
+The final result must feel like a digital sanctuary—an intersection of high-technology and pure, silent consciousness. No buttons, no numbers, no clutter. Just the user, the light, and the breath.

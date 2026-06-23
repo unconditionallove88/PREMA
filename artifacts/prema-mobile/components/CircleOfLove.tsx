@@ -14,8 +14,6 @@ import Svg, {
   Stop,
 } from "react-native-svg";
 
-import { Text } from "@/components/Text";
-
 /**
  * Circle of Love — a living aura field.
  *
@@ -346,17 +344,6 @@ export function CircleOfLove() {
         {particles.map((cfg, i) => (
           <Particle key={i} cfg={cfg} center={center} />
         ))}
-
-        {/* Status display, centred inside the core */}
-        <View style={[styles.status, { width: CORE * 0.86 }]}>
-          <Text style={[styles.score, { fontSize: RING * 0.2 }]}>92</Text>
-          <Text style={[styles.scoreLabel, { fontSize: RING * 0.04 }]}>aura score</Text>
-          <View style={[styles.divider, { width: CORE * 0.34 }]} />
-          <Text style={[styles.freq, { fontSize: RING * 0.055 }]}>frequency 98%</Text>
-          <Text style={[styles.connection, { fontSize: RING * 0.044 }]}>
-            deeply connected
-          </Text>
-        </View>
       </View>
     </View>
   );
@@ -365,35 +352,4 @@ export function CircleOfLove() {
 const styles = StyleSheet.create({
   wrap: { ...StyleSheet.absoluteFillObject, alignItems: "center", justifyContent: "center" },
   layer: { position: "absolute", alignItems: "center", justifyContent: "center" },
-  status: { position: "absolute", alignItems: "center", justifyContent: "center" },
-  score: {
-    fontFamily: "Nunito_700Bold",
-    color: "#FFFFFF",
-    letterSpacing: -1,
-    textShadowColor: "rgba(195,46,132,0.6)",
-    textShadowRadius: 12,
-    textShadowOffset: { width: 0, height: 1 },
-  },
-  scoreLabel: {
-    fontFamily: "Nunito_600SemiBold",
-    color: "rgba(255,255,255,0.9)",
-    letterSpacing: 3,
-    marginTop: 2,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: "rgba(255,255,255,0.4)",
-    marginVertical: 8,
-  },
-  freq: {
-    fontFamily: "Nunito_700Bold",
-    color: "#FFFFFF",
-    letterSpacing: 0.5,
-  },
-  connection: {
-    fontFamily: "Nunito_500Medium",
-    color: "rgba(255,255,255,0.85)",
-    letterSpacing: 1,
-    marginTop: 3,
-  },
 });
