@@ -20,3 +20,15 @@ the tabs, but the alarm intervals never start until the app is fully restarted
 on the live `hasOnboarded` context value, and the onboarding save path must update
 that value before/at navigation. The redirect effect in `_layout` only depends on
 `[hasOnboarded]`, so flipping it false→true does not bounce the user back to onboarding.
+
+## Version gate (re-showing a redesigned onboarding)
+
+When onboarding is significantly redesigned, returning users stay stuck on the
+dashboard because their persisted `prema_onboarded="true"` makes `_layout` skip the
+landing forever — and a fresh screenshot browser hides this (empty storage looks fine).
+
+**Rule:** Gate completion on BOTH the flag and a version: `hasOnboarded =
+onboarded === "true" && onbVersion === ONBOARDING_VERSION`. Bump the
+`ONBOARDING_VERSION` constant when the flow changes; `completeOnboarding()` writes
+`prema_onboarded` + `prema_onboarding_version` together. Old users (no version key)
+fall through to the new landing once, then match on next launch — no redirect loop.

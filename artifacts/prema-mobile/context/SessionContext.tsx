@@ -62,6 +62,9 @@ const DEFAULT_CARE_ALARMS: CareAlarms = {
   hydrationSync: 30,
 };
 
+// Bump when the onboarding flow changes meaningfully so returning users see it again.
+const ONBOARDING_VERSION = "2";
+
 const defaultCompleted: Record<PrepStep, boolean> = {
   testing: false,
   essentials: false,
@@ -88,7 +91,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const [ph, ln, th, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw] =
+      const [ph, ln, th, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw, onbVersion] =
         await Promise.all([
           AsyncStorage.getItem("prema_phase"),
           AsyncStorage.getItem("prema_lang"),
@@ -100,13 +103,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           AsyncStorage.getItem("prema_care_alarms"),
           AsyncStorage.getItem("prema_quick_notes"),
           AsyncStorage.getItem("prema_journal"),
+          AsyncStorage.getItem("prema_onboarding_version"),
         ]);
       if (ph === "before" || ph === "during" || ph === "recovery")
         setPhaseState(ph);
       if (ln === "en" || ln === "de") setLangState(ln);
       if (th === "dark" || th === "bright") setThemeState(th);
       if (comp) { try { setCompleted(JSON.parse(comp)); } catch {} }
-      setHasOnboarded(onboarded === "true");
+      setHasOnboarded(onboarded === "true" && onbVersion === ONBOARDING_VERSION);
       setUserName(uname || "");
       if (intKey) setIntentionState(intKey);
       if (alarmsRaw) { try { setCareAlarms({ ...DEFAULT_CARE_ALARMS, ...JSON.parse(alarmsRaw) }); } catch {} }
@@ -151,7 +155,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const completeOnboarding = useCallback(() => {
     setHasOnboarded(true);
-    AsyncStorage.setItem("prema_onboarded", "true");
+    AsyncStorage.multiSet([
+      ["prema_onboarded", "true"],
+      ["prema_onboarding_version", ONBOARDING_VERSION],
+    ]);
   }, []);
 
   const setIntention = useCallback((i: string | null) => {
