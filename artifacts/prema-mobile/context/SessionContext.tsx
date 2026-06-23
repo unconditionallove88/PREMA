@@ -44,6 +44,9 @@ export interface SessionContextValue {
   resetSession: () => void;
   hasOnboarded: boolean | null;
   completeOnboarding: () => void;
+  hasCompletedDisclaimer: boolean | null;
+  completeDisclaimer: () => void;
+  signOut: () => Promise<void>;
   userName: string;
   intention: string | null;
   setIntention: (i: string | null) => void;
@@ -83,6 +86,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [completed, setCompleted] =
     useState<Record<PrepStep, boolean>>(defaultCompleted);
   const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
+  const [hasCompletedDisclaimer, setHasCompletedDisclaimer] = useState<
+    boolean | null
+  >(null);
   const [userName, setUserName] = useState("");
   const [intention, setIntentionState] = useState<string | null>(null);
   const [careAlarms, setCareAlarms] = useState<CareAlarms>(DEFAULT_CARE_ALARMS);
@@ -91,7 +97,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const [ph, ln, th, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw, onbVersion] =
+      const [ph, ln, th, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw, onbVersion, disclaimerDone] =
         await Promise.all([
           AsyncStorage.getItem("prema_phase"),
           AsyncStorage.getItem("prema_lang"),
@@ -104,6 +110,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           AsyncStorage.getItem("prema_quick_notes"),
           AsyncStorage.getItem("prema_journal"),
           AsyncStorage.getItem("prema_onboarding_version"),
+          AsyncStorage.getItem("prema_disclaimer_done"),
         ]);
       if (ph === "before" || ph === "during" || ph === "recovery")
         setPhaseState(ph);
@@ -111,12 +118,18 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       if (th === "dark" || th === "bright") setThemeState(th);
       if (comp) { try { setCompleted(JSON.parse(comp)); } catch {} }
       setHasOnboarded(onboarded === "true" && onbVersion === ONBOARDING_VERSION);
+      setHasCompletedDisclaimer(disclaimerDone === "true");
       setUserName(uname || "");
       if (intKey) setIntentionState(intKey);
       if (alarmsRaw) { try { setCareAlarms({ ...DEFAULT_CARE_ALARMS, ...JSON.parse(alarmsRaw) }); } catch {} }
       if (notesRaw) { try { setQuickNotes(JSON.parse(notesRaw)); } catch {} }
       if (journalRaw) { try { setJournalEntries(JSON.parse(journalRaw)); } catch {} }
-    })();
+    })().catch(() => {
+      // If hydration fails, fall back to a clean first-run state so the
+      // navigation gate never deadlocks on a null (unresolved) flag.
+      setHasOnboarded((prev) => (prev === null ? false : prev));
+      setHasCompletedDisclaimer((prev) => (prev === null ? false : prev));
+    });
   }, []);
 
   const setPhase = useCallback((p: Phase) => {
@@ -161,6 +174,31 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     ]);
   }, []);
 
+  const completeDisclaimer = useCallback(() => {
+    setHasCompletedDisclaimer(true);
+    AsyncStorage.setItem("prema_disclaimer_done", "true");
+  }, []);
+
+  // "wave*" — purge the entire journey. Removes every persisted prema_* key
+  // (intake logs, sessions, profile, activity, onboarding + disclaimer flags),
+  // resets in-memory state and drops the user back to the landing flow.
+  const signOut = useCallback(async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const premaKeys = keys.filter((k) => k.startsWith("prema_"));
+      if (premaKeys.length) await AsyncStorage.multiRemove(premaKeys);
+    } catch {}
+    setPhaseState("before");
+    setCompleted(defaultCompleted);
+    setUserName("");
+    setIntentionState(null);
+    setCareAlarms(DEFAULT_CARE_ALARMS);
+    setQuickNotes([]);
+    setJournalEntries([]);
+    setHasCompletedDisclaimer(false);
+    setHasOnboarded(false);
+  }, []);
+
   const setIntention = useCallback((i: string | null) => {
     setIntentionState(i);
     if (i) AsyncStorage.setItem("prema_intention", i);
@@ -202,6 +240,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         resetSession,
         hasOnboarded,
         completeOnboarding,
+        hasCompletedDisclaimer,
+        completeDisclaimer,
+        signOut,
         userName,
         intention,
         setIntention,

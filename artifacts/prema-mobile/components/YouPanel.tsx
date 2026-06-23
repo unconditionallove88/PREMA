@@ -8,7 +8,6 @@ import {
   PanResponder,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   TextInput,
   View,
@@ -26,9 +25,11 @@ import { useColors } from "@/hooks/useColors";
 const PROFILE_KEY = "prema_profile";
 const NAME_KEY = "prema_user_name";
 
+// Muted dusty-rose accent for the wave* danger zone — serious but soft.
+const WAVE_ACCENT = "#C58B86";
+
 const CONTENT = {
   en: {
-    safeSpace: "Space",
     greeting: "Existence is now",
     essence: "The Essence",
     name: "Username",
@@ -36,37 +37,20 @@ const CONTENT = {
     weight: "Weight (kg)",
     height: "Height (cm)",
     saved: "Profile reflects light",
-    circle: "Circle of Love",
-    trusted: "Trusted Bonds",
-    resonant: "Resonant contacts",
-    reminders: "Heart Reminders",
-    checkins: "Check-ins are active",
     language: "Language",
     languageSub: "Choose how the space speaks",
-    journey:
-      "Intention is sovereign. High-fidelity encryption ensures this space remains private and the heart free.",
-    promise: "Bonds of Trust",
     valuedHeart: "VALUED HEART",
     footer: "Created in harmony",
-    privacy: {
-      title: "Freedom & Trust",
-      sovereignty: "Data Sovereignty",
-      sovereigntyDesc:
-        "Privacy is respected. Data is sovereign. prema is built on the principle that the personal journey is a sacred trust.",
-      encryption: "High-Fidelity Encryption",
-      encryptionDesc:
-        "All biometric signals, health profiles and location logs are protected by high-fidelity encryption. Sensitive information is visible only to chosen bonds.",
-      freedom: "Inner Freedom",
-      freedomDesc:
-        "Data is never sold or traded. Intention remains within this space. Pure support, love, care and harm reduction.",
-      acceptance: "Unconditional Acceptance",
-      acceptanceDesc:
-        "Only information necessary for protection is collected. Every data point calibrates protection and nurtures well-being.",
-      footer: "Created in harmony",
+    wave: {
+      title: "wave*",
+      sub: "let the tide carry it all away",
+      action: "wave*",
+      cancel: "stay",
+      confirm:
+        "wave* will clear your entire journey. all intake logs and session data will be permanently deleted, and you will be signed out.",
     },
   },
   de: {
-    safeSpace: "Raum",
     greeting: "Existenz ist jetzt",
     essence: "Die Essenz",
     name: "Benutzername",
@@ -74,33 +58,17 @@ const CONTENT = {
     weight: "Gewicht (kg)",
     height: "Größe (cm)",
     saved: "Profil spiegelt Licht",
-    circle: "Circle of Love",
-    trusted: "Vertrauenswürdige Bindungen",
-    resonant: "Resonante Kontakte",
-    reminders: "Heart Reminders",
-    checkins: "Tägliche Check-ins aktiv",
     language: "Sprache",
     languageSub: "Wähle, wie der Raum spricht",
-    journey:
-      "Resonanz ist souverän. High-Fidelity-Verschlüsselung stellt sicher, dass dieser Raum privat bleibt.",
-    promise: "Bindungen des Vertrauens",
     valuedHeart: "GESCHÄTZTES HERZ",
     footer: "In Harmonie erschaffen",
-    privacy: {
-      title: "Freiheit & Vertrauen",
-      sovereignty: "Datensouveränität",
-      sovereigntyDesc:
-        "Privatsphäre wird geachtet. Daten sind souverän. prema baut auf dem Prinzip der persönlichen Souveränität auf.",
-      encryption: "High-Fidelity-Verschlüsselung",
-      encryptionDesc:
-        "Alle biometrischen Signale, Gesundheitsprofile und Standortprotokolle sind geschützt. Informationen sind nur für Vertraute sichtbar.",
-      freedom: "Innere Freiheit",
-      freedomDesc:
-        "Daten werden niemals verkauft. Die Resonanz bleibt in diesem Raum. Reine Unterstützung, Liebe, Fürsorge und Schadensminimierung.",
-      acceptance: "Bedingungslose Akzeptanz",
-      acceptanceDesc:
-        "Nur notwendige Informationen werden gesammelt. Jeder Datenpunkt kalibriert den Schutz und fördert Wohlbefinden.",
-      footer: "In Harmonie erschaffen",
+    wave: {
+      title: "wave*",
+      sub: "lass die flut alles forttragen",
+      action: "wave*",
+      cancel: "bleiben",
+      confirm:
+        "wave* löscht deine gesamte reise. alle einnahme-protokolle und sitzungsdaten werden dauerhaft gelöscht, und du wirst abgemeldet.",
     },
   },
 };
@@ -108,7 +76,7 @@ const CONTENT = {
 export function YouPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { lang, setLang, userName } = useSession();
+  const { lang, setLang, userName, signOut } = useSession();
   const t = CONTENT[lang];
 
   const { height: screenH } = useWindowDimensions();
@@ -147,7 +115,7 @@ export function YouPanel({ open, onClose }: { open: boolean; onClose: () => void
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [savedMsg, setSavedMsg] = useState(false);
-  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [waveOpen, setWaveOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -196,6 +164,15 @@ export function YouPanel({ open, onClose }: { open: boolean; onClose: () => void
   const handleClose = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     onClose();
+  };
+
+  const confirmWave = async () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    setWaveOpen(false);
+    onClose();
+    // Purge the entire journey + sign out. The root navigator redirects to the
+    // landing flow once hasOnboarded flips to false.
+    await signOut();
   };
 
   const displayName = name.trim() ? name.trim().toUpperCase() : t.valuedHeart;
@@ -300,37 +277,6 @@ export function YouPanel({ open, onClose }: { open: boolean; onClose: () => void
           </View>
         </View>
 
-        {/* Circle of Love */}
-        <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <View style={styles.cardHeader}>
-            <Feather name="shield" size={14} color={colors.primary} />
-            <Text style={[styles.cardTitle, { color: colors.primary }]}>{t.circle}</Text>
-          </View>
-
-          <View style={[styles.rowItem, { backgroundColor: colors.background, borderColor: colors.border }]}>
-            <View style={[styles.rowIcon, { backgroundColor: colors.primary + "20" }]}>
-              <Feather name="heart" size={20} color={colors.primary} />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.rowTitle, { color: colors.foreground }]}>{t.trusted}</Text>
-              <Text style={[styles.rowSub, { color: colors.mutedForeground }]}>{t.resonant}</Text>
-            </View>
-          </View>
-
-          <View style={[styles.rowItem, { backgroundColor: colors.background, borderColor: colors.border }]}>
-            <View style={[styles.rowIcon, { backgroundColor: "#3B82F620" }]}>
-              <Feather name="bell" size={20} color="#3B82F6" />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.rowTitle, { color: colors.foreground }]}>{t.reminders}</Text>
-              <Text style={[styles.rowSub, { color: colors.mutedForeground }]}>{t.checkins}</Text>
-            </View>
-            <View style={[styles.toggle, { backgroundColor: colors.primary }]}>
-              <View style={[styles.toggleKnob, { backgroundColor: colors.primaryForeground }]} />
-            </View>
-          </View>
-        </View>
-
         {/* Language */}
         <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
           <View style={styles.cardHeader}>
@@ -364,89 +310,82 @@ export function YouPanel({ open, onClose }: { open: boolean; onClose: () => void
           </View>
         </View>
 
-        {/* Privacy / Bonds of Trust */}
+        {/* wave* — clear the entire journey */}
         <View
           style={[
             styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border, alignItems: "center", gap: 14 },
+            { backgroundColor: colors.card, borderColor: WAVE_ACCENT + "40", gap: 14 },
           ]}
         >
-          <Feather name="lock" size={22} color={colors.mutedForeground} />
-          <Text style={[styles.journey, { color: colors.mutedForeground }]}>{t.journey}</Text>
+          <View style={styles.cardHeader}>
+            <Feather name="wind" size={14} color={WAVE_ACCENT} />
+            <Text style={[styles.cardTitle, { color: WAVE_ACCENT }]}>{t.wave.title}</Text>
+          </View>
+          <Text style={[styles.waveSub, { color: colors.mutedForeground }]}>{t.wave.sub}</Text>
           <Pressable
             onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              setPrivacyOpen(true);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              setWaveOpen(true);
             }}
             style={({ pressed }) => [
-              styles.promiseBtn,
+              styles.waveBtn,
               {
-                backgroundColor: colors.primary + "15",
-                borderColor: colors.primary + "30",
+                backgroundColor: WAVE_ACCENT + "14",
+                borderColor: WAVE_ACCENT + "55",
                 opacity: pressed ? 0.85 : 1,
               },
             ]}
           >
-            <Feather name="shield" size={14} color={colors.primary} />
-            <Text style={[styles.promiseText, { color: colors.primary }]}>{t.promise}</Text>
+            <Feather name="wind" size={14} color={WAVE_ACCENT} />
+            <Text style={[styles.waveBtnText, { color: WAVE_ACCENT }]}>{t.wave.action}</Text>
           </Pressable>
         </View>
 
         <Text style={[styles.footer, { color: colors.mutedForeground }]}>{t.footer}</Text>
       </KeyboardAwareScrollViewCompat>
 
-      {/* Privacy viewer */}
+      {/* wave* confirmation */}
       <Modal
-        visible={privacyOpen}
-        animationType="slide"
+        visible={waveOpen}
+        animationType="fade"
         transparent
-        onRequestClose={() => setPrivacyOpen(false)}
+        onRequestClose={() => setWaveOpen(false)}
       >
-        <View style={styles.modalOverlay}>
+        <View style={styles.waveOverlay}>
           <View
             style={[
-              styles.modalCard,
-              {
-                backgroundColor: colors.card,
-                borderColor: colors.border,
-                paddingTop: (Platform.OS === "web" ? 24 : insets.top) + 8,
-                paddingBottom: insets.bottom + 16,
-              },
+              styles.waveCard,
+              { backgroundColor: colors.card, borderColor: WAVE_ACCENT + "40" },
             ]}
           >
-            <View style={styles.modalHeader}>
-              <View style={styles.modalTitleWrap}>
-                <View style={[styles.modalIcon, { backgroundColor: colors.primary + "15", borderColor: colors.primary + "30" }]}>
-                  <Feather name="shield" size={22} color={colors.primary} />
-                </View>
-                <Text style={[styles.modalTitle, { color: colors.foreground }]}>{t.privacy.title}</Text>
-              </View>
+            <View style={[styles.waveIcon, { backgroundColor: WAVE_ACCENT + "18", borderColor: WAVE_ACCENT + "40" }]}>
+              <Feather name="wind" size={26} color={WAVE_ACCENT} />
+            </View>
+            <Text style={[styles.waveTitle, { color: colors.foreground }]}>{t.wave.title}</Text>
+            <Text style={[styles.waveBody, { color: colors.mutedForeground }]}>{t.wave.confirm}</Text>
+            <View style={styles.waveActions}>
               <Pressable
-                onPress={() => setPrivacyOpen(false)}
-                style={[styles.closeBtnSquare, { backgroundColor: colors.background, borderColor: colors.border }]}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setWaveOpen(false);
+                }}
+                style={({ pressed }) => [
+                  styles.waveCancel,
+                  { borderColor: colors.border, opacity: pressed ? 0.8 : 1 },
+                ]}
               >
-                <Feather name="x" size={18} color={colors.foreground} />
+                <Text style={[styles.waveCancelText, { color: colors.foreground }]}>{t.wave.cancel}</Text>
+              </Pressable>
+              <Pressable
+                onPress={confirmWave}
+                style={({ pressed }) => [
+                  styles.waveConfirm,
+                  { backgroundColor: WAVE_ACCENT, opacity: pressed ? 0.88 : 1 },
+                ]}
+              >
+                <Text style={styles.waveConfirmText}>{t.wave.action}</Text>
               </Pressable>
             </View>
-
-            <ScrollView
-              style={{ flex: 1 }}
-              contentContainerStyle={{ paddingBottom: 24, gap: 24 }}
-              showsVerticalScrollIndicator={false}
-            >
-              {[
-                { h: t.privacy.sovereignty, d: t.privacy.sovereigntyDesc },
-                { h: t.privacy.encryption, d: t.privacy.encryptionDesc },
-                { h: t.privacy.freedom, d: t.privacy.freedomDesc },
-                { h: t.privacy.acceptance, d: t.privacy.acceptanceDesc },
-              ].map((s) => (
-                <View key={s.h} style={{ gap: 6 }}>
-                  <Text style={[styles.policyHeading, { color: colors.primary }]}>{s.h}</Text>
-                  <Text style={[styles.policyBody, { color: colors.mutedForeground }]}>{s.d}</Text>
-                </View>
-              ))}
-              <Text style={[styles.footer, { color: colors.mutedForeground }]}>{t.privacy.footer}</Text>
-            </ScrollView>
           </View>
         </View>
       </Modal>
@@ -519,19 +458,7 @@ const styles = StyleSheet.create({
   },
   nameInput: { fontFamily: "Nunito_700Bold", letterSpacing: 0.5 },
   row: { flexDirection: "row", gap: 14 },
-  rowItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
-    padding: 14,
-    borderRadius: 16,
-    borderWidth: 1,
-  },
-  rowIcon: { width: 44, height: 44, borderRadius: 13, alignItems: "center", justifyContent: "center" },
-  rowTitle: { fontSize: 13, fontFamily: "Nunito_600SemiBold" },
   rowSub: { fontSize: 11, fontFamily: "Nunito_400Regular", marginTop: 2 },
-  toggle: { width: 44, height: 26, borderRadius: 13, padding: 3, alignItems: "flex-end", justifyContent: "center" },
-  toggleKnob: { width: 20, height: 20, borderRadius: 10 },
   langRow: { flexDirection: "row", gap: 12 },
   langBtn: {
     flex: 1,
@@ -544,22 +471,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   langText: { fontSize: 14, fontFamily: "Nunito_600SemiBold" },
-  journey: { fontSize: 12, fontFamily: "Nunito_400Regular", lineHeight: 19, textAlign: "center" },
-  promiseBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-  },
-  promiseText: {
-    fontSize: 11,
-    fontFamily: "Nunito_700Bold",
-    letterSpacing: 1.5,
-    textTransform: "uppercase",
-  },
   footer: {
     fontSize: 10,
     fontFamily: "Nunito_700Bold",
@@ -568,38 +479,84 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 8,
   },
-  modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.6)", justifyContent: "flex-end" },
-  modalCard: {
-    height: "90%",
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
-    borderWidth: 1,
-    paddingHorizontal: 20,
+  waveSub: {
+    fontSize: 12,
+    fontFamily: "Nunito_400Regular",
+    lineHeight: 18,
+    letterSpacing: 0.3,
   },
-  modalHeader: {
+  waveBtn: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 24,
+    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 14,
+    borderRadius: 16,
+    borderWidth: 1,
   },
-  modalTitleWrap: { flexDirection: "row", alignItems: "center", gap: 12, flex: 1 },
-  modalIcon: {
-    width: 48,
-    height: 48,
+  waveBtnText: {
+    fontSize: 13,
+    fontFamily: "Nunito_700Bold",
+    letterSpacing: 3,
+  },
+  waveOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    justifyContent: "center",
+    paddingHorizontal: 28,
+  },
+  waveCard: {
+    borderRadius: 28,
+    borderWidth: 1,
+    padding: 28,
+    alignItems: "center",
+    gap: 18,
+  },
+  waveIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 22,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  waveTitle: {
+    fontSize: 24,
+    fontFamily: "Nunito_700Bold",
+    letterSpacing: 4,
+  },
+  waveBody: {
+    fontSize: 14,
+    fontFamily: "Nunito_400Regular",
+    lineHeight: 23,
+    letterSpacing: 0.8,
+    textAlign: "center",
+  },
+  waveActions: { flexDirection: "row", gap: 12, alignSelf: "stretch", marginTop: 4 },
+  waveCancel: {
+    flex: 1,
+    height: 52,
     borderRadius: 16,
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  modalTitle: { fontSize: 22, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, flex: 1 },
-  closeBtnSquare: {
-    width: 40,
-    height: 40,
-    borderRadius: 14,
-    borderWidth: 1,
+  waveCancelText: {
+    fontSize: 14,
+    fontFamily: "Nunito_600SemiBold",
+    letterSpacing: 1,
+  },
+  waveConfirm: {
+    flex: 1,
+    height: 52,
+    borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
   },
-  policyHeading: { fontSize: 11, fontFamily: "Nunito_700Bold", letterSpacing: 2, textTransform: "uppercase" },
-  policyBody: { fontSize: 13, fontFamily: "Nunito_400Regular", lineHeight: 21 },
+  waveConfirmText: {
+    fontSize: 14,
+    fontFamily: "Nunito_700Bold",
+    letterSpacing: 3,
+    color: "#FFFFFF",
+  },
 });

@@ -92,19 +92,24 @@ function AlarmManager() {
 }
 
 function RootLayoutNav() {
-  const { hasOnboarded } = useSession();
+  const { hasOnboarded, hasCompletedDisclaimer } = useSession();
 
   useEffect(() => {
-    if (hasOnboarded === null) return;
+    if (hasOnboarded === null || hasCompletedDisclaimer === null) return;
     if (!hasOnboarded) {
       router.replace("/onboarding");
+      return;
     }
-  }, [hasOnboarded]);
+    if (!hasCompletedDisclaimer) {
+      router.replace("/disclaimer");
+    }
+  }, [hasOnboarded, hasCompletedDisclaimer]);
 
   return (
     <>
       <Stack screenOptions={{ headerShown: false, animation: "fade" }}>
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="disclaimer" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="heart-status" options={{ animation: "slide_from_bottom" }} />
         <Stack.Screen name="laboratory-test" options={{ animation: "slide_from_right" }} />

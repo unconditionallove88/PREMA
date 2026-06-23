@@ -1,0 +1,25 @@
+PREMA "YOU" SECTION & ONBOARDING COMPLIANCE UPDATE
+
+1. "YOU" PANEL REFINEMENT
+- Remove the following sections from the "you" panel completely: "trusted bonds", "heart reminders", and "bonds of trust".
+- Add a new section/tab inside "you" called "wave*".
+  - When tapped, present a minimal confirmation screen with lowercase, letter-spaced typography:
+    "wave* will clear your entire journey. all intake logs and session data will be permanently deleted, and you will be signed out."
+  - On confirmation: purge all local intake/session data from storage, execute a full logout, and redirect the user to the initial landing/welcome screen.
+  - Style: serious but soft. Use a muted amber or dusty rose accent for the warning tone, keeping the "state of art" aesthetic.
+
+2. LANDING PAGE DISCLAIMER FLOW
+- Insert a mandatory disclaimer sequence immediately after the landing page and before the user enters the main dashboard.
+- Structure it as 3-4 sequential screens with a gentle "continue" button at the bottom of each.
+- Use clearly marked placeholder text only. Create sections for:
+  - Purpose & Intent: "[Placeholder: This application is intended as a personal wellness and consciousness companion, harm reduction ...]"
+  - Medical & Safety Disclaimer: "[Placeholder: This app does not provide medical advice, diagnosis, or treatment...]"
+  - Age & Jurisdiction: "[Placeholder: You must be of legal age in your jurisdiction to use this app...]"
+  - Data & Privacy: "[Placeholder: Your usage data is stored locally on your device...]"
+- Typography: thin, lowercase, highly legible, matching the app's premium aesthetic.
+- Store a "hasCompletedDisclaimer" flag in local storage so this sequence appears only once per installation. If the user invokes "wave*", reset this flag so disclaimers reappear on next entry.
+
+3. TECHNICAL REQUIREMENTS
+- "wave*" must clear all AsyncStorage, local SQLite, or persisted Redux state related to substance intake, sessions, and user activity logs.
+- The disclaimer flow must be a hard gate: the user cannot navigate to circle/breath/lab until they proceed through all screens.
+- Ensure smooth transitions between disclaimer screens using the existing animation standards.

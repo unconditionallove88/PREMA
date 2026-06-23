@@ -459,7 +459,7 @@ export default function OnboardingScreen() {
       ["prema_intake_unit", t.nurture.units[intakeUnitIdx]],
     ]);
     completeOnboarding();
-    router.replace("/(tabs)");
+    router.replace("/disclaimer");
   };
 
   const showProgress = step !== 1 && step !== 3;
