@@ -1,0 +1,31 @@
+ADAPTIVE LIGHT-VOID DESIGN: CIRCLE OF LOVE BACKGROUND REFINEMENT
+
+Please adjust the Circle of Love dashboard to support a premium "Light-Void" aesthetic that adapts perfectly to both Dark and Light modes of the app.
+
+1. ADAPTIVE BACKGROUND (THE VOID)
+- DARK MODE: Instead of pure #000000, use a "Deep Cosmic Void" — a very dark navy/charcoal gradient (#030305 to #080810). This adds depth and prevents the screen from looking "flat."
+- LIGHT MODE: Use a "Pure Spiritual Void" — a soft, off-white or very paper-grey (#F9F9FB). 
+
+2. DYNAMIC GLOW (AURIC INTERACTION)
+The background should react to the colors of the Circle (Ego, Soul, Love, and Will):
+- Implement a very large, soft "Ambient Glow" (radial-gradient) behind the main Circle.
+- DARK MODE: The glow should be subtle, with a low-opacity Rose and Gold hue, making the circle look like it’s illuminating the room.
+- LIGHT MODE: The glow should be even more delicate, like a "prism" effect, using very faint pastel pink and lavender to maintain the "Pure Consciousness" feel without looking muddy.
+
+3. THE NEPTUNIAN BEAM ADAPTATION
+- DARK MODE: The "Luch Sveta" (Neptune Beam) should be a piercing, brilliant white-violet light with a strong "bloom" effect (glow).
+- LIGHT MODE: The beam should shift to a "Refractive Light" style — like a ray of sun passing through a crystal. Use a slightly lower opacity and a hint of rainbow diffraction.
+
+4. UI ELEMENTS & TAB BAR
+- The "SidePanel" and "Tab Bar" must adopt a semi-transparent "Glassmorphism" look (backdrop-filter: blur(10px)).
+- In DARK MODE, the glass is dark-tinted.
+- In LIGHT MODE, the glass is light-tinted (frosted glass).
+- This ensures that the "Circle of Love" colors bleed through the navigation, creating a unified state of joy and lightness.
+
+5. CONTRAST & HARMONY
+- Ensure all text (Stage labels like "State of Being") automatically flips color:
+  - White-gold for Dark Mode.
+  - Deep charcoal-bronze for Light Mode.
+- All animations (the breathing and the Neptunian pulse) must be GPU-accelerated to stay smooth while the background colors shift.
+
+The final result should feel "Weightless." In Dark Mode, it’s a deep meditation space; in Light Mode, it’s a bright, morning-light sanctuary of pure consciousness.

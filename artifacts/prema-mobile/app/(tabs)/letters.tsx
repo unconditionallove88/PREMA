@@ -15,7 +15,8 @@ const CONTENT = {
     title: "Love Letters",
     sub: "A note to your future self",
     prompt: "What does your heart want to remember?",
-    placeholder: "Dear me, when you read this…",
+    placeholderDefault: "Dear me, when you read this…",
+    placeholderNamed: (name: string) => `Dear ${name}, when you read this…`,
     seal: "Seal with Love",
     sealed: "Your letter is sealed",
     sealedSub: "Carry it gently through the night.",
@@ -27,7 +28,8 @@ const CONTENT = {
     title: "Liebesbriefe",
     sub: "Eine Notiz an dein zukünftiges Ich",
     prompt: "Woran soll sich dein Herz erinnern?",
-    placeholder: "Liebes Ich, wenn du das liest…",
+    placeholderDefault: "Liebes Ich, wenn du das liest…",
+    placeholderNamed: (name: string) => `Liebe ${name}, wenn du das liest…`,
     seal: "Mit Liebe versiegeln",
     sealed: "Dein Brief ist versiegelt",
     sealedSub: "Trage ihn sanft durch die Nacht.",
@@ -44,11 +46,14 @@ type Letter = { id: string; text: string; ts: number };
 export default function LoveLettersScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { lang } = useSession();
+  const { lang, userName } = useSession();
   const vibe = useThemePreference();
   const accent = vibe === "dark" ? "#3DB879" : "#EC4899";
 
   const t = CONTENT[lang] || CONTENT.en;
+  const placeholder = userName.trim()
+    ? t.placeholderNamed(userName.trim().toLowerCase())
+    : t.placeholderDefault;
 
   const topPad = Platform.OS === "web" ? 67 : insets.top;
   const tabPad = Platform.OS === "web" ? 84 : insets.bottom + 64;
@@ -141,7 +146,7 @@ export default function LoveLettersScreen() {
               <TextInput
                 value={text}
                 onChangeText={setText}
-                placeholder={t.placeholder}
+                placeholder={placeholder}
                 placeholderTextColor={colors.mutedForeground}
                 multiline
                 style={[styles.input, { color: colors.foreground }]}
