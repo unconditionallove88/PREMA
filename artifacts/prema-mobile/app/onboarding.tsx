@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { Text } from "@/components/Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -329,6 +329,11 @@ function TouchIcon({
 export default function OnboardingScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const { width: screenW } = useWindowDimensions();
+  // Landing circle scales with the screen so PREMA always fits as its heart.
+  const LANDING_CIRCLE = Math.min(screenW * 0.66, 270);
+  const titleSize = LANDING_CIRCLE * 0.17;
+  const titleSpacing = LANDING_CIRCLE * 0.025;
   const { setLang, setTheme, setIntention, setCareAlarms, completeOnboarding } = useSession();
 
   const [step, setStep] = useState(1);
@@ -477,22 +482,41 @@ export default function OnboardingScreen() {
         {/* ── STEP 1: LANDING ─────────────────────────── */}
         {step === 1 && (
           <View style={[styles.landing, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
-            {/* Center — the Circle of Love */}
+            {/* Center — the Circle of Love with PREMA as its heart */}
             <View style={styles.landingCenter}>
-              <CircleOfLove size={240} />
-              <Text style={[styles.appTitle, { color: colors.foreground }]}>PREMA</Text>
-              <Text style={[styles.landingHint, { color: colors.mutedForeground }]}>
-                {vibe && langPicked ? t.landing.entering : t.landing.hint}
-              </Text>
+              <View style={[styles.circleStack, { width: LANDING_CIRCLE, height: LANDING_CIRCLE }]}>
+                <CircleOfLove size={LANDING_CIRCLE} />
+                <View style={styles.titleOverlay} pointerEvents="none">
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    style={[
+                      styles.appTitle,
+                      {
+                        color: colors.foreground,
+                        fontSize: titleSize,
+                        letterSpacing: titleSpacing,
+                        textShadowColor: colors.background + "E6",
+                      },
+                    ]}
+                  >
+                    PREMA
+                  </Text>
+                </View>
+              </View>
             </View>
 
-            {/* Bottom console — bottom tab bar, like the dashboard menu */}
-            <View
-              style={[
-                styles.bottomConsole,
-                { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 12 },
-              ]}
-            >
+            {/* Bottom dock — footer guidance above the console of light & language */}
+            <View style={styles.landingDock}>
+              <Text style={[styles.landingFooter, { color: colors.mutedForeground }]}>
+                {vibe && langPicked ? t.landing.entering : t.landing.hint}
+              </Text>
+              <View
+                style={[
+                  styles.bottomConsole,
+                  { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 12 },
+                ]}
+              >
               <TouchIcon selected={vibe === "bright"} onPress={() => handleVibe("bright")} colors={colors} label={t.landing.bright}>
                 <Feather name="sun" size={20} color={vibe === "bright" ? colors.primary : "#FBBF24"} />
               </TouchIcon>
@@ -509,6 +533,7 @@ export default function OnboardingScreen() {
                   DE
                 </Text>
               </TouchIcon>
+              </View>
             </View>
           </View>
         )}
@@ -1088,9 +1113,27 @@ const styles = StyleSheet.create({
   progressLabel: { fontSize: 10, fontFamily: "Nunito_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
 
   /* Landing + welcome */
-  landing: { flex: 1, justifyContent: "center", alignItems: "center" },
-  landingCenter: { alignItems: "center", paddingHorizontal: 100 },
-  appTitle: { fontSize: 46, fontFamily: "Nunito_700Bold", letterSpacing: 10, marginTop: 28 },
+  landing: { flex: 1 },
+  landingCenter: { flex: 1, alignItems: "center", justifyContent: "center" },
+  circleStack: { alignItems: "center", justifyContent: "center" },
+  titleOverlay: { ...StyleSheet.absoluteFillObject, alignItems: "center", justifyContent: "center" },
+  appTitle: {
+    fontFamily: "Nunito_700Bold",
+    textAlign: "center",
+    width: "100%",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 16,
+  },
+  landingDock: { position: "absolute", left: 0, right: 0, bottom: 0 },
+  landingFooter: {
+    fontFamily: "Nunito_300Light",
+    fontSize: 12,
+    letterSpacing: 3,
+    textAlign: "center",
+    lineHeight: 18,
+    paddingHorizontal: 32,
+    marginBottom: 16,
+  },
   landingHint: {
     fontSize: 12,
     fontFamily: "Nunito_500Medium",
@@ -1102,10 +1145,6 @@ const styles = StyleSheet.create({
   welcomeTitle: { fontSize: 30, fontFamily: "Nunito_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
   welcomeName: { fontSize: 14, fontFamily: "Nunito_700Bold", letterSpacing: 4, marginTop: 8 },
   bottomConsole: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-around",
