@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   KeyboardAvoidingView,
@@ -16,290 +16,324 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useSession } from "@/context/SessionContext";
+import { AnatomicalHeart } from "@/components/AnatomicalHeart";
+import { CircleOfLove } from "@/components/CircleOfLove";
+import { Rose } from "@/components/Rose";
+import { WaterGlass } from "@/components/WaterGlass";
+import { useSession, type Vibe } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 9;
 
 const CONTENT = {
   en: {
-    step1: {
-      tagline: "with love",
-      subtitle: "A circle of love for festival communities",
-      cta: "Start your journey",
+    landing: {
+      hint: "Choose your light and your language",
+      entering: "Entering the circle…",
     },
-    step2: {
-      title: "Before we begin",
-      sub: "Please read and agree to continue",
-      disclaimers: [
-        {
-          key: "age",
-          title: "I am 18 or older",
-          body: "Prema is designed for adults. By continuing you confirm you are at least 18 years of age.",
-        },
-        {
-          key: "harm",
-          title: "Guidance — not medical advice",
-          body: "Prema offers support and guidance only. It is not a substitute for medical advice, diagnosis, or treatment. If you are in danger, call emergency services immediately.",
-        },
-        {
-          key: "gdpr",
-          title: "Data & Privacy",
-          body: "Your data is stored locally and anonymously. We never sell or share personal data with third parties. You can delete your data at any time.",
-        },
-        {
-          key: "emergency",
-          title: "I know how to get immediate help",
-          body: "In a medical emergency, do not rely on this app — call 112 (EU) or your local emergency number immediately.",
-        },
-      ],
-      cta: "I agree — continue",
-    },
-    step3: {
-      title: "What shall we call you?",
+    bio: {
+      title: "Tell us about you",
       sub: "This stays on your device",
-      placeholder: "Your name or a soul-name...",
-      lang: "Choose your language",
+      name: "Your name or a soul-name",
+      weight: "Weight (kg)",
+      height: "Height (cm)",
       cta: "Continue",
     },
-    step4: {
-      title: "Set your intentions",
-      sub: "A conscious anchor for this experience",
-      intentions: [
-        {
-          title: "Acceptance",
-          desc: "Welcoming all that arises, with open arms and no resistance",
-          icon: "sun" as const,
-        },
-        {
-          title: "Love",
-          desc: "Opening your heart fully — to yourself and to those around you",
-          icon: "heart" as const,
-        },
-        {
-          title: "Forgiveness",
-          desc: "Releasing what no longer serves, with compassion and grace",
-          icon: "wind" as const,
-        },
-      ],
-      cta: "Receive this intention",
-      doneCta: "These are my intentions",
+    welcome: {
+      title: "Welcome to Prema",
+      sub: "We are preparing your circle of love…",
     },
-    step5: {
-      title: "Physical Intention",
-      sub: "Nourish your body for the journey ahead",
-      items: [
-        "Eat a balanced meal 3–4 hours before you head out",
-        "Choose complex carbohydrates and lean protein",
-        "Avoid heavy, greasy, or processed foods",
-        "A light snack 1 hour before is fine",
-        "Stay hydrated — sip water steadily throughout the day",
+    intention: {
+      title: "Set your intention",
+      sub: "Choose a conscious anchor for your journey",
+      options: [
+        { key: "acceptance", title: "Acceptance", affirm: "I accept myself fully" },
+        { key: "forgiveness", title: "Develop forgiveness", affirm: "I forgive myself fully" },
+        { key: "respect", title: "Develop respect", affirm: "I respect myself fully" },
       ],
-      cta: "Understood",
+      cta: "I am consciously setting this intention, regardless of my inner contradictions and my relation to it",
     },
-    step6: {
-      title: "Nervous System Support",
-      sub: "Rest as preparation",
-      items: [
-        {
-          title: "Prioritise restful sleep",
-          desc: "The night before sets the foundation for your whole experience",
-        },
-        {
-          title: "Aim to rest before 23:00",
-          desc: "Entering rest early optimises your hormonal balance",
-        },
-        {
-          title: "Deep sleep stores energy",
-          desc: "Your body does its deepest repair work while you rest",
-        },
-        {
-          title: "A 20-minute nap helps",
-          desc: "If short on sleep, a brief nap restores clarity and calm",
-        },
-      ],
-      cta: "Understood",
-    },
-    step7: {
+    essentials: {
       title: "Essentials",
-      sub: "What to bring with you",
+      sub: "Everything you'll want with you",
       items: [
-        { name: "Phone (100% charged)", why: "Your connection to your circle" },
-        { name: "Single-use straws", why: "Prevents cross-contamination — never share" },
-        { name: "Zinc (15–30 mg)", why: "Supports immune & neurotransmitter balance" },
-        { name: "Magnesium (200–400 mg)", why: "Reduces tension, supports heart rhythm" },
-        { name: "Electrolytes", why: "Maintains hydration and mineral balance" },
-        { name: "Disinfecting wipes", why: "Clean surfaces before use" },
+        { name: "Zinc & Magnesium", why: "Supports immune balance & calmer nerves" },
+        { name: "Credit-card plates & single-use straws", why: "A clean surface — never share" },
+        { name: "Electrolytes", why: "Keeps hydration & minerals balanced" },
         { name: "Condoms & lubricant", why: "Protection and comfort" },
+        { name: "Disinfecting wipes", why: "Clean surfaces before use" },
+        { name: "Phone 100% charged", why: "Your connection to your circle" },
       ],
-      cta: "All packed",
+      cta: "I have everything I need",
     },
-    step8: {
-      title: "Nurture Alarms",
-      sub: "Your body will thank you",
-      intake: "Intake Limit",
-      intakeSub: "Total across your experience",
-      units: ["units", "grams", "lines", "joints", "beers", "shots"],
-      depart: "Departure Time",
-      departSub: "Hours until you plan to head home",
-      breathe: "Breathing Breaks",
-      breatheSub: "Gentle pause reminders",
-      water: "Hydration Reminders",
-      waterSub: "Water check-ins",
-      intervals: [30, 60, 90, 120] as const,
-      waterIntervals: [20, 30, 45, 60] as const,
-      cta: "Activate",
-      skip: "Skip for now",
+    temple: {
+      title: "Temple support",
+      sub: "Honour your body's needs for a joyful journey",
+      items: [
+        {
+          title: "Eat a balanced meal 3–4 hours before",
+          detail: "e.g. a grain bowl with brown rice, vegetables and grilled chicken, fish or tofu.",
+        },
+        {
+          title: "Choose complex carbs & lean protein",
+          detail: "Carbs: oats, quinoa, sweet potato, whole-grain bread. Protein: eggs, lentils, beans, chicken, fish, tofu.",
+        },
+        {
+          title: "Avoid heavy, greasy or processed foods",
+          detail: "e.g. fast food, deep-fried dishes, chips, burgers, sugary packaged snacks.",
+        },
+        {
+          title: "A light snack 1 hour before is fine",
+          detail: "e.g. a banana, a handful of nuts, or some yoghurt.",
+        },
+        { title: "Stay hydrated", detail: "" },
+        {
+          title: "Skip caffeine drinks",
+          detail: "Coffee & energy drinks are diuretics — they flush out water and strain your heart while your body is already working hard.",
+        },
+      ],
+      waterDyn: (l: number) =>
+        `Aim for about ${l} L of water today — sip steadily, don't gulp it all at once.`,
+      waterFallback: "Aim for roughly 2–3 L of water today — sip steadily throughout.",
+      cta: "I love my body",
+    },
+    nervous: {
+      title: "Nervous system support",
+      sub: "Rest is preparation",
+      items: [
+        "Aim to be in bed before 23:00",
+        "Entering rest early optimises your hormonal balance",
+        "Your body stores energy during deep sleep",
+      ],
+      cta: "I am aware",
+    },
+    nurture: {
+      title: "Nurture",
+      sub: "Gentle reminders, never alarms",
+      hydrationTitle: "Hydration sync",
+      hydrationSub: "A glass of water gently appears on your screen — even when locked, while Prema is running.",
+      restTitle: "Rest intervals",
+      restSub: "An anatomical heart appears to remind you to pause and rest.",
+      intakeTitle: "Intake intention",
+      intakeSub: "A conscious intention — not a hard limit.",
+      every: (n: number) => `every ${n} min`,
+      units: ["grams", "lines", "bumps", "ml", "joints", "beers", "shots", "wines", "energy drinks"],
+      cta: "Continue",
+    },
+    journey: {
+      title: "Journey with Conscious",
+      sub: "Three principles to carry with you",
+      items: [
+        {
+          title: "Be conscious before any choice",
+          detail: "Remember your body and your mind before you decide.",
+        },
+        {
+          title: "Drink pure water regularly",
+          detail: "Follow your Nurture timing and keep yourself hydrated.",
+        },
+        {
+          title: "Take rests",
+          detail: "Remember your rest intervals — your body will be thankful to you.",
+        },
+      ],
+      cta: "Enter the circle",
     },
   },
   de: {
-    step1: {
-      tagline: "mit liebe",
-      subtitle: "Ein Kreis der Liebe für Festival-Communities",
-      cta: "Starte deine Reise",
+    landing: {
+      hint: "Wähle dein Licht und deine Sprache",
+      entering: "Du betrittst den Kreis…",
     },
-    step2: {
-      title: "Bevor wir beginnen",
-      sub: "Bitte lies und stimme zu um fortzufahren",
-      disclaimers: [
-        {
-          key: "age",
-          title: "Ich bin 18 Jahre oder älter",
-          body: "Prema wurde für Erwachsene entwickelt. Mit dem Fortfahren bestätigst du, dass du mindestens 18 Jahre alt bist.",
-        },
-        {
-          key: "harm",
-          title: "Orientierung — kein medizinischer Rat",
-          body: "Prema bietet ausschließlich Orientierung und Unterstützung. Es ersetzt keinen medizinischen Rat. Bei Gefahr rufe sofort den Notarzt.",
-        },
-        {
-          key: "gdpr",
-          title: "Daten & Datenschutz",
-          body: "Deine Daten werden lokal und anonym gespeichert. Wir verkaufen oder teilen keine persönlichen Daten.",
-        },
-        {
-          key: "emergency",
-          title: "Ich weiß wie ich sofortige Hilfe bekomme",
-          body: "Im medizinischen Notfall verlasse dich nicht auf diese App — rufe sofort 112 oder deine lokale Notrufnummer.",
-        },
-      ],
-      cta: "Ich stimme zu — weiter",
-    },
-    step3: {
-      title: "Wie sollen wir dich nennen?",
+    bio: {
+      title: "Erzähl uns von dir",
       sub: "Bleibt auf deinem Gerät",
-      placeholder: "Dein Name oder ein Seelenname...",
-      lang: "Wähle deine Sprache",
+      name: "Dein Name oder ein Seelenname",
+      weight: "Gewicht (kg)",
+      height: "Größe (cm)",
       cta: "Weiter",
     },
-    step4: {
-      title: "Setze deine Intentionen",
-      sub: "Ein bewusster Anker für diese Erfahrung",
-      intentions: [
-        {
-          title: "Akzeptanz",
-          desc: "Alles willkommen heißen, was entsteht — mit offenen Armen",
-          icon: "sun" as const,
-        },
-        {
-          title: "Liebe",
-          desc: "Dein Herz vollständig öffnen — für dich und die Menschen um dich herum",
-          icon: "heart" as const,
-        },
-        {
-          title: "Vergebung",
-          desc: "Loslassen, was nicht mehr dient — mit Mitgefühl und Würde",
-          icon: "wind" as const,
-        },
-      ],
-      cta: "Diese Intention annehmen",
-      doneCta: "Das sind meine Intentionen",
+    welcome: {
+      title: "Willkommen bei Prema",
+      sub: "Wir bereiten deinen Kreis der Liebe vor…",
     },
-    step5: {
-      title: "Physische Intention",
-      sub: "Nähre deinen Körper für die Reise",
-      items: [
-        "Iss 3–4 Stunden vor dem Aufbruch eine ausgewogene Mahlzeit",
-        "Wähle komplexe Kohlenhydrate und mageres Protein",
-        "Vermeide schwere, fettige oder verarbeitete Speisen",
-        "Ein leichter Snack 1 Stunde vorher ist in Ordnung",
-        "Bleib hydriert — trinke den ganzen Tag über gleichmäßig",
+    intention: {
+      title: "Setze deine Intention",
+      sub: "Wähle einen bewussten Anker für deine Reise",
+      options: [
+        { key: "acceptance", title: "Akzeptanz", affirm: "Ich akzeptiere mich vollständig" },
+        { key: "forgiveness", title: "Vergebung entwickeln", affirm: "Ich vergebe mir vollständig" },
+        { key: "respect", title: "Respekt entwickeln", affirm: "Ich respektiere mich vollständig" },
       ],
-      cta: "Verstanden",
+      cta: "Ich setze diese Intention bewusst — ungeachtet meiner inneren Widersprüche und meiner Beziehung zu ihr",
     },
-    step6: {
-      title: "Nervensystem-Unterstützung",
-      sub: "Ruhe als Vorbereitung",
-      items: [
-        {
-          title: "Erholsamen Schlaf priorisieren",
-          desc: "Die Nacht zuvor legt das Fundament für deine gesamte Erfahrung",
-        },
-        {
-          title: "Vor 23:00 Uhr ruhen",
-          desc: "Frühes Einschlafen optimiert dein Hormongleichgewicht",
-        },
-        {
-          title: "Tiefschlaf speichert Energie",
-          desc: "Dein Körper regeneriert sich am tiefsten während der Ruhe",
-        },
-        {
-          title: "Ein 20-Minuten-Nickerchen hilft",
-          desc: "Bei wenig Schlaf stellt ein kurzes Nickerchen Klarheit und Ruhe wieder her",
-        },
-      ],
-      cta: "Verstanden",
-    },
-    step7: {
+    essentials: {
       title: "Essentials",
-      sub: "Was du mitnehmen solltest",
+      sub: "Alles, was du dabeihaben willst",
       items: [
-        { name: "Handy (100% geladen)", why: "Deine Verbindung zu deinem Kreis" },
-        { name: "Einweg-Trinkhalme", why: "Verhindert Kreuzkontamination — niemals teilen" },
-        { name: "Zink (15–30 mg)", why: "Unterstützt Immunsystem & Neurotransmitter-Balance" },
-        { name: "Magnesium (200–400 mg)", why: "Reduziert Spannung, unterstützt Herzrhythmus" },
-        { name: "Elektrolyte", why: "Hält Hydratation und Mineralstoffbalance aufrecht" },
-        { name: "Desinfektionstücher", why: "Oberflächen vor Gebrauch reinigen" },
+        { name: "Zink & Magnesium", why: "Stärkt Immunsystem & beruhigt die Nerven" },
+        { name: "Kreditkarten-Plättchen & Einweg-Halme", why: "Eine saubere Oberfläche — niemals teilen" },
+        { name: "Elektrolyte", why: "Hält Hydration & Mineralien im Gleichgewicht" },
         { name: "Kondome & Gleitmittel", why: "Schutz und Komfort" },
+        { name: "Desinfektionstücher", why: "Oberflächen vor Gebrauch reinigen" },
+        { name: "Handy 100% geladen", why: "Deine Verbindung zu deinem Kreis" },
       ],
-      cta: "Alles eingepackt",
+      cta: "Ich habe alles, was ich brauche",
     },
-    step8: {
-      title: "Pflege-Erinnerungen",
-      sub: "Dein Körper wird es dir danken",
-      intake: "Einnahme-Limit",
-      intakeSub: "Gesamt für deine Erfahrung",
-      units: ["Einheiten", "Gramm", "Lines", "Joints", "Bier", "Shots"],
-      depart: "Abfahrtzeit",
-      departSub: "Stunden bis du nach Hause gehst",
-      breathe: "Atempausen",
-      breatheSub: "Sanfte Pausen-Erinnerungen",
-      water: "Hydrations-Erinnerungen",
-      waterSub: "Wasser-Check-ins",
-      intervals: [30, 60, 90, 120] as const,
-      waterIntervals: [20, 30, 45, 60] as const,
-      cta: "Aktivieren",
-      skip: "Überspringen",
+    temple: {
+      title: "Tempel-Pflege",
+      sub: "Ehre die Bedürfnisse deines Körpers für eine freudvolle Reise",
+      items: [
+        {
+          title: "Iss 3–4 Stunden vorher eine ausgewogene Mahlzeit",
+          detail: "z.B. eine Bowl mit braunem Reis, Gemüse und gegrilltem Hähnchen, Fisch oder Tofu.",
+        },
+        {
+          title: "Wähle komplexe Kohlenhydrate & mageres Protein",
+          detail: "Kohlenhydrate: Haferflocken, Quinoa, Süßkartoffel, Vollkornbrot. Protein: Eier, Linsen, Bohnen, Hähnchen, Fisch, Tofu.",
+        },
+        {
+          title: "Vermeide schwere, fettige oder verarbeitete Speisen",
+          detail: "z.B. Fast Food, Frittiertes, Chips, Burger, zuckrige Snacks.",
+        },
+        {
+          title: "Ein leichter Snack 1 Stunde vorher ist okay",
+          detail: "z.B. eine Banane, eine Handvoll Nüsse oder etwas Joghurt.",
+        },
+        { title: "Bleib hydriert", detail: "" },
+        {
+          title: "Verzichte auf koffeinhaltige Getränke",
+          detail: "Kaffee & Energy Drinks entwässern (Diuretika) und belasten dein Herz, während dein Körper ohnehin arbeitet.",
+        },
+      ],
+      waterDyn: (l: number) =>
+        `Trink heute etwa ${l} L Wasser — in kleinen Schlucken über den Tag verteilt.`,
+      waterFallback: "Trink heute ungefähr 2–3 L Wasser — gleichmäßig über den Tag.",
+      cta: "Ich liebe meinen Körper",
+    },
+    nervous: {
+      title: "Nervensystem-Unterstützung",
+      sub: "Ruhe ist Vorbereitung",
+      items: [
+        "Sei vor 23:00 Uhr im Bett",
+        "Frühe Ruhe optimiert dein Hormongleichgewicht",
+        "Dein Körper speichert Energie im Tiefschlaf",
+      ],
+      cta: "Ich bin mir bewusst",
+    },
+    nurture: {
+      title: "Nurture",
+      sub: "Sanfte Erinnerungen, keine Alarme",
+      hydrationTitle: "Hydrations-Sync",
+      hydrationSub: "Ein Glas Wasser erscheint sanft auf deinem Bildschirm — auch im Sperrzustand, solange Prema läuft.",
+      restTitle: "Ruhe-Intervalle",
+      restSub: "Ein anatomisches Herz erinnert dich daran, innezuhalten und zu ruhen.",
+      intakeTitle: "Einnahme-Intention",
+      intakeSub: "Eine bewusste Absicht — kein striktes Limit.",
+      every: (n: number) => `alle ${n} Min.`,
+      units: ["Gramm", "Lines", "Bumps", "ml", "Joints", "Bier", "Shots", "Wein", "Energy Drinks"],
+      cta: "Weiter",
+    },
+    journey: {
+      title: "Reise mit Bewusstsein",
+      sub: "Drei Prinzipien, die du mitnimmst",
+      items: [
+        {
+          title: "Sei bewusst vor jeder Entscheidung",
+          detail: "Denk an deinen Körper und deinen Geist, bevor du wählst.",
+        },
+        {
+          title: "Trink regelmäßig reines Wasser",
+          detail: "Folge deinem Nurture-Timing und bleib hydriert.",
+        },
+        {
+          title: "Gönn dir Ruhe",
+          detail: "Denk an deine Ruhe-Intervalle — dein Körper wird es dir danken.",
+        },
+      ],
+      cta: "Betritt den Kreis",
     },
   },
 };
 
+const WATER_INTERVALS = [30, 45, 60, 90] as const;
+const REST_INTERVALS = [30, 60, 90, 120] as const;
+
+function waterLiters(weightKg: number | null, heightCm: number | null): number | null {
+  if (!weightKg || weightKg <= 0) return null;
+  let ml = weightKg * 35;
+  if (heightCm && heightCm > 180) ml += (heightCm - 180) * 10;
+  return Math.round(ml / 100) / 10;
+}
+
+/** A side-panel icon that springs / bounces when touched. */
+function TouchIcon({
+  selected,
+  onPress,
+  label,
+  colors,
+  children,
+}: {
+  selected: boolean;
+  onPress: () => void;
+  label: string;
+  colors: ReturnType<typeof useColors>;
+  children: React.ReactNode;
+}) {
+  const scale = useRef(new Animated.Value(1)).current;
+  const press = () => {
+    Haptics.selectionAsync();
+    Animated.sequence([
+      Animated.spring(scale, { toValue: 1.22, useNativeDriver: true, speed: 60, bounciness: 20 }),
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 12 }),
+    ]).start();
+    onPress();
+  };
+  return (
+    <Pressable onPress={press} style={styles.sideTouch}>
+      <Animated.View
+        style={[
+          styles.sideIcon,
+          {
+            transform: [{ scale }],
+            borderColor: selected ? colors.primary : colors.border,
+            backgroundColor: selected ? colors.primary + "22" : colors.card,
+          },
+        ]}
+      >
+        {children}
+      </Animated.View>
+      <Text style={[styles.sideLabel, { color: selected ? colors.primary : colors.mutedForeground }]}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
 export default function OnboardingScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { setLang } = useSession();
+  const { setLang, setTheme, setIntention, setCareAlarms, completeOnboarding } = useSession();
 
   const [step, setStep] = useState(1);
   const [uiLang, setUiLang] = useState<"en" | "de">("en");
-  const [agreed, setAgreed] = useState<Record<string, boolean>>({});
+  const [langPicked, setLangPicked] = useState(false);
+  const [vibe, setVibe] = useState<Vibe | null>(null);
+
   const [name, setName] = useState("");
-  const [intentionIndex, setIntentionIndex] = useState(0);
-  const [essentialsDone, setEssentialsDone] = useState<Record<number, boolean>>({});
-  const [intakeLimit, setIntakeLimit] = useState(3);
-  const [intakeUnitIdx, setIntakeUnitIdx] = useState(0);
-  const [departureHour, setDepartureHour] = useState(3);
-  const [restInterval, setRestInterval] = useState(60);
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+
+  const [intentionIdx, setIntentionIdx] = useState<number | null>(null);
+  const [essentials, setEssentials] = useState<Record<number, boolean>>({});
+  const [temple, setTemple] = useState<Record<number, boolean>>({});
+  const [nervous, setNervous] = useState<Record<number, boolean>>({});
+  const [journey, setJourney] = useState<Record<number, boolean>>({});
+
   const [waterInterval, setWaterInterval] = useState(30);
+  const [restInterval, setRestInterval] = useState(60);
+  const [intakeAmount, setIntakeAmount] = useState(3);
+  const [intakeUnitIdx, setIntakeUnitIdx] = useState(0);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const slideAnim = useRef(new Animated.Value(0)).current;
@@ -321,236 +355,169 @@ export default function OnboardingScreen() {
     });
   };
 
-  const advanceIntention = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    if (intentionIndex < 2) {
-      Animated.parallel([
-        Animated.timing(fadeAnim, { toValue: 0, duration: 200, useNativeDriver: true }),
-        Animated.timing(slideAnim, { toValue: -30, duration: 200, useNativeDriver: true }),
-      ]).start(() => {
-        setIntentionIndex((i) => i + 1);
-        slideAnim.setValue(30);
-        Animated.parallel([
-          Animated.timing(fadeAnim, { toValue: 1, duration: 300, useNativeDriver: true }),
-          Animated.timing(slideAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
-        ]).start();
-      });
-    } else {
-      transition(5);
+  // Landing: auto-advance once both a vibe and a language are chosen.
+  useEffect(() => {
+    if (step === 1 && langPicked && vibe) {
+      const id = setTimeout(() => transition(2), 900);
+      return () => clearTimeout(id);
     }
-  };
+  }, [step, langPicked, vibe]);
 
-  const handleLangChange = (l: "en" | "de") => {
+  // Welcome: auto-advance after 3 seconds.
+  useEffect(() => {
+    if (step === 3) {
+      const id = setTimeout(() => transition(4), 3000);
+      return () => clearTimeout(id);
+    }
+  }, [step]);
+
+  const handleLang = (l: "en" | "de") => {
     setUiLang(l);
     setLang(l);
-    Haptics.selectionAsync();
+    setLangPicked(true);
   };
 
-  const allAgreed = t.step2.disclaimers.every((d) => agreed[d.key]) === true;
+  const handleVibe = (v: Vibe) => {
+    setVibe(v);
+    setTheme(v);
+  };
 
-  const saveAndFinish = async (withAlarms: boolean) => {
+  const liters = waterLiters(parseFloat(weight) || null, parseFloat(height) || null);
+  const bioReady = name.trim().length > 0 && (parseFloat(weight) || 0) > 0 && (parseFloat(height) || 0) > 0;
+  const essentialsReady = t.essentials.items.every((_, i) => essentials[i]);
+  const templeReady = t.temple.items.every((_, i) => temple[i]);
+  const nervousReady = t.nervous.items.every((_, i) => nervous[i]);
+  const journeyReady = t.journey.items.every((_, i) => journey[i]);
+
+  const saveAndFinish = async () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    const pairs: [string, string][] = [
+    const w = parseFloat(weight) || null;
+    const h = parseFloat(height) || null;
+    const finalVibe: Vibe = vibe ?? "bright";
+    const affirm = intentionIdx != null ? t.intention.options[intentionIdx].affirm : "";
+    const alarms = {
+      intakeLimit: intakeAmount,
+      departureHour: 3,
+      breathingBreak: restInterval,
+      hydrationSync: waterInterval,
+    };
+    setLang(uiLang);
+    setTheme(finalVibe);
+    setIntention(affirm || null);
+    setCareAlarms(alarms);
+    await AsyncStorage.multiSet([
       ["prema_onboarded", "true"],
       ["prema_user_name", name.trim().toUpperCase()],
       ["prema_lang", uiLang],
-    ];
-    if (withAlarms) {
-      pairs.push([
-        "prema_care_alarms",
-        JSON.stringify({
-          intakeLimit,
-          departureHour,
-          breathingBreak: restInterval,
-          hydrationSync: waterInterval,
-        }),
-      ]);
-      pairs.push(["prema_intake_unit", t.step8.units[intakeUnitIdx]]);
-    }
-    await AsyncStorage.multiSet(pairs);
+      ["prema_theme", finalVibe],
+      ["prema_profile", JSON.stringify({ name: name.trim(), weightKg: w, heightCm: h })],
+      ["prema_intention", affirm],
+      ["prema_care_alarms", JSON.stringify(alarms)],
+      ["prema_intake_unit", t.nurture.units[intakeUnitIdx]],
+    ]);
+    completeOnboarding();
     router.replace("/(tabs)");
   };
+
+  const showProgress = step !== 1 && step !== 3;
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: colors.background }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      {/* Progress bar */}
-      <View
-        style={[
-          styles.progressBar,
-          {
-            paddingTop: insets.top + 12,
-            backgroundColor: colors.card,
-            borderBottomColor: colors.border,
-          },
-        ]}
-      >
-        <View style={styles.progressInner}>
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
-            <View
-              key={s}
-              style={[
-                styles.progressDot,
-                {
-                  backgroundColor: s <= step ? colors.primary : colors.border,
-                  flex: s <= step ? 2 : 1,
-                },
-              ]}
-            />
-          ))}
-        </View>
-        <Text style={[styles.progressLabel, { color: colors.mutedForeground }]}>
-          {step} / {TOTAL_STEPS}
-        </Text>
-      </View>
-
-      <Animated.View
-        style={{
-          flex: 1,
-          opacity: fadeAnim,
-          transform: [{ translateY: slideAnim }],
-        }}
-      >
-        {/* ── STEP 1: WELCOME ─────────────────────────── */}
-        {step === 1 && (
-          <ScrollView
-            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.langRow}>
-              {(["en", "de"] as const).map((l, i) => (
-                <React.Fragment key={l}>
-                  <Pressable onPress={() => handleLangChange(l)}>
-                    <Text
-                      style={[
-                        styles.langBtn,
-                        { color: uiLang === l ? colors.primary : colors.mutedForeground },
-                      ]}
-                    >
-                      {l.toUpperCase()}
-                    </Text>
-                  </Pressable>
-                  {i === 0 && <Text style={{ color: colors.border, fontSize: 14 }}>|</Text>}
-                </React.Fragment>
-              ))}
-            </View>
-
-            <View style={styles.orbWrap}>
-              <View style={[styles.orbGlow, { backgroundColor: colors.primary + "18" }]} />
+      {showProgress && (
+        <View
+          style={[
+            styles.progressBar,
+            {
+              paddingTop: insets.top + 12,
+              backgroundColor: colors.card,
+              borderBottomColor: colors.border,
+            },
+          ]}
+        >
+          <View style={styles.progressInner}>
+            {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((s) => (
               <View
+                key={s}
                 style={[
-                  styles.orbCore,
-                  { backgroundColor: colors.card, borderColor: colors.primary + "40" },
+                  styles.progressDot,
+                  {
+                    backgroundColor: s <= step ? colors.primary : colors.border,
+                    flex: s <= step ? 2 : 1,
+                  },
                 ]}
-              >
-                <Feather name="heart" size={16} color={colors.primary + "80"} />
-              </View>
-            </View>
-
-            <Text style={[styles.appTitle, { color: colors.foreground }]}>PREMA</Text>
-            <Text style={[styles.tagline, { color: colors.primary }]}>{t.step1.tagline}</Text>
-            <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>{t.step1.subtitle}</Text>
-
-            <Pressable
-              onPress={() => transition(2)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 48 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {t.step1.cta}
-              </Text>
-              <Feather name="arrow-right" size={18} color={colors.primaryForeground} />
-            </Pressable>
-          </ScrollView>
-        )}
-
-        {/* ── STEP 2: DISCLAIMERS ─────────────────────── */}
-        {step === 2 && (
-          <ScrollView
-            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
-              <Feather name="shield" size={28} color={colors.primary} />
-            </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step2.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step2.sub}</Text>
-
-            <View style={styles.disclaimerList}>
-              {t.step2.disclaimers.map((d) => (
-                <Pressable
-                  key={d.key}
-                  onPress={() => {
-                    Haptics.selectionAsync();
-                    setAgreed((prev) => ({ ...prev, [d.key]: !prev[d.key] }));
-                  }}
-                  style={[
-                    styles.disclaimerCard,
-                    {
-                      backgroundColor: colors.card,
-                      borderColor: agreed[d.key] ? colors.primary + "60" : colors.border,
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.checkbox,
-                      {
-                        backgroundColor: agreed[d.key] ? colors.primary : "transparent",
-                        borderColor: agreed[d.key] ? colors.primary : colors.border,
-                      },
-                    ]}
-                  >
-                    {agreed[d.key] && (
-                      <Feather name="check" size={12} color={colors.primaryForeground} />
-                    )}
-                  </View>
-                  <View style={styles.disclaimerText}>
-                    <Text style={[styles.disclaimerTitle, { color: colors.foreground }]}>
-                      {d.title}
-                    </Text>
-                    <Text style={[styles.disclaimerBody, { color: colors.mutedForeground }]}>
-                      {d.body}
-                    </Text>
-                  </View>
-                </Pressable>
-              ))}
-            </View>
-
-            <Pressable
-              onPress={() => allAgreed && transition(3)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                {
-                  backgroundColor: allAgreed ? colors.primary : colors.border,
-                  opacity: pressed && allAgreed ? 0.85 : 1,
-                  marginTop: 24,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.primaryBtnText,
-                  { color: allAgreed ? colors.primaryForeground : colors.mutedForeground },
-                ]}
-              >
-                {t.step2.cta}
-              </Text>
-              <Feather
-                name="arrow-right"
-                size={18}
-                color={allAgreed ? colors.primaryForeground : colors.mutedForeground}
               />
-            </Pressable>
-          </ScrollView>
+            ))}
+          </View>
+          <Text style={[styles.progressLabel, { color: colors.mutedForeground }]}>
+            {step} / {TOTAL_STEPS}
+          </Text>
+        </View>
+      )}
+
+      <Animated.View style={{ flex: 1, opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
+        {/* ── STEP 1: LANDING ─────────────────────────── */}
+        {step === 1 && (
+          <View style={[styles.landing, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+            {/* Left panel — vibe roses */}
+            <View style={styles.leftPanel}>
+              <TouchIcon
+                selected={vibe === "dark"}
+                onPress={() => handleVibe("dark")}
+                label="Red rose"
+                colors={colors}
+              >
+                <Rose size={34} color="#E0556A" />
+              </TouchIcon>
+              <TouchIcon
+                selected={vibe === "bright"}
+                onPress={() => handleVibe("bright")}
+                label="White rose"
+                colors={colors}
+              >
+                <Rose size={34} color="#FBF7F0" outline="rgba(120,90,70,0.45)" />
+              </TouchIcon>
+            </View>
+
+            {/* Right panel — language */}
+            <View style={styles.rightPanel}>
+              <TouchIcon
+                selected={langPicked && uiLang === "en"}
+                onPress={() => handleLang("en")}
+                label="English"
+                colors={colors}
+              >
+                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "en" ? colors.primary : colors.foreground }]}>
+                  EN
+                </Text>
+              </TouchIcon>
+              <TouchIcon
+                selected={langPicked && uiLang === "de"}
+                onPress={() => handleLang("de")}
+                label="Deutsch"
+                colors={colors}
+              >
+                <Text style={[styles.langGlyph, { color: langPicked && uiLang === "de" ? colors.primary : colors.foreground }]}>
+                  DE
+                </Text>
+              </TouchIcon>
+            </View>
+
+            {/* Center — the Circle of Love */}
+            <View style={styles.landingCenter}>
+              <CircleOfLove size={240} />
+              <Text style={[styles.appTitle, { color: colors.foreground }]}>PREMA</Text>
+              <Text style={[styles.landingHint, { color: colors.mutedForeground }]}>
+                {vibe && langPicked ? t.landing.entering : t.landing.hint}
+              </Text>
+            </View>
+          </View>
         )}
 
-        {/* ── STEP 3: NAME ─────────────────────────────── */}
-        {step === 3 && (
+        {/* ── STEP 2: NAME / WEIGHT / HEIGHT ──────────── */}
+        {step === 2 && (
           <ScrollView
             contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
             showsVerticalScrollIndicator={false}
@@ -559,18 +526,17 @@ export default function OnboardingScreen() {
             <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
               <Feather name="user" size={28} color={colors.primary} />
             </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step3.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step3.sub}</Text>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.bio.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.bio.sub}</Text>
 
             <TextInput
               value={name}
               onChangeText={setName}
-              placeholder={t.step3.placeholder}
+              placeholder={t.bio.name}
               placeholderTextColor={colors.mutedForeground}
-              autoFocus
               maxLength={32}
               style={[
-                styles.nameInput,
+                styles.input,
                 {
                   backgroundColor: colors.card,
                   borderColor: name.trim() ? colors.primary + "60" : colors.border,
@@ -579,221 +545,135 @@ export default function OnboardingScreen() {
               ]}
             />
 
-            <Text
-              style={[styles.langLabel, { color: colors.mutedForeground, marginTop: 28 }]}
-            >
-              {t.step3.lang}
-            </Text>
-            <View style={styles.langToggle}>
-              {(["en", "de"] as const).map((l) => (
-                <Pressable
-                  key={l}
-                  onPress={() => handleLangChange(l)}
+            <View style={styles.bioRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.fieldLabel, { color: colors.mutedForeground }]}>{t.bio.weight}</Text>
+                <TextInput
+                  value={weight}
+                  onChangeText={(v) => setWeight(v.replace(/[^0-9.]/g, ""))}
+                  placeholder="70"
+                  placeholderTextColor={colors.mutedForeground}
+                  keyboardType="numeric"
+                  maxLength={3}
                   style={[
-                    styles.langOption,
+                    styles.input,
                     {
-                      backgroundColor: uiLang === l ? colors.primary : colors.card,
-                      borderColor: uiLang === l ? colors.primary : colors.border,
+                      backgroundColor: colors.card,
+                      borderColor: (parseFloat(weight) || 0) > 0 ? colors.primary + "60" : colors.border,
+                      color: colors.foreground,
                     },
                   ]}
-                >
-                  <Text
-                    style={[
-                      styles.langOptionText,
-                      { color: uiLang === l ? colors.primaryForeground : colors.foreground },
-                    ]}
-                  >
-                    {l === "en" ? "English" : "Deutsch"}
-                  </Text>
-                </Pressable>
-              ))}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.fieldLabel, { color: colors.mutedForeground }]}>{t.bio.height}</Text>
+                <TextInput
+                  value={height}
+                  onChangeText={(v) => setHeight(v.replace(/[^0-9.]/g, ""))}
+                  placeholder="175"
+                  placeholderTextColor={colors.mutedForeground}
+                  keyboardType="numeric"
+                  maxLength={3}
+                  style={[
+                    styles.input,
+                    {
+                      backgroundColor: colors.card,
+                      borderColor: (parseFloat(height) || 0) > 0 ? colors.primary + "60" : colors.border,
+                      color: colors.foreground,
+                    },
+                  ]}
+                />
+              </View>
             </View>
 
-            <Pressable
-              onPress={() => name.trim() && transition(4)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                {
-                  backgroundColor: name.trim() ? colors.primary : colors.border,
-                  opacity: pressed && name.trim() ? 0.85 : 1,
-                  marginTop: 36,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.primaryBtnText,
-                  { color: name.trim() ? colors.primaryForeground : colors.mutedForeground },
-                ]}
-              >
-                {t.step3.cta}
-              </Text>
-              <Feather
-                name="arrow-right"
-                size={18}
-                color={name.trim() ? colors.primaryForeground : colors.mutedForeground}
-              />
-            </Pressable>
+            <PrimaryButton
+              label={t.bio.cta}
+              icon="arrow-right"
+              active={bioReady}
+              colors={colors}
+              onPress={() => bioReady && transition(3)}
+              style={{ marginTop: 36 }}
+            />
           </ScrollView>
         )}
 
-        {/* ── STEP 4: INTENTIONS ───────────────────────── */}
+        {/* ── STEP 3: WELCOME ─────────────────────────── */}
+        {step === 3 && (
+          <View style={[styles.landing, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+            <View style={styles.landingCenter}>
+              <CircleOfLove size={230} />
+              <Text style={[styles.welcomeTitle, { color: colors.foreground }]}>{t.welcome.title}</Text>
+              {!!name.trim() && (
+                <Text style={[styles.welcomeName, { color: colors.primary }]}>
+                  {name.trim().toUpperCase()}
+                </Text>
+              )}
+              <Text style={[styles.landingHint, { color: colors.mutedForeground }]}>{t.welcome.sub}</Text>
+            </View>
+          </View>
+        )}
+
+        {/* ── STEP 4: INTENTION ───────────────────────── */}
         {step === 4 && (
           <ScrollView
             contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
             showsVerticalScrollIndicator={false}
           >
-            <Text style={[styles.intentionCounter, { color: colors.primary }]}>
-              {intentionIndex + 1} / 3
-            </Text>
+            <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
+              <Feather name="compass" size={28} color={colors.primary} />
+            </View>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.intention.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.intention.sub}</Text>
 
-            <View
-              style={[
-                styles.intentionOrb,
-                { backgroundColor: colors.primary + "15", borderColor: colors.primary + "30" },
-              ]}
-            >
-              <View style={[styles.intentionOrbGlow, { backgroundColor: colors.primary + "20" }]} />
-              <Feather
-                name={t.step4.intentions[intentionIndex].icon}
-                size={44}
-                color={colors.primary}
-              />
+            <View style={styles.intentionRow}>
+              {t.intention.options.map((opt, i) => {
+                const sel = intentionIdx === i;
+                return (
+                  <Pressable
+                    key={opt.key}
+                    onPress={() => {
+                      Haptics.selectionAsync();
+                      setIntentionIdx(i);
+                    }}
+                    style={[
+                      styles.intentionCard,
+                      {
+                        backgroundColor: sel ? colors.primary + "1A" : colors.card,
+                        borderColor: sel ? colors.primary : colors.border,
+                      },
+                    ]}
+                  >
+                    <View
+                      style={[
+                        styles.intentionRadio,
+                        { borderColor: sel ? colors.primary : colors.border, backgroundColor: sel ? colors.primary : "transparent" },
+                      ]}
+                    >
+                      {sel && <Feather name="check" size={11} color={colors.primaryForeground} />}
+                    </View>
+                    <Text style={[styles.intentionCardTitle, { color: colors.foreground }]}>{opt.title}</Text>
+                    <Text style={[styles.intentionCardAffirm, { color: sel ? colors.primary : colors.mutedForeground }]}>
+                      {opt.affirm}
+                    </Text>
+                  </Pressable>
+                );
+              })}
             </View>
 
-            <Text style={[styles.intentionTitle, { color: colors.foreground }]}>
-              {t.step4.intentions[intentionIndex].title}
-            </Text>
-            <Text style={[styles.intentionDesc, { color: colors.mutedForeground }]}>
-              {t.step4.intentions[intentionIndex].desc}
-            </Text>
-
-            <View
-              style={[
-                styles.intentionDots,
-              ]}
-            >
-              {[0, 1, 2].map((i) => (
-                <View
-                  key={i}
-                  style={[
-                    styles.intentionDot,
-                    {
-                      backgroundColor:
-                        i <= intentionIndex ? colors.primary : colors.border,
-                      width: i === intentionIndex ? 20 : 8,
-                    },
-                  ]}
-                />
-              ))}
-            </View>
-
-            <Pressable
-              onPress={advanceIntention}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 40 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {intentionIndex < 2 ? t.step4.cta : t.step4.doneCta}
-              </Text>
-              <Feather
-                name={intentionIndex < 2 ? "arrow-right" : "check"}
-                size={18}
-                color={colors.primaryForeground}
-              />
-            </Pressable>
+            <PrimaryButton
+              label={t.intention.cta}
+              icon="check"
+              active={intentionIdx != null}
+              colors={colors}
+              onPress={() => intentionIdx != null && transition(5)}
+              style={{ marginTop: 32 }}
+              small
+            />
           </ScrollView>
         )}
 
-        {/* ── STEP 5: PHYSICAL INTENTION ───────────────── */}
+        {/* ── STEP 5: ESSENTIALS ──────────────────────── */}
         {step === 5 && (
-          <ScrollView
-            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={[styles.iconBadge, { backgroundColor: "#10B981" + "18" }]}>
-              <Feather name="activity" size={28} color="#10B981" />
-            </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step5.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step5.sub}</Text>
-
-            <View style={styles.listItems}>
-              {t.step5.items.map((item, i) => (
-                <View
-                  key={i}
-                  style={[styles.listItem, { backgroundColor: colors.card, borderColor: colors.border }]}
-                >
-                  <View style={[styles.listDot, { backgroundColor: colors.primary }]} />
-                  <Text style={[styles.listItemText, { color: colors.foreground }]}>{item}</Text>
-                </View>
-              ))}
-            </View>
-
-            <Pressable
-              onPress={() => transition(6)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 32 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {t.step5.cta}
-              </Text>
-              <Feather name="check" size={18} color={colors.primaryForeground} />
-            </Pressable>
-          </ScrollView>
-        )}
-
-        {/* ── STEP 6: NERVOUS SYSTEM SUPPORT ───────────── */}
-        {step === 6 && (
-          <ScrollView
-            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={[styles.iconBadge, { backgroundColor: "#A78BFA18" }]}>
-              <Feather name="moon" size={28} color="#A78BFA" />
-            </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step6.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step6.sub}</Text>
-
-            <View style={styles.nssItems}>
-              {t.step6.items.map((item, i) => (
-                <View
-                  key={i}
-                  style={[styles.nssItem, { backgroundColor: colors.card, borderColor: colors.border }]}
-                >
-                  <View style={[styles.nssDot, { backgroundColor: "#A78BFA" }]} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.nssItemTitle, { color: colors.foreground }]}>
-                      {item.title}
-                    </Text>
-                    <Text style={[styles.nssItemDesc, { color: colors.mutedForeground }]}>
-                      {item.desc}
-                    </Text>
-                  </View>
-                </View>
-              ))}
-            </View>
-
-            <Pressable
-              onPress={() => transition(7)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 32 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {t.step6.cta}
-              </Text>
-              <Feather name="check" size={18} color={colors.primaryForeground} />
-            </Pressable>
-          </ScrollView>
-        )}
-
-        {/* ── STEP 7: ESSENTIALS ───────────────────────── */}
-        {step === 7 && (
           <ScrollView
             contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
             showsVerticalScrollIndicator={false}
@@ -801,103 +681,183 @@ export default function OnboardingScreen() {
             <View style={[styles.iconBadge, { backgroundColor: "#F59E0B18" }]}>
               <Feather name="package" size={28} color="#F59E0B" />
             </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step7.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step7.sub}</Text>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.essentials.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.essentials.sub}</Text>
 
-            <View style={styles.essentialsList}>
-              {t.step7.items.map((item, i) => (
-                <Pressable
+            <View style={styles.checkList}>
+              {t.essentials.items.map((item, i) => (
+                <CheckRow
                   key={i}
-                  onPress={() => {
-                    Haptics.selectionAsync();
-                    setEssentialsDone((prev) => ({ ...prev, [i]: !prev[i] }));
-                  }}
-                  style={[
-                    styles.essentialItem,
-                    {
-                      backgroundColor: essentialsDone[i] ? colors.primary + "10" : colors.card,
-                      borderColor: essentialsDone[i] ? colors.primary + "50" : colors.border,
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.essentialCheck,
-                      {
-                        backgroundColor: essentialsDone[i] ? colors.primary : "transparent",
-                        borderColor: essentialsDone[i] ? colors.primary : colors.border,
-                      },
-                    ]}
-                  >
-                    {essentialsDone[i] && (
-                      <Feather name="check" size={11} color={colors.primaryForeground} />
-                    )}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.essentialName, { color: colors.foreground }]}>
-                      {item.name}
-                    </Text>
-                    <Text style={[styles.essentialWhy, { color: colors.mutedForeground }]}>
-                      {item.why}
-                    </Text>
-                  </View>
-                </Pressable>
+                  checked={!!essentials[i]}
+                  onPress={() => setEssentials((p) => ({ ...p, [i]: !p[i] }))}
+                  title={item.name}
+                  detail={item.why}
+                  colors={colors}
+                />
               ))}
             </View>
 
-            <Pressable
-              onPress={() => transition(8)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 32 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {t.step7.cta}
-              </Text>
-              <Feather name="arrow-right" size={18} color={colors.primaryForeground} />
-            </Pressable>
+            <PrimaryButton
+              label={t.essentials.cta}
+              icon="arrow-right"
+              active={essentialsReady}
+              colors={colors}
+              onPress={() => essentialsReady && transition(6)}
+              style={{ marginTop: 28 }}
+            />
           </ScrollView>
         )}
 
-        {/* ── STEP 8: NURTURE ALARMS ────────────────────── */}
+        {/* ── STEP 6: TEMPLE SUPPORT ──────────────────── */}
+        {step === 6 && (
+          <ScrollView
+            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={[styles.iconBadge, { backgroundColor: "#10B98118" }]}>
+              <Feather name="activity" size={28} color="#10B981" />
+            </View>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.temple.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.temple.sub}</Text>
+
+            <View style={styles.checkList}>
+              {t.temple.items.map((item, i) => {
+                const detail =
+                  i === 4
+                    ? liters
+                      ? t.temple.waterDyn(liters)
+                      : t.temple.waterFallback
+                    : item.detail;
+                return (
+                  <CheckRow
+                    key={i}
+                    checked={!!temple[i]}
+                    onPress={() => setTemple((p) => ({ ...p, [i]: !p[i] }))}
+                    title={item.title}
+                    detail={detail}
+                    colors={colors}
+                  />
+                );
+              })}
+            </View>
+
+            <PrimaryButton
+              label={t.temple.cta}
+              icon="heart"
+              active={templeReady}
+              colors={colors}
+              onPress={() => templeReady && transition(7)}
+              style={{ marginTop: 28 }}
+            />
+          </ScrollView>
+        )}
+
+        {/* ── STEP 7: NERVOUS SYSTEM ──────────────────── */}
+        {step === 7 && (
+          <ScrollView
+            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={[styles.iconBadge, { backgroundColor: "#A78BFA18" }]}>
+              <Feather name="moon" size={28} color="#A78BFA" />
+            </View>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.nervous.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.nervous.sub}</Text>
+
+            <View style={styles.checkList}>
+              {t.nervous.items.map((item, i) => (
+                <CheckRow
+                  key={i}
+                  checked={!!nervous[i]}
+                  onPress={() => setNervous((p) => ({ ...p, [i]: !p[i] }))}
+                  title={item}
+                  colors={colors}
+                />
+              ))}
+            </View>
+
+            <PrimaryButton
+              label={t.nervous.cta}
+              icon="arrow-right"
+              active={nervousReady}
+              colors={colors}
+              onPress={() => nervousReady && transition(8)}
+              style={{ marginTop: 28 }}
+            />
+          </ScrollView>
+        )}
+
+        {/* ── STEP 8: NURTURE ─────────────────────────── */}
         {step === 8 && (
           <ScrollView
             contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
             showsVerticalScrollIndicator={false}
           >
             <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
-              <Feather name="bell" size={28} color={colors.primary} />
+              <Feather name="feather" size={28} color={colors.primary} />
             </View>
-            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.step8.title}</Text>
-            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.step8.sub}</Text>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.nurture.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.nurture.sub}</Text>
 
-            <View style={styles.alarmCards}>
-
-              {/* Intake Limit */}
-              <View style={[styles.alarmCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <View style={styles.alarmCardHeader}>
-                  <Feather name="zap-off" size={16} color={colors.primary} />
+            <View style={styles.nurtureCards}>
+              {/* Hydration sync */}
+              <View style={[styles.nurtureCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <View style={styles.nurtureHeader}>
+                  <WaterGlass size={34} color="#38BDF8" />
                   <View style={{ flex: 1 }}>
-                    <Text style={[styles.alarmCardTitle, { color: colors.foreground }]}>
-                      {t.step8.intake}
-                    </Text>
-                    <Text style={[styles.alarmCardSub, { color: colors.mutedForeground }]}>
-                      {t.step8.intakeSub}
-                    </Text>
+                    <Text style={[styles.nurtureTitle, { color: colors.foreground }]}>{t.nurture.hydrationTitle}</Text>
+                    <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.hydrationSub}</Text>
                   </View>
                 </View>
-                <View style={styles.alarmStepper}>
+                <IntervalPills
+                  values={WATER_INTERVALS}
+                  selected={waterInterval}
+                  onSelect={setWaterInterval}
+                  fmt={t.nurture.every}
+                  colors={colors}
+                />
+              </View>
+
+              {/* Rest intervals */}
+              <View style={[styles.nurtureCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <View style={styles.nurtureHeader}>
+                  <AnatomicalHeart size={34} color="#E0556A" />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.nurtureTitle, { color: colors.foreground }]}>{t.nurture.restTitle}</Text>
+                    <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.restSub}</Text>
+                  </View>
+                </View>
+                <IntervalPills
+                  values={REST_INTERVALS}
+                  selected={restInterval}
+                  onSelect={setRestInterval}
+                  fmt={t.nurture.every}
+                  colors={colors}
+                />
+              </View>
+
+              {/* Intake intention */}
+              <View style={[styles.nurtureCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <View style={styles.nurtureHeader}>
+                  <View style={[styles.intakeGlyph, { backgroundColor: colors.primary + "1A" }]}>
+                    <Feather name="target" size={20} color={colors.primary} />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.nurtureTitle, { color: colors.foreground }]}>{t.nurture.intakeTitle}</Text>
+                    <Text style={[styles.nurtureSub, { color: colors.mutedForeground }]}>{t.nurture.intakeSub}</Text>
+                  </View>
+                </View>
+                <View style={styles.stepper}>
                   <Pressable
-                    onPress={() => { Haptics.selectionAsync(); setIntakeLimit((p) => Math.max(0, p - 1)); }}
-                    style={[styles.stepperBtn, { borderColor: colors.border, backgroundColor: colors.card }]}
+                    onPress={() => { Haptics.selectionAsync(); setIntakeAmount((p) => Math.max(0, p - 1)); }}
+                    style={[styles.stepperBtn, { borderColor: colors.border }]}
                   >
                     <Feather name="minus" size={16} color={colors.foreground} />
                   </Pressable>
-                  <Text style={[styles.stepperValue, { color: colors.foreground }]}>{intakeLimit}</Text>
+                  <Text style={[styles.stepperValue, { color: colors.foreground }]}>{intakeAmount}</Text>
                   <Pressable
-                    onPress={() => { Haptics.selectionAsync(); setIntakeLimit((p) => Math.min(20, p + 1)); }}
-                    style={[styles.stepperBtn, { borderColor: colors.border, backgroundColor: colors.card }]}
+                    onPress={() => { Haptics.selectionAsync(); setIntakeAmount((p) => Math.min(40, p + 1)); }}
+                    style={[styles.stepperBtn, { borderColor: colors.border }]}
                   >
                     <Feather name="plus" size={16} color={colors.foreground} />
                   </Pressable>
@@ -908,7 +868,7 @@ export default function OnboardingScreen() {
                   style={{ marginTop: 12 }}
                   contentContainerStyle={styles.unitRow}
                 >
-                  {t.step8.units.map((u, i) => (
+                  {t.nurture.units.map((u, i) => (
                     <Pressable
                       key={i}
                       onPress={() => { Haptics.selectionAsync(); setIntakeUnitIdx(i); }}
@@ -932,139 +892,187 @@ export default function OnboardingScreen() {
                   ))}
                 </ScrollView>
               </View>
-
-              {/* Departure Time */}
-              <View style={[styles.alarmCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <View style={styles.alarmCardHeader}>
-                  <Feather name="clock" size={16} color={colors.primary} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.alarmCardTitle, { color: colors.foreground }]}>
-                      {t.step8.depart}
-                    </Text>
-                    <Text style={[styles.alarmCardSub, { color: colors.mutedForeground }]}>
-                      {t.step8.departSub}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.alarmStepper}>
-                  <Pressable
-                    onPress={() => { Haptics.selectionAsync(); setDepartureHour((p) => Math.max(1, p - 1)); }}
-                    style={[styles.stepperBtn, { borderColor: colors.border, backgroundColor: colors.card }]}
-                  >
-                    <Feather name="minus" size={16} color={colors.foreground} />
-                  </Pressable>
-                  <Text style={[styles.stepperValue, { color: colors.foreground }]}>
-                    {departureHour}h
-                  </Text>
-                  <Pressable
-                    onPress={() => { Haptics.selectionAsync(); setDepartureHour((p) => Math.min(24, p + 1)); }}
-                    style={[styles.stepperBtn, { borderColor: colors.border, backgroundColor: colors.card }]}
-                  >
-                    <Feather name="plus" size={16} color={colors.foreground} />
-                  </Pressable>
-                </View>
-              </View>
-
-              {/* Breathing Breaks */}
-              <View style={[styles.alarmCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <View style={styles.alarmCardHeader}>
-                  <Feather name="wind" size={16} color={colors.primary} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.alarmCardTitle, { color: colors.foreground }]}>
-                      {t.step8.breathe}
-                    </Text>
-                    <Text style={[styles.alarmCardSub, { color: colors.mutedForeground }]}>
-                      {t.step8.breatheSub}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.intervalRow}>
-                  {t.step8.intervals.map((iv) => (
-                    <Pressable
-                      key={iv}
-                      onPress={() => { Haptics.selectionAsync(); setRestInterval(iv); }}
-                      style={[
-                        styles.intervalPill,
-                        {
-                          backgroundColor: restInterval === iv ? colors.primary : colors.background,
-                          borderColor: restInterval === iv ? colors.primary : colors.border,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={[
-                          styles.intervalText,
-                          { color: restInterval === iv ? colors.primaryForeground : colors.mutedForeground },
-                        ]}
-                      >
-                        {iv}m
-                      </Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-
-              {/* Hydration */}
-              <View style={[styles.alarmCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <View style={styles.alarmCardHeader}>
-                  <Feather name="droplet" size={16} color={colors.primary} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.alarmCardTitle, { color: colors.foreground }]}>
-                      {t.step8.water}
-                    </Text>
-                    <Text style={[styles.alarmCardSub, { color: colors.mutedForeground }]}>
-                      {t.step8.waterSub}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.intervalRow}>
-                  {t.step8.waterIntervals.map((iv) => (
-                    <Pressable
-                      key={iv}
-                      onPress={() => { Haptics.selectionAsync(); setWaterInterval(iv); }}
-                      style={[
-                        styles.intervalPill,
-                        {
-                          backgroundColor: waterInterval === iv ? colors.primary : colors.background,
-                          borderColor: waterInterval === iv ? colors.primary : colors.border,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={[
-                          styles.intervalText,
-                          { color: waterInterval === iv ? colors.primaryForeground : colors.mutedForeground },
-                        ]}
-                      >
-                        {iv}m
-                      </Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-
             </View>
 
-            <Pressable
-              onPress={() => saveAndFinish(true)}
-              style={({ pressed }) => [
-                styles.primaryBtn,
-                { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, marginTop: 32 },
-              ]}
-            >
-              <Text style={[styles.primaryBtnText, { color: colors.primaryForeground }]}>
-                {t.step8.cta}
-              </Text>
-              <Feather name="bell" size={18} color={colors.primaryForeground} />
-            </Pressable>
+            <PrimaryButton
+              label={t.nurture.cta}
+              icon="arrow-right"
+              active
+              colors={colors}
+              onPress={() => transition(9)}
+              style={{ marginTop: 28 }}
+            />
+          </ScrollView>
+        )}
 
-            <Pressable onPress={() => saveAndFinish(false)} style={{ marginTop: 16, paddingVertical: 8 }}>
-              <Text style={[styles.skipText, { color: colors.mutedForeground }]}>{t.step8.skip}</Text>
-            </Pressable>
+        {/* ── STEP 9: JOURNEY WITH CONSCIOUS ──────────── */}
+        {step === 9 && (
+          <ScrollView
+            contentContainerStyle={[styles.stepContainer, { paddingBottom: insets.bottom + 40 }]}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={[styles.iconBadge, { backgroundColor: colors.primary + "18" }]}>
+              <Feather name="sunrise" size={28} color={colors.primary} />
+            </View>
+            <Text style={[styles.stepTitle, { color: colors.foreground }]}>{t.journey.title}</Text>
+            <Text style={[styles.stepSub, { color: colors.mutedForeground }]}>{t.journey.sub}</Text>
+
+            <View style={styles.checkList}>
+              {t.journey.items.map((item, i) => (
+                <CheckRow
+                  key={i}
+                  checked={!!journey[i]}
+                  onPress={() => setJourney((p) => ({ ...p, [i]: !p[i] }))}
+                  title={item.title}
+                  detail={item.detail}
+                  colors={colors}
+                />
+              ))}
+            </View>
+
+            <PrimaryButton
+              label={t.journey.cta}
+              icon="arrow-right"
+              active={journeyReady}
+              colors={colors}
+              onPress={() => journeyReady && saveAndFinish()}
+              style={{ marginTop: 28 }}
+            />
           </ScrollView>
         )}
       </Animated.View>
     </KeyboardAvoidingView>
+  );
+}
+
+/* ── Shared sub-components ───────────────────────── */
+
+function PrimaryButton({
+  label,
+  icon,
+  active,
+  colors,
+  onPress,
+  style,
+  small,
+}: {
+  label: string;
+  icon: React.ComponentProps<typeof Feather>["name"];
+  active: boolean;
+  colors: ReturnType<typeof useColors>;
+  onPress: () => void;
+  style?: object;
+  small?: boolean;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      disabled={!active}
+      style={({ pressed }) => [
+        styles.primaryBtn,
+        {
+          backgroundColor: active ? colors.primary : colors.border,
+          opacity: pressed && active ? 0.85 : 1,
+          minHeight: small ? undefined : 60,
+          paddingVertical: small ? 16 : 0,
+        },
+        style,
+      ]}
+    >
+      <Text
+        style={[
+          styles.primaryBtnText,
+          { color: active ? colors.primaryForeground : colors.mutedForeground, fontSize: small ? 11 : 13, flexShrink: 1 },
+        ]}
+      >
+        {label}
+      </Text>
+      <Feather name={icon} size={18} color={active ? colors.primaryForeground : colors.mutedForeground} />
+    </Pressable>
+  );
+}
+
+function CheckRow({
+  checked,
+  onPress,
+  title,
+  detail,
+  colors,
+}: {
+  checked: boolean;
+  onPress: () => void;
+  title: string;
+  detail?: string;
+  colors: ReturnType<typeof useColors>;
+}) {
+  return (
+    <Pressable
+      onPress={() => {
+        Haptics.selectionAsync();
+        onPress();
+      }}
+      style={[
+        styles.checkRow,
+        {
+          backgroundColor: checked ? colors.primary + "12" : colors.card,
+          borderColor: checked ? colors.primary + "55" : colors.border,
+        },
+      ]}
+    >
+      <View
+        style={[
+          styles.checkBox,
+          { backgroundColor: checked ? colors.primary : "transparent", borderColor: checked ? colors.primary : colors.border },
+        ]}
+      >
+        {checked && <Feather name="check" size={12} color={colors.primaryForeground} />}
+      </View>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.checkTitle, { color: colors.foreground }]}>{title}</Text>
+        {!!detail && <Text style={[styles.checkDetail, { color: colors.mutedForeground }]}>{detail}</Text>}
+      </View>
+    </Pressable>
+  );
+}
+
+function IntervalPills({
+  values,
+  selected,
+  onSelect,
+  fmt,
+  colors,
+}: {
+  values: readonly number[];
+  selected: number;
+  onSelect: (n: number) => void;
+  fmt: (n: number) => string;
+  colors: ReturnType<typeof useColors>;
+}) {
+  return (
+    <View style={styles.intervalRow}>
+      {values.map((iv) => (
+        <Pressable
+          key={iv}
+          onPress={() => { Haptics.selectionAsync(); onSelect(iv); }}
+          style={[
+            styles.intervalPill,
+            {
+              backgroundColor: selected === iv ? colors.primary : colors.background,
+              borderColor: selected === iv ? colors.primary : colors.border,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.intervalText,
+              { color: selected === iv ? colors.primaryForeground : colors.mutedForeground },
+            ]}
+          >
+            {fmt(iv)}
+          </Text>
+        </Pressable>
+      ))}
+    </View>
   );
 }
 
@@ -1077,416 +1085,97 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 12,
   },
-  progressInner: {
-    flex: 1,
-    flexDirection: "row",
-    gap: 4,
-    height: 4,
-    borderRadius: 2,
-    overflow: "hidden",
+  progressInner: { flex: 1, flexDirection: "row", gap: 4, height: 4, borderRadius: 2, overflow: "hidden" },
+  progressDot: { height: 4, borderRadius: 2 },
+  progressLabel: { fontSize: 10, fontFamily: "Inter_600SemiBold", letterSpacing: 1.5, textTransform: "uppercase" },
+
+  /* Landing + welcome */
+  landing: { flex: 1, justifyContent: "center", alignItems: "center" },
+  landingCenter: { alignItems: "center", paddingHorizontal: 100 },
+  appTitle: { fontSize: 46, fontFamily: "Inter_700Bold", letterSpacing: 10, marginTop: 28 },
+  landingHint: {
+    fontSize: 12,
+    fontFamily: "Inter_500Medium",
+    letterSpacing: 1,
+    textAlign: "center",
+    marginTop: 12,
+    lineHeight: 18,
   },
-  progressDot: {
-    height: 4,
-    borderRadius: 2,
-  },
-  progressLabel: {
-    fontSize: 10,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 1.5,
-    textTransform: "uppercase",
-  },
-  stepContainer: {
-    paddingHorizontal: 24,
-    paddingTop: 48,
-    alignItems: "center",
-    minHeight: "100%",
-  },
-  orbWrap: {
-    width: 160,
-    height: 160,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 24,
-  },
-  orbGlow: {
-    position: "absolute",
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-  },
-  orbCore: {
-    width: 110,
-    height: 110,
-    borderRadius: 55,
+  welcomeTitle: { fontSize: 30, fontFamily: "Inter_700Bold", letterSpacing: -0.5, marginTop: 32, textAlign: "center" },
+  welcomeName: { fontSize: 14, fontFamily: "Inter_700Bold", letterSpacing: 4, marginTop: 8 },
+  leftPanel: { position: "absolute", left: 16, top: 0, bottom: 0, justifyContent: "center", gap: 22, zIndex: 5 },
+  rightPanel: { position: "absolute", right: 16, top: 0, bottom: 0, justifyContent: "center", gap: 22, zIndex: 5 },
+  sideTouch: { alignItems: "center", gap: 6, width: 72 },
+  sideIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#10B981",
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 0 },
-    elevation: 8,
   },
-  langRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-    marginBottom: 40,
-  },
-  langBtn: {
-    fontSize: 11,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 3,
-  },
-  appTitle: {
-    fontSize: 52,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 10,
-    marginBottom: 8,
-  },
-  tagline: {
-    fontSize: 13,
+  sideLabel: { fontSize: 9, fontFamily: "Inter_600SemiBold", letterSpacing: 0.5, textAlign: "center" },
+  langGlyph: { fontSize: 18, fontFamily: "Inter_700Bold", letterSpacing: 1 },
+
+  /* Generic step */
+  stepContainer: { paddingHorizontal: 24, paddingTop: 40, alignItems: "center", minHeight: "100%" },
+  iconBadge: { width: 70, height: 70, borderRadius: 22, alignItems: "center", justifyContent: "center", marginBottom: 20 },
+  stepTitle: { fontSize: 26, fontFamily: "Inter_700Bold", letterSpacing: -0.5, textAlign: "center", marginBottom: 8 },
+  stepSub: { fontSize: 12, fontFamily: "Inter_400Regular", textAlign: "center", letterSpacing: 0.3, marginBottom: 28, lineHeight: 18, paddingHorizontal: 8 },
+
+  /* Inputs */
+  input: {
+    width: "100%",
+    height: 56,
+    borderRadius: 18,
+    borderWidth: 1.5,
+    paddingHorizontal: 18,
+    fontSize: 16,
     fontFamily: "Inter_500Medium",
-    fontStyle: "italic",
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    marginBottom: 12,
   },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: "Inter_400Regular",
-    textAlign: "center",
-    lineHeight: 20,
-    paddingHorizontal: 20,
-  },
+  bioRow: { flexDirection: "row", gap: 12, width: "100%", marginTop: 14 },
+  fieldLabel: { fontSize: 10, fontFamily: "Inter_700Bold", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 },
+
+  /* Intentions */
+  intentionRow: { flexDirection: "row", gap: 10, width: "100%" },
+  intentionCard: { flex: 1, borderRadius: 18, borderWidth: 1.5, padding: 14, alignItems: "center", gap: 8, minHeight: 150, justifyContent: "center" },
+  intentionRadio: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
+  intentionCardTitle: { fontSize: 13, fontFamily: "Inter_700Bold", textAlign: "center", letterSpacing: -0.2 },
+  intentionCardAffirm: { fontSize: 11, fontFamily: "Inter_400Regular", textAlign: "center", lineHeight: 16, fontStyle: "italic" },
+
+  /* Check lists */
+  checkList: { width: "100%", gap: 10 },
+  checkRow: { flexDirection: "row", alignItems: "flex-start", gap: 14, padding: 16, borderRadius: 16, borderWidth: 1.5 },
+  checkBox: { width: 24, height: 24, borderRadius: 8, borderWidth: 1.5, alignItems: "center", justifyContent: "center", marginTop: 1, flexShrink: 0 },
+  checkTitle: { fontSize: 13, fontFamily: "Inter_600SemiBold", letterSpacing: 0.2, lineHeight: 19 },
+  checkDetail: { fontSize: 11, fontFamily: "Inter_400Regular", lineHeight: 17, marginTop: 4 },
+
+  /* Nurture */
+  nurtureCards: { width: "100%", gap: 12 },
+  nurtureCard: { borderRadius: 20, borderWidth: 1, padding: 16 },
+  nurtureHeader: { flexDirection: "row", alignItems: "flex-start", gap: 12, marginBottom: 14 },
+  nurtureTitle: { fontSize: 14, fontFamily: "Inter_600SemiBold", letterSpacing: 0.2 },
+  nurtureSub: { fontSize: 11, fontFamily: "Inter_400Regular", marginTop: 3, lineHeight: 16 },
+  intakeGlyph: { width: 34, height: 34, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  stepper: { flexDirection: "row", alignItems: "center", gap: 16, justifyContent: "center" },
+  stepperBtn: { width: 44, height: 44, borderRadius: 22, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  stepperValue: { fontSize: 22, fontFamily: "Inter_700Bold", letterSpacing: -0.5, minWidth: 60, textAlign: "center" },
+  unitRow: { flexDirection: "row", gap: 8, paddingRight: 4 },
+  unitPill: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, borderWidth: 1 },
+  unitPillText: { fontSize: 11, fontFamily: "Inter_600SemiBold", letterSpacing: 0.4, textTransform: "lowercase" },
+  intervalRow: { flexDirection: "row", gap: 8, flexWrap: "wrap" },
+  intervalPill: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: 20, borderWidth: 1 },
+  intervalText: { fontSize: 12, fontFamily: "Inter_600SemiBold", letterSpacing: 0.3 },
+
+  /* Buttons */
   primaryBtn: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
     width: "100%",
-    height: 60,
     borderRadius: 30,
     paddingHorizontal: 24,
   },
-  primaryBtnText: {
-    fontSize: 13,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 2,
-    textTransform: "uppercase",
-  },
-  iconBadge: {
-    width: 70,
-    height: 70,
-    borderRadius: 22,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  stepTitle: {
-    fontSize: 26,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: -0.5,
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  stepSub: {
-    fontSize: 12,
-    fontFamily: "Inter_400Regular",
-    textAlign: "center",
-    letterSpacing: 0.5,
-    marginBottom: 32,
-  },
-  disclaimerList: {
-    width: "100%",
-    gap: 12,
-  },
-  disclaimerCard: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 14,
-    padding: 16,
-    borderRadius: 18,
-    borderWidth: 1.5,
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 1,
-    flexShrink: 0,
-  },
-  disclaimerText: {
-    flex: 1,
-    gap: 4,
-  },
-  disclaimerTitle: {
-    fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.3,
-  },
-  disclaimerBody: {
-    fontSize: 11,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 17,
-  },
-  nameInput: {
-    width: "100%",
-    height: 60,
-    borderRadius: 20,
-    borderWidth: 1.5,
-    paddingHorizontal: 20,
-    fontSize: 16,
-    fontFamily: "Inter_500Medium",
-    textAlign: "center",
-    letterSpacing: 1,
-  },
-  langLabel: {
-    fontSize: 10,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 2.5,
-    textTransform: "uppercase",
-    marginBottom: 12,
-  },
-  langToggle: {
-    flexDirection: "row",
-    gap: 10,
-    width: "100%",
-  },
-  langOption: {
-    flex: 1,
-    height: 48,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  langOptionText: {
-    fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 1,
-  },
-  intentionCounter: {
-    fontSize: 11,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    marginBottom: 32,
-  },
-  intentionOrb: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 32,
-    position: "relative",
-  },
-  intentionOrbGlow: {
-    position: "absolute",
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-  },
-  intentionTitle: {
-    fontSize: 34,
-    fontFamily: "Inter_700Bold",
-    textAlign: "center",
-    letterSpacing: -0.5,
-    marginBottom: 16,
-  },
-  intentionDesc: {
-    fontSize: 14,
-    fontFamily: "Inter_400Regular",
-    textAlign: "center",
-    lineHeight: 22,
-    paddingHorizontal: 16,
-  },
-  intentionDots: {
-    flexDirection: "row",
-    gap: 8,
-    marginTop: 28,
-    alignItems: "center",
-  },
-  intentionDot: {
-    height: 8,
-    borderRadius: 4,
-  },
-  listItems: {
-    width: "100%",
-    gap: 10,
-  },
-  listItem: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 14,
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-  },
-  listDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginTop: 5,
-    flexShrink: 0,
-  },
-  listItemText: {
-    flex: 1,
-    fontSize: 13,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 20,
-  },
-  nssItems: {
-    width: "100%",
-    gap: 10,
-  },
-  nssItem: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 14,
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-  },
-  nssDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginTop: 5,
-    flexShrink: 0,
-  },
-  nssItemTitle: {
-    fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
-    marginBottom: 4,
-    letterSpacing: 0.2,
-  },
-  nssItemDesc: {
-    fontSize: 11,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 17,
-  },
-  essentialsList: {
-    width: "100%",
-    gap: 10,
-  },
-  essentialItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
-    padding: 14,
-    borderRadius: 16,
-    borderWidth: 1.5,
-  },
-  essentialCheck: {
-    width: 22,
-    height: 22,
-    borderRadius: 7,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-  },
-  essentialName: {
-    fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.2,
-  },
-  essentialWhy: {
-    fontSize: 10,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 15,
-    marginTop: 2,
-  },
-  alarmCards: {
-    width: "100%",
-    gap: 12,
-  },
-  alarmCard: {
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 16,
-  },
-  alarmCardHeader: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 12,
-    marginBottom: 14,
-  },
-  alarmCardTitle: {
-    fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.2,
-  },
-  alarmCardSub: {
-    fontSize: 10,
-    fontFamily: "Inter_400Regular",
-    marginTop: 2,
-  },
-  alarmStepper: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-    justifyContent: "center",
-  },
-  stepperBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  stepperValue: {
-    fontSize: 22,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: -0.5,
-    minWidth: 60,
-    textAlign: "center",
-  },
-  unitRow: {
-    flexDirection: "row",
-    gap: 8,
-    paddingRight: 4,
-  },
-  unitPill: {
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  unitPillText: {
-    fontSize: 11,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.5,
-    textTransform: "lowercase",
-  },
-  intervalRow: {
-    flexDirection: "row",
-    gap: 8,
-    flexWrap: "wrap",
-  },
-  intervalPill: {
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  intervalText: {
-    fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
-    letterSpacing: 0.5,
-  },
-  skipText: {
-    fontSize: 11,
-    fontFamily: "Inter_400Regular",
-    letterSpacing: 1,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
+  primaryBtnText: { fontFamily: "Inter_700Bold", letterSpacing: 1.2, textTransform: "uppercase", textAlign: "center" },
 });

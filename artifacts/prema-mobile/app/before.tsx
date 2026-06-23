@@ -28,7 +28,7 @@ const CONTENT = {
       essentials: "Essentials Kit",
       nutrition: "Physical Intention",
       rest: "Nervous System",
-      alarms: "Care Alarms",
+      alarms: "Nurture",
     },
     testing: {
       sub: "Before anything else — safety first",
@@ -80,7 +80,7 @@ const CONTENT = {
     },
     alarms: {
       sub: "Connected to Pulse Guardian",
-      title: "Care Alarms",
+      title: "Nurture",
       limit: "Intake Limit",
       limitSub: "Total logged units",
       limitUnit: "units",
@@ -105,7 +105,7 @@ const CONTENT = {
       essentials: "Essentials Kit",
       nutrition: "Physische Resonanz",
       rest: "Nervensystem",
-      alarms: "Pflege-Alarme",
+      alarms: "Nurture",
     },
     testing: {
       sub: "Erst die Sicherheit — dann alles andere",
@@ -157,7 +157,7 @@ const CONTENT = {
     },
     alarms: {
       sub: "Verbunden mit dem Pulse Guardian",
-      title: "Pflege-Alarme",
+      title: "Nurture",
       limit: "Limit",
       limitSub: "Gesamte Einheiten",
       limitUnit: "Einheiten",
@@ -464,7 +464,7 @@ export default function BeforeScreen() {
             <SectionHeading colors={colors} sub={t.alarms.sub} title={t.alarms.title} tint="#06B6D4" />
             <AlarmRow colors={colors} icon="zap-off" tint="#F59E0B" label={t.alarms.limit} sub={t.alarms.limitSub} value={`${careAlarms.intakeLimit} ${t.alarms.limitUnit}`} />
             <AlarmRow colors={colors} icon="clock" tint="#3B82F6" label={t.alarms.leave} sub={t.alarms.leaveSub} value={departure} />
-            <AlarmRow colors={colors} icon="moon" tint="#8B5CF6" label={t.alarms.rest} sub={t.alarms.restSub} value={`${careAlarms.breathingBreak} min`} />
+            <AlarmRow colors={colors} icon="heart" tint="#E0556A" label={t.alarms.rest} sub={t.alarms.restSub} value={`${careAlarms.breathingBreak} min`} />
             <AlarmRow colors={colors} icon="droplet" tint="#06B6D4" label={t.alarms.water} sub={t.alarms.waterSub} value={`${careAlarms.hydrationSync} min`} />
             {completed.alarms ? (
               <DoneBanner colors={colors} tint="#06B6D4" label={t.alarms.done} />

@@ -12,6 +12,8 @@ import {
   View,
 } from "react-native";
 
+import { AnatomicalHeart } from "@/components/AnatomicalHeart";
+import { WaterGlass } from "@/components/WaterGlass";
 import { useColors } from "@/hooks/useColors";
 
 export type AlarmType = "water" | "breathe" | "rest" | "depart";
@@ -62,16 +64,16 @@ const CONTENT: Record<AlarmType, AlarmEntry> = {
     },
   },
   rest: {
-    icon: "moon",
-    color: "#A78BFA",
+    icon: "heart",
+    color: "#E0556A",
     en: {
-      title: "Rest reminder",
-      body: "Your body is asking for stillness. Find a quiet spot and rest for a moment.",
+      title: "Rest interval",
+      body: "Your heart is asking for a pause. Find a quiet spot and rest for a moment.",
       btn: "Done — took a rest",
     },
     de: {
-      title: "Ruheerinnerung",
-      body: "Dein Körper bittet um Stille. Finde eine ruhige Ecke und ruh dich aus.",
+      title: "Ruhe-Intervall",
+      body: "Dein Herz bittet um eine Pause. Finde eine ruhige Ecke und ruh dich aus.",
       btn: "Erledigt — ausgeruht",
     },
   },
@@ -144,7 +146,13 @@ export function AlarmOverlay({ visible, type, lang, onDone }: Props) {
           <View style={[styles.iconOuter, { backgroundColor: c.color + "10" }]}>
             <View style={[styles.iconGlow, { backgroundColor: c.color + "20" }]} />
             <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
-              <Feather name={c.icon} size={56} color={c.color} />
+              {type === "water" ? (
+                <WaterGlass size={64} color={c.color} />
+              ) : type === "rest" ? (
+                <AnatomicalHeart size={64} color={c.color} />
+              ) : (
+                <Feather name={c.icon} size={56} color={c.color} />
+              )}
             </Animated.View>
           </View>
 

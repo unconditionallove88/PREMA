@@ -1,24 +1,16 @@
-import { useColorScheme } from "react-native";
-
 import colors from "@/constants/colors";
+import { useThemePreference } from "@/context/SessionContext";
 
 /**
- * Returns the design tokens for the current color scheme.
+ * Returns the design tokens for the active vibe-mode.
  *
- * The returned object contains all color tokens for the active palette
- * plus scheme-independent values like `radius`.
- *
- * Falls back to the light palette when no dark key is defined in
- * constants/colors.ts (the scaffold ships light-only by default).
- * When a sibling web artifact's dark tokens are synced into a `dark`
- * key, this hook will automatically switch palettes based on the
- * device's appearance setting.
+ * The vibe is chosen by the user on the landing page (red rose = "dark",
+ * white rose = "bright") and persisted via SessionContext. When used
+ * outside of a SessionProvider, `useThemePreference` falls back to the
+ * bright palette so the hook never throws.
  */
 export function useColors() {
-  const scheme = useColorScheme();
-  const palette =
-    scheme === "dark" && "dark" in colors
-      ? (colors as Record<string, typeof colors.light>).dark
-      : colors.light;
+  const vibe = useThemePreference();
+  const palette = vibe === "dark" ? colors.dark : colors.light;
   return { ...palette, radius: colors.radius };
 }

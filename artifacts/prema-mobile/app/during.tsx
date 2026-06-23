@@ -22,7 +22,7 @@ const CONTENT = {
     phase: "Action Phase",
     title: "Access Guidance",
     affirmation: '"You are held"',
-    heading: "Journey with awareness",
+    heading: "Journey with Conscious",
     sub: "Five principles to carry with you",
     cta: "Enter the Circle",
   },

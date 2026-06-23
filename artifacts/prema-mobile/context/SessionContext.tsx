@@ -9,6 +9,8 @@ import React, {
 
 export type Phase = "before" | "during" | "recovery";
 
+export type Vibe = "dark" | "bright";
+
 export type PrepStep =
   | "testing"
   | "essentials"
@@ -34,11 +36,14 @@ export interface SessionContextValue {
   setPhase: (p: Phase) => void;
   lang: "en" | "de";
   setLang: (l: "en" | "de") => void;
+  theme: Vibe;
+  setTheme: (v: Vibe) => void;
   completed: Record<PrepStep, boolean>;
   toggleStep: (step: PrepStep) => void;
   allComplete: boolean;
   resetSession: () => void;
   hasOnboarded: boolean | null;
+  completeOnboarding: () => void;
   userName: string;
   intention: string | null;
   setIntention: (i: string | null) => void;
@@ -71,6 +76,7 @@ const SessionContext = createContext<SessionContextValue | null>(null);
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [phase, setPhaseState] = useState<Phase>("before");
   const [lang, setLangState] = useState<"en" | "de">("en");
+  const [theme, setThemeState] = useState<Vibe>("bright");
   const [completed, setCompleted] =
     useState<Record<PrepStep, boolean>>(defaultCompleted);
   const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
@@ -82,10 +88,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const [ph, ln, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw] =
+      const [ph, ln, th, comp, onboarded, uname, intKey, alarmsRaw, notesRaw, journalRaw] =
         await Promise.all([
           AsyncStorage.getItem("prema_phase"),
           AsyncStorage.getItem("prema_lang"),
+          AsyncStorage.getItem("prema_theme"),
           AsyncStorage.getItem("prema_completed"),
           AsyncStorage.getItem("prema_onboarded"),
           AsyncStorage.getItem("prema_user_name"),
@@ -97,6 +104,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       if (ph === "before" || ph === "during" || ph === "recovery")
         setPhaseState(ph);
       if (ln === "en" || ln === "de") setLangState(ln);
+      if (th === "dark" || th === "bright") setThemeState(th);
       if (comp) { try { setCompleted(JSON.parse(comp)); } catch {} }
       setHasOnboarded(onboarded === "true");
       setUserName(uname || "");
@@ -117,6 +125,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     AsyncStorage.setItem("prema_lang", l);
   }, []);
 
+  const setTheme = useCallback((v: Vibe) => {
+    setThemeState(v);
+    AsyncStorage.setItem("prema_theme", v);
+  }, []);
+
   const toggleStep = useCallback((step: PrepStep) => {
     setCompleted((prev) => {
       const next = { ...prev, [step]: !prev[step] };
@@ -134,6 +147,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       ["prema_completed", JSON.stringify(defaultCompleted)],
       ["prema_quick_notes", "[]"],
     ]);
+  }, []);
+
+  const completeOnboarding = useCallback(() => {
+    setHasOnboarded(true);
+    AsyncStorage.setItem("prema_onboarded", "true");
   }, []);
 
   const setIntention = useCallback((i: string | null) => {
@@ -169,11 +187,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         setPhase,
         lang,
         setLang,
+        theme,
+        setTheme,
         completed,
         toggleStep,
         allComplete,
         resetSession,
         hasOnboarded,
+        completeOnboarding,
         userName,
         intention,
         setIntention,
@@ -194,4 +215,13 @@ export function useSession() {
   const ctx = useContext(SessionContext);
   if (!ctx) throw new Error("useSession must be used within SessionProvider");
   return ctx;
+}
+
+/**
+ * Non-throwing accessor for the active vibe-mode. Used by useColors, which may
+ * (defensively) render before the provider is mounted. Falls back to "bright".
+ */
+export function useThemePreference(): Vibe {
+  const ctx = useContext(SessionContext);
+  return ctx?.theme ?? "bright";
 }
