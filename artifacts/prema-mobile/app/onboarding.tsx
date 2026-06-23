@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnatomicalHeart } from "@/components/AnatomicalHeart";
 import { CircleOfLove } from "@/components/CircleOfLove";
+import { DisclaimerFlow } from "@/components/DisclaimerFlow";
 import { WaterGlass } from "@/components/WaterGlass";
 import { useSession, type Vibe } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
@@ -335,9 +336,10 @@ export default function OnboardingScreen() {
   const titleSize = LANDING_CIRCLE * 0.17;
   const titleSpacing = LANDING_CIRCLE * 0.025;
   const WELCOME_CIRCLE = Math.min(screenW * 0.62, 260);
-  const { setLang, setTheme, setIntention, setCareAlarms, completeOnboarding } = useSession();
+  const { setLang, setTheme, setIntention, setCareAlarms, completeOnboarding, hasCompletedDisclaimer, completeDisclaimer } = useSession();
 
   const [step, setStep] = useState(1);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [uiLang, setUiLang] = useState<"en" | "de">("en");
   const [langPicked, setLangPicked] = useState(false);
   const [vibe, setVibe] = useState<Vibe | null>(null);
@@ -378,13 +380,26 @@ export default function OnboardingScreen() {
     });
   };
 
-  // Landing: auto-advance once both a vibe and a language are chosen.
+  // Landing: once both a vibe and a language are chosen, show the mandatory
+  // disclaimers (if not yet seen) before continuing to "tell us about you".
   useEffect(() => {
-    if (step === 1 && langPicked && vibe) {
-      const id = setTimeout(() => transition(2), 900);
+    if (step === 1 && langPicked && vibe && !showDisclaimer) {
+      const id = setTimeout(() => {
+        if (!hasCompletedDisclaimer) {
+          setShowDisclaimer(true);
+        } else {
+          transition(2);
+        }
+      }, 900);
       return () => clearTimeout(id);
     }
-  }, [step, langPicked, vibe]);
+  }, [step, langPicked, vibe, showDisclaimer, hasCompletedDisclaimer]);
+
+  const handleDisclaimerDone = () => {
+    completeDisclaimer();
+    setShowDisclaimer(false);
+    transition(2);
+  };
 
   // Welcome: auto-advance after 3 seconds.
   useEffect(() => {
@@ -459,12 +474,16 @@ export default function OnboardingScreen() {
       ["prema_intake_unit", t.nurture.units[intakeUnitIdx]],
     ]);
     completeOnboarding();
-    router.replace("/disclaimer");
+    router.replace("/(tabs)");
   };
 
   const showProgress = step !== 1 && step !== 3;
   const nameScale = welcomeGlow.interpolate({ inputRange: [0, 1], outputRange: [0.97, 1.05] });
   const nameGlow = welcomeGlow.interpolate({ inputRange: [0, 1], outputRange: [0.8, 1] });
+
+  if (showDisclaimer) {
+    return <DisclaimerFlow lang={uiLang} onComplete={handleDisclaimerDone} />;
+  }
 
   return (
     <KeyboardAvoidingView

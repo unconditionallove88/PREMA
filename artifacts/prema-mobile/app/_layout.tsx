@@ -8,7 +8,7 @@ import {
 } from "@expo-google-fonts/nunito";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { router, Stack } from "expo-router";
+import { router, Stack, usePathname } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -93,17 +93,22 @@ function AlarmManager() {
 
 function RootLayoutNav() {
   const { hasOnboarded, hasCompletedDisclaimer } = useSession();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (hasOnboarded === null || hasCompletedDisclaimer === null) return;
+    // Not onboarded: the onboarding screen owns the landing → disclaimer →
+    // "tell us about you" flow internally, so just keep the user there.
     if (!hasOnboarded) {
-      router.replace("/onboarding");
+      if (pathname !== "/onboarding") router.replace("/onboarding");
       return;
     }
+    // Already onboarded but never saw the disclaimers (legacy install):
+    // gate them through the standalone disclaimer route once.
     if (!hasCompletedDisclaimer) {
-      router.replace("/disclaimer");
+      if (pathname !== "/disclaimer") router.replace("/disclaimer");
     }
-  }, [hasOnboarded, hasCompletedDisclaimer]);
+  }, [hasOnboarded, hasCompletedDisclaimer, pathname]);
 
   return (
     <>
