@@ -15,6 +15,8 @@ import Svg, {
   Stop,
 } from "react-native-svg";
 
+import { useThemePreference } from "@/context/SessionContext";
+
 /**
  * Circle of Love — the Neptunian "Luch Sveta" (Beam of Light).
  *
@@ -22,8 +24,14 @@ import Svg, {
  * A shimmering Neptunian point at the crown ignites a thin, liquid beam that
  * pierces the centre of the one Circle of Love. Inside, four energetic
  * "frequencies" — Ego (Sun/gold), Soul (Moon/silver), Love (Venus/rose) and
- * Will (Mars/ruby) — swirl as soft glows that mix additively over the dark
- * field (no muddy colours — light on black reads like screen-blended light).
+ * Will (Mars/ruby) — swirl as soft glows that mix as light.
+ *
+ * Adaptive "Light-Void" aesthetic:
+ * - DARK mode: bright cores mix additively over the deep cosmic void; the beam
+ *   is a brilliant white-violet needle with a strong bloom.
+ * - LIGHT mode: saturated pastels read as a delicate prism over the spiritual
+ *   void; the beam shifts to a refractive, crystal-light ray with a faint hint
+ *   of rainbow diffraction.
  *
  * Every ~10s an "integration pulse" flashes through the beam: the four energies
  * briefly brighten and harmonise, then settle back into their ethereal swirl —
@@ -33,16 +41,24 @@ import Svg, {
  */
 
 // The one Circle's boundary palette (rose quartz, gold, soft violet).
-const PALETTE = {
+const PALETTE_DARK = {
   rose: "#F7C8DA",
   magenta: "#E89BC4",
   lavender: "#C9A7F0",
   gold: "#F6D58A",
 };
+// Deepened for the light "spiritual void" so the ring reads on off-white.
+const PALETTE_LIGHT = {
+  rose: "#E89BC4",
+  magenta: "#D672A8",
+  lavender: "#A98AE0",
+  gold: "#E6B860",
+};
 
-// The four inner frequencies + the Neptunian source. Bright cores fading to
-// transparent edges so overlaps mix as pure light over the midnight field.
-const ENERGY = {
+// The four inner frequencies + the Neptunian source. In dark mode the cores are
+// near-white and mix additively over the void; in light mode they become
+// saturated so the pastels stay luminous (never muddy) over the bright void.
+const ENERGY_DARK = {
   egoCore: "#FFF8E2", // Sun / Золото — golden radiant core
   egoMid: "#FBC646",
   egoEdge: "#F59E2A",
@@ -60,8 +76,27 @@ const ENERGY = {
   neptuneEdge: "#B79CF2",
   beam: "#F2ECFF", // coherent beam of light
 };
+const ENERGY_LIGHT = {
+  egoCore: "#FBC646",
+  egoMid: "#F0A024",
+  egoEdge: "#E0840E",
+  soulCore: "#AEBCDC",
+  soulMid: "#8497C4",
+  soulEdge: "#6175A6",
+  loveCore: "#F47CBA",
+  loveMid: "#E84B9E",
+  loveEdge: "#CC2C84",
+  willCore: "#F2546D",
+  willMid: "#E5344F",
+  willEdge: "#C8102E",
+  neptuneCore: "#FFFFFF",
+  neptuneMid: "#C9B6F5",
+  neptuneEdge: "#9B7FE0",
+  beam: "#B8A0F0",
+};
 
-const PARTICLE_COLORS = ["#FFFFFF", "#FBD6E6", "#F6D58A", "#C9A7F0"];
+const PARTICLE_DARK = ["#FFFFFF", "#FBD6E6", "#F6D58A", "#C9A7F0"];
+const PARTICLE_LIGHT = ["#E89BC4", "#E6B860", "#A98AE0", "#D672A8"];
 
 type ParticleConfig = {
   angle: number;
@@ -129,6 +164,11 @@ function Particle({ cfg, center }: { cfg: ParticleConfig; center: number }) {
 
 export function CircleOfLove() {
   const { width } = useWindowDimensions();
+  const vibe = useThemePreference();
+  const isDark = vibe === "dark";
+
+  const PALETTE = isDark ? PALETTE_DARK : PALETTE_LIGHT;
+  const ENERGY = isDark ? ENERGY_DARK : ENERGY_LIGHT;
 
   // The ring occupies ~72% of the screen width; the bloom extends well beyond.
   const RING = Math.min(width * 0.72, 360);
@@ -205,7 +245,10 @@ export function CircleOfLove() {
   // Breathing of the whole system.
   const ringScale = breath.interpolate({ inputRange: [0, 1], outputRange: [1, 1.035] });
   const bloomScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.96, 1.1] });
-  const bloomOpacity = breath.interpolate({ inputRange: [0, 1], outputRange: [0.55, 0.9] });
+  const bloomOpacity = breath.interpolate({
+    inputRange: [0, 1],
+    outputRange: isDark ? [0.55, 0.9] : [0.4, 0.62],
+  });
   const ringRotate = ringSpin.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
 
   // Each energy orbits its own way (alternating directions / speeds).
@@ -224,17 +267,23 @@ export function CircleOfLove() {
 
   // The Neptunian source — shimmering, with a brighter flash on each pulse.
   const neptuneScale = neptune.interpolate({ inputRange: [0, 1], outputRange: [0.82, 1.16] });
-  const neptuneBase = neptune.interpolate({ inputRange: [0, 1], outputRange: [0.6, 0.92] });
+  const neptuneBase = neptune.interpolate({
+    inputRange: [0, 1],
+    outputRange: isDark ? [0.6, 0.92] : [0.5, 0.78],
+  });
   const neptuneOpacity = Animated.add(
     neptuneBase,
     integrate.interpolate({ inputRange: [0, 1], outputRange: [0, 0.08] }),
   );
 
   // The beam — a flickering "liquid light" needle that flares with the pulse.
-  const beamBase = beamLife.interpolate({ inputRange: [0, 1], outputRange: [0.42, 0.7] });
+  const beamBase = beamLife.interpolate({
+    inputRange: [0, 1],
+    outputRange: isDark ? [0.42, 0.7] : [0.3, 0.5],
+  });
   const beamOpacity = Animated.add(
     beamBase,
-    integrate.interpolate({ inputRange: [0, 1], outputRange: [0, 0.3] }),
+    integrate.interpolate({ inputRange: [0, 1], outputRange: isDark ? [0, 0.3] : [0, 0.2] }),
   );
   const beamWidth = integrate.interpolate({ inputRange: [0, 1], outputRange: [1, 1.7] });
   const beamShift = beamWobble.interpolate({ inputRange: [0, 1], outputRange: [-2.5, 2.5] });
@@ -244,20 +293,21 @@ export function CircleOfLove() {
 
   const particles = useMemo<ParticleConfig[]>(() => {
     const count = 14;
+    const colorsArr = isDark ? PARTICLE_DARK : PARTICLE_LIGHT;
     return Array.from({ length: count }, (_, i) => {
       const jitter = (Math.random() - 0.5) * 0.35;
       return {
         angle: (i / count) * Math.PI * 2 + jitter,
         radius: ringR + ringStroke * (0.4 + Math.random() * 1.6),
         size: 2.5 + Math.random() * 4,
-        color: PARTICLE_COLORS[i % PARTICLE_COLORS.length],
+        color: colorsArr[i % colorsArr.length],
         drift: 4 + Math.random() * 7,
         duration: 1800 + Math.random() * 1800,
         delay: Math.random() * 1600,
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ringR, ringStroke]);
+  }, [ringR, ringStroke, isDark]);
 
   return (
     <View style={styles.wrap} pointerEvents="none">
@@ -340,9 +390,17 @@ export function CircleOfLove() {
           <Svg width={CORE} height={CORE}>
             <Defs>
               <RadialGradient id="unified" cx="50%" cy="50%" r="50%">
-                <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-                <Stop offset="46%" stopColor="#FFF1D6" stopOpacity="0.7" />
-                <Stop offset="100%" stopColor="#FFF1D6" stopOpacity="0" />
+                {isDark
+                  ? [
+                      <Stop key="0" offset="0%" stopColor="#FFFFFF" stopOpacity="1" />,
+                      <Stop key="1" offset="46%" stopColor="#FFF1D6" stopOpacity="0.7" />,
+                      <Stop key="2" offset="100%" stopColor="#FFF1D6" stopOpacity="0" />,
+                    ]
+                  : [
+                      <Stop key="0" offset="0%" stopColor="#FFE9B0" stopOpacity="0.95" />,
+                      <Stop key="1" offset="46%" stopColor="#F2B84A" stopOpacity="0.6" />,
+                      <Stop key="2" offset="100%" stopColor="#F2B84A" stopOpacity="0" />,
+                    ]}
               </RadialGradient>
             </Defs>
             <Circle cx={CORE / 2} cy={CORE / 2} r={CORE * 0.18} fill="url(#unified)" />
@@ -361,28 +419,39 @@ export function CircleOfLove() {
                 <Stop offset="100%" stopColor={PALETTE.rose} />
               </LinearGradient>
             </Defs>
-            <Circle cx={RING / 2} cy={RING / 2} r={ringR} stroke="url(#ring)" strokeWidth={ringStroke * 1.8} strokeOpacity={0.2} fill="none" />
+            <Circle cx={RING / 2} cy={RING / 2} r={ringR} stroke="url(#ring)" strokeWidth={ringStroke * 1.8} strokeOpacity={isDark ? 0.2 : 0.16} fill="none" />
             <Circle cx={RING / 2} cy={RING / 2} r={ringR} stroke="url(#ring)" strokeWidth={ringStroke} strokeOpacity={0.92} fill="none" />
-            <Circle cx={RING / 2} cy={RING / 2} r={ringR - ringStroke * 0.42} stroke="#FFFFFF" strokeWidth={ringStroke * 0.12} strokeOpacity={0.42} fill="none" />
+            <Circle cx={RING / 2} cy={RING / 2} r={ringR - ringStroke * 0.42} stroke="#FFFFFF" strokeWidth={ringStroke * 0.12} strokeOpacity={isDark ? 0.42 : 0.3} fill="none" />
           </Svg>
         </Animated.View>
 
-        {/* The Luch Sveta — a flickering, liquid needle of light piercing centre */}
+        {/* The Luch Sveta — a flickering, liquid needle of light piercing centre.
+            Dark: brilliant white-violet bloom. Light: refractive crystal ray. */}
         <Animated.View style={[styles.layer, { opacity: beamOpacity, transform: [{ translateX: beamShift }, { scaleX: beamWidth }] }]}>
           <Svg width={RING} height={RING}>
             <Defs>
               <LinearGradient id="beam" x1="0%" y1="0%" x2="0%" y2="100%">
-                <Stop offset="0%" stopColor={ENERGY.beam} stopOpacity="0.95" />
-                <Stop offset="55%" stopColor={ENERGY.beam} stopOpacity="0.55" />
-                <Stop offset="100%" stopColor={ENERGY.beam} stopOpacity="0.85" />
+                {isDark
+                  ? [
+                      <Stop key="0" offset="0%" stopColor={ENERGY.beam} stopOpacity="0.95" />,
+                      <Stop key="1" offset="55%" stopColor={ENERGY.beam} stopOpacity="0.55" />,
+                      <Stop key="2" offset="100%" stopColor={ENERGY.beam} stopOpacity="0.85" />,
+                    ]
+                  : [
+                      <Stop key="0" offset="0%" stopColor="#C9B6F5" stopOpacity="0.6" />,
+                      <Stop key="1" offset="30%" stopColor="#A7C6F0" stopOpacity="0.45" />,
+                      <Stop key="2" offset="55%" stopColor="#F5B8D8" stopOpacity="0.42" />,
+                      <Stop key="3" offset="80%" stopColor="#F6E0A8" stopOpacity="0.42" />,
+                      <Stop key="4" offset="100%" stopColor="#C9B6F5" stopOpacity="0.5" />,
+                    ]}
               </LinearGradient>
             </Defs>
-            {/* soft halo */}
-            <Rect x={RING / 2 - ringStroke * 0.32} y={beamTopY} width={ringStroke * 0.64} height={beamLen} rx={ringStroke * 0.32} fill="url(#beam)" opacity={0.28} />
+            {/* soft halo (the bloom) */}
+            <Rect x={RING / 2 - ringStroke * 0.32} y={beamTopY} width={ringStroke * 0.64} height={beamLen} rx={ringStroke * 0.32} fill="url(#beam)" opacity={isDark ? 0.28 : 0.18} />
             {/* mid glow */}
-            <Rect x={RING / 2 - 3} y={beamTopY} width={6} height={beamLen} rx={3} fill="url(#beam)" opacity={0.55} />
+            <Rect x={RING / 2 - 3} y={beamTopY} width={6} height={beamLen} rx={3} fill="url(#beam)" opacity={isDark ? 0.55 : 0.34} />
             {/* coherent core */}
-            <Rect x={RING / 2 - 1} y={beamTopY} width={2} height={beamLen} rx={1} fill="#FFFFFF" opacity={0.92} />
+            <Rect x={RING / 2 - 1} y={beamTopY} width={2} height={beamLen} rx={1} fill={isDark ? "#FFFFFF" : "#D9C9F5"} opacity={isDark ? 0.92 : 0.55} />
           </Svg>
         </Animated.View>
 

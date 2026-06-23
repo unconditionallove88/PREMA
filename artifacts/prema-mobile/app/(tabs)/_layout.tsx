@@ -6,9 +6,10 @@ import { SymbolView } from "expo-symbols";
 import { BottomTabBar, type BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { Animated, Platform, StyleSheet, View, useColorScheme } from "react-native";
+import { Animated, Platform, StyleSheet, View } from "react-native";
 
 import { TabBarVisibilityProvider, useTabBarVisibility } from "@/context/TabBarVisibility";
+import { useThemePreference } from "@/context/SessionContext";
 import { useColors } from "@/hooks/useColors";
 
 function AnimatedTabBar(props: BottomTabBarProps) {
@@ -33,8 +34,16 @@ function AnimatedTabBar(props: BottomTabBarProps) {
 }
 
 function NativeTabLayout() {
+  const colors = useColors();
+  const vibe = useThemePreference();
+  const isDark = vibe === "dark";
   return (
-    <NativeTabs>
+    <NativeTabs
+      blurEffect={isDark ? "systemChromeMaterialDark" : "systemChromeMaterialLight"}
+      tintColor={colors.primary}
+      iconColor={colors.mutedForeground}
+      labelStyle={{ color: colors.mutedForeground, fontFamily: "Nunito_600SemiBold" }}
+    >
       <NativeTabs.Trigger name="index">
         <Icon sf={{ default: "circle", selected: "circle.fill" }} />
         <Label>circle</Label>
@@ -61,10 +70,22 @@ function NativeTabLayout() {
 
 function ClassicTabLayout() {
   const colors = useColors();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
+  const vibe = useThemePreference();
+  const isDark = vibe === "dark";
   const isIOS = Platform.OS === "ios";
   const isWeb = Platform.OS === "web";
+
+  // Frosted-glass tab bar on web: a translucent tint + backdrop blur so the
+  // void / auric glow bleeds through. Dark-tinted in dark mode, frosted-light
+  // in light mode. (backdropFilter is web-only, hence the cast.)
+  const webGlass =
+    isWeb
+      ? ({
+          backgroundColor: isDark ? "rgba(8,8,16,0.55)" : "rgba(249,249,251,0.6)",
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+        } as object)
+      : null;
 
   return (
     <TabBarVisibilityProvider>
@@ -76,9 +97,9 @@ function ClassicTabLayout() {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: isIOS ? "transparent" : colors.background,
+          backgroundColor: isIOS || isWeb ? "transparent" : colors.background,
           borderTopWidth: isWeb ? StyleSheet.hairlineWidth : 0,
-          borderTopColor: colors.border,
+          borderTopColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)",
           elevation: 0,
           ...(isWeb ? { height: 84 } : {}),
         },
@@ -86,13 +107,11 @@ function ClassicTabLayout() {
           isIOS ? (
             <BlurView
               intensity={80}
-              tint={isDark ? "dark" : "dark"}
+              tint={isDark ? "dark" : "light"}
               style={StyleSheet.absoluteFill}
             />
           ) : isWeb ? (
-            <View
-              style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }]}
-            />
+            <View style={[StyleSheet.absoluteFill, webGlass]} />
           ) : null,
         tabBarLabelStyle: {
           fontFamily: "Nunito_600SemiBold",
