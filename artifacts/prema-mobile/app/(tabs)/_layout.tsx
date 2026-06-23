@@ -1,7 +1,7 @@
 import { BlurView } from "expo-blur";
 import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { Tabs } from "expo-router";
-import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
+import { Icon, Label, NativeTabs, VectorIcon } from "expo-router/unstable-native-tabs";
 import { SymbolView } from "expo-symbols";
 import { BottomTabBar, type BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -57,7 +57,7 @@ function NativeTabLayout() {
         <Label>letters</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="lab">
-        <Icon sf={{ default: "cross.case", selected: "cross.case.fill" }} />
+        <Icon src={<VectorIcon family={MaterialCommunityIcons} name="microscope" />} />
         <Label>lab</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
