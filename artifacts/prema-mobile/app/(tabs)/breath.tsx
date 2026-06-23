@@ -1,5 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useMemo, useRef } from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Animated,
   Easing,
@@ -13,6 +14,7 @@ import Svg, { Circle, Defs, RadialGradient, Stop } from "react-native-svg";
 
 import { Text } from "@/components/Text";
 import { useSession } from "@/context/SessionContext";
+import { useTabBarVisibility } from "@/context/TabBarVisibility";
 
 /**
  * Breath of Love — a premium guided coherent-breathing experience.
@@ -151,6 +153,11 @@ export default function BreathOfLoveScreen() {
   const inhaleOpacity = useRef(new Animated.Value(1)).current;
   const exhaleOpacity = useRef(new Animated.Value(0)).current;
 
+  // UI-dissolution stages (reset each time the screen gains focus).
+  const dissolveSub = useRef(new Animated.Value(1)).current; // subtext + guidance
+  const dissolvePhase = useRef(new Animated.Value(1)).current; // inhale / exhale labels
+  const tabBar = useTabBarVisibility();
+
   useEffect(() => {
     const ease = Easing.inOut(Easing.quad);
 
@@ -222,6 +229,47 @@ export default function BreathOfLoveScreen() {
     };
   }, [green, pink, breath, inhaleOpacity, exhaleOpacity]);
 
+  // Progressive immersion: slide the tab bar away on focus, then dissolve the
+  // instructional text (at 12s) and the inhale/exhale labels (at 24s), leaving
+  // only the title, the sphere, and the infinite colour cycle. Resets on
+  // re-focus so every visit begins again at stage 1.
+  useFocusEffect(
+    useCallback(() => {
+      dissolveSub.stopAnimation();
+      dissolvePhase.stopAnimation();
+      dissolveSub.setValue(1);
+      dissolvePhase.setValue(1);
+      tabBar?.hide();
+
+      const toSub = setTimeout(() => {
+        Animated.timing(dissolveSub, {
+          toValue: 0,
+          duration: 4000,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }).start();
+      }, 12000);
+      const toPhase = setTimeout(() => {
+        Animated.timing(dissolvePhase, {
+          toValue: 0,
+          duration: 5000,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }).start();
+      }, 24000);
+
+      return () => {
+        clearTimeout(toSub);
+        clearTimeout(toPhase);
+        tabBar?.show();
+        dissolveSub.stopAnimation();
+        dissolvePhase.stopAnimation();
+        dissolveSub.setValue(1);
+        dissolvePhase.setValue(1);
+      };
+    }, [tabBar, dissolveSub, dissolvePhase]),
+  );
+
   const orbScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.82, 1.12] });
   const glowOpacity = breath.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0.85] });
   const ringInnerScale = breath.interpolate({ inputRange: [0, 1], outputRange: [0.78, 1.18] });
@@ -258,10 +306,12 @@ export default function BreathOfLoveScreen() {
       ))}
 
       <View style={[styles.content, { paddingTop: topPad + 12, paddingBottom: tabPad }]}>
-        {/* Header */}
+        {/* Header — only the title survives into the pure-consciousness state */}
         <View style={styles.header}>
           <Text style={styles.title}>{t.title}</Text>
-          <Text style={styles.coherent}>{t.coherent}</Text>
+          <Animated.View style={{ opacity: dissolveSub }}>
+            <Text style={styles.coherent}>{t.coherent}</Text>
+          </Animated.View>
         </View>
 
         {/* Breathing orb + heart-coherence field */}
@@ -328,32 +378,32 @@ export default function BreathOfLoveScreen() {
 
         {/* Breathing phase cue */}
         <View style={styles.phase}>
-          <View style={styles.phaseStage}>
+          <Animated.View style={[styles.phaseStage, { opacity: dissolvePhase }]}>
             <Animated.Text style={[styles.phaseWord, { opacity: inhaleOpacity }]}>
               {t.inhale}
             </Animated.Text>
             <Animated.Text style={[styles.phaseWord, styles.phaseAbs, { opacity: exhaleOpacity }]}>
               {t.exhale}
             </Animated.Text>
-          </View>
-          <View style={styles.phaseSubStage}>
+          </Animated.View>
+          <Animated.View style={[styles.phaseSubStage, { opacity: dissolveSub }]}>
             <Animated.Text style={[styles.phaseSub, { opacity: inhaleOpacity }]}>
               {t.inhaleSub}
             </Animated.Text>
             <Animated.Text style={[styles.phaseSub, styles.phaseAbs, { opacity: exhaleOpacity }]}>
               {t.exhaleSub}
             </Animated.Text>
-          </View>
+          </Animated.View>
         </View>
 
         {/* Guidance text */}
-        <View style={styles.guide}>
+        <Animated.View style={[styles.guide, { opacity: dissolveSub }]}>
           {t.guide.map((line, i) => (
             <Text key={i} style={styles.guideLine}>
               {line}
             </Text>
           ))}
-        </View>
+        </Animated.View>
       </View>
     </View>
   );
@@ -369,10 +419,13 @@ const styles = StyleSheet.create({
   },
   header: { alignItems: "center", gap: 6 },
   title: {
-    fontFamily: "Nunito_700Bold",
-    fontSize: 22,
-    letterSpacing: 1,
+    fontFamily: "Nunito_300Light",
+    fontSize: 25,
+    letterSpacing: 5,
     color: TEXT_PRIMARY,
+    textShadowColor: "rgba(255, 255, 255, 0.85)",
+    textShadowRadius: 16,
+    textShadowOffset: { width: 0, height: 0 },
   },
   coherent: {
     fontFamily: "Nunito_500Medium",

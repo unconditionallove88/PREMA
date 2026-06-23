@@ -1,4 +1,5 @@
 import {
+  Nunito_300Light,
   Nunito_400Regular,
   Nunito_500Medium,
   Nunito_600SemiBold,
@@ -80,6 +81,7 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
+    Nunito_300Light,
     Nunito_400Regular,
     Nunito_500Medium,
     Nunito_600SemiBold,

@@ -1,0 +1,36 @@
+SACRED UI: THE CIRCLE OF LOVE – PURE CONSCIOUSNESS & JOY
+
+Please refine the "Circle of Love" (Aura/Dashboard) to reach a state of "Art, Love, and Pure Consciousness." This is the user's personal energy centerpiece.
+
+1. THE RADIANT AURA DESIGN
+- Transform the main Circle into a living "Aura Sphere."
+- REMOVE all data, numbers, scores, and technical wording from the center. It must be empty of data and full of light.
+- COLOR PALETTE: Use a deep, mystical blend of Rose Quartz pink, Radiant Gold, and Soft Violet.
+- LAYERING: Use 3 layers of translucent SVG/CSS circles.
+  - Layer 1 (Core): A soft, breathing, inner glow.
+  - Layer 2 (Body): A shifting gradient that slowly rotates.
+  - Layer 3 (Aura): A "bloom" effect using a heavy blur (filter: blur(40px)) that creates a halo around the circle.
+
+2. TOTAL IMMERSION (AUTO-HIDE TAB BAR)
+- 3 seconds after the user lands on the "Circle" tab, the Bottom Tab Bar must slowly slide down and hide (duration: 3 seconds).
+- The goal is to leave the user in a state of "uncluttered being," where they only see their radiant Circle.
+- INTERACTION: If the user touches anywhere on the screen, the Tab Bar must gently slide back up into view. After 5 seconds of inactivity, it should hide again.
+
+3. SACRED ANIMATION: THE BREATH OF JOY
+- The circle should have a "natural breath." It should expand and contract by about 5% every 6 seconds.
+- Add a "Shimmer" effect: A soft White/Gold light that periodically sweeps across the radius of the circle, as if spirit is moving through it.
+- BACKGROUND: The background of the dashboard behind the circle should be a very dark, deep charcoal or midnight blue so the pink/gold aura "perforates" the darkness.
+
+4. UPDATED DASHBOARD COPY
+- Below the circle (only when the UI is visible), remove all clinical headers.
+- Change labels to simple, high-frequency words:
+  - Instead of "Status," use "State of Being."
+  - Instead of "Aura," use "Vibration."
+- Typography should be extremely elegant, thin, and spaced out (letter-spacing: 2px).
+
+5. THE EMOTIONAL FREQUENCY
+- The screen must not look like an app; it must feel like a "Mirror of the Soul."
+- When the user looks at this screen, they should feel Contentment, Safety, and Joy.
+- Use GPU-accelerated shifts (transforms/opacity) to ensure the animation never stutters, keeping the consciousness "unbroken."
+
+Final Vision: A minimalist, glowing sanctuary of pink and gold light that disappears into a full-screen experience, allowing the user to simply 'be' with their own heart frequency.

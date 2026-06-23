@@ -3,11 +3,34 @@ import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { Tabs } from "expo-router";
 import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 import { SymbolView } from "expo-symbols";
+import { BottomTabBar, type BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { Platform, StyleSheet, View, useColorScheme } from "react-native";
+import { Animated, Platform, StyleSheet, View, useColorScheme } from "react-native";
 
+import { TabBarVisibilityProvider, useTabBarVisibility } from "@/context/TabBarVisibility";
 import { useColors } from "@/hooks/useColors";
+
+function AnimatedTabBar(props: BottomTabBarProps) {
+  const vis = useTabBarVisibility();
+  if (!vis) return <BottomTabBar {...props} />;
+  const translateY = vis.translate.interpolate({ inputRange: [0, 1], outputRange: [0, 180] });
+  const opacity = vis.translate.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
+  return (
+    <Animated.View
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        transform: [{ translateY }],
+        opacity,
+      }}
+    >
+      <BottomTabBar {...props} />
+    </Animated.View>
+  );
+}
 
 function NativeTabLayout() {
   return (
@@ -44,7 +67,9 @@ function ClassicTabLayout() {
   const isWeb = Platform.OS === "web";
 
   return (
+    <TabBarVisibilityProvider>
     <Tabs
+      tabBar={(props) => <AnimatedTabBar {...props} />}
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.mutedForeground,
@@ -137,6 +162,7 @@ function ClassicTabLayout() {
         }}
       />
     </Tabs>
+    </TabBarVisibilityProvider>
   );
 }
 
