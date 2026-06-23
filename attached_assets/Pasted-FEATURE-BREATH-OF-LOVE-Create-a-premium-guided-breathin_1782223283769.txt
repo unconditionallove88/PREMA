@@ -1,0 +1,179 @@
+FEATURE: BREATH OF LOVE
+
+Create a premium guided breathing experience called "Breath of Love".
+
+PURPOSE
+
+The goal is to guide users into Coherent (Resonant) Breathing, helping synchronize heart rate, nervous system activity, blood pressure, and brainwave patterns into a coherent state associated with relaxation, emotional openness, connection, and optimal conditions for oxytocin release.
+
+The entire experience should feel calming, loving, safe, elegant, and deeply immersive.
+
+MOBILE-FIRST DESIGN
+
+- Full-screen experience.
+- No distracting elements.
+- Minimal interface.
+- Smooth transitions.
+- Premium wellness aesthetic.
+- Soft lighting effects.
+- Fluid animations at 60fps.
+
+BACKGROUND EXPERIENCE
+
+The background should slowly transition between three healing color environments.
+
+COLOR 1 — SOFT BLUE
+Purpose:
+- Deep relaxation
+- Nervous system calming
+- Lower perceived stress
+- Sense of peace
+
+Visual:
+- Soft luminous blue gradient
+- Gentle ambient glow
+- Slight floating particles
+
+COLOR 2 — PALE GREEN
+Purpose:
+- Safety
+- Contentment
+- Emotional balance
+- Environmental security
+
+Visual:
+- Very soft sage-green gradient
+- Organic light movement
+- Gentle atmospheric glow
+
+COLOR 3 — SOFT ROSE PINK
+Purpose:
+- Love
+- Warmth
+- Compassion
+- Emotional connection
+
+Visual:
+- Delicate pink aura
+- Soft radiant bloom
+- Subtle heart-energy atmosphere
+
+COLOR TRANSITIONS
+
+- Colors fade seamlessly into one another.
+- No abrupt changes.
+- Each color remains visible for approximately 15–20 seconds.
+- Transition duration 4–6 seconds.
+- Cycle continuously:
+  Blue → Green → Pink → Blue
+
+BREATHING GUIDE
+
+CENTERPIECE
+
+In the center of the screen place a large luminous breathing orb.
+
+The orb represents the user's breath.
+
+Appearance:
+- Soft glowing sphere
+- Pink-blue gradient
+- Multiple glow layers
+- Organic living-light effect
+
+BREATHING ANIMATION
+
+INHALE PHASE
+Duration: 5 seconds
+
+- Orb slowly expands.
+- Glow becomes brighter.
+- Light gently radiates outward.
+- Display text:
+
+"INHALE"
+
+Optional subtext:
+"Breathe in love"
+
+EXHALE PHASE
+Duration: 5 seconds
+
+- Orb slowly contracts.
+- Glow softens.
+- Energy gently returns inward.
+- Display text:
+
+"EXHALE"
+
+Optional subtext:
+"Release and soften"
+
+BREATHING RHYTHM
+
+- 5 seconds inhale
+- 5 seconds exhale
+- No breath holding
+- Continuous cycle
+- Exactly 6 breaths per minute
+
+GUIDANCE TEXT
+
+Display beneath the orb:
+
+Breath of Love
+
+Coherent (Resonant) Breathing
+
+Synchronize your heart, mind, and breath.
+
+Breathe gently through your nose.
+
+Inhale for 5 seconds.
+Exhale for 5 seconds.
+
+Maintain a smooth, effortless rhythm.
+
+OPTIONAL HEART COHERENCE VISUALIZATION
+
+Around the breathing orb create a subtle expanding heart-energy field.
+
+- Soft translucent rings
+- Gentle pulsing waves
+- Synchronized with breathing rhythm
+- Inspired by heart coherence visualization
+
+AUDIO PREPARATION (OPTIONAL)
+
+Design should support:
+- Soft ambient music
+- Nature sounds
+- Gentle chimes
+- Breath cues
+
+The experience must work beautifully even when audio is disabled.
+
+EMOTIONAL EXPERIENCE
+
+The user should feel:
+
+- Safe
+- Loved
+- Calm
+- Connected
+- Grounded
+- Emotionally open
+- Present
+
+AVOID
+
+- Medical appearance
+- Clinical design
+- Sharp transitions
+- Fast movement
+- Neon colors
+- Strong flashing effects
+- Busy UI
+- Gamification elements
+
+The final experience should feel like a luxury heart-coherence meditation created by Apple, Calm, and a high-end wellness retreat focused on love, emotional regulation, and nervous system healing.
